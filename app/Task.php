@@ -17,11 +17,16 @@ class Task extends Model
 
     public function users()
     {
-        return $this->hasMany(\App\Employee::class,'task_id');
+        return $this->hasMany(\App\TaskUser::class,'task_id')->with('user');
     }
 
-    public function user()
+    public function creater()
     {
         return $this->belongsTo(\App\User::class,'user_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(\App\TaskItem::class,'task_id');
     }
 }
