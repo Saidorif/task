@@ -7,6 +7,7 @@
         <title>Task</title>
         <!-- Fonts -->
         <link rel="stylesheet" href="{{ asset('css/app.css?version=1.1.1') }}">
+        <link rel="stylesheet" href="{{ asset('fonts/fonts.css?version=1.1.1') }}">
         <link rel="stylesheet" href="{{ asset('css/style.css?version=1.1.1') }}">
 
     </head>
