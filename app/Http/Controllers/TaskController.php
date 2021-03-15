@@ -12,7 +12,7 @@ class TaskController extends Controller
     {
         $params = $request->all();
         $limit = !empty($params['limit']) ? (int)$params['limit'] : 12;
-        $result = Task::orderBy('id','DESC')->paginate($limit);
+        $result = Task::with(['user'])->orderBy('id','DESC')->paginate($limit);
         return response()->json(['success' => true,'result' => $result]);
     }
 
@@ -31,11 +31,23 @@ class TaskController extends Controller
             'title' => 'required|string',
             'status' => 'nullable|string',
             'exp_date' => 'required|date',
+            'users' => 'required|array',
+            'users.*' => 'required|array',
+            'users' => 'required|array',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
-        $task = Task::create($request->all());
+        $inputs = $request->all();
+        $user = $request->user();
+        if(empty($inputs['status'])){
+            $inputs['status'] = 'draft';
+        }
+        $inputs['user_id'] = $user->id;
+        if(!empty($inputs['users']) && count($inputs['users']) > 0){
+            //some stuff
+        }
+        $task = Task::create($inputs);
         return response()->json(['success' => true, 'message' => 'Task created']);
     }
 }

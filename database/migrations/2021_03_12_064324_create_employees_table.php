@@ -19,14 +19,13 @@ class CreateEmployeesTable extends Migration
             $table->string('surename');
             $table->string('lastname');
             $table->date('birthday');
-            $table->string('birthplace');
+            $table->string('birthplace')->nullable();
             $table->string('gender');
             $table->foreignId('p_id');
             $table->foreignId('e_id');
-            $table->string('p_name');
             $table->string('status');
-            $table->integer('region_id');
-            $table->integer('area_id');
+            $table->integer('region_id')->nullable();
+            $table->integer('area_id')->nullable();
             $table->timestamps();
         });
     }

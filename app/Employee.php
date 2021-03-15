@@ -16,7 +16,6 @@ class Employee extends Model
         'status',
         'p_id',
         'e_id',
-        'p_name',
         'status',
         'region_id',
         'area_id',
