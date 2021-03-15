@@ -19,6 +19,8 @@ Route::group([
 
     Route::group(['middleware' => 'jwt.auth'], function(){
         Route::get('dashboard', 'DashboardController@index');
+        Route::get('profile','UserController@profile');
+        Route::post('change-password','UserController@changePasword');
 
         //Task
         Route::get('task','TaskController@index');

@@ -28,8 +28,9 @@ class TaskController extends Controller
     public  function store(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'name' => 'required|string',
-            'text' => 'required|string',
+            'title' => 'required|string',
+            'status' => 'nullable|string',
+            'exp_date' => 'required|date',
         ]);
         if($validator->fails()){
             return response()->json(['error' => true,'message' => $validator->messages()]);
