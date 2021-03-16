@@ -13,6 +13,7 @@ import {user} from "./user.module"
 import {role} from "./role.module"
 import {conts} from "./conts.module"
 import {action} from "./action.module"
+import {task} from "./task.module"
 import {dashboard} from "./dashboard.module"
 
 import { TokenService } from './../services/storage.service'
@@ -34,6 +35,7 @@ const store = new Vuex.Store(
 			role,
 			conts,
 			action,
+            task,
 			dashboard,
 		},
 		state:{

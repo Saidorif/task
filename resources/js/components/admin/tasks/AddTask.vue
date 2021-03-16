@@ -9,36 +9,17 @@
         <div class="jv_card">
             <form @submit.prevent.enter="saveAction" >
 					<div class="row align-items-end">
-					  <!-- <div class="form-group col-md-9">
-					    <label for="contName">Название контроллера</label>
-						<multiselect
-							:value="findController"
-							:options="getContList"
-							@search-change="value => filterController(value)"
-							v-model="findController"
-							placeholder="Выберите"
-							:searchable="true"
-							track-by="id"
-							label="name"
-							:max="3"
-							:loading="isLoading"
-							selectLabel="Нажмите Enter, чтобы выбрать"
-							deselectLabel="Нажмите Enter, чтобы удалить"
-							@select="selectedItem"
-	      					:class="isRequired(form.conts_id) ? 'isRequired' : ''"
-							>
-							<span slot="noResult">По вашему запросу ничего не найдено</span>
-							<span slot="noOptions">Cписок пустой</span>
-						</multiselect>
-					  </div> -->
+                        <div class="col-md-4">
+                            <multiselect v-model="form.users" :options="options" :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Pick a value"></multiselect>
+                        </div>
 					  <div class="input_style col-md-4">
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
 					    	id="contName"
-					    	v-model="form.name"
+					    	v-model="form.title"
                             required
-					    	:class="isRequired(form.name) ? 'isRequired' : ''"
+					    	:class="isRequired(form.title) ? 'isRequired' : ''"
 				    	>
 					    <label for="contName">Action Name</label>
 					  </div>
@@ -54,7 +35,7 @@
 					    <label for="contName">Code</label>
 					  </div>
 
-					  <div class="form-group col-lg-3 form_btn">
+					  <div class="form_btn_block">
 					  	<button type="submit" class="btn_green">
 					  		<i class="sidebar_icon" data-feather="save"></i>
 						  	Сохранить
@@ -65,6 +46,7 @@
         </div>
 	</div>
 </template>
+
 <script>
 
 	import Multiselect from 'vue-multiselect';
@@ -76,28 +58,28 @@
 		data(){
 			return{
 				form:{
-					name:'',
-					code:'',
-					conts_id:'',
+					title:'',
+					items:[{text: '', file: ''}],
+                    exp_date: '',
+                    users:[]
 				},
 				requiredInput:false,
 				isLoading: false,
 				findController: {},
+                options: ['Select option', 'options', 'selected', 'mulitple', 'label', 'searchable', 'clearOnSelect', 'hideSelected', 'maxHeight', 'allowEmpty', 'showLabels', 'onChange', 'touched']
 			}
 		},
 		computed:{
-			...mapGetters('action',['getMassage']),
-			...mapGetters('conts',['getContList']),
+			...mapGetters('task',['getMassage']),
 		},
 		methods:{
-			...mapActions('action',['actionAddAction']),
-			...mapActions('conts',['actionContsFind']),
+			...mapActions('task',['actionAddTask']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
 		    async saveAction(){
 		    	if (this.form.name != '' && this.form.code != ''){
-					await this.actionAddAction(this.form)
+					await this.actionAddTask(this.form)
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',

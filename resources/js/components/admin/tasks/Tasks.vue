@@ -18,8 +18,8 @@
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
-					<!--<tbody>
-						 <tr v-for="(cont,index) in getActions.data">
+					<tbody v-if="getTasks.data && getTasks.data.length">
+						 <tr v-for="(cont,index) in getTasks.data">
 							<td scope="row">{{index+1}}</td>
 							<td>{{cont.name}}</td>
 							<td>controller</td>
@@ -34,7 +34,7 @@
 							</td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="getActions" @pagination-change-page="getResults"></pagination> -->
+					<pagination :limit="4" :data="getTasks" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
         </div>
@@ -49,17 +49,18 @@
 			}
 		},
 		async mounted(){
-                       feather.replace()
-			// await this.actionActions()
+            feather.replace()
+			await this.actionTasks()
+
 		},
 		computed:{
-			// ...mapGetters('action',['getActions','getMassage'])
+			...mapGetters('task',['getTasks','getMassage'])
 		},
 		methods:{
-			// ...mapActions('action',['actionActions']),
-			// async getResults(page = 1){
-			// 	await this.actionActions(page)
-			// },
+			...mapActions('task',['actionTasks']),
+			async getResults(page = 1){
+				await this.actionTasks(page)
+			},
 		}
 	}
 </script>

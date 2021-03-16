@@ -133,7 +133,6 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-    console.log('ss')
   if (to.matched.some(record => record.meta.requiredAuth)) {
   	const loggedIn = TokenService.getToken();
     if (!loggedIn || loggedIn == 'undefined'){
