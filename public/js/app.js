@@ -44405,7 +44405,18 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(2)
+      _c("footer", { staticClass: "main-footer" }, [
+        _c("strong", [
+          _vm._v("Copyright © " + _vm._s(new Date().getFullYear()) + " "),
+          _c(
+            "a",
+            { attrs: { href: "https://mintrans.uz", target: "_blank" } },
+            [_vm._v("O'ZBEKISTON RESPUBLIKASI TRANSPORT VAZIRLIGI ")]
+          ),
+          _vm._v(".")
+        ]),
+        _vm._v("\n      All rights reserved.\n  ")
+      ])
     ])
   ])
 }
@@ -44446,19 +44457,6 @@ var staticRenderFns = [
         _vm._v("\n                Setting users\n                "),
         _c("i", { staticClass: "right fas fa-angle-left" })
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("footer", { staticClass: "main-footer" }, [
-      _c("strong", [
-        _vm._v("Copyright © 2020 "),
-        _c("a", { attrs: { href: "#" } }, [_vm._v("MIRXAN ")]),
-        _vm._v(".")
-      ]),
-      _vm._v("\n    All rights reserved.\n  ")
     ])
   }
 ]
@@ -65388,8 +65386,8 @@ var user = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
