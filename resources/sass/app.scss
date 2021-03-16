@@ -93,3 +93,80 @@ h1,h2,h3,h4,h5,h6{
     background-color: #0098ef;
     border-color: #0090e2;
 }
+.wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    .main-header{
+        width: 100%;
+    }
+    .main-footer{
+        width: 100%;
+        background: #f9fafb;
+        padding: 15px 25px;
+        border-top: 1px solid #e8ebf1;
+        transition: all .2s ease;
+        -moz-transition: all .2s ease;
+        -webkit-transition: all .2s ease;
+        -ms-transition: all .2s ease;
+        font-size: calc(.875rem - .05rem);
+        font-weight: 400;
+        margin-top: auto;
+    }
+    .main-sidebar{
+        width: 240px;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        transition: width .1s ease,margin .1s ease-out;
+        z-index: 999;
+        background: #0c1427;
+        border-right: 1px solid #344258;
+        .sidebar-header{
+            background: #0c1427;
+            border-bottom: 1px solid #344258;
+            border-right: 1px solid #344258;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            z-index: 999;
+            width: 240px;
+            transition: width .1s ease;
+        }
+        .sidebar{
+            background: #0c1427;
+            border-right: 1px solid #344258;
+            max-height: calc(100% - 60px);
+            position: relative;
+            height: 100%;
+            box-shadow: 0 8px 10px 0 rgb(183 192 206 / 20%);
+            .sidebar_ul{
+                padding: 25px 25px 50px;
+                li{
+                    list-style: none;
+                    a{
+                        color: #bfc3ce;
+                        text-decoration: none;
+                        white-space: nowrap;
+                        font-size: 14px;
+                        display: flex;
+                        align-items: center;
+                        padding: 0;
+                        height: 32px;
+                        .sidebar_icon{
+                            width: 16px;
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.btn_burger{
+    .sidebar_icon{
+        color: #bfc3ce;
+    }
+}

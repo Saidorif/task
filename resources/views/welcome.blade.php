@@ -15,7 +15,11 @@
         <div id="app">
             <Master/>
         </div>
+        <script src="{{ asset('js/feather.min.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
+        <script>
+            feather.replace()
+        </script>
 
     </body>
 </html>
