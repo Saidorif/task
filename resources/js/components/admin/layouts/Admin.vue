@@ -4,18 +4,12 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="sidebar_icon fas fa-bars" style="font-size: 30px;line-height: 21px;"></i></a>
-      </li>
-    </ul>
-
+    <div class="input_search">
+        <i class="input_icon" data-feather="search"></i>
+        <input type="search" placeholder="Search here...">
+    </div>
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a href="#" class="logout_btn" @click.prevent="logoutProfile">Выйти <i class="fas fa-sign-out-alt"></i></a>
-      </li>
-    </ul>
+    <a href="#" class="btn_blue" @click.prevent="logoutProfile"><i class="sidebar_icon" data-feather="log-out"></i> Выйти</a>
   </nav>
   <!-- /.navbar -->
 
@@ -49,113 +43,57 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/profile">
-              <i class="sidebar_icon fas fa-user"></i>
+            <router-link to="/crm/profile" class="nav-link">
+              <i class="sidebar_icon" data-feather="user" ></i>
               <p>
-                Мои данные
+                Profile
               </p>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/country">
-              <i class="sidebar_icon fas fa-city"></i>
+            <router-link to="/crm/tasks" class="nav-link">
+              <i class="sidebar_icon" data-feather="layers" ></i>
               <p>
-                Страны
+                Tasks
               </p>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/employee">
-              <i class="sidebar_icon fas fa-users"></i>
+            <router-link to="/crm/region" class="nav-link">
+              <i class="sidebar_icon" data-feather="globe" ></i>
               <p>
-                Пользователи
+                Region
               </p>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/crm/position">
-              <i class="sidebar_icon fas fa-star"></i>
+            <router-link to="/crm/area" class="nav-link">
+              <i class="sidebar_icon" data-feather="pie-chart" ></i>
               <p>
-                Должность
+                Area
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/vedgroup">
-              <i class="sidebar_icon fas fa-file"></i>
-              <p>
-                ВЭД группы
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/customs-import-export">
-              <i class="sidebar_icon fas fa-file-excel"></i>
-              <p>
-                Таможня  (Excel)
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/report-by-country">
-              <i class="sidebar_icon fas fa-file-excel"></i>
-              <p>
-                Отчет по странам
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/report-by-product">
-              <i class="sidebar_icon fas fa-file-excel"></i>
-              <p>
-                Отчет по продуктам
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/region">
-              <i class="sidebar_icon fas fa-globe"></i>
-              <p>
-                Области
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/crm/bus">
-              <i class="sidebar_icon fas fa-bus"></i>
-              <p>
-                Автобус
-              </p>
-            </router-link>
-          </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has_dropdown show">
             <a href="#" class="nav-link">
-              <span class="sidebar_icon fas fa-users-cog" style="font-size: 20px;"></span>
-              <p>
-                Setting users
-                <i class="right fas fa-angle-left"></i>
-              </p>
+                <i class="sidebar_icon" data-feather="settings" ></i>
+                    Setting users
+                <i class="sidebar_icon mr_0 drop_down_icon" data-feather="chevron-down" ></i>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="drop_down_list">
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/role">
-                  <p>
                     Role
-                  </p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/conts">
-                  <p>
                     Controller
-                  </p>
                 </router-link>
               </li>
               <li class="nav-item">
                 <router-link class="nav-link" to="/crm/action">
-                  <p>
                     Actions
-                  </p>
                 </router-link>
               </li>
             </ul>

@@ -27,6 +27,11 @@ import Action from './components/admin/action/Action'
 import AddAction from './components/admin/action/AddAction'
 import EditAction from './components/admin/action/EditAction'
 
+// action
+import Tasks from './components/admin/tasks/Tasks'
+import AddTask from './components/admin/tasks/AddTask'
+import EditTask from './components/admin/tasks/EditTask'
+
 // NotFound
 import NotFound from './components/NotFound/NotFound'
 const router = new Router({
@@ -51,6 +56,22 @@ const router = new Router({
 					// 	action:'index',
 					// 	subject:'IndexController'
 					// }
+				},
+                {
+					path:'profile',
+					component:Profile,
+				},
+				{
+					path:'tasks',
+					component:Tasks,
+				},
+				{
+					path:'tasks/add',
+					component:AddTask,
+				},
+				{
+					path:'tasks/edit/:taskId',
+					component:EditTask,
 				},
 				{
 					path:'role',
@@ -112,6 +133,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+    console.log('ss')
   if (to.matched.some(record => record.meta.requiredAuth)) {
   	const loggedIn = TokenService.getToken();
     if (!loggedIn || loggedIn == 'undefined'){

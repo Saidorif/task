@@ -1,66 +1,68 @@
 <template>
-  <div class="card">
-    <div class="card-header">
-      <h3 class="card-title title_user mb-0">
-        <i class="sidebar_icon fas fa-user mr-1"></i>Мои данные
-      </h3>
-    </div>
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item">
-        <a
-          class="nav-link active"
-          id="profile-tab"
-          data-toggle="tab"
-          href="#profile"
-          role="tab"
-          aria-controls="profile"
-          aria-selected="false"
-        >
-          <i class="peIcon pe-7s-unlock"></i> Изменить пароль
-        </a>
-      </li>
-    </ul>
-    <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <form @submit.prevent.enter="changePassword">
-          <div class="card-body d-flex flex-wrap">
-            <div class="form-group col-md-6">
-              <label for="exampleInputPassword1">Пароль</label>
-              <input
-                type="password"
-                class="form-control input_style"
-                id="exampleInputPassword1"
-                placeholder="Пароль..."
-                :class="isRequiredPassword(passwords.password) ? 'isRequired' : ''"
-                v-model="passwords.password"
-              />
+  <div class="profile">
+      	<div class="page_header">
+			<h4 class="header_title">
+				Мои данные
+			</h4>
+		</div>
+        <div class="jv_card">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a
+                class="nav-link active"
+                id="profile-tab"
+                data-toggle="tab"
+                href="#profile"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false"
+                >
+                <i class="peIcon pe-7s-unlock"></i> Изменить пароль
+                </a>
+            </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <form @submit.prevent.enter="changePassword">
+                <div class="card-body d-flex flex-wrap">
+                    <div class="form-group col-md-6">
+                    <label for="exampleInputPassword1">Пароль</label>
+                    <input
+                        type="password"
+                        class="form-control input_style"
+                        id="exampleInputPassword1"
+                        placeholder="Пароль..."
+                        :class="isRequiredPassword(passwords.password) ? 'isRequired' : ''"
+                        v-model="passwords.password"
+                    />
+                    </div>
+                    <div class="form-group col-md-6">
+                    <label for="ConfirmPassword1">Подтвердите пароль</label>
+                    <input
+                        type="password"
+                        class="form-control input_style"
+                        id="ConfirmPassword1"
+                        placeholder="Подтвердите пароль.."
+                        v-model="passwords.confirm_password"
+                        :class="isRequiredPassword(passwords.confirm_password) ? 'isRequired' : ''"
+                        @input="confirmPassword()"
+                    />
+                    <small class="redText" v-if="checkPassword">
+                        <b>Пароль не совпадает</b>
+                    </small>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Сохранить
+                    </button>
+                    </div>
+                </div>
+                </form>
             </div>
-            <div class="form-group col-md-6">
-              <label for="ConfirmPassword1">Подтвердите пароль</label>
-              <input
-                type="password"
-                class="form-control input_style"
-                id="ConfirmPassword1"
-                placeholder="Подтвердите пароль.."
-                v-model="passwords.confirm_password"
-                :class="isRequiredPassword(passwords.confirm_password) ? 'isRequired' : ''"
-                @input="confirmPassword()"
-              />
-              <small class="redText" v-if="checkPassword">
-                <b>Пароль не совпадает</b>
-              </small>
             </div>
-            <div class="col-12 d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary">
-                <i class="fas fa-save"></i> Сохранить
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+        </div>
   </div>
-</template>	
+</template>
 <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
@@ -214,14 +216,14 @@ export default {
     margin: 0px auto;
     margin-bottom: 0.5cm;
   }
-  page[size="A4"] {  
+  page[size="A4"] {
     width: 21cm;
-    height: 29.7cm; 
+    height: 29.7cm;
     padding: 30px;
   }
   page[size="A4"][layout="landscape"] {
     width: 29.7cm;
-    height: 21cm;  
+    height: 21cm;
   }
   .cv_title{
     text-align: center;
@@ -278,7 +280,7 @@ export default {
     font-weight: bold;
   }
   .cv_experience_list{
-    
+
   }
   .cv_experience_list li{
     list-style: none;
@@ -311,14 +313,14 @@ export default {
         margin: 0px auto;
         margin-bottom: 0.5cm;
       }
-      page[size="A4"] {  
+      page[size="A4"] {
         width: 21cm;
-        height: 29.7cm; 
+        height: 29.7cm;
         padding: 30px;
       }
       page[size="A4"][layout="landscape"] {
         width: 29.7cm;
-        height: 21cm;  
+        height: 21cm;
       }
       .cv_title{
         text-align: center;
@@ -375,7 +377,7 @@ export default {
         font-weight: bold;
       }
       .cv_experience_list{
-        
+
       }
       .cv_experience_list li{
         list-style: none;
