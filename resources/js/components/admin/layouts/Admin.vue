@@ -22,25 +22,27 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar">
     <!-- Brand Logo -->
-    <router-link class="brand-link" to="/crm">
-      <span class="brand-text font-weight-light">
-        <img src="/img/logoRu.png">
-      </span>
-    </router-link>
-
+    <div class="sidebar-header">
+        <router-link class="brand-link" to="/crm">
+            <span class="brand-text font-weight-light">
+                <img src="/img/logo.png" style="width: 100px;">
+            </span>
+        </router-link>
+        <a href="#" class="btn_burger" ><i class="sidebar_icon" data-feather="menu"></i></a>
+    </div>
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
 
       <!-- Sidebar Menu -->
       <nav>
-        <ul class="nav nav-pills nav-sidebar flex-column sidebar-menu treeview" data-widget="treeview" role="menu" data-accordion="false" >
+        <ul class="sidebar_ul" data-widget="treeview" role="menu" data-accordion="false" >
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
              <!-- v-if="$can('profile', 'UserController')" -->
             <router-link to="/crm/dashboard" class="nav-link">
-              <i class="sidebar_icon fas fa-desktop"></i>
+              <i class="sidebar_icon" data-feather="home" ></i>
               <p>
                 Админ панель
               </p>
@@ -183,7 +185,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2020 <a href="#">MIRXAN </a>.</strong>
+    <strong>Copyright &copy; 2020 <a href="https://mintrans.uz/">Mintrans.uz </a>.</strong>
     All rights reserved.
   </footer>
 </div>
@@ -218,35 +220,5 @@ export default {
 </script>
 
 <style scoped>
-  .brand-link.active{
-    border-bottom: 1px solid #3e6174;
-  }
-  .brand-text img{
-    width: 100%;
-  }
-  .sidebar{
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-  .sidebar_icon{
-    font-size: 18px;
-    color: #3e6174;
-    margin-right: 5px;
-  }
-  .content-wrapper{
-    background: #ebf2f6;
-    padding-top: 30px;
-  }
-  .nav-sidebar .nav-item>.nav-link{
-    color: #3e6174;
-  }
-  .nav-sidebar .nav-item>.nav-link:hover,
-  .nav-pills .nav-link.active,
-  .nav-pills .show > .nav-link{
-    background-color: #e6e6e6;
-    font-weight: bold;
-  }
-  .nav-pills .nav-link{
-    border-radius: 0px;
-  }
+
 </style>

@@ -5386,80 +5386,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.filterShow = !this.filterShow;
     },
     search: function search() {
-      var _this = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return _this.actionDashboard(_this.filter);
-
-              case 2:
-                _this.vedGroupChartData = {
-                  labels: [],
-                  datas_ex: [],
-                  data_im: [],
-                  data_total: []
-                }, _this.vedGroupChartDataByCountry = {
-                  labels: [],
-                  datas_ex: [],
-                  data_im: [],
-                  data_total: []
-                }, _this.countryChartData = {
-                  labels: [],
-                  datas_ex: [],
-                  data_im: [],
-                  data_total: []
-                }, _this.countryChartDataByCountry = {
-                  labels: [],
-                  datas_ex: [],
-                  data_im: [],
-                  data_total: []
-                }, _this.getDashboard.data_vedcode.forEach(function (element) {
-                  if (!_this.vedGroupChartData.labels.includes(element.name)) {
-                    _this.vedGroupChartData.labels.push(element.name);
-
-                    _this.vedGroupChartData.data_im.push(element.im_total_weight);
-
-                    _this.vedGroupChartData.datas_ex.push(element.ek_total_weight);
-
-                    _this.vedGroupChartData.data_total.push(element.total_weight);
-
-                    _this.vedGroupChartDataByCountry.labels.push(element.name);
-
-                    _this.vedGroupChartDataByCountry.data_im.push(element.im_total_cost);
-
-                    _this.vedGroupChartDataByCountry.datas_ex.push(element.im_eks_total_cost);
-
-                    _this.vedGroupChartDataByCountry.data_total.push(element.total_cost);
-                  }
-                });
-
-                _this.getDashboard.data_country.forEach(function (element) {
-                  if (!_this.countryChartData.labels.includes(element.name)) {
-                    if (element.total_weight) {
-                      _this.countryChartData.labels.push(element.name);
-
-                      _this.countryChartData.data_im.push(element.im_total_weight);
-
-                      _this.countryChartData.datas_ex.push(element.ek_total_weight);
-
-                      _this.countryChartData.data_total.push(element.total_weight);
-
-                      _this.countryChartDataByCountry.labels.push(element.name);
-
-                      _this.countryChartDataByCountry.data_im.push(element.im_total_cost);
-
-                      _this.countryChartDataByCountry.datas_ex.push(element.im_eks_total_cost);
-
-                      _this.countryChartDataByCountry.data_total.push(element.total_cost);
-                    }
-                  }
-                });
-
-              case 4:
               case "end":
                 return _context.stop();
             }
@@ -5468,82 +5399,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     clear: function clear() {
-      var _this2 = this;
-
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.filter.date_to = '';
-                _this2.filter.date_from = '';
-                _context2.next = 4;
-                return _this2.actionDashboard(_this2.filter);
-
-              case 4:
-                _this2.vedGroupChartData = {
-                  labels: [],
-                  datas_ex: [],
-                  data_im: [],
-                  data_total: []
-                }, _this2.vedGroupChartDataByCountry = {
-                  labels: [],
-                  datas_ex: [],
-                  data_im: [],
-                  data_total: []
-                }, _this2.countryChartData = {
-                  labels: [],
-                  datas_ex: [],
-                  data_im: [],
-                  data_total: []
-                }, _this2.countryChartDataByCountry = {
-                  labels: [],
-                  datas_ex: [],
-                  data_im: [],
-                  data_total: []
-                }, _this2.getDashboard.data_vedcode.forEach(function (element) {
-                  if (!_this2.vedGroupChartData.labels.includes(element.name)) {
-                    _this2.vedGroupChartData.labels.push(element.name);
-
-                    _this2.vedGroupChartData.data_im.push(element.im_total_weight);
-
-                    _this2.vedGroupChartData.datas_ex.push(element.ek_total_weight);
-
-                    _this2.vedGroupChartData.data_total.push(element.total_weight);
-
-                    _this2.vedGroupChartDataByCountry.labels.push(element.name);
-
-                    _this2.vedGroupChartDataByCountry.data_im.push(element.im_total_cost);
-
-                    _this2.vedGroupChartDataByCountry.datas_ex.push(element.im_eks_total_cost);
-
-                    _this2.vedGroupChartDataByCountry.data_total.push(element.total_cost);
-                  }
-                });
-
-                _this2.getDashboard.data_country.forEach(function (element) {
-                  if (!_this2.countryChartData.labels.includes(element.name)) {
-                    if (element.total_weight) {
-                      _this2.countryChartData.labels.push(element.name);
-
-                      _this2.countryChartData.data_im.push(element.im_total_weight);
-
-                      _this2.countryChartData.datas_ex.push(element.ek_total_weight);
-
-                      _this2.countryChartData.data_total.push(element.total_weight);
-
-                      _this2.countryChartDataByCountry.labels.push(element.name);
-
-                      _this2.countryChartDataByCountry.data_im.push(element.im_total_cost);
-
-                      _this2.countryChartDataByCountry.datas_ex.push(element.im_eks_total_cost);
-
-                      _this2.countryChartDataByCountry.data_total.push(element.total_cost);
-                    }
-                  }
-                });
-
-              case 6:
               case "end":
                 return _context2.stop();
             }
@@ -5553,62 +5413,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    var _this3 = this;
+    var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              _context3.next = 2;
-              return _this3.actionDashboard(_this3.filter);
+              // await this.actionDashboard(this.filter)
+              _this.loaded = true;
 
-            case 2:
-              _this3.getDashboard.data_vedcode.forEach(function (element) {
-                if (!_this3.vedGroupChartData.labels.includes(element.name)) {
-                  _this3.vedGroupChartData.labels.push(element.name);
-
-                  _this3.vedGroupChartData.data_im.push(element.im_total_weight);
-
-                  _this3.vedGroupChartData.datas_ex.push(element.ek_total_weight);
-
-                  _this3.vedGroupChartData.data_total.push(element.total_weight);
-
-                  _this3.vedGroupChartDataByCountry.labels.push(element.name);
-
-                  _this3.vedGroupChartDataByCountry.data_im.push(element.im_total_cost);
-
-                  _this3.vedGroupChartDataByCountry.datas_ex.push(element.im_eks_total_cost);
-
-                  _this3.vedGroupChartDataByCountry.data_total.push(element.total_cost);
-                }
-              });
-
-              _this3.getDashboard.data_country.forEach(function (element) {
-                if (!_this3.countryChartData.labels.includes(element.name)) {
-                  if (element.total_weight) {
-                    _this3.countryChartData.labels.push(element.name);
-
-                    _this3.countryChartData.data_im.push(element.im_total_weight);
-
-                    _this3.countryChartData.datas_ex.push(element.ek_total_weight);
-
-                    _this3.countryChartData.data_total.push(element.total_weight);
-
-                    _this3.countryChartDataByCountry.labels.push(element.name);
-
-                    _this3.countryChartDataByCountry.data_im.push(element.im_total_cost);
-
-                    _this3.countryChartDataByCountry.datas_ex.push(element.im_eks_total_cost);
-
-                    _this3.countryChartDataByCountry.data_total.push(element.total_cost);
-                  }
-                }
-              });
-
-              _this3.loaded = true;
-
-            case 5:
+            case 1:
             case "end":
               return _context3.stop();
           }
@@ -6613,6 +6428,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -7924,25 +7741,6 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, "\n.multiselect__tags[data-v-cde03d6e] {\n\tmin-height: 40px;\n\tdisplay: block;\n\tpadding: 8px 40px 0 8px;\n\tborder-radius: 5px;\n\tborder: 1px solid #e8e8e8;\n\tbackground: #fff;\n\tfont-size: 14px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css&":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.brand-link.active[data-v-956a9a24]{\n  border-bottom: 1px solid #3e6174;\n}\n.brand-text img[data-v-956a9a24]{\n  width: 100%;\n}\n.sidebar[data-v-956a9a24]{\n  padding-left: 0px;\n  padding-right: 0px;\n}\n.sidebar_icon[data-v-956a9a24]{\n  font-size: 18px;\n  color: #3e6174;\n  margin-right: 5px;\n}\n.content-wrapper[data-v-956a9a24]{\n  background: #ebf2f6;\n  padding-top: 30px;\n}\n.nav-sidebar .nav-item>.nav-link[data-v-956a9a24]{\n  color: #3e6174;\n}\n.nav-sidebar .nav-item>.nav-link[data-v-956a9a24]:hover,\n.nav-pills .nav-link.active[data-v-956a9a24],\n.nav-pills .show > .nav-link[data-v-956a9a24]{\n  background-color: #e6e6e6;\n  font-weight: bold;\n}\n.nav-pills .nav-link[data-v-956a9a24]{\n  border-radius: 0px;\n}\n", ""]);
 
 // exports
 
@@ -38496,36 +38294,6 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/permission/Permission.vue?vue&type=style&index=0&id=3fbfde18&scoped=true&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/permission/Permission.vue?vue&type=style&index=0&id=3fbfde18&scoped=true&lang=css& ***!
@@ -44020,375 +43788,373 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c(
-        "aside",
-        { staticClass: "main-sidebar" },
-        [
-          _c(
-            "router-link",
-            { staticClass: "brand-link", attrs: { to: "/crm" } },
-            [
-              _c("span", { staticClass: "brand-text font-weight-light" }, [
-                _c("img", { attrs: { src: "/img/logoRu.png" } })
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "sidebar" }, [
-            _c("nav", [
-              _c(
-                "ul",
-                {
-                  staticClass:
-                    "nav nav-pills nav-sidebar flex-column sidebar-menu treeview",
-                  attrs: {
-                    "data-widget": "treeview",
-                    role: "menu",
-                    "data-accordion": "false"
-                  }
-                },
-                [
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/dashboard" }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "sidebar_icon fas fa-desktop"
-                          }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "\n                Админ панель\n              "
-                            )
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
+      _c("aside", { staticClass: "main-sidebar" }, [
+        _c(
+          "div",
+          { staticClass: "sidebar-header" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "brand-link", attrs: { to: "/crm" } },
+              [
+                _c("span", { staticClass: "brand-text font-weight-light" }, [
+                  _c("img", {
+                    staticStyle: { width: "100px" },
+                    attrs: { src: "/img/logo.png" }
+                  })
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(1)
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "sidebar" }, [
+          _c("nav", [
+            _c(
+              "ul",
+              {
+                staticClass: "sidebar_ul",
+                attrs: {
+                  "data-widget": "treeview",
+                  role: "menu",
+                  "data-accordion": "false"
+                }
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/dashboard" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "sidebar_icon",
+                          attrs: { "data-feather": "home" }
+                        }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "\n                Админ панель\n              "
+                          )
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/profile" }
+                      },
+                      [
+                        _c("i", { staticClass: "sidebar_icon fas fa-user" }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v("\n                Мои данные\n              ")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/country" }
+                      },
+                      [
+                        _c("i", { staticClass: "sidebar_icon fas fa-city" }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v("\n                Страны\n              ")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/employee" }
+                      },
+                      [
+                        _c("i", { staticClass: "sidebar_icon fas fa-users" }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "\n                Пользователи\n              "
+                          )
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/position" }
+                      },
+                      [
+                        _c("i", { staticClass: "sidebar_icon fas fa-star" }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v("\n                Должность\n              ")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/vedgroup" }
+                      },
+                      [
+                        _c("i", { staticClass: "sidebar_icon fas fa-file" }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v("\n                ВЭД группы\n              ")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/customs-import-export" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "sidebar_icon fas fa-file-excel"
+                        }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "\n                Таможня  (Excel)\n              "
+                          )
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/report-by-country" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "sidebar_icon fas fa-file-excel"
+                        }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "\n                Отчет по странам\n              "
+                          )
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass: "nav-link",
+                        attrs: { to: "/crm/report-by-product" }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "sidebar_icon fas fa-file-excel"
+                        }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v(
+                            "\n                Отчет по продуктам\n              "
+                          )
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: "/crm/region" } },
+                      [
+                        _c("i", { staticClass: "sidebar_icon fas fa-globe" }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v("\n                Области\n              ")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: "/crm/bus" } },
+                      [
+                        _c("i", { staticClass: "sidebar_icon fas fa-bus" }),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v("\n                Автобус\n              ")
+                        ])
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("li", { staticClass: "nav-item has-treeview" }, [
+                  _vm._m(2),
                   _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/profile" }
-                        },
-                        [
-                          _c("i", { staticClass: "sidebar_icon fas fa-user" }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "\n                Мои данные\n              "
-                            )
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/country" }
-                        },
-                        [
-                          _c("i", { staticClass: "sidebar_icon fas fa-city" }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v("\n                Страны\n              ")
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/employee" }
-                        },
-                        [
-                          _c("i", { staticClass: "sidebar_icon fas fa-users" }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "\n                Пользователи\n              "
-                            )
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/position" }
-                        },
-                        [
-                          _c("i", { staticClass: "sidebar_icon fas fa-star" }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "\n                Должность\n              "
-                            )
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/vedgroup" }
-                        },
-                        [
-                          _c("i", { staticClass: "sidebar_icon fas fa-file" }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "\n                ВЭД группы\n              "
-                            )
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/customs-import-export" }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "sidebar_icon fas fa-file-excel"
-                          }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "\n                Таможня  (Excel)\n              "
-                            )
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/report-by-country" }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "sidebar_icon fas fa-file-excel"
-                          }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "\n                Отчет по странам\n              "
-                            )
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/report-by-product" }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "sidebar_icon fas fa-file-excel"
-                          }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v(
-                              "\n                Отчет по продуктам\n              "
-                            )
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: "/crm/region" }
-                        },
-                        [
-                          _c("i", { staticClass: "sidebar_icon fas fa-globe" }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v("\n                Области\n              ")
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        { staticClass: "nav-link", attrs: { to: "/crm/bus" } },
-                        [
-                          _c("i", { staticClass: "sidebar_icon fas fa-bus" }),
-                          _vm._v(" "),
-                          _c("p", [
-                            _vm._v("\n                Автобус\n              ")
-                          ])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "nav-item has-treeview" }, [
-                    _vm._m(1),
+                  _c("ul", { staticClass: "nav nav-treeview" }, [
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/crm/role" }
+                          },
+                          [
+                            _c("p", [
+                              _vm._v(
+                                "\n                    Role\n                  "
+                              )
+                            ])
+                          ]
+                        )
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
-                    _c("ul", { staticClass: "nav nav-treeview" }, [
-                      _c(
-                        "li",
-                        { staticClass: "nav-item" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-link",
-                              attrs: { to: "/crm/role" }
-                            },
-                            [
-                              _c("p", [
-                                _vm._v(
-                                  "\n                    Role\n                  "
-                                )
-                              ])
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        { staticClass: "nav-item" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-link",
-                              attrs: { to: "/crm/conts" }
-                            },
-                            [
-                              _c("p", [
-                                _vm._v(
-                                  "\n                    Controller\n                  "
-                                )
-                              ])
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "li",
-                        { staticClass: "nav-item" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "nav-link",
-                              attrs: { to: "/crm/action" }
-                            },
-                            [
-                              _c("p", [
-                                _vm._v(
-                                  "\n                    Actions\n                  "
-                                )
-                              ])
-                            ]
-                          )
-                        ],
-                        1
-                      )
-                    ])
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/crm/conts" }
+                          },
+                          [
+                            _c("p", [
+                              _vm._v(
+                                "\n                    Controller\n                  "
+                              )
+                            ])
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/crm/action" }
+                          },
+                          [
+                            _c("p", [
+                              _vm._v(
+                                "\n                    Actions\n                  "
+                              )
+                            ])
+                          ]
+                        )
+                      ],
+                      1
+                    )
                   ])
-                ]
-              )
-            ])
+                ])
+              ]
+            )
           ])
-        ],
-        1
-      ),
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "content-wrapper" }, [
         _c("div", { staticClass: "content" }, [
@@ -44405,7 +44171,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(2)
+      _vm._m(3)
     ])
   ])
 }
@@ -44436,6 +44202,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "btn_burger", attrs: { href: "#" } }, [
+      _c("i", {
+        staticClass: "sidebar_icon",
+        attrs: { "data-feather": "menu" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
       _c("span", {
         staticClass: "sidebar_icon fas fa-users-cog",
@@ -44455,7 +44232,9 @@ var staticRenderFns = [
     return _c("footer", { staticClass: "main-footer" }, [
       _c("strong", [
         _vm._v("Copyright © 2020 "),
-        _c("a", { attrs: { href: "#" } }, [_vm._v("MIRXAN ")]),
+        _c("a", { attrs: { href: "https://mintrans.uz/" } }, [
+          _vm._v("Mintrans.uz ")
+        ]),
         _vm._v(".")
       ]),
       _vm._v("\n    All rights reserved.\n  ")
@@ -62843,9 +62622,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Admin_vue_vue_type_template_id_956a9a24_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Admin.vue?vue&type=template&id=956a9a24&scoped=true& */ "./resources/js/components/admin/layouts/Admin.vue?vue&type=template&id=956a9a24&scoped=true&");
 /* harmony import */ var _Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Admin.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/layouts/Admin.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _Admin_vue_vue_type_style_index_0_id_956a9a24_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css& */ "./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -62853,7 +62630,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Admin_vue_vue_type_template_id_956a9a24_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Admin_vue_vue_type_template_id_956a9a24_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -62882,22 +62659,6 @@ component.options.__file = "resources/js/components/admin/layouts/Admin.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Admin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/layouts/Admin.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css&":
-/*!******************************************************************************************************************!*\
-  !*** ./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css& ***!
-  \******************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_956a9a24_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader!../../../../../node_modules/css-loader??ref--6-1!../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../node_modules/postcss-loader/src??ref--6-2!../../../../../node_modules/vue-loader/lib??vue-loader-options!./Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/layouts/Admin.vue?vue&type=style&index=0&id=956a9a24&scoped=true&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_956a9a24_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_956a9a24_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_956a9a24_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Admin_vue_vue_type_style_index_0_id_956a9a24_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
 
 /***/ }),
 
