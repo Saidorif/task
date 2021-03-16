@@ -185,13 +185,8 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-<<<<<<< HEAD
       <strong>Copyright &copy; {{ new Date().getFullYear() }} <a href="https://mintrans.uz" target="_blank">O'ZBEKISTON RESPUBLIKASI TRANSPORT VAZIRLIGI </a>.</strong>
       All rights reserved.
-=======
-    <strong>Copyright &copy; 2020 <a href="https://mintrans.uz/">Mintrans.uz </a>.</strong>
-    All rights reserved.
->>>>>>> 0eb4a11afc32d29ec30d5c7b8c173b28964e6da4
   </footer>
 </div>
 </div>
