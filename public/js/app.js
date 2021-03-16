@@ -44475,7 +44475,22 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+<<<<<<< HEAD
+      _c("footer", { staticClass: "main-footer" }, [
+        _c("strong", [
+          _vm._v("Copyright © " + _vm._s(new Date().getFullYear()) + " "),
+          _c(
+            "a",
+            { attrs: { href: "https://mintrans.uz", target: "_blank" } },
+            [_vm._v("O'ZBEKISTON RESPUBLIKASI TRANSPORT VAZIRLIGI ")]
+          ),
+          _vm._v(".")
+        ]),
+        _vm._v("\n      All rights reserved.\n  ")
+      ])
+=======
       _vm._m(3)
+>>>>>>> 0eb4a11afc32d29ec30d5c7b8c173b28964e6da4
     ])
   ])
 }
@@ -44519,6 +44534,8 @@ var staticRenderFns = [
         attrs: { "data-feather": "chevron-down" }
       })
     ])
+<<<<<<< HEAD
+=======
   },
   function() {
     var _vm = this
@@ -44534,6 +44551,7 @@ var staticRenderFns = [
       ]),
       _vm._v("\n    All rights reserved.\n  ")
     ])
+>>>>>>> 0eb4a11afc32d29ec30d5c7b8c173b28964e6da4
   }
 ]
 render._withStripped = true
@@ -66131,8 +66149,8 @@ var user = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
