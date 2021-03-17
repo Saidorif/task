@@ -24,6 +24,7 @@ Route::group([
 
         //Task
         Route::get('task','TaskController@index');
+        Route::get('task/user','TaskController@userIndex');
         Route::post('task/store','TaskController@store');
         Route::post('task/update/{id}','TaskController@update');
         Route::delete('task/destroy/{id}','TaskController@destroy');

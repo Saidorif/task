@@ -3,8 +3,12 @@
 namespace App\Console\Commands;
 
 use App\Employee;
+use App\User;
+use Faker\Factory;
+use Faker\Generator;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
 
 class EmployeeSync extends Command
 {
@@ -61,12 +65,21 @@ class EmployeeSync extends Command
                     $createds = 0;
                     foreach ($result['result'] as $item){
                         $item['e_id'] = $item['id'];
-                        $position = Employee::where('p_id', '=',$item['p_id'])->first();
-                        if($position){
-                            $position->update($item);
+                        $faker = Factory::create();
+                        $e_name = '';
+                        for ($i = 0; $i < 6; $i++) {
+                            $e_name .= $faker->unique()->randomDigit;
+                        }
+                        $item['email'] = $e_name.'@mintrans.uz';
+                        $item['password'] = Hash::make('secret');
+                        $item['status'] = 'active';
+                        $item['role_id'] = 2;
+                        $user = User::where('p_id', '=',$item['p_id'])->first();
+                        if($user != null){
+                            $user->update($item);
                             $updates++;
                         }else{
-                            $position = Employee::create($item);
+                            $user = User::create($item);
                             $createds++;
                         }
                     }
