@@ -26,6 +26,12 @@ class UserController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function list(Request $request)
+    {
+        $result = User::where(['role_id' => 2])->get();
+        return response()->json(['success' => true,'result' => $result]);
+    }
+
     public function changePasword(Request $request)
     {
         $user = $request->user();

@@ -12,4 +12,9 @@ class TaskUser extends Model
     {
         return $this->belongsTo(\App\User::class,'user_id');
     }
+
+    public function task()
+    {
+        return $this->belongsTo(\App\Task::class,'task_id')->with('items')->where('status','!=','draft');
+    }
 }

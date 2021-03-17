@@ -18,6 +18,13 @@ class TaskController extends Controller
         return response()->json(['success' => true,'result' => $result]);
     }
 
+    public function userIndex(Request $request)
+    {
+        $user = $request->user();
+        $taskUsers = TaskUser::with(['task'])->where(['user_id' => $user->id])->get();
+        return response()->json(['success' => true,'result' => $taskUsers]);
+    }
+
     public function edit(Request $request,$id)
     {
         $result = Task::find($id);

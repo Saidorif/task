@@ -23,6 +23,13 @@ class CreateUsersTable extends Migration
             $table->integer('region_id')->nullable();
             $table->integer('area_id')->nullable();
             $table->string('status')->default('inactive');
+            $table->string('surename')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('birthday')->nullable();
+            $table->string('birthplace')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('p_id')->nullable();
+            $table->string('e_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
