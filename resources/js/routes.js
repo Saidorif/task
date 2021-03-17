@@ -27,10 +27,15 @@ import Action from './components/admin/action/Action'
 import AddAction from './components/admin/action/AddAction'
 import EditAction from './components/admin/action/EditAction'
 
-// action
+// Tasks
 import Tasks from './components/admin/tasks/Tasks'
 import AddTask from './components/admin/tasks/AddTask'
 import EditTask from './components/admin/tasks/EditTask'
+
+// Region
+import Region from './components/admin/region/Region'
+import AddRegion from './components/admin/region/AddRegion'
+import EditRegion from './components/admin/region/EditRegion'
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -72,6 +77,18 @@ const router = new Router({
 				{
 					path:'tasks/edit/:taskId',
 					component:EditTask,
+				},
+				{
+					path:'region',
+					component:Region,
+				},
+				{
+					path:'region/add',
+					component:AddRegion,
+				},
+				{
+					path:'region/edit/:regionId',
+					component:EditRegion,
 				},
 				{
 					path:'role',

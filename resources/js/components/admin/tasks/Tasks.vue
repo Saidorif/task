@@ -25,7 +25,7 @@
 							<td>controller</td>
 							<td>{{cont.code}}</td>
 							<td>
-								<router-link tag="button" class="btn_transparent" :to='`/crm/action/edit/${cont.id}`'>
+								<router-link tag="button" class="btn_transparent" :to='`/crm/tasks/edit/${cont.id}`'>
 									<i class="fas fa-pen"></i>
 								</router-link>
 								<button class="btn_transparent" @click="deleteConts(cont.id)">

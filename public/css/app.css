@@ -88,6 +88,8 @@ ul li {
   text-decoration: none;
 }
 
+.btn_red_icon,
+.btn_blue_icon,
 .btn_blue {
   box-shadow: 0 0.125rem 0.625rem rgba(22, 170, 255, 0.4), 0 0.0625rem 0.125rem rgba(22, 170, 255, 0.5);
   position: relative;
@@ -108,6 +110,23 @@ ul li {
   vertical-align: middle;
   font-family: "OpenSans-Bold";
   text-decoration: none;
+}
+
+.btn_red_icon,
+.btn_blue_icon {
+  padding: 0.3rem;
+}
+
+.btn_red_icon .sidebar_icon,
+.btn_blue_icon .sidebar_icon {
+  width: 16px;
+  height: 16px;
+}
+
+.btn_red_icon {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  box-shadow: 0 0.125rem 0.625rem #f2747466, 0 0.0625rem 0.125rem #dc354587;
 }
 
 .btn_blue:hover {
@@ -438,5 +457,9 @@ ul li {
   font-size: 16px !important;
   color: #6c757d !important;
   font-family: "OpenSans-Regular" !important;
+}
+
+.isRequired {
+  border-color: red !important;
 }
 
