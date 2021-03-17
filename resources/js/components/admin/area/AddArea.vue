@@ -10,7 +10,17 @@
             <form @submit.prevent.enter="saveAction" >
 					<div class="row align-items-end">
                         <div class="col-md-4">
-                            <multiselect v-model="form.region_id" :options="regions" :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Pick a value"></multiselect>
+                            <multiselect
+                                v-model="selectedRegion"
+                                :options="getRegionList"
+                                :custom-label="nameWithLang"
+                                placeholder="Выберите Region"
+                                selectLabel="Нажмите Enter, чтобы выбрать"
+                                deselectLabel="Нажмите Enter, чтобы удалить"
+                                :class="isRequired(selectedRegion) ? 'isRequired' : ''"
+                                :allow-empty="false"
+                                label="name"
+                                track-by="name"></multiselect>
                         </div>
 					  <div class="input_style col-md-4">
 					    <input
@@ -49,20 +59,28 @@
 					name:'',
 					region_id:'',
 				},
+                selectedRegion: null,
 				requiredInput:false,
 				isLoading: false,
+                findController: {},
 			}
 		},
 		computed:{
 			...mapGetters('area',['getMassage']),
+			...mapGetters('region',['getRegionList']),
 		},
 		methods:{
 			...mapActions('area',['actionAddArea']),
+			...mapActions('region',['actionRegionList']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
+            nameWithLang ({ name}) {
+                return `${name}`
+            },
 		    async saveAction(){
-		    	if (this.form.name != ''){
+		    	if (this.form.name != "" && this.form.name != null && this.selectedRegion != null && this.selectedRegion != ''){
+                    this.form.region_id = this.selectedRegion.id
 					await this.actionAddArea(this.form)
 					if (this.getMassage.success) {
 						toast.fire({
@@ -85,6 +103,7 @@
 		    },
 		},
 		async mounted(){
+            await this.actionRegionList();
             feather.replace()
 		}
 	}

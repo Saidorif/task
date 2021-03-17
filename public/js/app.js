@@ -6028,6 +6028,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6040,14 +6050,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: '',
         region_id: ''
       },
+      selectedRegion: null,
       requiredInput: false,
-      isLoading: false
+      isLoading: false,
+      findController: {}
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('area', ['getMassage'])),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('area', ['actionAddArea'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('area', ['getMassage'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('region', ['getRegionList'])),
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('area', ['actionAddArea'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('region', ['actionRegionList'])), {}, {
     isRequired: function isRequired(input) {
       return this.requiredInput && input === '';
+    },
+    nameWithLang: function nameWithLang(_ref) {
+      var name = _ref.name;
+      return "".concat(name);
     },
     saveAction: function saveAction() {
       var _this = this;
@@ -6057,15 +6073,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.form.name != '')) {
-                  _context.next = 6;
+                if (!(_this.form.name != "" && _this.form.name != null && _this.selectedRegion != null && _this.selectedRegion != '')) {
+                  _context.next = 7;
                   break;
                 }
 
-                _context.next = 3;
+                _this.form.region_id = _this.selectedRegion.id;
+                _context.next = 4;
                 return _this.actionAddArea(_this.form);
 
-              case 3:
+              case 4:
                 if (_this.getMassage.success) {
                   toast.fire({
                     type: 'success',
@@ -6084,13 +6101,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 }
 
-                _context.next = 7;
+                _context.next = 8;
                 break;
 
-              case 6:
+              case 7:
                 _this.requiredInput = true;
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }
@@ -6100,14 +6117,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
+    var _this2 = this;
+
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
+              _context2.next = 2;
+              return _this2.actionRegionList();
+
+            case 2:
               feather.replace();
 
-            case 1:
+            case 3:
             case "end":
               return _context2.stop();
           }
@@ -6365,6 +6388,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6374,18 +6410,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       form: {
-        id: null,
         name: '',
-        code: '',
-        conts_id: ''
+        region_id: ''
       },
-      requiredMessage: null,
+      selectedRegion: null,
       requiredInput: false,
       isLoading: false,
       findController: {}
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("region", ["getRegions", "getMassage", "getRegion"])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("area", ["getAreas", "getMassage", "getArea"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('region', ['getRegionList'])),
   mounted: function mounted() {
     var _this = this;
 
@@ -6396,16 +6430,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           switch (_context.prev = _context.next) {
             case 0:
               data = {
-                id: _this.$route.params.regionId
+                id: _this.$route.params.areaId
               };
               _context.next = 3;
-              return _this.actionEditRegion(data);
+              return _this.actionEditArea(data);
 
             case 3:
-              feather.replace();
-              _this.form = _this.getRegion;
+              _context.next = 5;
+              return _this.actionRegionList(data);
 
             case 5:
+              _this.selectedRegion = _this.getRegionList.find(function (item) {
+                return item.id == _this.getArea.region_id;
+              });
+              feather.replace();
+              _this.form = _this.getArea;
+
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -6413,9 +6454,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _callee);
     }))();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("region", ["actionEditRegion", "actionRegions", "actionUpdateRegion"])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("area", ["actionEditArea", "actionAreas", "actionUpdateArea"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('region', ['actionRegionList'])), {}, {
     isRequired: function isRequired(input) {
       return this.requiredInput && input === "";
+    },
+    nameWithLang: function nameWithLang(_ref) {
+      var name = _ref.name;
+      return "".concat(name);
     },
     saveAction: function saveAction() {
       var _this2 = this;
@@ -6425,13 +6470,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (!(_this2.form.name != "" && _this2.form.name != null)) {
+                if (!(_this2.form.name != "" && _this2.form.name != null && _this2.selectedRegion != null && _this2.selectedRegion != '')) {
                   _context2.next = 14;
                   break;
                 }
 
                 _context2.next = 3;
-                return _this2.actionUpdateRegion(_this2.form);
+                return _this2.actionUpdateArea(_this2.form);
 
               case 3:
                 if (!_this2.getMassage.success) {
@@ -6440,7 +6485,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
 
                 _context2.next = 6;
-                return _this2.actionRegions();
+                return _this2.actionAreas();
 
               case 6:
                 toast.fire({
@@ -6449,7 +6494,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   title: _this2.getMassage.message
                 });
 
-                _this2.$router.push("/crm/region");
+                _this2.$router.push("/crm/area");
 
                 _context2.next = 11;
                 break;
@@ -9312,7 +9357,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.cv_tab[data-v-249b4910]{\r\n  background: #9fc1cc40;\r\n  padding: 30px 0px;\n}\npage[data-v-249b4910] {\r\n    background: white;\r\n    display: block;\r\n    margin: 0px auto;\r\n    margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\r\n    width: 21cm;\r\n    height: 29.7cm;\r\n    padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\r\n    width: 29.7cm;\r\n    height: 21cm;\n}\n.cv_title[data-v-249b4910]{\r\n    text-align: center;\r\n    font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\r\n    width: 130px;\r\n    height: 150px;\r\n    overflow: hidden;\r\n    border: 1px solid #000;\r\n    margin-right: 30px;\r\n    margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\r\n    width: 100%;\n}\n.cv_header[data-v-249b4910]{\r\n    display: flex;\r\n    align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\r\n    width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\r\n    font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\r\n    font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\r\n    margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\r\n    list-style: none;\r\n    width: 60%;\r\n    margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\r\n        width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\r\n    display: flex;\r\n    flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\r\n    width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\r\n    text-align: center;\r\n    font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\r\n    list-style: none;\r\n    display: flex;\r\n    justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\r\n    width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\r\n    width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\r\n     margin-bottom: 0;\n}\n.print_cv[data-v-249b4910]{\r\n      position: absolute;\r\n      right: 0;\r\n      top: 120px;\r\n      background: #3f6ad8;\r\n      color: #fff;\r\n      padding: 10px 30px;\r\n      border: none;\n}\n@media print\r\n    {\npage[data-v-249b4910] {\r\n        background: white;\r\n        display: block;\r\n        margin: 0px auto;\r\n        margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\r\n        width: 21cm;\r\n        height: 29.7cm;\r\n        padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\r\n        width: 29.7cm;\r\n        height: 21cm;\n}\n.cv_title[data-v-249b4910]{\r\n        text-align: center;\r\n        font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\r\n        width: 130px;\r\n        height: 150px;\r\n        overflow: hidden;\r\n        border: 1px solid #000;\r\n        margin-right: 30px;\r\n        margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\r\n        width: 100%;\n}\n.cv_header[data-v-249b4910]{\r\n        display: flex;\r\n        align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\r\n        width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\r\n        font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\r\n        font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\r\n        margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\r\n        display: flex;\r\n        flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\r\n        list-style: none;\r\n        width: 60%;\r\n        margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\r\n            width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\r\n        display: flex;\r\n        flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\r\n        width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\r\n        text-align: center;\r\n        font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\r\n        list-style: none;\r\n        display: flex;\r\n        justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\r\n        width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\r\n        width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\r\n        margin-bottom: 0;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.cv_tab[data-v-249b4910]{\n  background: #9fc1cc40;\n  padding: 30px 0px;\n}\npage[data-v-249b4910] {\n    background: white;\n    display: block;\n    margin: 0px auto;\n    margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\n    width: 21cm;\n    height: 29.7cm;\n    padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\n    width: 29.7cm;\n    height: 21cm;\n}\n.cv_title[data-v-249b4910]{\n    text-align: center;\n    font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\n    width: 130px;\n    height: 150px;\n    overflow: hidden;\n    border: 1px solid #000;\n    margin-right: 30px;\n    margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\n    width: 100%;\n}\n.cv_header[data-v-249b4910]{\n    display: flex;\n    align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\n    width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\n    font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\n    font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\n    margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\n    display: flex;\n    flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\n    list-style: none;\n    width: 60%;\n    margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\n        width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\n    display: flex;\n    flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\n    width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\n    text-align: center;\n    font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\n    list-style: none;\n    display: flex;\n    justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\n    width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\n    width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\n     margin-bottom: 0;\n}\n.print_cv[data-v-249b4910]{\n      position: absolute;\n      right: 0;\n      top: 120px;\n      background: #3f6ad8;\n      color: #fff;\n      padding: 10px 30px;\n      border: none;\n}\n@media print\n    {\npage[data-v-249b4910] {\n        background: white;\n        display: block;\n        margin: 0px auto;\n        margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\n        width: 21cm;\n        height: 29.7cm;\n        padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\n        width: 29.7cm;\n        height: 21cm;\n}\n.cv_title[data-v-249b4910]{\n        text-align: center;\n        font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\n        width: 130px;\n        height: 150px;\n        overflow: hidden;\n        border: 1px solid #000;\n        margin-right: 30px;\n        margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\n        width: 100%;\n}\n.cv_header[data-v-249b4910]{\n        display: flex;\n        align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\n        width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\n        font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\n        font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\n        margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\n        display: flex;\n        flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\n        list-style: none;\n        width: 60%;\n        margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\n            width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\n        display: flex;\n        flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\n        width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\n        text-align: center;\n        font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\n        list-style: none;\n        display: flex;\n        justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\n        width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\n        width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\n        margin-bottom: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -44993,19 +45038,23 @@ var render = function() {
               { staticClass: "col-md-4" },
               [
                 _c("multiselect", {
+                  class: _vm.isRequired(_vm.selectedRegion) ? "isRequired" : "",
                   attrs: {
-                    options: _vm.regions,
-                    searchable: false,
-                    "close-on-select": false,
-                    "show-labels": false,
-                    placeholder: "Pick a value"
+                    options: _vm.getRegionList,
+                    "custom-label": _vm.nameWithLang,
+                    placeholder: "Выберите Region",
+                    selectLabel: "Нажмите Enter, чтобы выбрать",
+                    deselectLabel: "Нажмите Enter, чтобы удалить",
+                    "allow-empty": false,
+                    label: "name",
+                    "track-by": "name"
                   },
                   model: {
-                    value: _vm.form.region_id,
+                    value: _vm.selectedRegion,
                     callback: function($$v) {
-                      _vm.$set(_vm.form, "region_id", $$v)
+                      _vm.selectedRegion = $$v
                     },
-                    expression: "form.region_id"
+                    expression: "selectedRegion"
                   }
                 })
               ],
@@ -45266,6 +45315,34 @@ var render = function() {
         },
         [
           _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-md-4" },
+              [
+                _c("multiselect", {
+                  class: _vm.isRequired(_vm.selectedRegion) ? "isRequired" : "",
+                  attrs: {
+                    options: _vm.getRegionList,
+                    "custom-label": _vm.nameWithLang,
+                    placeholder: "Выберите Region",
+                    selectLabel: "Нажмите Enter, чтобы выбрать",
+                    deselectLabel: "Нажмите Enter, чтобы удалить",
+                    "allow-empty": false,
+                    label: "name",
+                    "track-by": "name"
+                  },
+                  model: {
+                    value: _vm.selectedRegion,
+                    callback: function($$v) {
+                      _vm.selectedRegion = $$v
+                    },
+                    expression: "selectedRegion"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
             _c("div", { staticClass: "input_style col-md-4" }, [
               _c("input", {
                 directives: [
@@ -45290,9 +45367,7 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("label", { attrs: { for: "contName" } }, [
-                _vm._v("Region Name")
-              ])
+              _c("label", { attrs: { for: "contName" } }, [_vm._v("Area Name")])
             ]),
             _vm._v(" "),
             _vm._m(0)
@@ -67113,6 +67188,9 @@ var RegionService = {
   regions: function regions() {
     return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/region");
   },
+  regionList: function regionList() {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/region/list");
+  },
   addRegion: function addRegion(data) {
     return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/region/store", data);
   },
@@ -68279,11 +68357,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = {
   regions: {},
   message: [],
-  region: []
+  region: [],
+  region_list: []
 };
 var getters = {
   getRegions: function getRegions(state) {
     return state.regions;
+  },
+  getRegionList: function getRegionList(state) {
+    return state.region_list;
   },
   getMassage: function getMassage(state) {
     return state.message;
@@ -68327,7 +68409,7 @@ var actions = {
       }, _callee, null, [[1, 10]]);
     }))();
   },
-  actionAddRegion: function actionAddRegion(_ref2, payload) {
+  actionRegionList: function actionRegionList(_ref2, page) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       var commit, _actions2;
 
@@ -68338,12 +68420,12 @@ var actions = {
               commit = _ref2.commit;
               _context2.prev = 1;
               _context2.next = 4;
-              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].addRegion(payload);
+              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].regionList(page);
 
             case 4:
               _actions2 = _context2.sent;
               _context2.next = 7;
-              return commit('setMessage', _actions2.data);
+              return commit('setRegionList', _actions2.data.result);
 
             case 7:
               return _context2.abrupt("return", true);
@@ -68361,7 +68443,7 @@ var actions = {
       }, _callee2, null, [[1, 10]]);
     }))();
   },
-  actionDeleteRegion: function actionDeleteRegion(_ref3, payload) {
+  actionAddRegion: function actionAddRegion(_ref3, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
       var commit, _actions3;
 
@@ -68372,7 +68454,7 @@ var actions = {
               commit = _ref3.commit;
               _context3.prev = 1;
               _context3.next = 4;
-              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].removeRegion(payload);
+              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].addRegion(payload);
 
             case 4:
               _actions3 = _context3.sent;
@@ -68395,7 +68477,7 @@ var actions = {
       }, _callee3, null, [[1, 10]]);
     }))();
   },
-  actionEditRegion: function actionEditRegion(_ref4, payload) {
+  actionDeleteRegion: function actionDeleteRegion(_ref4, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var commit, _actions4;
 
@@ -68406,12 +68488,12 @@ var actions = {
               commit = _ref4.commit;
               _context4.prev = 1;
               _context4.next = 4;
-              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].editRegion(payload);
+              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].removeRegion(payload);
 
             case 4:
               _actions4 = _context4.sent;
               _context4.next = 7;
-              return commit('setEditRegion', _actions4.data.result);
+              return commit('setMessage', _actions4.data);
 
             case 7:
               return _context4.abrupt("return", true);
@@ -68429,7 +68511,7 @@ var actions = {
       }, _callee4, null, [[1, 10]]);
     }))();
   },
-  actionUpdateRegion: function actionUpdateRegion(_ref5, payload) {
+  actionEditRegion: function actionEditRegion(_ref5, payload) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
       var commit, _actions5;
 
@@ -68440,12 +68522,12 @@ var actions = {
               commit = _ref5.commit;
               _context5.prev = 1;
               _context5.next = 4;
-              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].updateRegion(payload);
+              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].editRegion(payload);
 
             case 4:
               _actions5 = _context5.sent;
               _context5.next = 7;
-              return commit('setMessage', _actions5.data);
+              return commit('setEditRegion', _actions5.data.result);
 
             case 7:
               return _context5.abrupt("return", true);
@@ -68462,6 +68544,40 @@ var actions = {
         }
       }, _callee5, null, [[1, 10]]);
     }))();
+  },
+  actionUpdateRegion: function actionUpdateRegion(_ref6, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var commit, _actions6;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref6.commit;
+              _context6.prev = 1;
+              _context6.next = 4;
+              return _services_region_service__WEBPACK_IMPORTED_MODULE_1__["RegionService"].updateRegion(payload);
+
+            case 4:
+              _actions6 = _context6.sent;
+              _context6.next = 7;
+              return commit('setMessage', _actions6.data);
+
+            case 7:
+              return _context6.abrupt("return", true);
+
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](1);
+              return _context6.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[1, 10]]);
+    }))();
   }
 };
 var mutations = {
@@ -68473,6 +68589,9 @@ var mutations = {
   },
   setEditRegion: function setEditRegion(state, region) {
     state.region = region;
+  },
+  setRegionList: function setRegionList(state, region_list) {
+    state.region_list = region_list;
   }
 };
 var region = {
@@ -69422,8 +69541,8 @@ var user = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

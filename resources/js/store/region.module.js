@@ -4,11 +4,15 @@ const state = {
 	regions: {},
 	message: [],
 	region: [],
+	region_list: [],
 };
 
 const getters = {
 	getRegions(state){
 		return state.regions
+	},
+	getRegionList(state){
+		return state.region_list
 	},
 	getMassage(state){
 		return state.message
@@ -24,6 +28,15 @@ const actions = {
 		try {
 			const actions =  await RegionService.regions(page);
 			await commit('setRegions',actions.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionRegionList({commit},page){
+		try {
+			const actions =  await RegionService.regionList(page);
+			await commit('setRegionList',actions.data.result)
 			return true
 		} catch (error) {
 			return false
@@ -76,6 +89,9 @@ const mutations = {
 	},
 	setEditRegion(state, region){
 		state.region = region
+	},
+	setRegionList(state, region_list){
+		state.region_list = region_list
 	},
 };
 

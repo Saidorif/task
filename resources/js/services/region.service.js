@@ -4,6 +4,9 @@ const RegionService = {
 	regions(){
 		return ApiService.post(`/api/region`)
 	},
+	regionList(){
+		return ApiService.get(`/api/region/list`)
+	},
 	addRegion(data){
 		return ApiService.post(`/api/region/store`,data)
 	},

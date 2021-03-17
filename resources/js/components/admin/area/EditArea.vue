@@ -9,16 +9,29 @@
     <div class="jv_card">
         <form @submit.prevent.enter="saveAction">
           <div class="row">
-			<div class="input_style col-md-4">
-			  <input
-			  	type="text"
-			  	class="form-control input_style"
-			  	id="contName"
-			  	v-model="form.name"
-                  required
-			  	:class="isRequired(form.name) ? 'isRequired' : ''"
+            <div class="col-md-4">
+                <multiselect
+                    v-model="selectedRegion"
+                    :options="getRegionList"
+                    :custom-label="nameWithLang"
+                    placeholder="Выберите Region"
+                    selectLabel="Нажмите Enter, чтобы выбрать"
+                    deselectLabel="Нажмите Enter, чтобы удалить"
+                    :class="isRequired(selectedRegion) ? 'isRequired' : ''"
+                    :allow-empty="false"
+                    label="name"
+                    track-by="name"></multiselect>
+            </div>
+			  <div class="input_style col-md-4">
+			    <input
+			    	type="text"
+			    	class="form-control input_style"
+			    	id="contName"
+			    	v-model="form.name"
+                    required
+			    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				>
-			  <label for="contName">Region Name</label>
+			    <label for="contName">Area Name</label>
 			</div>
             <div class="form-group col-lg-3 form_btn">
               <button type="submit" class="btn_green">
@@ -40,45 +53,50 @@ export default {
   },
   data() {
     return {
-      form: {
-        id: null,
-		name:'',
-		code:'',
-		conts_id:'',
-      },
-      requiredMessage: null,
-      requiredInput: false,
-      isLoading: false,
-      findController: {}
+		form:{
+			name:'',
+			region_id:'',
+		},
+        selectedRegion: null,
+		requiredInput:false,
+		isLoading: false,
+        findController: {},
     };
   },
   computed: {
-    ...mapGetters("region", ["getRegions", "getMassage", "getRegion"]),
+    ...mapGetters("area", ["getAreas", "getMassage", "getArea"]),
+    ...mapGetters('region',['getRegionList']),
   },
   async mounted() {
     let data = {
-      id: this.$route.params.regionId
+      id: this.$route.params.areaId
     };
-    await this.actionEditRegion(data);
+    await this.actionEditArea(data);
+    await this.actionRegionList(data);
+    this.selectedRegion = this.getRegionList.find(item => item.id == this.getArea.region_id)
     feather.replace()
-	this.form = this.getRegion;
+	this.form = this.getArea;
   },
   methods: {
-    ...mapActions("region", ["actionEditRegion", "actionRegions", "actionUpdateRegion"]),
+    ...mapActions("area", ["actionEditArea", "actionAreas", "actionUpdateArea"]),
+    ...mapActions('region',['actionRegionList']),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
+    nameWithLang ({ name}) {
+        return `${name}`
+    },
     async saveAction() {
-      if (this.form.name != "" && this.form.name != null) {
-		await this.actionUpdateRegion(this.form);
+      if (this.form.name != "" && this.form.name != null && this.selectedRegion != null && this.selectedRegion != '') {
+		await this.actionUpdateArea(this.form);
         if(this.getMassage.success){
-            await this.actionRegions()
+            await this.actionAreas()
             toast.fire({
                 type: 'success',
                 icon: 'success',
                 title: this.getMassage.message,
             })
-            this.$router.push("/crm/region");
+            this.$router.push("/crm/area");
         }else{
             toast.fire({
                 type: 'error',
