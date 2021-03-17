@@ -6,9 +6,9 @@
 
         <title>Task</title>
         <!-- Fonts -->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css?version=1.1.1') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css?version=1.1.1') }}">
         <link rel="stylesheet" href="{{ asset('fonts/fonts.css?version=1.1.1') }}">
-        <link rel="stylesheet" href="{{ asset('css/style.css?version=1.1.1') }}">
 
     </head>
     <body>
@@ -16,6 +16,7 @@
             <Master/>
         </div>
         <script src="{{ asset('js/feather.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
         <script>
             feather.replace()

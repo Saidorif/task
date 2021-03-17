@@ -1,25 +1,11 @@
 <template>
 	<div class="dashboard">
-		<div class="card">
-		  	<div class="card-header">
-				  <div class="header_title">
-						<h4 class="title_user">
-							<i class="sidebar_icon fas fa-desktop"></i>
-							Админ панель
-						</h4>
-					<div class="add_user_btn">
-			            <button type="button" class="btn btn-info toggleFilter" @click.prevent="toggleFilter">
-						    <i class="fas fa-filter"></i>
-			            	Филтр
-						</button>
-		            </div>
-				  </div>
-		  	</div>
-		  	<div class="card-body">
-	  			<div class="row">
-	  			</div>
-		  	</div>
-	  	</div>
+		<div class="page_header">
+			<h4 class="header_title">
+				Добро пожаловать в админ панель
+			</h4>
+		</div>
+        <div class="jv_card"></div>
 	</div>
 </template>
 <script>
