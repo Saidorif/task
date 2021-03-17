@@ -38,6 +38,8 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 import swal from 'sweetalert2';
 window.swal = swal;
 
+
+
 const toast = swal.mixin({
   toast: true,
   position: 'top',

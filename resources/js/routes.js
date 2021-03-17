@@ -37,6 +37,11 @@ import Region from './components/admin/region/Region'
 import AddRegion from './components/admin/region/AddRegion'
 import EditRegion from './components/admin/region/EditRegion'
 
+// Area
+import Area from './components/admin/area/Area'
+import AddArea from './components/admin/area/AddArea'
+import EditArea from './components/admin/area/EditArea'
+
 // NotFound
 import NotFound from './components/NotFound/NotFound'
 const router = new Router({
@@ -89,6 +94,18 @@ const router = new Router({
 				{
 					path:'region/edit/:regionId',
 					component:EditRegion,
+				},
+                {
+					path:'area',
+					component:Area,
+				},
+				{
+					path:'area/add',
+					component:AddArea,
+				},
+				{
+					path:'area/edit/:areaId',
+					component:EditArea,
 				},
 				{
 					path:'role',
