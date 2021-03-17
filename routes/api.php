@@ -32,6 +32,7 @@ Route::group([
         Route::post('region', 'RegionController@index');
         Route::post('region/store', 'RegionController@store');
         Route::get('region/edit/{id}', 'RegionController@edit');
+        Route::get('region/list', 'RegionController@list');
         Route::post('region/update/{id}', 'RegionController@update');
         Route::delete('region/destroy/{id}', 'RegionController@destroy');
 
