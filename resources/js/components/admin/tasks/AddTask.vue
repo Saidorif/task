@@ -9,10 +9,26 @@
         <div class="jv_card">
             <form @submit.prevent.enter="saveAction" >
 					<div class="row align-items-end">
-                        <div class="col-md-4">
-                            <multiselect v-model="form.users" :options="options" :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Pick a value"></multiselect>
+                        <div class="col-md-3">
+                            <multiselect
+                                v-model="selectedUser"
+                                :options="userlist"
+                                :custom-label="nameWithLang"
+                                placeholder="Выберите User"
+                                selectLabel="Нажмите Enter, чтобы выбрать"
+                                :multiple="true"
+                                deselectLabel="Нажмите Enter, чтобы удалить"
+                                :class="isRequired(selectedUser) ? 'isRequired' : ''"
+                                :allow-empty="false"
+                                @tag="selectSlot"
+                                label="name surename"
+                                :internal-search="false"
+                                track-by="name" @search-change="asyncFind"></multiselect>
                         </div>
-					  <div class="input_style col-md-4">
+                        <div class="col-md-2">
+                            <date-picker v-model="form.exp_date" placeholder="Выберите срок" value-type="format" format="DD.MM.YYYY"></date-picker>
+                        </div>
+					  <div class="input_style col-md-3">
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
@@ -23,7 +39,7 @@
 				    	>
 					    <label for="contName">Action Name</label>
 					  </div>
-					  <div class="input_style col-md-4">
+					  <div class="input_style col-md-3">
 					    <input
 					    	type="text"
 					    	class="form-control input_style"
@@ -51,9 +67,11 @@
 
 	import Multiselect from 'vue-multiselect';
 	import {mapActions,mapGetters} from 'vuex'
+     import DatePicker from 'vue2-datepicker';
 	export default{
 		components: {
 	    	Multiselect,
+            DatePicker,
 	  	},
 		data(){
 			return{
@@ -61,24 +79,36 @@
 					title:'',
 					items:[{text: '', file: ''}],
                     exp_date: '',
-                    users:[]
+                    users:[],
 				},
+                userlist: [],
 				requiredInput:false,
 				isLoading: false,
-				findController: {},
-                options: ['Select option', 'options', 'selected', 'mulitple', 'label', 'searchable', 'clearOnSelect', 'hideSelected', 'maxHeight', 'allowEmpty', 'showLabels', 'onChange', 'touched']
+                selectedUser: [],
 			}
 		},
 		computed:{
 			...mapGetters('task',['getMassage']),
+			...mapGetters('user', ['getUserList']),
 		},
 		methods:{
 			...mapActions('task',['actionAddTask']),
+			...mapActions('user',['ActionUserList']),
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
+            nameWithLang ({ name, surename, lastname}) {
+                return `${name} ${surename} ${lastname}`
+            },
+            asyncFind(val){
+                let trval = cril().reverse(val)
+                this.userlist = this.getUserList.filter((el)=>{
+                    return el.name.toLowerCase().indexOf(trval.toLowerCase()) > -1;
+                })
+            },
 		    async saveAction(){
-		    	if (this.form.name != '' && this.form.code != ''){
+		    	if (this.form.title != '' && this.form.exp_date != '' && this.selectedUser.length){
+                    this.form.users = this.selectedUser
 					await this.actionAddTask(this.form)
 					if (this.getMassage.success) {
 						toast.fire({
@@ -112,8 +142,13 @@
 	      		this.findController = selectedOption
 	      		this.form.conts_id = this.findController.id
 			},
+            selectSlot(){
+                console.log('ss')
+            }
 		},
 		async mounted(){
+            await this.ActionUserList()
+            this.userlist = this.getUserList
             feather.replace()
 		}
 	}

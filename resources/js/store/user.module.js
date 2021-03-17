@@ -2,7 +2,8 @@ import {UserService} from "../services/user.service";
 
 const state = {
 	message: null,
-	profile:[]
+	profile:[],
+    userlist:[],
 };
 
 const getters = {
@@ -11,6 +12,9 @@ const getters = {
 	},
 	getProfile(state){
 		return state.profile
+	},
+	getUserList(state){
+		return state.userlist
 	}
 };
 
@@ -24,7 +28,16 @@ const actions = {
 		}catch(e){
 			return false
 		}
-	},	
+	},
+	async ActionUserList({commit}){
+		try {
+			let sendData = await UserService.userList();
+			await commit('setUserList',sendData.data.result)
+			return true
+		}catch(e){
+			return false
+		}
+	},
 	async ActionProfile({commit}){
 		try {
 			let sendData = await UserService.profileUser();
@@ -60,6 +73,9 @@ const mutations = {
 	},
 	setProfile(state, data){
 		state.profile = data
+	},
+	setUserList(state, data){
+		state.userlist = data
 	}
 };
 

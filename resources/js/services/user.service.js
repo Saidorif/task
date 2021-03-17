@@ -80,6 +80,9 @@ const UserService = {
 	profileUpdate(data){
 		return ApiService.post(`/api/user/update`,data);
 	},
+	userList(data){
+		return ApiService.get(`/api/user/list`);
+	},
 	changePass(data){
 		return ApiService.post(`/api/change-password`,data);
 	}

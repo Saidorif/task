@@ -17,7 +17,8 @@ import {abilitiesPlugin} from '@casl/vue'
 import {ability} from "./store/store";
 Vue.use(abilitiesPlugin, ability);
 /* FOR MANAGING USER PERMISSIONS */
-
+// datepicker
+import 'vue2-datepicker/scss/index.scss'
 
 
 
@@ -37,6 +38,9 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 // Sweetalert2
 import swal from 'sweetalert2';
 window.swal = swal;
+
+import CyrillicToTranslit from 'cyrillic-to-translit-js/CyrillicToTranslit';
+window.cril = CyrillicToTranslit;
 
 
 

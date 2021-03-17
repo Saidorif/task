@@ -444,8 +444,7 @@ ul li {
 }
 
 .multiselect__tags {
-  height: 38px !important;
-  min-height: unset !important;
+  min-height: 38px !important;
   border: 2px solid #d9d9d9 !important;
   padding: 6px 40px 0 15px !important;
   font-size: 16px !important;
