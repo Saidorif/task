@@ -2,7 +2,7 @@
   <div class="edit_action">
     <div class="page_header">
 		<h4 class="header_title">
-			Edit Region
+			Edit Task
 		</h4>
         <router-link class="btn_black" to="/crm/region"><i data-feather="arrow-left" class="sidebar_icon"></i> Назад</router-link>
 	</div>
