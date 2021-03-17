@@ -44171,7 +44171,6 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-<<<<<<< HEAD
       _c("footer", { staticClass: "main-footer" }, [
         _c("strong", [
           _vm._v("Copyright © " + _vm._s(new Date().getFullYear()) + " "),
@@ -44184,9 +44183,6 @@ var render = function() {
         ]),
         _vm._v("\n      All rights reserved.\n  ")
       ])
-=======
-      _vm._m(3)
->>>>>>> 0eb4a11afc32d29ec30d5c7b8c173b28964e6da4
     ])
   ])
 }
@@ -44239,24 +44235,6 @@ var staticRenderFns = [
         _c("i", { staticClass: "right fas fa-angle-left" })
       ])
     ])
-<<<<<<< HEAD
-=======
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("footer", { staticClass: "main-footer" }, [
-      _c("strong", [
-        _vm._v("Copyright © 2020 "),
-        _c("a", { attrs: { href: "https://mintrans.uz/" } }, [
-          _vm._v("Mintrans.uz ")
-        ]),
-        _vm._v(".")
-      ]),
-      _vm._v("\n    All rights reserved.\n  ")
-    ])
->>>>>>> 0eb4a11afc32d29ec30d5c7b8c173b28964e6da4
   }
 ]
 render._withStripped = true
