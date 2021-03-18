@@ -15,6 +15,6 @@ class TaskUser extends Model
 
     public function task()
     {
-        return $this->belongsTo(\App\Task::class,'task_id')->with('items')->where('status','!=','draft');
+        return $this->belongsTo(\App\Task::class,'task_id')->with('items');//->where('status','!=','draft');
     }
 }
