@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Task;
 use App\TaskItem;
 use App\TaskUser;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -51,6 +53,7 @@ class TaskController extends Controller
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
         $inputs = $request->all();
+//        return $inputs;
         $user = $request->user();
         if(empty($inputs['status'])){
             $inputs['status'] = 'draft';
@@ -66,9 +69,18 @@ class TaskController extends Controller
         }
         if(!empty($inputs['items']) && count($inputs['items']) > 0){
             //create task items
-            foreach($inputs['items'] as $item){
+            foreach($inputs['items'] as $k => $item){
                 $item['task_id'] = $task->id;
                 $task_item = TaskItem::create($item);
+                //Upload file
+                if($request->hasFile('items.'.$k.'.file')){
+                    $file = $request->file('items.'.$k.'.file');
+                    $path = 'public/'.date('Y-m-d');
+                    $file_name = time().'.'.$file->getClientOriginalExtension();
+                    Storage::disk('local')->putFileAs($path, $file,$file_name);
+                    $task_item->file = 'storage/'.date('Y-m-d').'/'.$file_name;
+                    $task_item->save();
+                }
             }
         }
         return response()->json(['success' => true, 'message' => 'Task created']);
@@ -113,9 +125,18 @@ class TaskController extends Controller
             //delete old items
             $task_items = $task->items()->delete();
             //create task items
-            foreach($inputs['items'] as $item){
+            foreach($inputs['items'] as $k => $item){
                 $item['task_id'] = $task->id;
                 $task_item = TaskItem::create($item);
+                //Upload file
+                if($request->hasFile('items.'.$k.'.file')){
+                    $file = $request->file('items.'.$k.'.file');
+                    $path = 'public/'.date('Y-m-d');
+                    $file_name = time().'.'.$file->getClientOriginalExtension();
+                    Storage::disk('local')->putFileAs($path, $file,$file_name);
+                    $task_item->file = 'storage/'.date('Y-m-d').'/'.$file_name;
+                    $task_item->save();
+                }
             }
         }
         return response()->json(['success' => true, 'message' => 'Task updated']);
