@@ -37,7 +37,10 @@ class TaskController extends Controller
 
     public  function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $inputs = $request->all();
+        $inputs['users'] = json_decode($inputs['users'],true);
+        $inputs['items'] = json_decode($inputs['items'],true);
+        $validator = Validator::make($inputs,[
             'title' => 'required|string',
             'status' => 'nullable|string',
             'exp_date' => 'required|date',
@@ -51,7 +54,6 @@ class TaskController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
-        $inputs = $request->all();
         $user = $request->user();
         if(empty($inputs['status'])){
             $inputs['status'] = 'draft';
