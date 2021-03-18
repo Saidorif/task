@@ -8531,10 +8531,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                console.log(_this2.form);
-
                 if (!(_this2.form.title != '' && _this2.form.exp_date != '' && _this2.selectedUsersList.length)) {
-                  _context2.next = 13;
+                  _context2.next = 12;
                   break;
                 }
 
@@ -8549,10 +8547,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 formData.append("users", JSON.stringify(_this2.form.users));
                 formData.append("items", JSON.stringify(_this2.form.items));
                 formData.append("exp_date", _this2.form.exp_date);
-                _context2.next = 10;
+                _context2.next = 9;
                 return _this2.actionAddTask(formData);
 
-              case 10:
+              case 9:
                 if (_this2.getMassage.success) {
                   toast.fire({
                     type: 'success',
@@ -8571,13 +8569,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 }
 
-                _context2.next = 14;
+                _context2.next = 13;
                 break;
 
-              case 13:
+              case 12:
                 _this2.requiredInput = true;
 
-              case 14:
+              case 13:
               case "end":
                 return _context2.stop();
             }
@@ -87936,6 +87934,36 @@ var UserService = {
 
 /***/ }),
 
+/***/ "./resources/js/services/usertask.service.js":
+/*!***************************************************!*\
+  !*** ./resources/js/services/usertask.service.js ***!
+  \***************************************************/
+/*! exports provided: UserTaskService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserTaskService", function() { return UserTaskService; });
+/* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api.service */ "./resources/js/services/api.service.js");
+
+var UserTaskService = {
+  tasks: function tasks() {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/task");
+  },
+  addTask: function addTask(data) {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].fileSend("/api/task/store", data);
+  },
+  editTask: function editTask(data) {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/task/edit/".concat(data.id));
+  },
+  updateTask: function updateTask(data) {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/update/".concat(data.id), data);
+  }
+};
+
+
+/***/ }),
+
 /***/ "./resources/js/store/ability.js":
 /*!***************************************!*\
   !*** ./resources/js/store/ability.js ***!
@@ -89342,8 +89370,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _task_module__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./task.module */ "./resources/js/store/task.module.js");
 /* harmony import */ var _region_module__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./region.module */ "./resources/js/store/region.module.js");
 /* harmony import */ var _area_module__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./area.module */ "./resources/js/store/area.module.js");
-/* harmony import */ var _dashboard_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./dashboard.module */ "./resources/js/store/dashboard.module.js");
-/* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./../services/storage.service */ "./resources/js/services/storage.service.js");
+/* harmony import */ var _usertask_module__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./usertask.module */ "./resources/js/store/usertask.module.js");
+/* harmony import */ var _dashboard_module__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dashboard.module */ "./resources/js/store/dashboard.module.js");
+/* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./../services/storage.service */ "./resources/js/services/storage.service.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -89368,6 +89397,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__["default"]);
 var ability = _ability__WEBPACK_IMPORTED_MODULE_4__["ability"];
 var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
@@ -89381,9 +89411,10 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
     conts: _conts_module__WEBPACK_IMPORTED_MODULE_9__["conts"],
     action: _action_module__WEBPACK_IMPORTED_MODULE_10__["action"],
     task: _task_module__WEBPACK_IMPORTED_MODULE_11__["task"],
-    dashboard: _dashboard_module__WEBPACK_IMPORTED_MODULE_14__["dashboard"],
+    dashboard: _dashboard_module__WEBPACK_IMPORTED_MODULE_15__["dashboard"],
     region: _region_module__WEBPACK_IMPORTED_MODULE_12__["region"],
-    area: _area_module__WEBPACK_IMPORTED_MODULE_13__["area"]
+    area: _area_module__WEBPACK_IMPORTED_MODULE_13__["area"],
+    usertask: _usertask_module__WEBPACK_IMPORTED_MODULE_14__["usertask"]
   },
   state: {
     rules: [],
@@ -89423,7 +89454,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
       state.rules = [];
     },
     loginSuccess: function loginSuccess(state, user) {
-      _services_storage_service__WEBPACK_IMPORTED_MODULE_15__["TokenService"].saveCurrentUser(user.result.user);
+      _services_storage_service__WEBPACK_IMPORTED_MODULE_16__["TokenService"].saveCurrentUser(user.result.user);
       state.token = user.token;
       state.authenticationErrorCode = false;
       state.userInfo = user.result.user;
@@ -89970,6 +90001,201 @@ var mutations = {
   }
 };
 var user = {
+  namespaced: true,
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+};
+
+/***/ }),
+
+/***/ "./resources/js/store/usertask.module.js":
+/*!***********************************************!*\
+  !*** ./resources/js/store/usertask.module.js ***!
+  \***********************************************/
+/*! exports provided: usertask */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "usertask", function() { return usertask; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _services_usertask_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/usertask.service */ "./resources/js/services/usertask.service.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var state = {
+  tasks: {},
+  message: [],
+  task: []
+};
+var getters = {
+  getTasks: function getTasks(state) {
+    return state.tasks;
+  },
+  getMassage: function getMassage(state) {
+    return state.message;
+  },
+  getTask: function getTask(state) {
+    return state.task;
+  }
+};
+var actions = {
+  actionTasks: function actionTasks(_ref, page) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var commit, _actions;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              _context.prev = 1;
+              _context.next = 4;
+              return UserTaskService.tasks(page);
+
+            case 4:
+              _actions = _context.sent;
+              _context.next = 7;
+              return commit('setTasks', _actions.data.result);
+
+            case 7:
+              return _context.abrupt("return", true);
+
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](1);
+              return _context.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 10]]);
+    }))();
+  },
+  actionAddTask: function actionAddTask(_ref2, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit, _actions2;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return UserTaskService.addTask(payload);
+
+            case 4:
+              _actions2 = _context2.sent;
+              _context2.next = 7;
+              return commit('setMessage', _actions2.data);
+
+            case 7:
+              return _context2.abrupt("return", true);
+
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](1);
+              return _context2.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 10]]);
+    }))();
+  },
+  actionEditTask: function actionEditTask(_ref3, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var commit, _actions3;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              _context3.prev = 1;
+              _context3.next = 4;
+              return UserTaskService.editTask(payload);
+
+            case 4:
+              _actions3 = _context3.sent;
+              _context3.next = 7;
+              return commit('setEditTask', _actions3.data.result);
+
+            case 7:
+              return _context3.abrupt("return", true);
+
+            case 10:
+              _context3.prev = 10;
+              _context3.t0 = _context3["catch"](1);
+              return _context3.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[1, 10]]);
+    }))();
+  },
+  actionUpdateTask: function actionUpdateTask(_ref4, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var commit, _actions4;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              _context4.prev = 1;
+              _context4.next = 4;
+              return UserTaskService.updateTask(payload);
+
+            case 4:
+              _actions4 = _context4.sent;
+              _context4.next = 7;
+              return commit('setEditTask', _actions4.data.result);
+
+            case 7:
+              return _context4.abrupt("return", true);
+
+            case 10:
+              _context4.prev = 10;
+              _context4.t0 = _context4["catch"](1);
+              return _context4.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[1, 10]]);
+    }))();
+  }
+};
+var mutations = {
+  setTasks: function setTasks(state, tasks) {
+    state.tasks = tasks;
+  },
+  setMessage: function setMessage(state, message) {
+    state.message = message;
+  },
+  setEditTask: function setEditTask(state, task) {
+    state.task = task;
+  }
+};
+var usertask = {
   namespaced: true,
   state: state,
   getters: getters,

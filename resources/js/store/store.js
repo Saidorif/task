@@ -16,6 +16,7 @@ import {action} from "./action.module"
 import {task} from "./task.module"
 import {region} from "./region.module"
 import {area} from "./area.module"
+import {usertask} from "./usertask.module"
 import {dashboard} from "./dashboard.module"
 
 import { TokenService } from './../services/storage.service'
@@ -41,6 +42,7 @@ const store = new Vuex.Store(
 			dashboard,
             region,
             area,
+            usertask
 		},
 		state:{
 			rules:[],
