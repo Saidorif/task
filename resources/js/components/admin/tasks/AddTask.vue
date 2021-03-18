@@ -7,7 +7,7 @@
             <router-link class="btn_black" to="/crm/tasks"><i data-feather="arrow-left" class="sidebar_icon"></i> Назад</router-link>
 		</div>
         <div class="jv_card">
-            <form @submit.prevent.enter="saveAction" >
+            <form @submit.prevent.enter="saveAction" enctype="multipart/form-data">
 				<div class="row align-items-end">
                     <div class="col-md-5">
                             <multiselect
@@ -74,7 +74,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <template v-for="(item, index) in form.items">
+                    <template v-for="(item, index) in allItems">
                         <div class="col-md-9 mt-5">
                             <label for="text" class="title_label">Text</label>
                             <vue-editor id="text" v-model="item.text" />
@@ -87,6 +87,10 @@
                         </div>
                     </template>
                     <div class="form_btn_block">
+                        <button type="button" class="btn_green" @click.prevent="addItem">
+                            <i class="sidebar_icon" data-feather="save"></i>
+                            Add
+                        </button>
                         <button type="submit" class="btn_green">
                             <i class="sidebar_icon" data-feather="save"></i>
                             Сохранить
@@ -114,10 +118,11 @@
 			return{
 				form:{
 					title:'',
-					items:[{text: '', file: ''}],
+					items:[],
                     exp_date: '',
                     users:[],
 				},
+                allItems:[{text: '', file: ''}],
                 userlist: [],
                 selectedUsersList: [],
 				requiredInput:false,
@@ -158,6 +163,10 @@
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
+            addItem(){
+                let item = {text:'',file:''}
+                this.allItems.push(item)
+            },
             nameWithLang ({ name, surename, lastname}) {
                 return `${name} ${surename} ${lastname}`
             },
@@ -182,7 +191,13 @@
                 }
                 const name = event.target.files[0].name;
                 document.querySelector('#'+labelId).innerHTML = name;
+                // let reader = new FileReader();
+                // reader.onload = e => {
+                //     item.file = e.target.result;
+                // };
+                // reader.readAsBinaryString(event.target.files[0]);
                 item.file = event.target.files[0]
+                console.log(item.file)
             },
             svotUser(user, index){
                 user.svot = !user.svot
@@ -200,11 +215,27 @@
                     this.form.users = this.selectedUsersList.map((item)=>{
                         return {user_id: item.id, svot: item.svot ? 1 : 0}
                     })
+                    let myarray = [];
+                    // this.form.items.forEach((item)=>{
+                    //     let formData = new FormData();
+                    //     formData.append('text', item.text)
+                    //     formData.append('file', item.file)
+                    //     myarray.push(formData)
+                    // })
                     let formData = new FormData();
                     formData.append("title", this.form.title);
-                    formData.append("users", JSON.stringify(this.form.users));
-                    formData.append("items", JSON.stringify(this.form.items));
                     formData.append("exp_date", this.form.exp_date);
+                    // formData.append("users", this.form.users);
+                    // formData.append("items", this.form.items);
+                    // this.form.items = myarray
+                    this.form.users.forEach((item, index)=>{
+                        formData.append(`users[${index}][user_id]`, item.user_id)
+                        formData.append(`users[${index}][svot]`, item.svot)
+                    })
+                    this.allItems.forEach((item, index)=>{
+                        formData.append(`items[${index}][text]`, item.text)
+                        formData.append(`items[${index}][file]`, item.file)
+                    })
 					await this.actionAddTask(formData)
 					if (this.getMassage.success) {
 						toast.fire({
