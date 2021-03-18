@@ -86,4 +86,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsTo(\App\Area::class,'area_id');
     }
+
+    public function position()
+    {
+        return $this->belongsTo(\App\Position::class,'p_id');
+    }
 }

@@ -28,7 +28,7 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $result = User::where(['role_id' => 2])->get();
+        $result = User::with(['position'])->where(['role_id' => 2])->get();
         return response()->json(['success' => true,'result' => $result]);
     }
 
