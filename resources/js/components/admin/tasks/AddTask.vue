@@ -32,20 +32,20 @@
                                 </multiselect>
                     </div>
                     <div class="input_style col-md-5">
-                            <input
-                                type="text"
-                                class="form-control input_style"
-                                id="contName"
-                                v-model="form.title"
-                                required
-                                :class="isRequired(form.title) ? 'isRequired' : ''"
-                            >
-                            <label for="contName">Title</label>
+                        <input
+                            type="text"
+                            class="form-control input_style"
+                            id="contName"
+                            v-model="form.title"
+                            required
+                            :class="isRequired(form.title) ? 'isRequired' : ''"
+                        >
+                        <label for="contName">Title</label>
                     </div>
                     <div class="col-md-2">
                         <date-picker v-model="form.exp_date" placeholder="Выберите срок" value-type="format" format="DD.MM.YYYY"></date-picker>
                     </div>
-                    <div class="table-responsive mt-5">
+                    <div class="table-responsive mt-5" v-if="selectedUsersList.length">
                         <table class="table table-bordered text-center table-hover table-striped">
                             <thead>
                                 <tr>
@@ -57,14 +57,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(user, index) in selectedUsersList">
-                                    <td>{{ index + 1}}</td>
+                                <tr v-for="(user, index) in selectedUsersList" :class="{ 'selected': user.svot }" >
+                                    <td>{{ index + 1}} </td>
                                     <td>{{user.name}} {{ user.surename }} {{user.lastname}}</td>
+                                    <td>otdel  </td>
+                                    <td>{{user.position.name}}</td>
                                     <td>
-                                        <button class="btn_blue_icon" @click="svotUser(index)">
-                                            <i data-feather="check-square" class="sidebar_icon" ></i>
+                                        <button type="button" class="btn_blue_icon" @click="svotUser(user, index)" v-if="!hasSvot || user.svot">
+                                            <i data-feather="check-square" class="sidebar_icon"  ></i>
                                         </button>
-                                        <button class="btn_red_icon" @click="deleteUser(index)">
+                                        <button type="button" class="btn_red_icon" @click="deleteUser(index)">
                                             <i data-feather="trash" class="sidebar_icon" ></i>
                                         </button>
                                     </td>
@@ -72,6 +74,18 @@
                             </tbody>
                         </table>
                     </div>
+                    <template v-for="(item, index) in form.items">
+                        <div class="col-md-9 mt-5">
+                            <label for="text" class="title_label">Text</label>
+                            <vue-editor id="text" v-model="item.text" />
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input_style_file">
+                                <label for="file" id="inputFileLabel">File Upload</label>
+                                <input type="file" id="file" @change="inputFileUpload($event, 'inputFileLabel', item)">
+                            </div>
+                        </div>
+                    </template>
                     <div class="form_btn_block">
                         <button type="submit" class="btn_green">
                             <i class="sidebar_icon" data-feather="save"></i>
@@ -88,11 +102,13 @@
 
 	import Multiselect from 'vue-multiselect';
 	import {mapActions,mapGetters} from 'vuex'
-     import DatePicker from 'vue2-datepicker';
+    import DatePicker from 'vue2-datepicker';
+    import { VueEditor } from "vue2-editor";
 	export default{
 		components: {
 	    	Multiselect,
             DatePicker,
+            VueEditor,
 	  	},
 		data(){
 			return{
@@ -107,14 +123,17 @@
 				requiredInput:false,
 				isLoading: false,
                 selectedUser: null,
+                hasSvot: false,
 			}
 		},
 		computed:{
 			...mapGetters('task',['getMassage']),
 			...mapGetters('user', ['getUserList']),
+
 		},
         watch:{
             selectedUser: function(val){
+                val.svot = false
                 if(this.selectedUsersList.length){
                     let found = false
                     this.selectedUsersList.forEach((item)=>{
@@ -143,10 +162,32 @@
                 return `${name} ${surename} ${lastname}`
             },
             deleteUser(ind){
-                console.log(ind)
+                swal.fire({
+                    type: 'confirm',
+                    toast: false,
+                    icon: 'question',
+                    title: 'Вы действительно хотите удалить?',
+                    confirmButtonText: `Удалить`,
+                    cancelButtonText: `Отмена`,
+                    showCancelButton: true
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        this.selectedUsersList.splice(ind, 1)
+                    }
+                })
             },
-            svotUser(ind){
-                console.log(ind)
+            inputFileUpload(event, labelId, item){
+                if (!event || !event.target || !event.target.files || event.target.files.length === 0) {
+                    return;
+                }
+                const name = event.target.files[0].name;
+                document.querySelector('#'+labelId).innerHTML = name;
+                item.file = event.target.files[0]
+            },
+            svotUser(user, index){
+                user.svot = !user.svot
+                this.hasSvot = user.svot
+                Vue.set(this.selectedUsersList, index, user );
             },
             asyncFind(val){
                 let trval = cril().reverse(val)
@@ -155,11 +196,17 @@
                 })
             },
 		    async saveAction(){
-		    	if (this.form.title != '' && this.form.exp_date != '' && this.selectedUser.length){
-                    this.form.users = this.selectedUser.map((item)=>{
+                console.log(this.form)
+		    	if (this.form.title != '' && this.form.exp_date != '' && this.selectedUsersList.length){
+                    this.form.users = this.selectedUsersList.map((item)=>{
                         return {user_id: item.id, svot: item.svot ? 1 : 0}
                     })
-					await this.actionAddTask(this.form)
+                    let formData = new FormData();
+                    formData.append("title", this.form.title);
+                    formData.append("users", JSON.stringify(this.form.users));
+                    formData.append("items", JSON.stringify(this.form.items));
+                    formData.append("exp_date", this.form.exp_date);
+					await this.actionAddTask(formData)
 					if (this.getMassage.success) {
 						toast.fire({
 					    	type: 'success',

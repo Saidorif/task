@@ -5,7 +5,7 @@ const TaskService = {
 		return ApiService.get(`/api/task`)
 	},
 	addTask(data){
-		return ApiService.post(`/api/task/store`,data)
+		return ApiService.fileSend(`/api/task/store`,data)
 	},
 	editTask(data){
 		return ApiService.get(`/api/task/edit/${data.id}`)
