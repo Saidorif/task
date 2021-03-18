@@ -30,6 +30,12 @@ Route::group([
         Route::post('task/update/{id}','TaskController@update');
         Route::delete('task/destroy/{id}','TaskController@destroy');
 
+        //User tasks
+        Route::post('usertask/store','TaskUserItemController@store');
+        Route::post('usertask/update/{id}','TaskUserItemController@update');
+        Route::get('usertask/edit/{id}','TaskUserItemController@edit');
+        Route::delete('usertask/destroy/{id}','TaskUserItemController@destroy');
+
         //Region CRUD
         Route::post('region', 'RegionController@index');
         Route::post('region/store', 'RegionController@store');
