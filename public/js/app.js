@@ -8405,6 +8405,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -8419,13 +8423,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       form: {
         title: '',
-        items: [{
-          text: '',
-          file: ''
-        }],
+        items: [],
         exp_date: '',
         users: []
       },
+      allItems: [{
+        text: '',
+        file: ''
+      }],
       userlist: [],
       selectedUsersList: [],
       requiredInput: false,
@@ -8461,6 +8466,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('task', ['actionAddTask'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('user', ['ActionUserList'])), {}, {
     isRequired: function isRequired(input) {
       return this.requiredInput && input === '';
+    },
+    addItem: function addItem() {
+      var item = {
+        text: '',
+        file: ''
+      };
+      this.allItems.push(item);
     },
     nameWithLang: function nameWithLang(_ref) {
       var name = _ref.name,
@@ -8508,8 +8520,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       var name = event.target.files[0].name;
-      document.querySelector('#' + labelId).innerHTML = name;
+      document.querySelector('#' + labelId).innerHTML = name; // let reader = new FileReader();
+      // reader.onload = e => {
+      //     item.file = e.target.result;
+      // };
+      // reader.readAsBinaryString(event.target.files[0]);
+
       item.file = event.target.files[0];
+      console.log(item.file);
     },
     svotUser: function svotUser(user, index) {
       user.svot = !user.svot;
@@ -8526,13 +8544,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var formData;
+        var myarray, formData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(_this2.form.title != '' && _this2.form.exp_date != '' && _this2.selectedUsersList.length)) {
-                  _context2.next = 12;
+                  _context2.next = 13;
                   break;
                 }
 
@@ -8542,15 +8560,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     svot: item.svot ? 1 : 0
                   };
                 });
+                myarray = []; // this.form.items.forEach((item)=>{
+                //     let formData = new FormData();
+                //     formData.append('text', item.text)
+                //     formData.append('file', item.file)
+                //     myarray.push(formData)
+                // })
+
                 formData = new FormData();
                 formData.append("title", _this2.form.title);
-                formData.append("users", JSON.stringify(_this2.form.users));
-                formData.append("items", JSON.stringify(_this2.form.items));
-                formData.append("exp_date", _this2.form.exp_date);
-                _context2.next = 9;
+                formData.append("exp_date", _this2.form.exp_date); // formData.append("users", this.form.users);
+                // formData.append("items", this.form.items);
+                // this.form.items = myarray
+
+                _this2.form.users.forEach(function (item, index) {
+                  formData.append("users[".concat(index, "][user_id]"), item.user_id);
+                  formData.append("users[".concat(index, "][svot]"), item.svot);
+                });
+
+                _this2.allItems.forEach(function (item, index) {
+                  formData.append("items[".concat(index, "][text]"), item.text);
+                  formData.append("items[".concat(index, "][file]"), item.file);
+                });
+
+                _context2.next = 10;
                 return _this2.actionAddTask(formData);
 
-              case 9:
+              case 10:
                 if (_this2.getMassage.success) {
                   toast.fire({
                     type: 'success',
@@ -8569,13 +8605,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 }
 
-                _context2.next = 13;
+                _context2.next = 14;
                 break;
 
-              case 12:
+              case 13:
                 _this2.requiredInput = true;
 
-              case 13:
+              case 14:
               case "end":
                 return _context2.stop();
             }
@@ -11492,7 +11528,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.cv_tab[data-v-249b4910]{\r\n  background: #9fc1cc40;\r\n  padding: 30px 0px;\n}\npage[data-v-249b4910] {\r\n    background: white;\r\n    display: block;\r\n    margin: 0px auto;\r\n    margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\r\n    width: 21cm;\r\n    height: 29.7cm;\r\n    padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\r\n    width: 29.7cm;\r\n    height: 21cm;\n}\n.cv_title[data-v-249b4910]{\r\n    text-align: center;\r\n    font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\r\n    width: 130px;\r\n    height: 150px;\r\n    overflow: hidden;\r\n    border: 1px solid #000;\r\n    margin-right: 30px;\r\n    margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\r\n    width: 100%;\n}\n.cv_header[data-v-249b4910]{\r\n    display: flex;\r\n    align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\r\n    width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\r\n    font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\r\n    font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\r\n    margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\r\n    list-style: none;\r\n    width: 60%;\r\n    margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\r\n        width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\r\n    display: flex;\r\n    flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\r\n    width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\r\n    text-align: center;\r\n    font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\r\n    list-style: none;\r\n    display: flex;\r\n    justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\r\n    width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\r\n    width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\r\n     margin-bottom: 0;\n}\n.print_cv[data-v-249b4910]{\r\n      position: absolute;\r\n      right: 0;\r\n      top: 120px;\r\n      background: #3f6ad8;\r\n      color: #fff;\r\n      padding: 10px 30px;\r\n      border: none;\n}\n@media print\r\n    {\npage[data-v-249b4910] {\r\n        background: white;\r\n        display: block;\r\n        margin: 0px auto;\r\n        margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\r\n        width: 21cm;\r\n        height: 29.7cm;\r\n        padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\r\n        width: 29.7cm;\r\n        height: 21cm;\n}\n.cv_title[data-v-249b4910]{\r\n        text-align: center;\r\n        font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\r\n        width: 130px;\r\n        height: 150px;\r\n        overflow: hidden;\r\n        border: 1px solid #000;\r\n        margin-right: 30px;\r\n        margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\r\n        width: 100%;\n}\n.cv_header[data-v-249b4910]{\r\n        display: flex;\r\n        align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\r\n        width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\r\n        font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\r\n        font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\r\n        margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\r\n        display: flex;\r\n        flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\r\n        list-style: none;\r\n        width: 60%;\r\n        margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\r\n            width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\r\n        display: flex;\r\n        flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\r\n        width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\r\n        text-align: center;\r\n        font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\r\n        list-style: none;\r\n        display: flex;\r\n        justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\r\n        width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\r\n        width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\r\n        margin-bottom: 0;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.cv_tab[data-v-249b4910]{\n  background: #9fc1cc40;\n  padding: 30px 0px;\n}\npage[data-v-249b4910] {\n    background: white;\n    display: block;\n    margin: 0px auto;\n    margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\n    width: 21cm;\n    height: 29.7cm;\n    padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\n    width: 29.7cm;\n    height: 21cm;\n}\n.cv_title[data-v-249b4910]{\n    text-align: center;\n    font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\n    width: 130px;\n    height: 150px;\n    overflow: hidden;\n    border: 1px solid #000;\n    margin-right: 30px;\n    margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\n    width: 100%;\n}\n.cv_header[data-v-249b4910]{\n    display: flex;\n    align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\n    width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\n    font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\n    font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\n    margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\n    display: flex;\n    flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\n    list-style: none;\n    width: 60%;\n    margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\n        width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\n    display: flex;\n    flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\n    width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\n    text-align: center;\n    font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\n    list-style: none;\n    display: flex;\n    justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\n    width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\n    width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\n     margin-bottom: 0;\n}\n.print_cv[data-v-249b4910]{\n      position: absolute;\n      right: 0;\n      top: 120px;\n      background: #3f6ad8;\n      color: #fff;\n      padding: 10px 30px;\n      border: none;\n}\n@media print\n    {\npage[data-v-249b4910] {\n        background: white;\n        display: block;\n        margin: 0px auto;\n        margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\n        width: 21cm;\n        height: 29.7cm;\n        padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\n        width: 29.7cm;\n        height: 21cm;\n}\n.cv_title[data-v-249b4910]{\n        text-align: center;\n        font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\n        width: 130px;\n        height: 150px;\n        overflow: hidden;\n        border: 1px solid #000;\n        margin-right: 30px;\n        margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\n        width: 100%;\n}\n.cv_header[data-v-249b4910]{\n        display: flex;\n        align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\n        width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\n        font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\n        font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\n        margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\n        display: flex;\n        flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\n        list-style: none;\n        width: 60%;\n        margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\n            width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\n        display: flex;\n        flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\n        width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\n        text-align: center;\n        font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\n        list-style: none;\n        display: flex;\n        justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\n        width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\n        width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\n        margin-bottom: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -11732,10 +11768,10 @@ module.exports = function cyrillicToTranslit(config) {
   if (_preset === "ru") {
     // Russian: i > always и, y > ы in non-initial position, e > е in non-initial position
     _reversedNonFirstLetters = Object.assign(invert(_firstLetters), {
-      "i": "и", 
+      "i": "и",
       "y": "ы",
       "e": "е",
-      "": "" 
+      "": ""
     });
   } else if (_preset === "uk") {
     // Ukrainian: i > always i, y > always и, e > always е
@@ -11828,7 +11864,7 @@ module.exports = function cyrillicToTranslit(config) {
         i++;
         continue;
       }
-      
+
       let newLetter;
 
       let digraph = normalizedInput.slice(i, i + 2).toLowerCase();
@@ -62614,6 +62650,7 @@ var render = function() {
       _c(
         "form",
         {
+          attrs: { enctype: "multipart/form-data" },
           on: {
             submit: function($event) {
               if (
@@ -62799,7 +62836,7 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
-              _vm._l(_vm.form.items, function(item, index) {
+              _vm._l(_vm.allItems, function(item, index) {
                 return [
                   _c(
                     "div",
@@ -62850,7 +62887,32 @@ var render = function() {
                 ]
               }),
               _vm._v(" "),
-              _vm._m(1)
+              _c("div", { staticClass: "form_btn_block" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn_green",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.addItem($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "sidebar_icon",
+                      attrs: { "data-feather": "save" }
+                    }),
+                    _vm._v(
+                      "\n                            Add\n                        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _vm._m(1)
+              ])
             ],
             2
           )
@@ -62882,8 +62944,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form_btn_block" }, [
-      _c("button", { staticClass: "btn_green", attrs: { type: "submit" } }, [
+    return _c(
+      "button",
+      { staticClass: "btn_green", attrs: { type: "submit" } },
+      [
         _c("i", {
           staticClass: "sidebar_icon",
           attrs: { "data-feather": "save" }
@@ -62891,8 +62955,8 @@ var staticRenderFns = [
         _vm._v(
           "\n                            Сохранить\n                        "
         )
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -90223,8 +90287,8 @@ var usertask = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
