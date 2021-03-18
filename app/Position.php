@@ -13,4 +13,9 @@ class Position extends Model
         'name',
         'p_id',
     ];
+
+    public function structure()
+    {
+        return $this->belongsTo(\App\Structure::class,'structure_id','s_id');
+    }
 }

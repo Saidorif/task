@@ -3,24 +3,25 @@
 namespace App\Console\Commands;
 
 use App\Position;
+use App\Structure;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 
-class PositionSync extends Command
+class StructureSync extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'position:sync';
+    protected $signature = 'structure:sync';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Position sync from EHR';
+    protected $description = 'Sync structure from EHR';
 
     /**
      * Create a new command instance.
@@ -47,7 +48,7 @@ class PositionSync extends Command
                 $client = new Client();
                 $newresponse = $client->request(
                     'GET',
-                    'http://hr.uztrans.uz/api/get-positions',
+                    'http://mhr.loc/api/get-structure',
                     ['headers' =>
                         [
                             'Authorization' => "Bearer {$token}",
@@ -61,12 +62,12 @@ class PositionSync extends Command
                     $createds = 0;
                     foreach ($result['result'] as $item){
                         $item['name'] = $item['name_uz'];
-                        $position = Position::where('p_id', '=',$item['p_id'])->first();
+                        $position = Structure::where('s_id', '=',$item['s_id'])->first();
                         if($position){
                             $position->update($item);
                             $updates++;
                         }else{
-                            $position = Position::create($item);
+                            $position = Structure::create($item);
                             $createds++;
                         }
                     }
@@ -93,7 +94,7 @@ class PositionSync extends Command
         try {
             $client = new \GuzzleHttp\Client();
             $resp = $client->post(
-                'http://hr.uztrans.uz/api/login',
+                'http://mhr.loc/api/login',
                 array(
                     'form_params' => array(
                         'email' => 'sayyid2112@gmail.com',
