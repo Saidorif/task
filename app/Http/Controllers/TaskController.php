@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Task;
 use App\TaskItem;
 use App\TaskUser;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use Illuminate\Http\Request;
@@ -53,7 +52,6 @@ class TaskController extends Controller
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
         $inputs = $request->all();
-//        return $inputs;
         $user = $request->user();
         if(empty($inputs['status'])){
             $inputs['status'] = 'draft';

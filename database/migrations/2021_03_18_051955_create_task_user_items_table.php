@@ -17,7 +17,7 @@ class CreateTaskUserItemsTable extends Migration
             $table->id();
             $table->integer('user_id')->index();
             $table->integer('task_id')->index();
-            $table->integer('task_user_id')->index();
+            $table->integer('parent_id')->index();
             $table->text('text')->nullable();
             $table->string('file')->nullable();
             $table->timestamps();

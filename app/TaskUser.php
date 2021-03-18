@@ -17,4 +17,9 @@ class TaskUser extends Model
     {
         return $this->belongsTo(\App\Task::class,'task_id')->with('items');//->where('status','!=','draft');
     }
+
+    public function items()
+    {
+        return $this->hasMany(\App\TaskUserItem::class,'parent_id');
+    }
 }
