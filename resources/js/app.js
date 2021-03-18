@@ -20,7 +20,9 @@ Vue.use(abilitiesPlugin, ability);
 // datepicker
 import 'vue2-datepicker/scss/index.scss'
 
-
+// Global function
+import {g} from './globalfunc.js'
+Vue.prototype.$g = g
 
 //Fire For Listers
 window.Fire = new Vue();

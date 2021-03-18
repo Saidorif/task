@@ -8369,6 +8369,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8389,12 +8410,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         users: []
       },
       userlist: [],
+      selectedUsersList: [],
       requiredInput: false,
       isLoading: false,
-      selectedUser: []
+      selectedUser: null
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('task', ['getMassage'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('user', ['getUserList'])),
+  watch: {
+    selectedUser: function selectedUser(val) {
+      if (this.selectedUsersList.length) {
+        var found = false;
+        this.selectedUsersList.forEach(function (item) {
+          if (item.id == val.id) {
+            found = true;
+          }
+        });
+
+        if (!found) {
+          this.selectedUsersList.push(val);
+        }
+      } else {
+        this.selectedUsersList.push(val);
+      }
+    }
+  },
+  updated: function updated() {
+    feather.replace();
+  },
   methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('task', ['actionAddTask'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])('user', ['ActionUserList'])), {}, {
     isRequired: function isRequired(input) {
       return this.requiredInput && input === '';
@@ -8404,6 +8447,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           surename = _ref.surename,
           lastname = _ref.lastname;
       return "".concat(name, " ").concat(surename, " ").concat(lastname);
+    },
+    deleteUser: function deleteUser(ind) {
+      console.log(ind);
+    },
+    svotUser: function svotUser(ind) {
+      console.log(ind);
     },
     asyncFind: function asyncFind(val) {
       var trval = cril().reverse(val);
@@ -8424,7 +8473,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   break;
                 }
 
-                _this.form.users = _this.selectedUser;
+                _this.form.users = _this.selectedUser.map(function (item) {
+                  return {
+                    user_id: item.id,
+                    svot: item.svot ? 1 : 0
+                  };
+                });
                 _context.next = 4;
                 return _this.actionAddTask(_this.form);
 
@@ -8433,17 +8487,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   toast.fire({
                     type: 'success',
                     icon: 'success',
-                    title: 'Action добавлен!'
+                    title: 'Task добавлен!'
                   });
 
-                  _this.$router.push("/crm/action");
+                  _this.$router.push("/crm/tasks");
 
                   _this.requiredInput = false;
                 } else {
                   toast.fire({
                     type: 'error',
                     icon: 'error',
-                    title: 'Такой Action уже существует!'
+                    title: 'Такой Task уже существует!'
                   });
                 }
 
@@ -8460,31 +8514,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }, _callee);
       }))();
-    },
-    filterController: function filterController(value) {
-      var _this2 = this;
-
-      if (value != '') {
-        this.isLoading = true;
-        setTimeout(function () {
-          _this2.actionContsFind({
-            name: value
-          });
-
-          _this2.isLoading = false;
-        }, 1000);
-      }
-    },
-    selectedItem: function selectedItem(selectedOption, id) {
-      this.findController = selectedOption;
-      this.form.conts_id = this.findController.id;
-    },
-    selectSlot: function selectSlot() {
-      console.log('ss');
     }
   }),
   mounted: function mounted() {
-    var _this3 = this;
+    var _this2 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -8492,10 +8525,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this3.ActionUserList();
+              return _this2.ActionUserList();
 
             case 2:
-              _this3.userlist = _this3.getUserList;
+              _this2.userlist = _this2.getUserList;
               feather.replace();
 
             case 4:
@@ -8786,6 +8819,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -8799,9 +8839,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              feather.replace();
-              _context.next = 3;
+              _context.next = 2;
               return _this.actionTasks();
+
+            case 2:
+              feather.replace();
 
             case 3:
             case "end":
@@ -48877,7 +48919,7 @@ var render = function() {
           _c("div", { staticClass: "row align-items-end" }, [
             _c(
               "div",
-              { staticClass: "col-md-3" },
+              { staticClass: "col-md-5" },
               [
                 _c("multiselect", {
                   class: _vm.isRequired(_vm.selectedUser) ? "isRequired" : "",
@@ -48886,14 +48928,14 @@ var render = function() {
                     "custom-label": _vm.nameWithLang,
                     placeholder: "Выберите User",
                     selectLabel: "Нажмите Enter, чтобы выбрать",
-                    multiple: true,
+                    multiple: false,
                     deselectLabel: "Нажмите Enter, чтобы удалить",
                     "allow-empty": false,
                     label: "name surename",
                     "internal-search": false,
                     "track-by": "name"
                   },
-                  on: { tag: _vm.selectSlot, "search-change": _vm.asyncFind },
+                  on: { "search-change": _vm.asyncFind },
                   model: {
                     value: _vm.selectedUser,
                     callback: function($$v) {
@@ -48906,29 +48948,7 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-2" },
-              [
-                _c("date-picker", {
-                  attrs: {
-                    placeholder: "Выберите срок",
-                    "value-type": "format",
-                    format: "DD.MM.YYYY"
-                  },
-                  model: {
-                    value: _vm.form.exp_date,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "exp_date", $$v)
-                    },
-                    expression: "form.exp_date"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "input_style col-md-3" }, [
+            _c("div", { staticClass: "input_style col-md-5" }, [
               _c("input", {
                 directives: [
                   {
@@ -48952,39 +48972,103 @@ var render = function() {
                 }
               }),
               _vm._v(" "),
-              _c("label", { attrs: { for: "contName" } }, [
-                _vm._v("Action Name")
-              ])
+              _c("label", { attrs: { for: "contName" } }, [_vm._v("Title")])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "input_style col-md-3" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.code,
-                    expression: "form.code"
+            _c(
+              "div",
+              { staticClass: "col-md-2" },
+              [
+                _c("date-picker", {
+                  attrs: {
+                    placeholder: "Выберите срок",
+                    "value-type": "format",
+                    format: "DD.MM.YYYY"
+                  },
+                  model: {
+                    value: _vm.form.exp_date,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "exp_date", $$v)
+                    },
+                    expression: "form.exp_date"
                   }
-                ],
-                staticClass: "form-control input_style",
-                class: _vm.isRequired(_vm.form.code) ? "isRequired" : "",
-                attrs: { type: "text", id: "contName", required: "" },
-                domProps: { value: _vm.form.code },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form, "code", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "contName" } }, [_vm._v("Code")])
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "table-responsive mt-5" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "table table-bordered text-center table-hover table-striped"
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.selectedUsersList, function(user, index) {
+                      return _c("tr", [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(user.name) +
+                              " " +
+                              _vm._s(user.surename) +
+                              " " +
+                              _vm._s(user.lastname)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn_blue_icon",
+                              on: {
+                                click: function($event) {
+                                  return _vm.svotUser(index)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "sidebar_icon",
+                                attrs: { "data-feather": "check-square" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn_red_icon",
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteUser(index)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "sidebar_icon",
+                                attrs: { "data-feather": "trash" }
+                              })
+                            ]
+                          )
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
             ]),
             _vm._v(" "),
-            _vm._m(0)
+            _vm._m(1)
           ])
         ]
       )
@@ -48996,13 +49080,33 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("№")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ф.И.О")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Отдель")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Должность")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Действия")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form_btn_block" }, [
       _c("button", { staticClass: "btn_green", attrs: { type: "submit" } }, [
         _c("i", {
           staticClass: "sidebar_icon",
           attrs: { "data-feather": "save" }
         }),
-        _vm._v("\n\t\t\t\t\t\t  \tСохранить\n\t\t\t\t\t\t")
+        _vm._v(
+          "\n                            Сохранить\n                        "
+        )
       ])
     ])
   }
@@ -49284,11 +49388,33 @@ var render = function() {
                         _vm._v(_vm._s(index + 1))
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cont.name))]),
+                      _c("td", [_vm._v(_vm._s(cont.title))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v("controller")]),
+                      _c("td", { staticStyle: { padding: "0px" } }, [
+                        _c(
+                          "ul",
+                          _vm._l(cont.users, function(item) {
+                            return _c(
+                              "li",
+                              { class: item.svot == 1 ? "active" : "" },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(item.user.name) +
+                                    "\n                                        " +
+                                    _vm._s(item.user.surename) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(cont.code))]),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$g.getDate(cont.exp_date)) + "г")
+                      ]),
                       _vm._v(" "),
                       _c(
                         "td",
@@ -49296,26 +49422,36 @@ var render = function() {
                           _c(
                             "router-link",
                             {
-                              staticClass: "btn_transparent",
+                              staticClass: "btn_blue_icon",
                               attrs: {
                                 tag: "button",
                                 to: "/crm/tasks/edit/" + cont.id
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-pen" })]
+                            [
+                              _c("i", {
+                                staticClass: "sidebar_icon",
+                                attrs: { "data-feather": "edit-2" }
+                              })
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
                             "button",
                             {
-                              staticClass: "btn_transparent",
+                              staticClass: "btn_red_icon",
                               on: {
                                 click: function($event) {
                                   return _vm.deleteConts(cont.id)
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-trash" })]
+                            [
+                              _c("i", {
+                                staticClass: "sidebar_icon",
+                                attrs: { "data-feather": "trash" }
+                              })
+                            ]
                           )
                         ],
                         1
@@ -49348,9 +49484,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Название")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Controller")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Users")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Code")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Срок")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Действия")])
       ])
@@ -70276,14 +70412,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store_store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store/store */ "./resources/js/store/store.js");
 /* harmony import */ var vue2_datepicker_scss_index_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue2-datepicker/scss/index.scss */ "./node_modules/vue2-datepicker/scss/index.scss");
 /* harmony import */ var vue2_datepicker_scss_index_scss__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue2_datepicker_scss_index_scss__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var cyrillic_to_translit_js_CyrillicToTranslit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! cyrillic-to-translit-js/CyrillicToTranslit */ "./node_modules/cyrillic-to-translit-js/CyrillicToTranslit.js");
-/* harmony import */ var cyrillic_to_translit_js_CyrillicToTranslit__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(cyrillic_to_translit_js_CyrillicToTranslit__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _components_layouts_Master__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/layouts/Master */ "./resources/js/components/layouts/Master.vue");
-/* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/storage.service */ "./resources/js/services/storage.service.js");
-/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/api.service */ "./resources/js/services/api.service.js");
+/* harmony import */ var _globalfunc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./globalfunc.js */ "./resources/js/globalfunc.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var cyrillic_to_translit_js_CyrillicToTranslit__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cyrillic-to-translit-js/CyrillicToTranslit */ "./node_modules/cyrillic-to-translit-js/CyrillicToTranslit.js");
+/* harmony import */ var cyrillic_to_translit_js_CyrillicToTranslit__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(cyrillic_to_translit_js_CyrillicToTranslit__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _components_layouts_Master__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/layouts/Master */ "./resources/js/components/layouts/Master.vue");
+/* harmony import */ var _services_storage_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/storage.service */ "./resources/js/services/storage.service.js");
+/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/api.service */ "./resources/js/services/api.service.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // ProgressBar
@@ -70303,7 +70440,10 @@ Vue.use(_casl_vue__WEBPACK_IMPORTED_MODULE_1__["abilitiesPlugin"], _store_store_
 /* FOR MANAGING USER PERMISSIONS */
 // datepicker
 
- //Fire For Listers
+ // Global function
+
+
+Vue.prototype.$g = _globalfunc_js__WEBPACK_IMPORTED_MODULE_4__["g"]; //Fire For Listers
 
 window.Fire = new Vue(); // Router
 
@@ -70314,10 +70454,10 @@ window.Fire = new Vue(); // Router
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js")); // Sweetalert2
 
 
-window.swal = sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a;
+window.swal = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a;
 
-window.cril = cyrillic_to_translit_js_CyrillicToTranslit__WEBPACK_IMPORTED_MODULE_6___default.a;
-var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.mixin({
+window.cril = cyrillic_to_translit_js_CyrillicToTranslit__WEBPACK_IMPORTED_MODULE_7___default.a;
+var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_6___default.a.mixin({
   toast: true,
   position: 'top',
   showConfirmButton: false,
@@ -70329,19 +70469,19 @@ window.toast = toast;
 
  // SET THE BASE_URL OF THE API
 
-_services_api_service__WEBPACK_IMPORTED_MODULE_9__["default"].init(process.env.VUE_APP_ROOT_API);
-_services_api_service__WEBPACK_IMPORTED_MODULE_9__["default"].mount401Interceptor(); // IF TOKEN EXISTS SET HEADER
+_services_api_service__WEBPACK_IMPORTED_MODULE_10__["default"].init(process.env.VUE_APP_ROOT_API);
+_services_api_service__WEBPACK_IMPORTED_MODULE_10__["default"].mount401Interceptor(); // IF TOKEN EXISTS SET HEADER
 
-if (_services_storage_service__WEBPACK_IMPORTED_MODULE_8__["TokenService"].getToken()) {
-  _services_api_service__WEBPACK_IMPORTED_MODULE_9__["default"].setHeader();
-  _services_api_service__WEBPACK_IMPORTED_MODULE_9__["default"].mount401Interceptor();
+if (_services_storage_service__WEBPACK_IMPORTED_MODULE_9__["TokenService"].getToken()) {
+  _services_api_service__WEBPACK_IMPORTED_MODULE_10__["default"].setHeader();
+  _services_api_service__WEBPACK_IMPORTED_MODULE_10__["default"].mount401Interceptor();
 }
 
 var app = new Vue({
   el: '#app',
-  router: _routes__WEBPACK_IMPORTED_MODULE_4__["default"],
+  router: _routes__WEBPACK_IMPORTED_MODULE_5__["default"],
   components: {
-    Master: _components_layouts_Master__WEBPACK_IMPORTED_MODULE_7__["default"]
+    Master: _components_layouts_Master__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
   store: _store_store__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
@@ -72245,6 +72385,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Master_vue_vue_type_template_id_3eb1485a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/globalfunc.js":
+/*!************************************!*\
+  !*** ./resources/js/globalfunc.js ***!
+  \************************************/
+/*! exports provided: g */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return g; });
+var g = {
+  getDate: function getDate(date) {
+    var new_date = new Date(date);
+    var month = new_date.getMonth() + 1 <= 9 ? '0' + (new_date.getMonth() + 1) : new_date.getMonth() + 1;
+    var day = new_date.getDate() <= 9 ? '0' + new_date.getDate() : new_date.getDate();
+    var year = new_date.getFullYear();
+    return day + "." + month + "." + year;
+  }
+};
 
 /***/ }),
 

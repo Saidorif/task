@@ -450,6 +450,15 @@ ul li {
   font-size: 16px !important;
 }
 
+.multiselect__tag {
+  cursor: pointer !important;
+}
+
+.multiselect__tag.selected,
+.multiselect__tag:hover {
+  background: #3a8d68;
+}
+
 .multiselect__placeholder {
   margin-bottom: 0px !important;
   padding-top: 0px !important;
@@ -460,5 +469,25 @@ ul li {
 
 .isRequired {
   border-color: red !important;
+}
+
+tbody tr td ul {
+  margin-bottom: 0;
+  list-style: none;
+  padding: 0;
+}
+
+tbody tr td ul li {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+tbody tr td ul li.active {
+  background: #6ac0f2;
+}
+
+tbody tr td ul li:last-child {
+  border: none;
 }
 
