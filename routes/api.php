@@ -20,6 +20,7 @@ Route::group([
     Route::group(['middleware' => 'jwt.auth'], function(){
         Route::get('dashboard', 'DashboardController@index');
         Route::get('profile','UserController@profile');
+        Route::get('user/all','UserController@index');
         Route::get('user/list','UserController@list');
         Route::post('change-password','UserController@changePasword');
 
@@ -28,6 +29,7 @@ Route::group([
         Route::get('task/user','TaskController@userIndex');
         Route::post('task/store','TaskController@store');
         Route::post('task/update/{id}','TaskController@update');
+        Route::get('task/edit/{id}','TaskController@edit');
         Route::delete('task/destroy/{id}','TaskController@destroy');
 
         //User tasks

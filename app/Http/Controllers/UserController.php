@@ -52,4 +52,10 @@ class UserController extends Controller
         $user->save();
         return response()->json(['success' => true, 'message' => 'Пароль успешно изменен']);
     }
+
+    public function index(Request $request)
+    {
+        $result = User::with(['position'])->where(['role_id' => 2])->paginate(20);
+        return response()->json(['success' => true,'result' => $result]);
+    }
 }

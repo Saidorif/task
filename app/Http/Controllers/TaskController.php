@@ -28,7 +28,7 @@ class TaskController extends Controller
 
     public function edit(Request $request,$id)
     {
-        $result = Task::find($id);
+        $result = Task::with(['items','users'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Task not found']);
         }
@@ -149,6 +149,9 @@ class TaskController extends Controller
             return response()->json(['error' => true, 'message' => 'Task not found']);
         }
         if($task->status == 'draft'){
+            //delete task items
+            $task->items()->delete();
+            $task->users()->delete();
             $task->delete();
             return response()->json(['success' => true, 'message' => 'Task deleted']);
         }
