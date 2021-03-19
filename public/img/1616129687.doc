@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Task</title>
+        <!-- Fonts -->
+        <link rel="stylesheet" href="http://task.loc/css/bootstrap.css?version=1.1.1">
+        <link rel="stylesheet" href="http://task.loc/css/app.css?version=1.1.1">
+        <link rel="stylesheet" href="http://task.loc/fonts/fonts.css?version=1.1.1">
+
+    </head>
+    <body>
+        <div id="app">
+            <Master/>
+        </div>
+        <script src="http://task.loc/js/feather.min.js"></script>
+        <script src="http://task.loc/js/bootstrap.js"></script>
+        <script src="http://task.loc/js/app.js"></script>
+        <script>
+            feather.replace()
+        </script>
+
+    </body>
+</html>

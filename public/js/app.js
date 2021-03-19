@@ -8657,6 +8657,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_editor__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue2-editor */ "./node_modules/vue2-editor/dist/vue2-editor.esm.js");
 
 
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -8667,6 +8669,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8831,11 +8842,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         title: "",
         items: [],
         exp_date: "",
-        users: []
+        users: [],
+        status: ''
       },
       allItems: [{
         text: "",
-        file: ""
+        file: null
       }],
       userlist: [],
       selectedUsersList: [],
@@ -8891,15 +8903,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             case 5:
               _this.userlist = _this.getUserList;
               _this.form.title = _this.getTask.title;
+              _this.form.status = _this.getTask.status;
               _this.form.exp_date = _this.$g.getDate(_this.getTask.exp_date);
               _this.selectedUsersList = _this.getTask.users.map(function (item) {
-                return item.user;
+                var data = item.user;
+                data.svot = item.svot;
+
+                if (item.svot == 1) {
+                  _this.hasSvot = true;
+                }
+
+                return data;
               });
               _this.allItems = _this.getTask.items;
-              console.log(_this.getTask);
+              console.log(_typeof(_this.allItems[0].file));
               feather.replace();
 
-            case 12:
+            case 13:
             case "end":
               return _context.stop();
           }
@@ -8907,14 +8927,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _callee);
     }))();
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("task", ["actionEditTask"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("user", ["ActionUserList"])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("task", ["actionEditTask", "actionUpdateTask"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("user", ["ActionUserList"])), {}, {
     isRequired: function isRequired(input) {
       return this.requiredInput && input === "";
     },
     addItem: function addItem() {
       var item = {
         text: "",
-        file: ""
+        file: null
       };
       this.allItems.push(item);
     },
@@ -8969,7 +8989,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var name = event.target.files[0].name;
       document.querySelector("#" + labelId).innerHTML = name;
       item.file = event.target.files[0];
-      console.log(item.file);
     },
     svotUser: function svotUser(user, index) {
       user.svot = !user.svot;
@@ -8992,7 +9011,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context3.prev = _context3.next) {
               case 0:
                 if (!(_this3.form.title != "" && _this3.form.exp_date != "" && _this3.selectedUsersList.length)) {
-                  _context3.next = 12;
+                  _context3.next = 13;
                   break;
                 }
 
@@ -9004,6 +9023,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
                 formData = new FormData();
                 formData.append("title", _this3.form.title);
+                formData.append("id", _this3.$route.params.taskId);
                 formData.append("exp_date", _this3.form.exp_date);
 
                 _this3.form.users.forEach(function (item, index) {
@@ -9013,18 +9033,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 _this3.allItems.forEach(function (item, index) {
                   formData.append("items[".concat(index, "][text]"), item.text);
-                  formData.append("items[".concat(index, "][file]"), item.file);
+
+                  if (_typeof(item.file) == 'object') {
+                    formData.append("items[".concat(index, "][file]"), item.file);
+                  }
                 });
 
-                _context3.next = 9;
-                return _this3.actionAddTask(formData);
+                _context3.next = 10;
+                return _this3.actionUpdateTask({
+                  id: _this3.$route.params.taskId,
+                  data: formData
+                });
 
-              case 9:
+              case 10:
                 if (_this3.getMassage.success) {
                   toast.fire({
                     type: "success",
                     icon: "success",
-                    title: "Task добавлен!"
+                    title: "Task обновлено!"
                   });
 
                   _this3.$router.push("/crm/tasks");
@@ -9038,13 +9064,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 }
 
-                _context3.next = 13;
+                _context3.next = 14;
                 break;
 
-              case 12:
+              case 13:
                 _this3.requiredInput = true;
 
-              case 13:
+              case 14:
               case "end":
                 return _context3.stop();
             }
@@ -63536,33 +63562,103 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("div", { staticClass: "input_style_file" }, [
-                      _c(
-                        "label",
-                        {
-                          attrs: { for: "file", id: "inputFileLabel" + index }
-                        },
-                        [_vm._v("File Upload")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        attrs: { type: "file", id: "file" },
-                        on: {
-                          change: function($event) {
-                            return _vm.inputFileUpload(
-                              $event,
-                              "inputFileLabel" + index,
-                              item
-                            )
-                          }
-                        }
-                      })
-                    ])
+                    typeof item.file == "string"
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "btn_black  col-md-5",
+                            attrs: { href: item.file, download: "" }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "sidebar_icon",
+                              attrs: { "data-feather": "download" }
+                            }),
+                            _vm._v("Download")
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    item.file == null || typeof item.file == "object"
+                      ? _c("div", { staticClass: "input_style_file" }, [
+                          _c(
+                            "label",
+                            {
+                              attrs: {
+                                for: "file",
+                                id: "inputFileLabel" + index
+                              }
+                            },
+                            [_vm._v("File Upload")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            attrs: { type: "file", id: "file" },
+                            on: {
+                              change: function($event) {
+                                return _vm.inputFileUpload(
+                                  $event,
+                                  "inputFileLabel" + index,
+                                  item
+                                )
+                              }
+                            }
+                          })
+                        ])
+                      : _vm._e()
                   ])
                 ]
               }),
               _vm._v(" "),
               _c("div", { staticClass: "form_btn_block" }, [
+                _c("div", { staticClass: "input_style col-md-2 mr_15" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.status,
+                          expression: "form.status"
+                        }
+                      ],
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "status",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "draft" } }, [
+                        _vm._v("Неактивный")
+                      ]),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "active" } }, [
+                        _vm._v("Активный")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("label", { attrs: { for: "contName" } }, [
+                    _vm._v("Status")
+                  ])
+                ]),
+                _vm._v(" "),
                 _c(
                   "button",
                   {
@@ -88249,7 +88345,7 @@ var TaskService = {
     return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/task/edit/".concat(data.id));
   },
   updateTask: function updateTask(data) {
-    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/update/".concat(data.id), data);
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].fileSend("/api/task/update/".concat(data.id), data.data);
   },
   removeTask: function removeTask(id) {
     return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/task/destroy/".concat(id));
@@ -90306,7 +90402,7 @@ var actions = {
             case 4:
               _actions5 = _context5.sent;
               _context5.next = 7;
-              return commit('setEditTask', _actions5.data.result);
+              return commit('setMessage', _actions5.data);
 
             case 7:
               return _context5.abrupt("return", true);

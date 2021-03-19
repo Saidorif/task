@@ -69,7 +69,7 @@
               <tbody>
                 <tr
                   v-for="(user, index) in selectedUsersList"
-                  :class="{ selected: user.svot }"
+                  :class="{ selected: user.svot}"
                 >
                   <td>{{ index + 1 }}</td>
                   <td>
@@ -113,7 +113,8 @@
               >
                 <i data-feather="trash" class="sidebar_icon"></i>
               </button>
-              <div class="input_style_file">
+                <a :href="item.file" v-if="typeof item.file == 'string'" class="btn_black  col-md-5" download=""><i class="sidebar_icon" data-feather="download"></i>Download</a>
+              <div class="input_style_file" v-if="item.file == null || typeof item.file == 'object'">
                 <label for="file" :id="'inputFileLabel' + index"
                   >File Upload</label
                 >
@@ -128,6 +129,14 @@
             </div>
           </template>
           <div class="form_btn_block">
+            <div class="input_style col-md-2 mr_15">
+                <select  v-model="form.status">
+                    <option value="draft">Неактивный</option>
+                    <option value="active">Активный</option>
+                </select>
+                <label for="contName">Status</label>
+            </div>
+
             <button
               type="button"
               class="btn_blue mr_15"
@@ -164,8 +173,9 @@ export default {
         items: [],
         exp_date: "",
         users: [],
+        status: '',
       },
-      allItems: [{ text: "", file: "" }],
+      allItems: [{ text: "", file: null }],
       userlist: [],
       selectedUsersList: [],
       requiredInput: false,
@@ -207,20 +217,28 @@ export default {
     await this.actionEditTask(data);
     this.userlist = this.getUserList;
     this.form.title = this.getTask.title
+    this.form.status = this.getTask.status
     this.form.exp_date = this.$g.getDate(this.getTask.exp_date)
-    this.selectedUsersList = this.getTask.users.map(item => item.user)
+    this.selectedUsersList = this.getTask.users.map(item => {
+            let data = item.user
+            data.svot = item.svot
+            if(item.svot == 1){
+                this.hasSvot = true
+            }
+            return data
+    })
     this.allItems = this.getTask.items
-    console.log(this.getTask)
+    console.log(typeof this.allItems[0].file)
     feather.replace();
   },
   methods: {
-    ...mapActions("task", ["actionEditTask"]),
+    ...mapActions("task", ["actionEditTask", "actionUpdateTask"]),
     ...mapActions("user", ["ActionUserList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
     addItem() {
-      let item = { text: "", file: "" };
+      let item = { text: "", file: null };
       this.allItems.push(item);
     },
     deleteItem(index) {
@@ -258,7 +276,6 @@ export default {
       const name = event.target.files[0].name;
       document.querySelector("#" + labelId).innerHTML = name;
       item.file = event.target.files[0];
-      console.log(item.file);
     },
     svotUser(user, index) {
       user.svot = !user.svot;
@@ -282,6 +299,7 @@ export default {
         });
         let formData = new FormData();
         formData.append("title", this.form.title);
+        formData.append("id", this.$route.params.taskId);
         formData.append("exp_date", this.form.exp_date);
         this.form.users.forEach((item, index) => {
           formData.append(`users[${index}][user_id]`, item.user_id);
@@ -289,14 +307,16 @@ export default {
         });
         this.allItems.forEach((item, index) => {
           formData.append(`items[${index}][text]`, item.text);
-          formData.append(`items[${index}][file]`, item.file);
+          if(typeof item.file == 'object'){
+            formData.append(`items[${index}][file]`, item.file);
+          }
         });
-        await this.actionAddTask(formData);
+        await this.actionUpdateTask({id: this.$route.params.taskId, data: formData});
         if (this.getMassage.success) {
           toast.fire({
             type: "success",
             icon: "success",
-            title: "Task добавлен!",
+            title: "Task обновлено!",
           });
           this.$router.push("/crm/tasks");
           this.requiredInput = false;

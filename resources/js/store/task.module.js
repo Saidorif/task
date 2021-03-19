@@ -59,7 +59,7 @@ const actions = {
 	async actionUpdateTask({commit},payload){
 		try {
 			const actions =  await TaskService.updateTask(payload);
-			await commit('setEditTask',actions.data.result)
+			await commit('setMessage',actions.data)
 			return true
 		} catch (error) {
 			return false

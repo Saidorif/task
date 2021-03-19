@@ -11,7 +11,7 @@ const TaskService = {
 		return ApiService.get(`/api/task/edit/${data.id}`)
 	},
 	updateTask(data){
-		return ApiService.post(`/api/task/update/${data.id}`,data)
+		return ApiService.fileSend(`/api/task/update/${data.id}`,data.data)
 	},
     removeTask(id){
         return ApiService.delete(`/api/task/destroy/${id}`)
