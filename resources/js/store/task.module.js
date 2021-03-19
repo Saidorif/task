@@ -47,6 +47,15 @@ const actions = {
 			return false
 		}
 	},
+    async actionDeleteTask({commit},payload){
+		try {
+			const actions =  await TaskService.removeTask(payload);
+			await commit('setMessage', actions.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 	async actionUpdateTask({commit},payload){
 		try {
 			const actions =  await TaskService.updateTask(payload);
