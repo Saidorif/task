@@ -35,7 +35,7 @@
                                 <router-link tag="button" class="btn_blue_icon" :to='`/crm/tasks/edit/${cont.id}`'>
 									<i data-feather="edit-2" class="sidebar_icon" ></i>
 								</router-link>
-								<button class="btn_red_icon" @click="deleteConts(cont.id)">
+								<button class="btn_red_icon" @click="deleteItem(cont.id)">
 									<i data-feather="trash" class="sidebar_icon" ></i>
 								</button>
 							</td>
@@ -64,10 +64,34 @@
 			...mapGetters('task',['getTasks','getMassage'])
 		},
 		methods:{
-			...mapActions('task',['actionTasks']),
+			...mapActions('task',['actionTasks', 'actionDeleteTask']),
 			async getResults(page = 1){
 				await this.actionTasks(page)
 			},
+            async deleteItem(id){
+                swal.fire({
+                    type: 'confirm',
+                    toast: false,
+                    icon: 'question',
+                    title: 'Вы действительно хотите удалить?',
+                    confirmButtonText: `Удалить`,
+                    cancelButtonText: `Отмена`,
+                    showCancelButton: true
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        let page = 1
+                        await this.actionDeleteTask(id)
+                        if(this.getMassage.success){
+                            await this.actionTasks(page)
+                            toast.fire({
+                                type: 'success',
+                                icon: 'success',
+                                title: this.getMassage.message,
+                            })
+                        }
+                    }
+                })
+			}
 		}
 	}
 </script>

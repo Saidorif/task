@@ -80,15 +80,18 @@
                             <vue-editor id="text" v-model="item.text" />
                         </div>
                         <div class="col-md-3">
+                            <button type="button" class="btn_red_icon" v-if="index > 0" @click="deleteItem(index)" style="margin-bottom: 70px;">
+                                <i data-feather="trash" class="sidebar_icon" ></i>
+                            </button>
                             <div class="input_style_file">
-                                <label for="file" id="inputFileLabel">File Upload</label>
-                                <input type="file" id="file" @change="inputFileUpload($event, 'inputFileLabel', item)">
+                                <label for="file" :id="'inputFileLabel'+index">File Upload</label>
+                                <input type="file" id="file" @change="inputFileUpload($event, 'inputFileLabel'+index, item)">
                             </div>
                         </div>
                     </template>
                     <div class="form_btn_block">
-                        <button type="button" class="btn_green" @click.prevent="addItem">
-                            <i class="sidebar_icon" data-feather="save"></i>
+                        <button type="button" class="btn_blue mr_15" @click.prevent="addItem">
+                            <i class="sidebar_icon" data-feather="plus"></i>
                             Add
                         </button>
                         <button type="submit" class="btn_green">
@@ -134,7 +137,6 @@
 		computed:{
 			...mapGetters('task',['getMassage']),
 			...mapGetters('user', ['getUserList']),
-
 		},
         watch:{
             selectedUser: function(val){
@@ -167,6 +169,9 @@
                 let item = {text:'',file:''}
                 this.allItems.push(item)
             },
+            deleteItem(index){
+                this.allItems.splice(index, 1)
+            },
             nameWithLang ({ name, surename, lastname}) {
                 return `${name} ${surename} ${lastname}`
             },
@@ -191,11 +196,6 @@
                 }
                 const name = event.target.files[0].name;
                 document.querySelector('#'+labelId).innerHTML = name;
-                // let reader = new FileReader();
-                // reader.onload = e => {
-                //     item.file = e.target.result;
-                // };
-                // reader.readAsBinaryString(event.target.files[0]);
                 item.file = event.target.files[0]
                 console.log(item.file)
             },
@@ -215,19 +215,9 @@
                     this.form.users = this.selectedUsersList.map((item)=>{
                         return {user_id: item.id, svot: item.svot ? 1 : 0}
                     })
-                    let myarray = [];
-                    // this.form.items.forEach((item)=>{
-                    //     let formData = new FormData();
-                    //     formData.append('text', item.text)
-                    //     formData.append('file', item.file)
-                    //     myarray.push(formData)
-                    // })
                     let formData = new FormData();
                     formData.append("title", this.form.title);
                     formData.append("exp_date", this.form.exp_date);
-                    // formData.append("users", this.form.users);
-                    // formData.append("items", this.form.items);
-                    // this.form.items = myarray
                     this.form.users.forEach((item, index)=>{
                         formData.append(`users[${index}][user_id]`, item.user_id)
                         formData.append(`users[${index}][svot]`, item.svot)

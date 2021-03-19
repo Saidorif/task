@@ -13,6 +13,9 @@ const TaskService = {
 	updateTask(data){
 		return ApiService.post(`/api/task/update/${data.id}`,data)
 	},
+    removeTask(id){
+        return ApiService.delete(`/api/task/destroy/${id}`)
+	},
 };
 
 export { TaskService };
