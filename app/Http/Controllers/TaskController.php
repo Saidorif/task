@@ -35,11 +35,18 @@ class TaskController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function userEdit(Request $request,$id)
+    {
+        $result = TaskUser::with(['items','user','task'])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Task not found']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public  function store(Request $request)
     {
         $inputs = $request->all();
-//        $inputs['users'] = json_decode($inputs['users'],true);
-//        $inputs['items'] = json_decode($inputs['items'],true);
         $validator = Validator::make($inputs,[
             'title' => 'required|string',
             'status' => 'nullable|string',
@@ -123,11 +130,15 @@ class TaskController extends Controller
         }
         if(!empty($inputs['items']) && count($inputs['items']) > 0){
             //delete old items
-            $task_items = $task->items()->delete();
+            //$task_items = $task->items()->delete();
             //create task items
             foreach($inputs['items'] as $k => $item){
                 $item['task_id'] = $task->id;
-                $task_item = TaskItem::create($item);
+                if(!empty($item['id'])){
+                    $task_item = TaskItem::find($item['id']);
+                }else{
+                    $task_item = TaskItem::create($item);
+                }
                 //Upload file
                 if($request->hasFile('items.'.$k.'.file')){
                     $file = $request->file('items.'.$k.'.file');
