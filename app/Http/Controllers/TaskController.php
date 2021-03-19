@@ -35,6 +35,15 @@ class TaskController extends Controller
         return response()->json(['success' => true, 'result' => $result]);
     }
 
+    public function userEdit(Request $request,$id)
+    {
+        $result = TaskUser::with(['items','user','task'])->find($id);
+        if(!$result){
+            return response()->json(['error' => true, 'message' => 'Task not found']);
+        }
+        return response()->json(['success' => true, 'result' => $result]);
+    }
+
     public  function store(Request $request)
     {
         $inputs = $request->all();
