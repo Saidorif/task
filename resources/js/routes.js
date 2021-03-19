@@ -32,6 +32,11 @@ import Tasks from './components/admin/tasks/Tasks'
 import AddTask from './components/admin/tasks/AddTask'
 import EditTask from './components/admin/tasks/EditTask'
 
+// Usertask
+import UserTasks from './components/admin/usertask/UserTasks'
+import AddUserTask from './components/admin/usertask/AddUserTask'
+import EditUserTask from './components/admin/usertask/EditUserTask'
+
 // Region
 import Region from './components/admin/region/Region'
 import AddRegion from './components/admin/region/AddRegion'
@@ -41,6 +46,9 @@ import EditRegion from './components/admin/region/EditRegion'
 import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
 import EditArea from './components/admin/area/EditArea'
+
+// Users
+import Users from './components/admin/users/Users'
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -72,6 +80,10 @@ const router = new Router({
 					component:Profile,
 				},
 				{
+					path:'users',
+					component:Users,
+				},
+				{
 					path:'tasks',
 					component:Tasks,
 				},
@@ -82,6 +94,18 @@ const router = new Router({
 				{
 					path:'tasks/edit/:taskId',
 					component:EditTask,
+				},
+				{
+					path:'user-task',
+					component:UserTasks,
+				},
+				{
+					path:'user-task/add',
+					component:AddUserTask,
+				},
+				{
+					path:'user-task/edit/:taskId',
+					component:EditUserTask,
 				},
 				{
 					path:'region',

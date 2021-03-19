@@ -1,17 +1,17 @@
 import ApiService from './api.service'
 
 const UserTaskService = {
-	tasks(){
-		return ApiService.get(`/api/task`)
+	usertasks(){
+		return ApiService.get(`/api/task/user`)
 	},
-	addTask(data){
-		return ApiService.fileSend(`/api/task/store`,data)
+	sendAnswer(data){
+		return ApiService.fileSend(`/api/usertask/store`,data)
 	},
-	editTask(data){
-		return ApiService.get(`/api/task/edit/${data.id}`)
+	editUserTask(data){
+		return ApiService.get(`/api/usertask/edit/${data.id}`)
 	},
 	updateTask(data){
-		return ApiService.post(`/api/task/update/${data.id}`,data)
+		return ApiService.post(`/api/usertask/update/${data.id}`,data)
 	},
 };
 

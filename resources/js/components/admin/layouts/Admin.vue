@@ -51,10 +51,26 @@
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/crm/users" class="nav-link">
+              <i class="sidebar_icon" data-feather="users" ></i>
+              <p>
+                Users
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/crm/tasks" class="nav-link">
               <i class="sidebar_icon" data-feather="layers" ></i>
               <p>
                 Tasks
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/crm/user-task" class="nav-link">
+              <i class="sidebar_icon" data-feather="clipboard" ></i>
+              <p>
+                User task
               </p>
             </router-link>
           </li>

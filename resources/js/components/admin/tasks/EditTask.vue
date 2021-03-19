@@ -61,7 +61,7 @@
                 <tr>
                   <th>№</th>
                   <th>Ф.И.О</th>
-                  <th>Отдель</th>
+                  <th>Управление</th>
                   <th>Должность</th>
                   <th>Действия</th>
                 </tr>
@@ -75,7 +75,7 @@
                   <td>
                     {{ user.name }} {{ user.surename }} {{ user.lastname }}
                   </td>
-                  <td>otdel</td>
+                  <td>{{user.position.structure.name}}</td>
                   <td>{{ user.position.name }}</td>
                   <td>
                     <button
@@ -228,7 +228,6 @@ export default {
             return data
     })
     this.allItems = this.getTask.items
-    console.log(typeof this.allItems[0].file)
     feather.replace();
   },
   methods: {
@@ -301,13 +300,19 @@ export default {
         formData.append("title", this.form.title);
         formData.append("id", this.$route.params.taskId);
         formData.append("exp_date", this.form.exp_date);
+        formData.append("status", this.form.status);
         this.form.users.forEach((item, index) => {
           formData.append(`users[${index}][user_id]`, item.user_id);
           formData.append(`users[${index}][svot]`, item.svot);
         });
         this.allItems.forEach((item, index) => {
           formData.append(`items[${index}][text]`, item.text);
-          if(typeof item.file == 'object'){
+          if(item.id){
+              formData.append(`items[${index}][id]`, item.id);
+          }
+          if(typeof item.file == 'object' && item.file != null){
+              console.log(typeof item.file)
+              console.log(item.file)
             formData.append(`items[${index}][file]`, item.file);
           }
         });

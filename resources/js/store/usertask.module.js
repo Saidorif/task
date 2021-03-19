@@ -1,4 +1,4 @@
-import {UserUserTaskService} from "../services/usertask.service";
+import {UserTaskService} from "../services/usertask.service";
 
 const state = {
 	tasks: {},
@@ -7,40 +7,40 @@ const state = {
 };
 
 const getters = {
-	getTasks(state){
+	getUserTasks(state){
 		return state.tasks
 	},
 	getMassage(state){
 		return state.message
 	},
-	getTask(state){
+	getUserTask(state){
 		return state.task
 	},
 };
 
 
 const actions = {
-	async actionTasks({commit},page){
+	async actionUserTasks({commit},page){
 		try {
-			const actions =  await UserTaskService.tasks(page);
+			const actions =  await UserTaskService.usertasks(page);
 			await commit('setTasks',actions.data.result)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionAddTask({commit},payload){
+	async actionSendAnswer({commit},payload){
 		try {
-			const actions =  await UserTaskService.addTask(payload);
+			const actions =  await UserTaskService.sendAnswer(payload);
 			await commit('setMessage',actions.data)
 			return true
 		} catch (error) {
 			return false
 		}
 	},
-	async actionEditTask({commit},payload){
+	async actionEditUserTask({commit},payload){
 		try {
-			const actions =  await UserTaskService.editTask(payload);
+			const actions =  await UserTaskService.editUserTask(payload);
 			await commit('setEditTask',actions.data.result)
 			return true
 		} catch (error) {

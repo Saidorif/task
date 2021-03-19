@@ -51,7 +51,7 @@
                                 <tr>
                                     <th>№</th>
                                     <th>Ф.И.О</th>
-                                    <th>Отдель</th>
+                                    <th>Управление</th>
                                     <th>Должность</th>
                                     <th>Действия</th>
                                 </tr>
@@ -60,7 +60,7 @@
                                 <tr v-for="(user, index) in selectedUsersList" :class="{ 'selected': user.svot }" >
                                     <td>{{ index + 1}} </td>
                                     <td>{{user.name}} {{ user.surename }} {{user.lastname}}</td>
-                                    <td>otdel  </td>
+                                    <td>{{user.position.structure.name}} </td>
                                     <td>{{user.position.name}}</td>
                                     <td>
                                         <button type="button" class="btn_blue_icon" @click="svotUser(user, index)" v-if="!hasSvot || user.svot">

@@ -10,6 +10,7 @@ import router from "./../routes"
 import {UserService} from "../services/user.service";
 // modules
 import {user} from "./user.module"
+import {users} from "./users.module"
 import {role} from "./role.module"
 import {conts} from "./conts.module"
 import {action} from "./action.module"
@@ -35,6 +36,7 @@ const store = new Vuex.Store(
 		],
 		modules:{
 			user,
+			users,
 			role,
 			conts,
 			action,
