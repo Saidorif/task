@@ -206,6 +206,10 @@ export default {
     await this.ActionUserList();
     await this.actionEditTask(data);
     this.userlist = this.getUserList;
+    this.form.title = this.getTask.title
+    this.form.exp_date = this.$g.getDate(this.getTask.exp_date)
+    this.selectedUsersList = this.getTask.users.map(item => item.user)
+    this.allItems = this.getTask.items
     console.log(this.getTask)
     feather.replace();
   },
