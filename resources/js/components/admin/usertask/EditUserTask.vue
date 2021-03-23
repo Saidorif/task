@@ -68,12 +68,47 @@
         <a :href="'/'+item.file" class="btn_black btn_download" download="">
             <i class="sidebar_icon" data-feather="download"></i>Download</a>
     </div>
-    <h2>Topshiriq bo'yicha qilingan ishlar</h2>
-    <div class="jv_card" v-for="(item, index) in allItems">
-      <div class="col-md-12" v-html="item.text"></div>
-        <a :href="'/'+item.file" class="btn_black btn_download" download="">
-            <i class="sidebar_icon" data-feather="download"></i>Download
-        </a>
+    <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
+    <div class="jv_card" >
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation" v-for="(item, index) in getTask.users">
+                <button class="nav-link" :class="index == 0 ? 'active' : ''"
+                    :id="'home-tab'+index"
+                    data-bs-toggle="tab"
+                    :data-bs-target="'#home'+index"
+                    type="button" role="tab"
+                    :aria-controls="'home'+index" :aria-selected="true">{{item.user.name}} {{item.user.surename}}</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade"  :class="index == 0 ? 'show active' : ''"
+            :id="'home'+index" role="tabpanel" :aria-labelledby="'home-tab'+index" v-for="(item, index) in getTask.users">
+                <div class="table-responsive mt-4" v-if="item.items.length">
+                    <table
+                    class="table table-bordered text-center table-hover table-striped"
+                    >
+                    <thead>
+                        <tr>
+                            <th>sana</th>
+                            <th>Xisobot matni</th>
+                            <th>file</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            <tr  v-for="(ans, ind) in item.items">
+                                <td>{{ $g.getDate(ans.created_at) }}</td>
+                                <td> <div v-html="ans.text"></div> </td>
+                                <td>
+                                    <a :href="'/'+ans.file" v-if="ans.file" class="btn_blue_icon" download="">
+                                        <i class="sidebar_icon" data-feather="download"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
     <h2>Xisobod</h2>
     <form class="jv_card"  @submit.prevent.enter="saveAction" enctype="multipart/form-data">
@@ -152,8 +187,8 @@ export default {
       id: this.$route.params.taskId,
     };
     await this.ActionUserList();
-    await this.actionEditTask(data);
-    console.log(this.getUserTask)
+    // await this.actionEditTask(data);
+    await this.actionEditUserTask(data);
     this.userlist = this.getUserList;
     this.form.title = this.getTask.title;
     this.form.status = this.getTask.status;
@@ -202,12 +237,16 @@ export default {
         formData.append("parent_id", this.$route.params.taskId);
         await this.actionSendAnswer(formData);
         if (this.getMassage.success) {
-          toast.fire({
-            type: "success",
-            icon: "success",
-            title: "Task обновлено!",
-          });
-          this.requiredInput = false;
+            await this.actionEditTask({id: this.$route.params.taskId});
+            this.answer.title = ''
+            this.answer.file = ''
+            document.querySelector("#inputFileLabel").innerHTML = '';
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: "Task обновлено!",
+            });
+            this.requiredInput = false;
         } else {
           toast.fire({
             type: "error",

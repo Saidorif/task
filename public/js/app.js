@@ -10182,6 +10182,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10238,10 +10273,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             case 3:
               _context.next = 5;
-              return _this.actionEditTask(data);
+              return _this.actionEditUserTask(data);
 
             case 5:
-              console.log(_this.getUserTask);
               _this.userlist = _this.getUserList;
               _this.form.title = _this.getTask.title;
               _this.form.status = _this.getTask.status;
@@ -10259,7 +10293,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               _this.allItems = _this.getTask.items;
               feather.replace();
 
-            case 13:
+            case 12:
             case "end":
               return _context.stop();
           }
@@ -10290,7 +10324,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context2.prev = _context2.next) {
               case 0:
                 if (!(_this2.answer.title != "")) {
-                  _context2.next = 11;
+                  _context2.next = 21;
                   break;
                 }
 
@@ -10307,28 +10341,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _this2.actionSendAnswer(formData);
 
               case 8:
-                if (_this2.getMassage.success) {
-                  toast.fire({
-                    type: "success",
-                    icon: "success",
-                    title: "Task обновлено!"
-                  });
-                  _this2.requiredInput = false;
-                } else {
-                  toast.fire({
-                    type: "error",
-                    icon: "error",
-                    title: "Такой Task уже существует!"
-                  });
+                if (!_this2.getMassage.success) {
+                  _context2.next = 18;
+                  break;
                 }
 
-                _context2.next = 12;
-                break;
+                _context2.next = 11;
+                return _this2.actionEditTask({
+                  id: _this2.$route.params.taskId
+                });
 
               case 11:
+                _this2.answer.title = '';
+                _this2.answer.file = '';
+                document.querySelector("#inputFileLabel").innerHTML = '';
+                toast.fire({
+                  type: "success",
+                  icon: "success",
+                  title: "Task обновлено!"
+                });
+                _this2.requiredInput = false;
+                _context2.next = 19;
+                break;
+
+              case 18:
+                toast.fire({
+                  type: "error",
+                  icon: "error",
+                  title: "Такой Task уже существует!"
+                });
+
+              case 19:
+                _context2.next = 22;
+                break;
+
+              case 21:
                 _this2.requiredInput = true;
 
-              case 12:
+              case 22:
               case "end":
                 return _context2.stop();
             }
@@ -65744,31 +65794,124 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _c("h2", [_vm._v("Topshiriq bo'yicha qilingan ishlar")]),
+      _c("h2", [_vm._v("Topshiriq bo'yicha bajarilgan ishlar")]),
       _vm._v(" "),
-      _vm._l(_vm.allItems, function(item, index) {
-        return _c("div", { staticClass: "jv_card" }, [
-          _c("div", {
-            staticClass: "col-md-12",
-            domProps: { innerHTML: _vm._s(item.text) }
+      _c("div", { staticClass: "jv_card" }, [
+        _c(
+          "ul",
+          {
+            staticClass: "nav nav-tabs",
+            attrs: { id: "myTab", role: "tablist" }
+          },
+          _vm._l(_vm.getTask.users, function(item, index) {
+            return _c(
+              "li",
+              { staticClass: "nav-item", attrs: { role: "presentation" } },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "nav-link",
+                    class: index == 0 ? "active" : "",
+                    attrs: {
+                      id: "home-tab" + index,
+                      "data-bs-toggle": "tab",
+                      "data-bs-target": "#home" + index,
+                      type: "button",
+                      role: "tab",
+                      "aria-controls": "home" + index,
+                      "aria-selected": true
+                    }
+                  },
+                  [
+                    _vm._v(
+                      _vm._s(item.user.name) + " " + _vm._s(item.user.surename)
+                    )
+                  ]
+                )
+              ]
+            )
           }),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "btn_black btn_download",
-              attrs: { href: "/" + item.file, download: "" }
-            },
-            [
-              _c("i", {
-                staticClass: "sidebar_icon",
-                attrs: { "data-feather": "download" }
-              }),
-              _vm._v("Download\n      ")
-            ]
-          )
-        ])
-      }),
+          0
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "tab-content", attrs: { id: "myTabContent" } },
+          _vm._l(_vm.getTask.users, function(item, index) {
+            return _c(
+              "div",
+              {
+                staticClass: "tab-pane fade",
+                class: index == 0 ? "show active" : "",
+                attrs: {
+                  id: "home" + index,
+                  role: "tabpanel",
+                  "aria-labelledby": "home-tab" + index
+                }
+              },
+              [
+                item.items.length
+                  ? _c("div", { staticClass: "table-responsive mt-4" }, [
+                      _c(
+                        "table",
+                        {
+                          staticClass:
+                            "table table-bordered text-center table-hover table-striped"
+                        },
+                        [
+                          _vm._m(1, true),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(item.items, function(ans, ind) {
+                              return _c("tr", [
+                                _c("td", [
+                                  _vm._v(_vm._s(_vm.$g.getDate(ans.created_at)))
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  _c("div", {
+                                    domProps: { innerHTML: _vm._s(ans.text) }
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("td", [
+                                  ans.file
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass: "btn_blue_icon",
+                                          attrs: {
+                                            href: "/" + ans.file,
+                                            download: ""
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "sidebar_icon",
+                                            attrs: {
+                                              "data-feather": "download"
+                                            }
+                                          })
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ])
+                              ])
+                            }),
+                            0
+                          )
+                        ]
+                      )
+                    ])
+                  : _vm._e()
+              ]
+            )
+          }),
+          0
+        )
+      ]),
       _vm._v(" "),
       _c("h2", [_vm._v("Xisobod")]),
       _vm._v(" "),
@@ -65838,7 +65981,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(2)
         ]
       )
     ],
@@ -65859,6 +66002,20 @@ var staticRenderFns = [
         _c("th", [_vm._v("Управление")]),
         _vm._v(" "),
         _c("th", [_vm._v("Должность")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("sana")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Xisobot matni")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("file")])
       ])
     ])
   },
