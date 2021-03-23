@@ -69,10 +69,10 @@
             <i class="sidebar_icon" data-feather="download"></i>Download</a>
     </div>
     <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
-    <div class="jv_card" >
+    <div class="jv_card" v-if="getUserTask.task" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" v-for="(item, index) in getUserTask.task.users">
-                <button class="nav-link" :class="index == 0 ? 'active' : ''"
+                <button class="nav-link" :class="getUserTask.user_id == item.user_id ? 'active' : ''"
                     :id="'home-tab'+index"
                     data-bs-toggle="tab"
                     :data-bs-target="'#home'+index"
@@ -81,7 +81,7 @@
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade"  :class="index == 0 ? 'show active' : ''"
+            <div class="tab-pane fade"  :class="getUserTask.user_id == item.user_id ? 'show active' : ''"
             :id="'home'+index" role="tabpanel" :aria-labelledby="'home-tab'+index" v-for="(item, index) in getUserTask.task.users">
                 <div class="table-responsive mt-4" v-if="item.items.length">
                     <table
@@ -237,8 +237,8 @@ export default {
         formData.append("parent_id", this.$route.params.taskId);
         await this.actionSendAnswer(formData);
         if (this.getMassage.success) {
-            await this.actionEditTask({id: this.$route.params.taskId});
-            this.answer.title = ''
+            await this.actionEditUserTask({id: this.$route.params.taskId});
+            this.answer.text = ''
             this.answer.file = ''
             document.querySelector("#inputFileLabel").innerHTML = '';
             toast.fire({

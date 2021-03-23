@@ -10348,12 +10348,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
 
                 _context2.next = 11;
-                return _this2.actionEditTask({
+                return _this2.actionEditUserTask({
                   id: _this2.$route.params.taskId
                 });
 
               case 11:
-                _this2.answer.title = '';
+                _this2.answer.text = '';
                 _this2.answer.file = '';
                 document.querySelector("#inputFileLabel").innerHTML = '';
                 toast.fire({
@@ -65798,122 +65798,136 @@ var render = function() {
       _vm._v(" "),
       _c("h2", [_vm._v("Topshiriq bo'yicha bajarilgan ishlar")]),
       _vm._v(" "),
-      _c("div", { staticClass: "jv_card" }, [
-        _c(
-          "ul",
-          {
-            staticClass: "nav nav-tabs",
-            attrs: { id: "myTab", role: "tablist" }
-          },
-          _vm._l(_vm.getUserTask.task.users, function(item, index) {
-            return _c(
-              "li",
-              { staticClass: "nav-item", attrs: { role: "presentation" } },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass: "nav-link",
-                    class: index == 0 ? "active" : "",
-                    attrs: {
-                      id: "home-tab" + index,
-                      "data-bs-toggle": "tab",
-                      "data-bs-target": "#home" + index,
-                      type: "button",
-                      role: "tab",
-                      "aria-controls": "home" + index,
-                      "aria-selected": true
-                    }
-                  },
+      _vm.getUserTask.task
+        ? _c("div", { staticClass: "jv_card" }, [
+            _c(
+              "ul",
+              {
+                staticClass: "nav nav-tabs",
+                attrs: { id: "myTab", role: "tablist" }
+              },
+              _vm._l(_vm.getUserTask.task.users, function(item, index) {
+                return _c(
+                  "li",
+                  { staticClass: "nav-item", attrs: { role: "presentation" } },
                   [
-                    _vm._v(
-                      _vm._s(item.user.name) + " " + _vm._s(item.user.surename)
+                    _c(
+                      "button",
+                      {
+                        staticClass: "nav-link",
+                        class:
+                          _vm.getUserTask.user_id == item.user_id
+                            ? "active"
+                            : "",
+                        attrs: {
+                          id: "home-tab" + index,
+                          "data-bs-toggle": "tab",
+                          "data-bs-target": "#home" + index,
+                          type: "button",
+                          role: "tab",
+                          "aria-controls": "home" + index,
+                          "aria-selected": true
+                        }
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(item.user.name) +
+                            " " +
+                            _vm._s(item.user.surename)
+                        )
+                      ]
                     )
                   ]
                 )
-              ]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "tab-content", attrs: { id: "myTabContent" } },
-          _vm._l(_vm.getUserTask.task.users, function(item, index) {
-            return _c(
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c(
               "div",
-              {
-                staticClass: "tab-pane fade",
-                class: index == 0 ? "show active" : "",
-                attrs: {
-                  id: "home" + index,
-                  role: "tabpanel",
-                  "aria-labelledby": "home-tab" + index
-                }
-              },
-              [
-                item.items.length
-                  ? _c("div", { staticClass: "table-responsive mt-4" }, [
-                      _c(
-                        "table",
-                        {
-                          staticClass:
-                            "table table-bordered text-center table-hover table-striped"
-                        },
-                        [
-                          _vm._m(1, true),
-                          _vm._v(" "),
+              { staticClass: "tab-content", attrs: { id: "myTabContent" } },
+              _vm._l(_vm.getUserTask.task.users, function(item, index) {
+                return _c(
+                  "div",
+                  {
+                    staticClass: "tab-pane fade",
+                    class:
+                      _vm.getUserTask.user_id == item.user_id
+                        ? "show active"
+                        : "",
+                    attrs: {
+                      id: "home" + index,
+                      role: "tabpanel",
+                      "aria-labelledby": "home-tab" + index
+                    }
+                  },
+                  [
+                    item.items.length
+                      ? _c("div", { staticClass: "table-responsive mt-4" }, [
                           _c(
-                            "tbody",
-                            _vm._l(item.items, function(ans, ind) {
-                              return _c("tr", [
-                                _c("td", [
-                                  _vm._v(_vm._s(_vm.$g.getDate(ans.created_at)))
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  _c("div", {
-                                    domProps: { innerHTML: _vm._s(ans.text) }
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("td", [
-                                  ans.file
-                                    ? _c(
-                                        "a",
-                                        {
-                                          staticClass: "btn_blue_icon",
-                                          attrs: {
-                                            href: "/" + ans.file,
-                                            download: ""
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass: "sidebar_icon",
-                                            attrs: {
-                                              "data-feather": "download"
-                                            }
-                                          })
-                                        ]
+                            "table",
+                            {
+                              staticClass:
+                                "table table-bordered text-center table-hover table-striped"
+                            },
+                            [
+                              _vm._m(1, true),
+                              _vm._v(" "),
+                              _c(
+                                "tbody",
+                                _vm._l(item.items, function(ans, ind) {
+                                  return _c("tr", [
+                                    _c("td", [
+                                      _vm._v(
+                                        _vm._s(_vm.$g.getDate(ans.created_at))
                                       )
-                                    : _vm._e()
-                                ])
-                              ])
-                            }),
-                            0
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      _c("div", {
+                                        domProps: {
+                                          innerHTML: _vm._s(ans.text)
+                                        }
+                                      })
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("td", [
+                                      ans.file
+                                        ? _c(
+                                            "a",
+                                            {
+                                              staticClass: "btn_blue_icon",
+                                              attrs: {
+                                                href: "/" + ans.file,
+                                                download: ""
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass: "sidebar_icon",
+                                                attrs: {
+                                                  "data-feather": "download"
+                                                }
+                                              })
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    ])
+                                  ])
+                                }),
+                                0
+                              )
+                            ]
                           )
-                        ]
-                      )
-                    ])
-                  : _vm._e()
-              ]
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              }),
+              0
             )
-          }),
-          0
-        )
-      ]),
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("h2", [_vm._v("Xisobod")]),
       _vm._v(" "),
