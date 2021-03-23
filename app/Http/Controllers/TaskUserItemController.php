@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\TaskUserItem;
+use App\TaskUser;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Storage;
@@ -69,7 +70,7 @@ class TaskUserItemController extends Controller
 
     public function edit(Request $request,$id)
     {
-        $tuitem = TaskUserItem::with(['task'])->find($id);
+        $tuitem = TaskUser::with(['task'])->find($id);
         if(!$tuitem){
             return response()->json(['error' => true, 'message' => 'Not found']);
         }

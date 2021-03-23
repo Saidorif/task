@@ -22,6 +22,7 @@
                                 :allow-empty="false"
                                 label="name surename"
                                 :internal-search="false"
+                                :close-on-select="false"
                                 track-by="name" @search-change="asyncFind">
                                     <!-- <template slot="tag" slot-scope="{ option, remove }">
                                         <span class="multiselect__tag" :class="option.svot ? 'selected' : ''">
@@ -207,7 +208,7 @@
             asyncFind(val){
                 let trval = cril().reverse(val)
                 this.userlist = this.getUserList.filter((el)=>{
-                    return el.name.toLowerCase().indexOf(trval.toLowerCase()) > -1;
+                    return el.name.toLowerCase().indexOf(trval.toLowerCase()) > -1 || el.surename.toLowerCase().indexOf(trval.toLowerCase()) > -1;
                 })
             },
 		    async saveAction(){

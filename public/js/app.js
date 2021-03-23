@@ -8428,6 +8428,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -8554,7 +8555,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     asyncFind: function asyncFind(val) {
       var trval = cril().reverse(val);
       this.userlist = this.getUserList.filter(function (el) {
-        return el.name.toLowerCase().indexOf(trval.toLowerCase()) > -1;
+        return el.name.toLowerCase().indexOf(trval.toLowerCase()) > -1 || el.surename.toLowerCase().indexOf(trval.toLowerCase()) > -1;
       });
     },
     saveAction: function saveAction() {
@@ -10277,10 +10278,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             case 5:
               _this.userlist = _this.getUserList;
-              _this.form.title = _this.getTask.title;
-              _this.form.status = _this.getTask.status;
-              _this.form.exp_date = _this.$g.getDate(_this.getTask.exp_date);
-              _this.selectedUsersList = _this.getTask.users.map(function (item) {
+              _this.form.title = _this.getUserTask.task.title;
+              _this.form.status = _this.getUserTask.task.status;
+              _this.form.exp_date = _this.$g.getDate(_this.getUserTask.task.exp_date);
+              _this.selectedUsersList = _this.getUserTask.task.users.map(function (item) {
                 var data = item.user;
                 data.svot = item.svot;
 
@@ -10290,7 +10291,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 return data;
               });
-              _this.allItems = _this.getTask.items;
+              _this.allItems = _this.getUserTask.task.items;
               feather.replace();
 
             case 12:
@@ -12759,7 +12760,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.cv_tab[data-v-249b4910]{\r\n  background: #9fc1cc40;\r\n  padding: 30px 0px;\n}\npage[data-v-249b4910] {\r\n    background: white;\r\n    display: block;\r\n    margin: 0px auto;\r\n    margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\r\n    width: 21cm;\r\n    height: 29.7cm;\r\n    padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\r\n    width: 29.7cm;\r\n    height: 21cm;\n}\n.cv_title[data-v-249b4910]{\r\n    text-align: center;\r\n    font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\r\n    width: 130px;\r\n    height: 150px;\r\n    overflow: hidden;\r\n    border: 1px solid #000;\r\n    margin-right: 30px;\r\n    margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\r\n    width: 100%;\n}\n.cv_header[data-v-249b4910]{\r\n    display: flex;\r\n    align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\r\n    width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\r\n    font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\r\n    font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\r\n    margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\r\n    list-style: none;\r\n    width: 60%;\r\n    margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\r\n        width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\r\n    display: flex;\r\n    flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\r\n    width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\r\n    text-align: center;\r\n    font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\r\n    list-style: none;\r\n    display: flex;\r\n    justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\r\n    width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\r\n    width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\r\n     margin-bottom: 0;\n}\n.print_cv[data-v-249b4910]{\r\n      position: absolute;\r\n      right: 0;\r\n      top: 120px;\r\n      background: #3f6ad8;\r\n      color: #fff;\r\n      padding: 10px 30px;\r\n      border: none;\n}\n@media print\r\n    {\npage[data-v-249b4910] {\r\n        background: white;\r\n        display: block;\r\n        margin: 0px auto;\r\n        margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\r\n        width: 21cm;\r\n        height: 29.7cm;\r\n        padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\r\n        width: 29.7cm;\r\n        height: 21cm;\n}\n.cv_title[data-v-249b4910]{\r\n        text-align: center;\r\n        font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\r\n        width: 130px;\r\n        height: 150px;\r\n        overflow: hidden;\r\n        border: 1px solid #000;\r\n        margin-right: 30px;\r\n        margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\r\n        width: 100%;\n}\n.cv_header[data-v-249b4910]{\r\n        display: flex;\r\n        align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\r\n        width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\r\n        font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\r\n        font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\r\n        margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\r\n        display: flex;\r\n        flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\r\n        list-style: none;\r\n        width: 60%;\r\n        margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\r\n            width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\r\n        display: flex;\r\n        flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\r\n        width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\r\n        text-align: center;\r\n        font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\r\n        list-style: none;\r\n        display: flex;\r\n        justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\r\n        width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\r\n        width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\r\n        margin-bottom: 0;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.cv_tab[data-v-249b4910]{\n  background: #9fc1cc40;\n  padding: 30px 0px;\n}\npage[data-v-249b4910] {\n    background: white;\n    display: block;\n    margin: 0px auto;\n    margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\n    width: 21cm;\n    height: 29.7cm;\n    padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\n    width: 29.7cm;\n    height: 21cm;\n}\n.cv_title[data-v-249b4910]{\n    text-align: center;\n    font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\n    width: 130px;\n    height: 150px;\n    overflow: hidden;\n    border: 1px solid #000;\n    margin-right: 30px;\n    margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\n    width: 100%;\n}\n.cv_header[data-v-249b4910]{\n    display: flex;\n    align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\n    width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\n    font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\n    font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\n    margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\n    display: flex;\n    flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\n    list-style: none;\n    width: 60%;\n    margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\n        width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\n    display: flex;\n    flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\n    width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\n    text-align: center;\n    font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\n    list-style: none;\n    display: flex;\n    justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\n    width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\n    width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\n     margin-bottom: 0;\n}\n.print_cv[data-v-249b4910]{\n      position: absolute;\n      right: 0;\n      top: 120px;\n      background: #3f6ad8;\n      color: #fff;\n      padding: 10px 30px;\n      border: none;\n}\n@media print\n    {\npage[data-v-249b4910] {\n        background: white;\n        display: block;\n        margin: 0px auto;\n        margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\n        width: 21cm;\n        height: 29.7cm;\n        padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\n        width: 29.7cm;\n        height: 21cm;\n}\n.cv_title[data-v-249b4910]{\n        text-align: center;\n        font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\n        width: 130px;\n        height: 150px;\n        overflow: hidden;\n        border: 1px solid #000;\n        margin-right: 30px;\n        margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\n        width: 100%;\n}\n.cv_header[data-v-249b4910]{\n        display: flex;\n        align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\n        width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\n        font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\n        font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\n        margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\n        display: flex;\n        flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\n        list-style: none;\n        width: 60%;\n        margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\n            width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\n        display: flex;\n        flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\n        width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\n        text-align: center;\n        font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\n        list-style: none;\n        display: flex;\n        justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\n        width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\n        width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\n        margin-bottom: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -12797,7 +12798,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.jv_card_header[data-v-3f8899de] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: flex-start;\r\n  flex-direction: row;\n}\n.btn_download[data-v-3f8899de]{\r\n    position: absolute;\r\n    top: 15px;\r\n    right: 15px;\n}\n.jv_card_body[data-v-3f8899de]{\r\n    display: flex;\r\n    justify-content: space-between;\r\n      flex-direction: row;\r\n      align-items: flex-end;\n}\r\n", ""]);
+exports.push([module.i, "\n.jv_card_header[data-v-3f8899de] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  flex-direction: row;\n}\n.btn_download[data-v-3f8899de]{\n    position: absolute;\n    top: 15px;\n    right: 15px;\n}\n.jv_card_body[data-v-3f8899de]{\n    display: flex;\n    justify-content: space-between;\n      flex-direction: row;\n      align-items: flex-end;\n}\n", ""]);
 
 // exports
 
@@ -13037,10 +13038,10 @@ module.exports = function cyrillicToTranslit(config) {
   if (_preset === "ru") {
     // Russian: i > always и, y > ы in non-initial position, e > е in non-initial position
     _reversedNonFirstLetters = Object.assign(invert(_firstLetters), {
-      "i": "и", 
+      "i": "и",
       "y": "ы",
       "e": "е",
-      "": "" 
+      "": ""
     });
   } else if (_preset === "uk") {
     // Ukrainian: i > always i, y > always и, e > always е
@@ -13133,7 +13134,7 @@ module.exports = function cyrillicToTranslit(config) {
         i++;
         continue;
       }
-      
+
       let newLetter;
 
       let digraph = normalizedInput.slice(i, i + 2).toLowerCase();
@@ -64061,6 +64062,7 @@ var render = function() {
                       "allow-empty": false,
                       label: "name surename",
                       "internal-search": false,
+                      "close-on-select": false,
                       "track-by": "name"
                     },
                     on: { "search-change": _vm.asyncFind },
@@ -65803,7 +65805,7 @@ var render = function() {
             staticClass: "nav nav-tabs",
             attrs: { id: "myTab", role: "tablist" }
           },
-          _vm._l(_vm.getTask.users, function(item, index) {
+          _vm._l(_vm.getUserTask.task.users, function(item, index) {
             return _c(
               "li",
               { staticClass: "nav-item", attrs: { role: "presentation" } },
@@ -65838,7 +65840,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "tab-content", attrs: { id: "myTabContent" } },
-          _vm._l(_vm.getTask.users, function(item, index) {
+          _vm._l(_vm.getUserTask.task.users, function(item, index) {
             return _c(
               "div",
               {
@@ -93366,8 +93368,8 @@ var usertask = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

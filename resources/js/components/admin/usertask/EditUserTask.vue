@@ -71,7 +71,7 @@
     <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
     <div class="jv_card" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation" v-for="(item, index) in getTask.users">
+            <li class="nav-item" role="presentation" v-for="(item, index) in getUserTask.task.users">
                 <button class="nav-link" :class="index == 0 ? 'active' : ''"
                     :id="'home-tab'+index"
                     data-bs-toggle="tab"
@@ -82,7 +82,7 @@
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade"  :class="index == 0 ? 'show active' : ''"
-            :id="'home'+index" role="tabpanel" :aria-labelledby="'home-tab'+index" v-for="(item, index) in getTask.users">
+            :id="'home'+index" role="tabpanel" :aria-labelledby="'home-tab'+index" v-for="(item, index) in getUserTask.task.users">
                 <div class="table-responsive mt-4" v-if="item.items.length">
                     <table
                     class="table table-bordered text-center table-hover table-striped"
@@ -190,10 +190,10 @@ export default {
     // await this.actionEditTask(data);
     await this.actionEditUserTask(data);
     this.userlist = this.getUserList;
-    this.form.title = this.getTask.title;
-    this.form.status = this.getTask.status;
-    this.form.exp_date = this.$g.getDate(this.getTask.exp_date);
-    this.selectedUsersList = this.getTask.users.map((item) => {
+    this.form.title = this.getUserTask.task.title;
+    this.form.status = this.getUserTask.task.status;
+    this.form.exp_date = this.$g.getDate(this.getUserTask.task.exp_date);
+    this.selectedUsersList = this.getUserTask.task.users.map((item) => {
       let data = item.user;
       data.svot = item.svot;
       if (item.svot == 1) {
@@ -201,7 +201,7 @@ export default {
       }
       return data;
     });
-    this.allItems = this.getTask.items;
+    this.allItems = this.getUserTask.task.items;
     feather.replace();
   },
   methods: {
