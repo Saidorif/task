@@ -21,7 +21,7 @@ class TaskUserItem extends Model
 
     public function task()
     {
-        return $this->belongsTo(\App\Task::class,'task_id');
+        return $this->belongsTo(\App\Task::class,'task_id')->with(['items','users']);
     }
 
     public function parent()

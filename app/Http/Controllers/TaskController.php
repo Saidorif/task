@@ -54,7 +54,7 @@ class TaskController extends Controller
             'users' => 'required|array',
             'users.*.user_id' => 'required|integer',
             'users.*.svot' => 'required|integer',
-            'items' => 'required|array',
+            'items' => 'nullable|array',
             'items.*.text' => 'nullable|string',
             'items.*.file' => 'nullable|file',
         ]);
@@ -106,7 +106,7 @@ class TaskController extends Controller
             'users' => 'required|array',
             'users.*.user_id' => 'required|integer',
             'users.*.svot' => 'required|integer',
-            'items' => 'required|array',
+            'items' => 'nullable|array',
             'items.*.text' => 'nullable|string',
             'items.*.file' => 'nullable|file',
         ]);
