@@ -31,7 +31,8 @@ class TaskController extends Controller
         }
         $start_month = $inputs['calendar'];
         $result = [];
-        $result = DB::select("SELECT COUNT(*) AS qty,exp_date FROM `tasks` WHERE exp_date BETWEEN '$start_month' AND '$start_month'");
+        //$result = DB::select("SELECT * FROM `tasks` WHERE exp_date BETWEEN '$start_month' AND '$start_month'");
+        $result = Task::with(['users','items','creater'])->where(['exp_date' => $start_month])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
