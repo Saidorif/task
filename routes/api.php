@@ -26,6 +26,7 @@ Route::group([
 
         //Task
         Route::get('task','TaskController@index');
+        Route::post('task/get-by-date','TaskController@getByDate');
         Route::get('task/user','TaskController@userIndex');
         Route::get('task/user/edit/{id}','TaskController@userEdit');
         Route::post('task/store','TaskController@store');
