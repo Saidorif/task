@@ -12,27 +12,38 @@
         <div class="row align-items-end">
           <div class="col-md-5">
             <multiselect
-              v-model="selectedUser"
-              :options="userlist"
-              :custom-label="nameWithLang"
-              placeholder="Выберите User"
-              selectLabel="Нажмите Enter, чтобы выбрать"
-              :multiple="false"
-              deselectLabel="Нажмите Enter, чтобы удалить"
-              :class="isRequired(selectedUser) ? 'isRequired' : ''"
-              :allow-empty="false"
-              label="name surename"
-              :internal-search="false"
-              track-by="name"
-              @search-change="asyncFind"
-            >
-              <!-- <template slot="tag" slot-scope="{ option, remove }">
-                                        <span class="multiselect__tag" :class="option.svot ? 'selected' : ''">
-                                            <span @click="selectSvot(option)">{{ option.name }} {{ option.surename }}</span>
-                                            <i aria-hidden="true" tabindex="1" class="multiselect__tag-icon" @click="remove(option)"></i>
-                                        </span>
-                                    </template> -->
-            </multiselect>
+                v-model="selectedUser"
+                :options="userlist"
+                :custom-label="nameWithLang"
+                placeholder="Выберите User"
+                selectLabel="Нажмите Enter, чтобы выбрать"
+                :multiple="false"
+                deselectLabel="Нажмите Enter, чтобы удалить"
+                :class="isRequired(selectedUser) ? 'isRequired' : ''"
+                :allow-empty="false"
+                label="name surename"
+                :internal-search="false"
+                :close-on-select="false"
+                track-by="name" @search-change="asyncFind">
+                    <!-- <template slot="tag" slot-scope="{ option, remove }">
+                        <span class="multiselect__tag" :class="option.svot ? 'selected' : ''">
+                            <span @click="selectSvot(option)">{{ option.name }} {{ option.surename }}</span>
+                            <i aria-hidden="true" tabindex="1" class="multiselect__tag-icon" @click="remove(option)"></i>
+                        </span>
+                    </template> -->
+                        <template slot="singleLabel" slot-scope="props">
+                            <span class="option__desc">
+                                <span class="option__title">{{ props.option.name }} {{ props.option.surename }}</span>
+                            </span>
+                        </template>
+                        <template slot="option" slot-scope="props">
+                            <div class="option__desc">
+                                <b class="option__title">{{ props.option.name }} {{ props.option.surename }} </b> <br>
+                                <small class="option__small">{{ props.option.position.structure.name }} - <i>{{ props.option.position.name }}</i> </small>
+
+                            </div>
+                        </template>
+                </multiselect>
           </div>
           <div class="input_style col-md-5">
             <input
@@ -153,6 +164,50 @@
         </div>
       </form>
     </div>
+    <div class="jv_card">
+            <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
+    <div class="jv_card" v-if="getTask.users" >
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation" v-for="(item, index) in getTask.users">
+                <button class="nav-link" :class="index == 0 ? 'active' : ''"
+                    :id="'home-tab'+index"
+                    data-bs-toggle="tab"
+                    :data-bs-target="'#home'+index"
+                    type="button" role="tab"
+                    :aria-controls="'home'+index" :aria-selected="true">{{item.user.name}} {{item.user.surename}}</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade"  :class="index == 0 ? 'show active' : ''"
+            :id="'home'+index" role="tabpanel" :aria-labelledby="'home-tab'+index" v-for="(item, index) in getTask.users">
+                <div class="table-responsive mt-4" v-if="item.items.length">
+                    <table
+                    class="table table-bordered text-center table-hover table-striped"
+                    >
+                    <thead>
+                        <tr>
+                            <th>sana</th>
+                            <th>Xisobot matni</th>
+                            <th>file</th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            <tr  v-for="(ans, ind) in item.items">
+                                <td>{{ $g.getDate(ans.created_at) }}</td>
+                                <td> <div v-html="ans.text"></div> </td>
+                                <td>
+                                    <a :href="'/'+ans.file" v-if="ans.file" class="btn_blue_icon" download="">
+                                        <i class="sidebar_icon" data-feather="download"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
   </div>
 </template>
 <script>
@@ -243,8 +298,8 @@ export default {
     deleteItem(index) {
       this.allItems.splice(index, 1);
     },
-    nameWithLang({ name, surename, lastname }) {
-      return `${name} ${surename} ${lastname}`;
+    nameWithLang({ name, surename, lastname, position }) {
+        return `${position.name} ${name} ${surename} ${lastname}`
     },
     deleteUser(ind) {
       swal
