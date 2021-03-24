@@ -11,6 +11,8 @@ Vue.use(VueProgressBar,{
 
 Vue.config.devtools = false
 
+import VCalendar from 'v-calendar';
+Vue.use(VCalendar, {componentPrefix: 'vc'});
 
 /* FOR MANAGING USER PERMISSIONS */
 import {abilitiesPlugin} from '@casl/vue'

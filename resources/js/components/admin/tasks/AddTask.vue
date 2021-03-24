@@ -30,6 +30,18 @@
                                             <i aria-hidden="true" tabindex="1" class="multiselect__tag-icon" @click="remove(option)"></i>
                                         </span>
                                     </template> -->
+                                        <template slot="singleLabel" slot-scope="props">
+                                            <span class="option__desc">
+                                                <span class="option__title">{{ props.option.name }} {{ props.option.surename }}</span>
+                                            </span>
+                                        </template>
+                                        <template slot="option" slot-scope="props">
+                                            <div class="option__desc">
+                                                <b class="option__title">{{ props.option.name }} {{ props.option.surename }} </b> <br>
+                                                <small class="option__small">{{ props.option.position.structure.name }} - <i>{{ props.option.position.name }}</i> </small>
+
+                                            </div>
+                                        </template>
                                 </multiselect>
                     </div>
                     <div class="input_style col-md-5">
@@ -173,8 +185,8 @@
             deleteItem(index){
                 this.allItems.splice(index, 1)
             },
-            nameWithLang ({ name, surename, lastname}) {
-                return `${name} ${surename} ${lastname}`
+            nameWithLang ({ name, surename, lastname, position}) {
+                return `${position.name} ${name} ${surename} ${lastname}`
             },
             deleteUser(ind){
                 swal.fire({
@@ -208,7 +220,7 @@
             asyncFind(val){
                 let trval = cril().reverse(val)
                 this.userlist = this.getUserList.filter((el)=>{
-                    return el.name.toLowerCase().indexOf(trval.toLowerCase()) > -1 || el.surename.toLowerCase().indexOf(trval.toLowerCase()) > -1;
+                    return el.name.toLowerCase().indexOf(trval.toLowerCase()) > -1 || el.surename.toLowerCase().indexOf(trval.toLowerCase()) > -1 || el.position.structure.name.toLowerCase().indexOf(trval.toLowerCase()) > -1;
                 })
             },
 		    async saveAction(){
