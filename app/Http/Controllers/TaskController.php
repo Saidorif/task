@@ -8,6 +8,7 @@ use App\TaskUser;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use Illuminate\Http\Request;
+use DB;
 
 class TaskController extends Controller
 {
@@ -17,6 +18,22 @@ class TaskController extends Controller
         $limit = !empty($params['limit']) ? (int)$params['limit'] : 12;
         $result = Task::with(['creater','users','items'])->orderBy('id','DESC')->paginate($limit);
         return response()->json(['success' => true,'result' => $result]);
+    }
+
+    public function getByDate(Request $request)
+    {
+        $inputs = $request->all();
+        $validator = Validator::make($inputs,[
+            'calendar' => 'required|date',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true,'message' => $validator->messages()]);
+        }
+        $start_month = $inputs['calendar'];
+        $result = [];
+        //$result = DB::select("SELECT * FROM `tasks` WHERE exp_date BETWEEN '$start_month' AND '$start_month'");
+        $result = Task::with(['users','items','creater'])->where(['exp_date' => $start_month])->get();
+        return response()->json(['success' => true, 'result' => $result]);
     }
 
     public function userIndex(Request $request)
