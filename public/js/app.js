@@ -5261,6 +5261,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5271,6 +5281,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       loaded: false,
       days: [],
+      currentDate: null,
       modelConfig: {
         type: 'string',
         mask: 'YYYY-MM-DD' // Uses 'iso' if missing
@@ -5281,14 +5292,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("dashboard", ["getDashboard"])), {}, {
     dates: function dates() {
       return this.days.map(function (day) {
-        return day.date;
+        return day;
       });
     },
     attributes: function attributes() {
       return this.dates.map(function (date) {
         return {
           highlight: true,
-          dates: date
+          dates: date.date,
+          customData: {
+            qty: date.qty,
+            date: date.date
+          },
+          popover: {
+            label: 'Tasks: ' + date.qty,
+            visibility: 'hover'
+          }
         };
       });
     }
@@ -5326,42 +5345,92 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     onDayClick: function onDayClick(day) {
-      var idx = this.days.findIndex(function (d) {
-        return d.id === day.id;
-      });
+      console.log(day.id);
+    },
+    pageChange: function pageChange(dataYear) {
+      var _this = this;
 
-      if (idx >= 0) {
-        this.days.splice(idx, 1);
-      } else {
-        this.days.push({
-          id: day.id,
-          date: day.date,
-          status: 'free'
-        });
-      }
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!_this.currentDate) {
+                  _context3.next = 9;
+                  break;
+                }
+
+                if (!(_this.currentDate.year != dataYear.year || _this.currentDate.month != dataYear.month)) {
+                  _context3.next = 7;
+                  break;
+                }
+
+                _this.currentDate = dataYear;
+                _context3.next = 5;
+                return _this.actionCalendarList(_this.currentDate);
+
+              case 5:
+                _this.monthDays = _this.getCalendarList.days;
+
+                if (_this.monthDays) {
+                  _this.getCalendarList.days.forEach(function (item) {
+                    if (item.status != "work") {
+                      var thisTime = new Date(item.timestamp * 1000);
+
+                      _this.days.push({
+                        id: item.simple,
+                        date: thisTime,
+                        status: 'free'
+                      });
+                    }
+                  });
+                }
+
+              case 7:
+                _context3.next = 13;
+                break;
+
+              case 9:
+                _this.currentDate = dataYear;
+                _context3.next = 12;
+                return _this.actionDashboard();
+
+              case 12:
+                _this.getDashboard.calendar.forEach(function (item) {
+                  _this.days.push({
+                    id: item.exp_date,
+                    date: item.exp_date,
+                    qty: item.qty
+                  });
+                });
+
+              case 13:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   }),
   mounted: function mounted() {
-    var _this = this;
+    var _this2 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context3.prev = _context3.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
-              _this.loaded = true;
-              _context3.next = 3;
-              return _this.actionDashboard();
+              _this2.loaded = true;
+              _context4.next = 3;
+              return _this2.actionDashboard();
 
             case 3:
-              console.log(_this.getDashboard);
-
-            case 4:
             case "end":
-              return _context3.stop();
+              return _context4.stop();
           }
         }
-      }, _callee3);
+      }, _callee4);
     }))();
   }
 });
@@ -12662,7 +12731,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n", ""]);
+exports.push([module.i, "\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\n    border: 1px solid red;\n    border-radius: 0px;\n    height: 24px;\n    width: 30px;\n    display: flex;\n    background: red;\n    color: white;\n    font-weight: bold;\n    line-height: 0;\n    letter-spacing: 0px;\n    font-size: 14px;\n    align-items: center;\n    position: absolute;\n    right: 0px;\n    top: 0px;\n    justify-content: center;\n}\n", ""]);
 
 // exports
 
@@ -12776,7 +12845,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.cv_tab[data-v-249b4910]{\r\n  background: #9fc1cc40;\r\n  padding: 30px 0px;\n}\npage[data-v-249b4910] {\r\n    background: white;\r\n    display: block;\r\n    margin: 0px auto;\r\n    margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\r\n    width: 21cm;\r\n    height: 29.7cm;\r\n    padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\r\n    width: 29.7cm;\r\n    height: 21cm;\n}\n.cv_title[data-v-249b4910]{\r\n    text-align: center;\r\n    font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\r\n    width: 130px;\r\n    height: 150px;\r\n    overflow: hidden;\r\n    border: 1px solid #000;\r\n    margin-right: 30px;\r\n    margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\r\n    width: 100%;\n}\n.cv_header[data-v-249b4910]{\r\n    display: flex;\r\n    align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\r\n    width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\r\n    font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\r\n    font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\r\n    margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\r\n    list-style: none;\r\n    width: 60%;\r\n    margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\r\n        width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\r\n    display: flex;\r\n    flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\r\n    width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\r\n    text-align: center;\r\n    font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\r\n    list-style: none;\r\n    display: flex;\r\n    justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\r\n    width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\r\n    width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\r\n     margin-bottom: 0;\n}\n.print_cv[data-v-249b4910]{\r\n      position: absolute;\r\n      right: 0;\r\n      top: 120px;\r\n      background: #3f6ad8;\r\n      color: #fff;\r\n      padding: 10px 30px;\r\n      border: none;\n}\n@media print\r\n    {\npage[data-v-249b4910] {\r\n        background: white;\r\n        display: block;\r\n        margin: 0px auto;\r\n        margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\r\n        width: 21cm;\r\n        height: 29.7cm;\r\n        padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\r\n        width: 29.7cm;\r\n        height: 21cm;\n}\n.cv_title[data-v-249b4910]{\r\n        text-align: center;\r\n        font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\r\n        width: 130px;\r\n        height: 150px;\r\n        overflow: hidden;\r\n        border: 1px solid #000;\r\n        margin-right: 30px;\r\n        margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\r\n        width: 100%;\n}\n.cv_header[data-v-249b4910]{\r\n        display: flex;\r\n        align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\r\n        width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\r\n        font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\r\n        font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\r\n        margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\r\n        display: flex;\r\n        flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\r\n        list-style: none;\r\n        width: 60%;\r\n        margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\r\n            width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\r\n        display: flex;\r\n        flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\r\n        width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\r\n        text-align: center;\r\n        font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\r\n        list-style: none;\r\n        display: flex;\r\n        justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\r\n        width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\r\n        width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\r\n        margin-bottom: 0;\n}\n}\r\n", ""]);
+exports.push([module.i, "\n.cv_tab[data-v-249b4910]{\n  background: #9fc1cc40;\n  padding: 30px 0px;\n}\npage[data-v-249b4910] {\n    background: white;\n    display: block;\n    margin: 0px auto;\n    margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\n    width: 21cm;\n    height: 29.7cm;\n    padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\n    width: 29.7cm;\n    height: 21cm;\n}\n.cv_title[data-v-249b4910]{\n    text-align: center;\n    font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\n    width: 130px;\n    height: 150px;\n    overflow: hidden;\n    border: 1px solid #000;\n    margin-right: 30px;\n    margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\n    width: 100%;\n}\n.cv_header[data-v-249b4910]{\n    display: flex;\n    align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\n    width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\n    font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\n    font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\n    margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\n    display: flex;\n    flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\n    list-style: none;\n    width: 60%;\n    margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\n        width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\n    display: flex;\n    flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\n    width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\n    text-align: center;\n    font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\n    list-style: none;\n    display: flex;\n    justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\n    width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\n    width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\n     margin-bottom: 0;\n}\n.print_cv[data-v-249b4910]{\n      position: absolute;\n      right: 0;\n      top: 120px;\n      background: #3f6ad8;\n      color: #fff;\n      padding: 10px 30px;\n      border: none;\n}\n@media print\n    {\npage[data-v-249b4910] {\n        background: white;\n        display: block;\n        margin: 0px auto;\n        margin-bottom: 0.5cm;\n}\npage[size=\"A4\"][data-v-249b4910] {\n        width: 21cm;\n        height: 29.7cm;\n        padding: 30px;\n}\npage[size=\"A4\"][layout=\"landscape\"][data-v-249b4910] {\n        width: 29.7cm;\n        height: 21cm;\n}\n.cv_title[data-v-249b4910]{\n        text-align: center;\n        font-weight: bold;\n}\n.cv_user_img[data-v-249b4910]{\n        width: 130px;\n        height: 150px;\n        overflow: hidden;\n        border: 1px solid #000;\n        margin-right: 30px;\n        margin-bottom: 30px;\n}\n.cv_user_img img[data-v-249b4910]{\n        width: 100%;\n}\n.cv_header[data-v-249b4910]{\n        display: flex;\n        align-items: flex-start;\n}\n.cv_header_info[data-v-249b4910]{\n        width: calc(100% - 150px);\n}\n.cv_header_info h2[data-v-249b4910]{\n        font-weight: bold;\n}\n.cv_block p[data-v-249b4910]{\n        font-size: 16px;\n}\n.cv_header_info p[data-v-249b4910]{\n        margin-bottom: 0;\n}\n.cv_body_list[data-v-249b4910]{\n        display: flex;\n        flex-wrap: wrap;\n}\n.cv_body_list li[data-v-249b4910]{\n        list-style: none;\n        width: 60%;\n        margin-bottom: 10px;\n}\n.cv_body_list li[data-v-249b4910]:nth-child(odd){\n            width: 40%;\n}\n.cv_body_list li[data-v-249b4910]{\n        display: flex;\n        flex-direction: column;\n}\n.cv_body_list li[data-v-249b4910]:last-child{\n        width: 100%;\n}\n.cv_exper_subtitle[data-v-249b4910]{\n        text-align: center;\n        font-weight: bold;\n}\n.cv_experience_list[data-v-249b4910]{\n}\n.cv_experience_list li[data-v-249b4910]{\n        list-style: none;\n        display: flex;\n        justify-content: space-between;\n}\n.cv_ex_date[data-v-249b4910]{\n        width: 220px;\n}\n.cv_experience_list li .cv_ex_info[data-v-249b4910]{\n        width: calc(100% - 220px);\n}\n.cv_experience_list li .cv_ex_info p[data-v-249b4910]{\n        margin-bottom: 0;\n}\n}\n", ""]);
 
 // exports
 
@@ -12814,7 +12883,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.jv_card_header[data-v-3f8899de] {\r\n  display: flex;\r\n  justify-content: space-between;\r\n  align-items: flex-start;\r\n  flex-direction: row;\n}\n.btn_download[data-v-3f8899de]{\r\n    position: absolute;\r\n    top: 15px;\r\n    right: 15px;\n}\n.jv_card_body[data-v-3f8899de]{\r\n    display: flex;\r\n    justify-content: space-between;\r\n      flex-direction: row;\r\n      align-items: flex-end;\n}\r\n", ""]);
+exports.push([module.i, "\n.jv_card_header[data-v-3f8899de] {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  flex-direction: row;\n}\n.btn_download[data-v-3f8899de]{\n    position: absolute;\n    top: 15px;\n    right: 15px;\n}\n.jv_card_body[data-v-3f8899de]{\n    display: flex;\n    justify-content: space-between;\n      flex-direction: row;\n      align-items: flex-end;\n}\n", ""]);
 
 // exports
 
@@ -13054,10 +13123,10 @@ module.exports = function cyrillicToTranslit(config) {
   if (_preset === "ru") {
     // Russian: i > always и, y > ы in non-initial position, e > е in non-initial position
     _reversedNonFirstLetters = Object.assign(invert(_firstLetters), {
-      "i": "и", 
+      "i": "и",
       "y": "ы",
       "e": "е",
-      "": "" 
+      "": ""
     });
   } else if (_preset === "uk") {
     // Ukrainian: i > always i, y > always и, e > always е
@@ -13150,7 +13219,7 @@ module.exports = function cyrillicToTranslit(config) {
         i++;
         continue;
       }
-      
+
       let newLetter;
 
       let digraph = normalizedInput.slice(i, i + 2).toLowerCase();
@@ -82032,7 +82101,44 @@ var render = function() {
           value: "",
           "model-config": _vm.modelConfig
         },
-        on: { dayclick: _vm.onDayClick }
+        on: { "update:from-page": _vm.pageChange },
+        scopedSlots: _vm._u([
+          {
+            key: "day-content",
+            fn: function(ref) {
+              var day = ref.day
+              var attributes = ref.attributes
+              return [
+                _c(
+                  "div",
+                  {
+                    staticClass: "day_block",
+                    on: {
+                      click: function($event) {
+                        return _vm.onDayClick(day)
+                      }
+                    }
+                  },
+                  [
+                    _c("p", [
+                      _c(
+                        "b",
+                        { staticClass: "day-label text-sm text-gray-900" },
+                        [_vm._v(_vm._s(day.day))]
+                      ),
+                      _vm._v(" "),
+                      attributes && attributes.length
+                        ? _c("sub", [
+                            _vm._v(_vm._s(attributes[0].customData.qty))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]
+                )
+              ]
+            }
+          }
+        ])
       }),
       _vm._v(" "),
       _c("div", { staticClass: "jv_card" })
@@ -111784,8 +111890,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api.service */ "./resources/js/services/api.service.js");
 
 var DashboardService = {
-  dashboardChart: function dashboardChart(data) {
-    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/dashboard?date_from=".concat(data.date_from ? data.date_from : '', "&date_to=").concat(data.date_to ? data.date_to : ''));
+  dashboardInfo: function dashboardInfo(date) {
+    return date ? _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/dashboard?calendar=".concat(date)) : _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/dashboard");
   }
 };
 
@@ -112972,7 +113078,7 @@ var actions = {
               commit = _ref.commit;
               _context.prev = 1;
               _context.next = 4;
-              return _services_dashboard_service__WEBPACK_IMPORTED_MODULE_1__["DashboardService"].dashboardChart(payload);
+              return _services_dashboard_service__WEBPACK_IMPORTED_MODULE_1__["DashboardService"].dashboardInfo(payload);
 
             case 4:
               _dashboard = _context.sent;
@@ -114571,8 +114677,8 @@ var usertask = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\OSPanel\domains\tm.loc\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\OSPanel\domains\task.loc\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

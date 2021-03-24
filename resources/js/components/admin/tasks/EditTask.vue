@@ -165,7 +165,7 @@
       </form>
     </div>
     <div class="jv_card">
-            <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
+        <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
     <div class="jv_card" v-if="getTask.users" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" v-for="(item, index) in getTask.users">

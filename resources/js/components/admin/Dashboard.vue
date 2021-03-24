@@ -3,17 +3,27 @@
     <div class="page_header">
       <h4 class="header_title">Добро пожаловать в админ панель</h4>
     </div>
-            <DatePicker
+        <DatePicker
             class="custom-calendar max-w-full"
             :attributes="attributes"
             :first-day-of-week="2"
             locale="ru"
             :masks="{ weekdays: 'WW'}"
-            @dayclick="onDayClick"
             format=""
             value=""
             :model-config="modelConfig"
-        ></DatePicker>
+            @update:from-page="pageChange"
+        >
+         <template v-slot:day-content="{ day, attributes }">
+             <div class="day_block" @click="onDayClick(day)">
+                 <p>
+                    <b class="day-label text-sm text-gray-900">{{ day.day }}</b>
+                    <sub v-if="attributes && attributes.length">{{ attributes[0].customData.qty }}</sub>
+                 </p>
+             </div>
+
+         </template>
+        </DatePicker>
     <div class="jv_card">
 
     </div>
@@ -29,7 +39,8 @@ export default {
   data() {
     return {
         loaded: false,
-                days: [  ],
+        days: [  ],
+        currentDate: null,
         modelConfig: {
             type: 'string',
             mask: 'YYYY-MM-DD', // Uses 'iso' if missing
@@ -39,12 +50,20 @@ export default {
   computed: {
     ...mapGetters("dashboard", ["getDashboard"]),
     dates() {
-      return this.days.map(day => day.date);
+      return this.days.map(day => day);
     },
     attributes() {
       return this.dates.map(date => ({
         highlight: true,
-        dates: date,
+        dates: date.date,
+        customData:{
+            qty: date.qty,
+            date: date.date
+        },
+        popover: {
+            label: 'Tasks: '+date.qty,
+            visibility: 'hover',
+        }
       }));
     },
   },
@@ -58,22 +77,44 @@ export default {
     async search() {},
     async clear() {},
     onDayClick(day) {
-        const idx = this.days.findIndex(d => d.id === day.id);
-        if (idx >= 0) {
-            this.days.splice(idx, 1);
+        console.log(day.id)
+    },
+    async pageChange(dataYear){
+        if(this.currentDate){
+            if(this.currentDate.year != dataYear.year || this.currentDate.month != dataYear.month){
+                this.currentDate = dataYear
+                await this.actionCalendarList(this.currentDate);
+                this.monthDays =  this.getCalendarList.days;
+                    if (this.monthDays) {
+                    this.getCalendarList.days.forEach((item)=>{
+                        if(item.status != "work"){
+                            let thisTime = new Date(item.timestamp * 1000);
+                            this.days.push({
+                                id: item.simple,
+                                date: thisTime,
+                                status: 'free',
+                            });
+                        }
+                    })
+                }
+            }
         }else{
-            this.days.push({
-                id: day.id,
-                date: day.date,
-                status: 'free',
-            });
+            this.currentDate = dataYear
+            await this.actionDashboard();
+            this.getDashboard.calendar.forEach((item)=>{
+                 this.days.push({
+                     id: item.exp_date,
+                     date: item.exp_date,
+                     qty: item.qty,
+                 });
+            })
         }
+
     },
   },
   async mounted() {
     this.loaded = true;
     await this.actionDashboard();
-    console.log(this.getDashboard)
   },
 };
 </script>
@@ -135,5 +176,32 @@ export default {
 }
 .custom-calendar.vc-container:not(.on-right) {
     border-right: var(--day-border);
+}
+.day_block{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+.day_block b{
+    font-size: 24px;
+}
+.day_block sub{
+    border: 1px solid red;
+    border-radius: 0px;
+    height: 24px;
+    width: 30px;
+    display: flex;
+    background: red;
+    color: white;
+    font-weight: bold;
+    line-height: 0;
+    letter-spacing: 0px;
+    font-size: 14px;
+    align-items: center;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    justify-content: center;
 }
 </style>
