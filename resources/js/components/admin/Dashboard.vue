@@ -25,7 +25,34 @@
          </template>
         </DatePicker>
     <div class="jv_card">
-
+        <div class="table-responsive">
+			<table class="table table-bordered text-center table-hover table-striped">
+				<thead>
+					<tr>
+						<th scope="col">№</th>
+						<th scope="col">Jo'natuvchi</th>
+						<th scope="col">berilgan sana</th>
+						<th scope="col">qisqa mazmuni</th>
+						<th scope="col">ijro muddati</th>
+					</tr>
+				</thead>
+				<tbody v-if="getTask && getTask.length">
+					 <tr v-for="(task,index) in getTask">
+						<td scope="row">{{index+1}}</td>
+						<td>{{task.title}}</td>
+						<td style="padding:0px;">
+                            <ul>
+                                <li v-for="(item) in task.users"  :class="item.svot == 1 ? 'active' : ''">
+                                    {{item.user.name}}
+                                    {{item.user.surename}}
+                                </li>
+                            </ul>
+                        </td>
+						<td>{{$g.getDate(task.exp_date)}}г</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
     </div>
   </div>
 </template>
@@ -48,7 +75,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("dashboard", ["getDashboard"]),
+    ...mapGetters("dashboard", ["getDashboard", 'getTask']),
     dates() {
       return this.days.map(day => day);
     },
@@ -68,7 +95,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions("dashboard", ["actionDashboard"]),
+    ...mapActions("dashboard", ["actionDashboard", 'actionTaskByDate']),
     toggleFilter() {
       this.filter.date_from = "";
       this.filter.date_to = "";
@@ -76,8 +103,10 @@ export default {
     },
     async search() {},
     async clear() {},
-    onDayClick(day) {
+    async onDayClick(day) {
         console.log(day.id)
+        await this.actionTaskByDate({calendar: day.id});
+        console.log(this.getTask)
     },
     async pageChange(dataYear){
         if(this.currentDate){

@@ -5271,6 +5271,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5289,7 +5316,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("dashboard", ["getDashboard"])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("dashboard", ["getDashboard", 'getTask'])), {}, {
     dates: function dates() {
       return this.days.map(function (day) {
         return day;
@@ -5312,7 +5339,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("dashboard", ["actionDashboard"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("dashboard", ["actionDashboard", 'actionTaskByDate'])), {}, {
     toggleFilter: function toggleFilter() {
       this.filter.date_from = "";
       this.filter.date_to = "";
@@ -5345,9 +5372,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     onDayClick: function onDayClick(day) {
-      console.log(day.id);
-    },
-    pageChange: function pageChange(dataYear) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
@@ -5355,29 +5379,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                if (!_this.currentDate) {
-                  _context3.next = 9;
+                console.log(day.id);
+                _context3.next = 3;
+                return _this.actionTaskByDate({
+                  calendar: day.id
+                });
+
+              case 3:
+                console.log(_this.getTask);
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    pageChange: function pageChange(dataYear) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                if (!_this2.currentDate) {
+                  _context4.next = 9;
                   break;
                 }
 
-                if (!(_this.currentDate.year != dataYear.year || _this.currentDate.month != dataYear.month)) {
-                  _context3.next = 7;
+                if (!(_this2.currentDate.year != dataYear.year || _this2.currentDate.month != dataYear.month)) {
+                  _context4.next = 7;
                   break;
                 }
 
-                _this.currentDate = dataYear;
-                _context3.next = 5;
-                return _this.actionCalendarList(_this.currentDate);
+                _this2.currentDate = dataYear;
+                _context4.next = 5;
+                return _this2.actionCalendarList(_this2.currentDate);
 
               case 5:
-                _this.monthDays = _this.getCalendarList.days;
+                _this2.monthDays = _this2.getCalendarList.days;
 
-                if (_this.monthDays) {
-                  _this.getCalendarList.days.forEach(function (item) {
+                if (_this2.monthDays) {
+                  _this2.getCalendarList.days.forEach(function (item) {
                     if (item.status != "work") {
                       var thisTime = new Date(item.timestamp * 1000);
 
-                      _this.days.push({
+                      _this2.days.push({
                         id: item.simple,
                         date: thisTime,
                         status: 'free'
@@ -5387,17 +5436,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
 
               case 7:
-                _context3.next = 13;
+                _context4.next = 13;
                 break;
 
               case 9:
-                _this.currentDate = dataYear;
-                _context3.next = 12;
-                return _this.actionDashboard();
+                _this2.currentDate = dataYear;
+                _context4.next = 12;
+                return _this2.actionDashboard();
 
               case 12:
-                _this.getDashboard.calendar.forEach(function (item) {
-                  _this.days.push({
+                _this2.getDashboard.calendar.forEach(function (item) {
+                  _this2.days.push({
                     id: item.exp_date,
                     date: item.exp_date,
                     qty: item.qty
@@ -5406,31 +5455,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 13:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     }
   }),
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
-          switch (_context4.prev = _context4.next) {
+          switch (_context5.prev = _context5.next) {
             case 0:
-              _this2.loaded = true;
-              _context4.next = 3;
-              return _this2.actionDashboard();
+              _this3.loaded = true;
+              _context5.next = 3;
+              return _this3.actionDashboard();
 
             case 3:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }))();
   }
 });
@@ -12731,11 +12780,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-<<<<<<< HEAD
 exports.push([module.i, "\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\n    border: 1px solid red;\n    border-radius: 0px;\n    height: 24px;\n    width: 30px;\n    display: flex;\n    background: red;\n    color: white;\n    font-weight: bold;\n    line-height: 0;\n    letter-spacing: 0px;\n    font-size: 14px;\n    align-items: center;\n    position: absolute;\n    right: 0px;\n    top: 0px;\n    justify-content: center;\n}\n", ""]);
-=======
-exports.push([module.i, "\n.mw_5000[data-v-12658639] {\r\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\r\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\r\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\r\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\r\n  --day-border: 1px solid #b8c2cc;\r\n  --day-border-highlight: 1px solid #b8c2cc;\r\n  --day-width: 90px;\r\n  --day-height: 90px;\r\n  --weekday-bg: #f8fafc;\r\n  --weekday-border: 1px solid #eaeaea;\r\n  border-radius: 0;\r\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\r\n    background-color: #f1f5f8;\r\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\r\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\r\n    background-color: var(--weekday-bg);\r\n    border-bottom: var(--weekday-border);\r\n    border-top: var(--weekday-border);\r\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\r\n    padding: 0 5px 3px 5px;\r\n    text-align: left;\r\n    height: var(--day-height);\r\n    min-width: var(--day-width);\r\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\r\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\r\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\r\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\r\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\r\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\r\n    border-right: var(--day-border);\n}\r\n", ""]);
->>>>>>> 2dded64270a397e6710c60a932d51d36556f0617
 
 // exports
 
@@ -82145,7 +82190,62 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "jv_card" })
+      _c("div", { staticClass: "jv_card" }, [
+        _c("div", { staticClass: "table-responsive" }, [
+          _c(
+            "table",
+            {
+              staticClass:
+                "table table-bordered text-center table-hover table-striped"
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm.getTask && _vm.getTask.length
+                ? _c(
+                    "tbody",
+                    _vm._l(_vm.getTask, function(task, index) {
+                      return _c("tr", [
+                        _c("td", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(index + 1))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(task.title))]),
+                        _vm._v(" "),
+                        _c("td", { staticStyle: { padding: "0px" } }, [
+                          _c(
+                            "ul",
+                            _vm._l(task.users, function(item) {
+                              return _c(
+                                "li",
+                                { class: item.svot == 1 ? "active" : "" },
+                                [
+                                  _vm._v(
+                                    "\n                                    " +
+                                      _vm._s(item.user.name) +
+                                      "\n                                    " +
+                                      _vm._s(item.user.surename) +
+                                      "\n                                "
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm.$g.getDate(task.exp_date)) + "г")
+                        ])
+                      ])
+                    }),
+                    0
+                  )
+                : _vm._e()
+            ]
+          )
+        ])
+      ])
     ],
     1
   )
@@ -82158,6 +82258,24 @@ var staticRenderFns = [
     return _c("div", { staticClass: "page_header" }, [
       _c("h4", { staticClass: "header_title" }, [
         _vm._v("Добро пожаловать в админ панель")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("№")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Jo'natuvchi")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("berilgan sana")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("qisqa mazmuni")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("ijro muddati")])
       ])
     ])
   }
@@ -111896,6 +112014,9 @@ __webpack_require__.r(__webpack_exports__);
 var DashboardService = {
   dashboardInfo: function dashboardInfo(date) {
     return date ? _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/dashboard?calendar=".concat(date)) : _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].get("/api/dashboard");
+  },
+  getTaskByDate: function getTaskByDate(date) {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/get-by-date", date);
   }
 };
 
@@ -113063,11 +113184,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var state = {
-  dashboard: []
+  dashboard: [],
+  task: []
 };
 var getters = {
   getDashboard: function getDashboard(state) {
     return state.dashboard;
+  },
+  getTask: function getTask(state) {
+    return state.task;
   }
 };
 var actions = {
@@ -113104,11 +113229,48 @@ var actions = {
         }
       }, _callee, null, [[1, 10]]);
     }))();
+  },
+  actionTaskByDate: function actionTaskByDate(_ref2, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit, _dashboard2;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return _services_dashboard_service__WEBPACK_IMPORTED_MODULE_1__["DashboardService"].getTaskByDate(payload);
+
+            case 4:
+              _dashboard2 = _context2.sent;
+              _context2.next = 7;
+              return commit('setTask', _dashboard2.data.result);
+
+            case 7:
+              return _context2.abrupt("return", true);
+
+            case 10:
+              _context2.prev = 10;
+              _context2.t0 = _context2["catch"](1);
+              return _context2.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2, null, [[1, 10]]);
+    }))();
   }
 };
 var mutations = {
   setDashboard: function setDashboard(state, dashboard) {
     state.dashboard = dashboard;
+  },
+  setTask: function setTask(state, task) {
+    state.task = task;
   }
 };
 var dashboard = {
