@@ -25,20 +25,28 @@
          </template>
         </DatePicker>
     <div class="jv_card">
-        <div class="table-responsive">
-			<table class="table table-bordered text-center table-hover table-striped">
+        <div class="table-responsive" >
+            <div class="spinner_table" v-if="loadertable">
+                <div class="spinner-border " role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+			<table class="table table-bordered text-center table-hover table-striped" v-if="getTask && getTask.length">
 				<thead>
 					<tr>
 						<th scope="col">№</th>
 						<th scope="col">Jo'natuvchi</th>
-						<th scope="col">berilgan sana</th>
-						<th scope="col">qisqa mazmuni</th>
-						<th scope="col">ijro muddati</th>
+						<th scope="col">Berilgan sana</th>
+						<th scope="col">Qisqa mazmuni</th>
+						<th scope="col">Bajaruvchilar</th>
+						<th scope="col">Ijro muddati</th>
 					</tr>
 				</thead>
-				<tbody v-if="getTask && getTask.length">
+				<tbody>
 					 <tr v-for="(task,index) in getTask">
 						<td scope="row">{{index+1}}</td>
+						<td>{{task.creater.surename}} {{task.creater.name}} {{task.creater.lastname}}</td>
+						<td>{{$g.getDate(task.created_at)}}г</td>
 						<td>{{task.title}}</td>
 						<td style="padding:0px;">
                             <ul>
@@ -52,6 +60,7 @@
 					</tr>
 				</tbody>
 			</table>
+
 		</div>
     </div>
   </div>
@@ -66,6 +75,7 @@ export default {
   data() {
     return {
         loaded: false,
+        loadertable: false,
         days: [  ],
         currentDate: null,
         modelConfig: {
@@ -104,9 +114,9 @@ export default {
     async search() {},
     async clear() {},
     async onDayClick(day) {
-        console.log(day.id)
+        this.loadertable = true
         await this.actionTaskByDate({calendar: day.id});
-        console.log(this.getTask)
+        this.loadertable = false
     },
     async pageChange(dataYear){
         if(this.currentDate){
@@ -148,6 +158,9 @@ export default {
 };
 </script>
 <style scoped >
+.table-responsive{
+    transition: 1s;
+}
 .mw_5000 {
   min-width: 5000px;
 }
@@ -232,5 +245,17 @@ export default {
     right: 0px;
     top: 0px;
     justify-content: center;
+}
+.spinner_table{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 </style>

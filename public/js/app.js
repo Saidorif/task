@@ -5298,6 +5298,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5307,6 +5316,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       loaded: false,
+      loadertable: false,
       days: [],
       currentDate: null,
       modelConfig: {
@@ -5379,14 +5389,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log(day.id);
+                _this.loadertable = true;
                 _context3.next = 3;
                 return _this.actionTaskByDate({
                   calendar: day.id
                 });
 
               case 3:
-                console.log(_this.getTask);
+                _this.loadertable = false;
 
               case 4:
               case "end":
@@ -12780,7 +12790,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\n    border: 1px solid red;\n    border-radius: 0px;\n    height: 24px;\n    width: 30px;\n    display: flex;\n    background: red;\n    color: white;\n    font-weight: bold;\n    line-height: 0;\n    letter-spacing: 0px;\n    font-size: 14px;\n    align-items: center;\n    position: absolute;\n    right: 0px;\n    top: 0px;\n    justify-content: center;\n}\n", ""]);
+exports.push([module.i, "\n.table-responsive[data-v-12658639]{\n    transition: 1s;\n}\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\n    border: 1px solid red;\n    border-radius: 0px;\n    height: 24px;\n    width: 30px;\n    display: flex;\n    background: red;\n    color: white;\n    font-weight: bold;\n    line-height: 0;\n    letter-spacing: 0px;\n    font-size: 14px;\n    align-items: center;\n    position: absolute;\n    right: 0px;\n    top: 0px;\n    justify-content: center;\n}\n.spinner_table[data-v-12658639]{\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(255, 255, 255, 0.8);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\n", ""]);
 
 // exports
 
@@ -82192,22 +82202,40 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "jv_card" }, [
         _c("div", { staticClass: "table-responsive" }, [
-          _c(
-            "table",
-            {
-              staticClass:
-                "table table-bordered text-center table-hover table-striped"
-            },
-            [
-              _vm._m(1),
-              _vm._v(" "),
-              _vm.getTask && _vm.getTask.length
-                ? _c(
+          _vm.loadertable
+            ? _c("div", { staticClass: "spinner_table" }, [_vm._m(1)])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.getTask && _vm.getTask.length
+            ? _c(
+                "table",
+                {
+                  staticClass:
+                    "table table-bordered text-center table-hover table-striped"
+                },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c(
                     "tbody",
                     _vm._l(_vm.getTask, function(task, index) {
                       return _c("tr", [
                         _c("td", { attrs: { scope: "row" } }, [
                           _vm._v(_vm._s(index + 1))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(task.creater.surename) +
+                              " " +
+                              _vm._s(task.creater.name) +
+                              " " +
+                              _vm._s(task.creater.lastname)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm.$g.getDate(task.created_at)) + "г")
                         ]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(task.title))]),
@@ -82241,9 +82269,9 @@ var render = function() {
                     }),
                     0
                   )
-                : _vm._e()
-            ]
-          )
+                ]
+              )
+            : _vm._e()
         ])
       ])
     ],
@@ -82265,17 +82293,29 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "spinner-border ", attrs: { role: "status" } },
+      [_c("span", { staticClass: "visually-hidden" }, [_vm._v("Loading...")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("№")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Jo'natuvchi")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("berilgan sana")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Berilgan sana")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("qisqa mazmuni")]),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Qisqa mazmuni")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("ijro muddati")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Bajaruvchilar")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Ijro muddati")])
       ])
     ])
   }
