@@ -1,5 +1,6 @@
 <template>
   <div class="edit_action">
+      <Loader v-if="isLoading" />
     <div class="page_header">
       <h4 class="header_title">Edit Task</h4>
       <router-link class="btn_black" to="/crm/tasks"
@@ -112,60 +113,51 @@
           <template v-for="(item, index) in allItems">
             <div class="col-md-9 mt-5">
               <label for="text" class="title_label">Text</label>
-              <vue-editor id="text" v-model="item.text" />
+              <div class="disabled_custom_editor" id="text" v-html="item.text" ></div>
             </div>
             <div class="col-md-3">
-              <button
-                type="button"
-                class="btn_red_icon"
-                v-if="index > 0"
-                @click="deleteItem(index)"
-                style="margin-bottom: 70px"
-              >
-                <i data-feather="trash" class="sidebar_icon"></i>
-              </button>
                 <a :href="item.file" v-if="typeof item.file == 'string'" class="btn_black  col-md-5" download=""><i class="sidebar_icon" data-feather="download"></i>Download</a>
-              <div class="input_style_file" v-if="item.file == null || typeof item.file == 'object'">
-                <label for="file" :id="'inputFileLabel' + index"
-                  >File Upload</label
-                >
-                <input
-                  type="file"
-                  id="file"
-                  @change="
-                    inputFileUpload($event, 'inputFileLabel' + index, item)
-                  "
-                />
-              </div>
             </div>
           </template>
+            <!-- <template v-for="(item, index) in allItems" v-if="form.status != 'active'"> -->
+                <div class="col-md-9 mt-5">
+                <label for="text" class="title_label">Text</label>
+                <vue-editor id="text" v-model="newItem.text" />
+                </div>
+                <div class="col-md-3">
+                <div class="input_style_file">
+                    <label for="file" id="inputFileLabeld"
+                    >File Upload</label
+                    >
+                    <input
+                    type="file"
+                    id="file"
+                    @change="
+                        inputFileUpload($event, 'inputFileLabeld', newItem)
+                    "
+                    />
+                </div>
+                </div>
+            <!-- </template> -->
           <div class="form_btn_block">
-            <div class="input_style col-md-2 mr_15">
-                <select  v-model="form.status">
-                    <option value="draft">Неактивный</option>
-                    <option value="active">Активный</option>
-                </select>
-                <label for="contName">Status</label>
-            </div>
-
             <button
-              type="button"
-              class="btn_blue mr_15"
-              @click.prevent="addItem"
+                type="button"
+                class="btn_blue mr_15"
+                @click="saveAction('active')"
+                v-if="form.status != 'active'"
             >
-              <i class="sidebar_icon" data-feather="plus"></i>
-              Add
+                <i class="sidebar_icon" data-feather="send"></i>
+                Опубликовать
             </button>
             <button type="submit" class="btn_green">
               <i class="sidebar_icon" data-feather="save"></i>
-              Сохранить
+              Обновить
             </button>
           </div>
         </div>
       </form>
     </div>
-    <div class="jv_card">
-        <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
+    <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
     <div class="jv_card" v-if="getTask.users" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" v-for="(item, index) in getTask.users">
@@ -207,7 +199,6 @@
             </div>
         </div>
     </div>
-    </div>
   </div>
 </template>
 <script>
@@ -215,28 +206,31 @@ import Multiselect from "vue-multiselect";
 import { mapActions, mapGetters } from "vuex";
 import DatePicker from "vue2-datepicker";
 import { VueEditor } from "vue2-editor";
+import Loader from "../../Loader";
 export default {
   components: {
     Multiselect,
     DatePicker,
     VueEditor,
+    Loader
   },
   data() {
     return {
-      form: {
-        title: "",
-        items: [],
-        exp_date: "",
-        users: [],
-        status: '',
-      },
-      allItems: [{ text: "", file: null }],
-      userlist: [],
-      selectedUsersList: [],
-      requiredInput: false,
-      isLoading: false,
-      selectedUser: null,
-      hasSvot: false,
+        form: {
+            title: "",
+            items: [],
+            exp_date: "",
+            users: [],
+            status: '',
+        },
+        allItems: [{ text: "", file: null }],
+        newItem: { text: "", file: null },
+        userlist: [],
+        selectedUsersList: [],
+        requiredInput: false,
+        isLoading: true,
+        selectedUser: null,
+        hasSvot: false,
     };
   },
   computed: {
@@ -265,25 +259,8 @@ export default {
     feather.replace();
   },
   async mounted() {
-    let data = {
-      id: this.$route.params.taskId,
-    };
-    await this.ActionUserList();
-    await this.actionEditTask(data);
-    this.userlist = this.getUserList;
-    this.form.title = this.getTask.title
-    this.form.status = this.getTask.status
-    this.form.exp_date = this.$g.getDate(this.getTask.exp_date)
-    this.selectedUsersList = this.getTask.users.map(item => {
-            let data = item.user
-            data.svot = item.svot
-            if(item.svot == 1){
-                this.hasSvot = true
-            }
-            return data
-    })
-    this.allItems = this.getTask.items
-    feather.replace();
+    await this.rerenderData();
+    this.isLoading = false
   },
   methods: {
     ...mapActions("task", ["actionEditTask", "actionUpdateTask"]),
@@ -291,15 +268,32 @@ export default {
     isRequired(input) {
       return this.requiredInput && input === "";
     },
-    addItem() {
-      let item = { text: "", file: null };
-      this.allItems.push(item);
-    },
     deleteItem(index) {
       this.allItems.splice(index, 1);
     },
     nameWithLang({ name, surename, lastname, position }) {
         return `${position.name} ${name} ${surename} ${lastname}`
+    },
+    async rerenderData(){
+        let data = {
+        id: this.$route.params.taskId,
+        };
+        await this.ActionUserList();
+        await this.actionEditTask(data);
+        this.userlist = this.getUserList;
+        this.form.title = this.getTask.title
+        this.form.status = this.getTask.status
+        this.form.exp_date = this.$g.getDate(this.getTask.exp_date)
+        this.selectedUsersList = this.getTask.users.map(item => {
+                let data = item.user
+                data.svot = item.svot
+                if(item.svot == 1){
+                    this.hasSvot = true
+                }
+                return data
+        })
+        this.allItems = this.getTask.items
+        feather.replace();
     },
     deleteUser(ind) {
       swal
@@ -342,7 +336,7 @@ export default {
         return el.name.toLowerCase().indexOf(trval.toLowerCase()) > -1;
       });
     },
-    async saveAction() {
+    async saveAction(sts) {
       if (
         this.form.title != "" &&
         this.form.exp_date != "" &&
@@ -355,30 +349,38 @@ export default {
         formData.append("title", this.form.title);
         formData.append("id", this.$route.params.taskId);
         formData.append("exp_date", this.form.exp_date);
-        formData.append("status", this.form.status);
+        if(sts){
+            formData.append("status", 'active');
+        }else{
+            formData.append("status", 'draft');
+        }
         this.form.users.forEach((item, index) => {
           formData.append(`users[${index}][user_id]`, item.user_id);
           formData.append(`users[${index}][svot]`, item.svot);
         });
+        if(this.newItem.text != ''){
+            this.allItems.push(this.newItem)
+        }
         this.allItems.forEach((item, index) => {
           formData.append(`items[${index}][text]`, item.text);
           if(item.id){
               formData.append(`items[${index}][id]`, item.id);
           }
           if(typeof item.file == 'object' && item.file != null){
-              console.log(typeof item.file)
-              console.log(item.file)
             formData.append(`items[${index}][file]`, item.file);
           }
         });
+            this.isLoading = true
         await this.actionUpdateTask({id: this.$route.params.taskId, data: formData});
         if (this.getMassage.success) {
+            this.rerenderData()
+            this.newItem.text = ''
+            this.newItem.file = null
           toast.fire({
             type: "success",
             icon: "success",
             title: "Task обновлено!",
           });
-          this.$router.push("/crm/tasks");
           this.requiredInput = false;
         } else {
           toast.fire({
@@ -387,6 +389,8 @@ export default {
             title: "Такой Task уже существует!",
           });
         }
+                this.isLoading = false
+
       } else {
         this.requiredInput = true;
       }

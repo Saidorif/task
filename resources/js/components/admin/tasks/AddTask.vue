@@ -56,7 +56,7 @@
                         <label for="contName">Title</label>
                     </div>
                     <div class="col-md-2">
-                        <date-picker v-model="form.exp_date" placeholder="Выберите срок" value-type="format" format="DD.MM.YYYY"></date-picker>
+                        <date-picker :class="isRequired(form.exp_date) ? 'isRequired' : ''" v-model="form.exp_date" placeholder="Выберите срок" value-type="format" format="DD.MM.YYYY"></date-picker>
                     </div>
                     <div class="table-responsive mt-5" v-if="selectedUsersList.length">
                         <table class="table table-bordered text-center table-hover table-striped">
@@ -103,10 +103,10 @@
                         </div>
                     </template>
                     <div class="form_btn_block">
-                        <button type="button" class="btn_blue mr_15" @click.prevent="addItem">
+                        <!-- <button type="button" class="btn_blue mr_15" @click.prevent="addItem">
                             <i class="sidebar_icon" data-feather="plus"></i>
                             Add
-                        </button>
+                        </button> -->
                         <button type="submit" class="btn_green">
                             <i class="sidebar_icon" data-feather="save"></i>
                             Сохранить

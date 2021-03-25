@@ -19,15 +19,13 @@
       <div class="col-md-1">
         <h6>Status</h6>
         <div
-          class="alert alert-success"
-          style="padding: 0.5rem 0.8rem; display: inline-flex"
+          class="alert alert-success jv_alert"
           v-if="form.status == 'active'"
         >
           Активный
         </div>
         <div
-          class="alert alert-danger"
-          style="padding: 0.5rem 0.8rem; display: inline-flex"
+          class="alert alert-danger jv_alert"
           v-else
         >
           Неактивный
@@ -92,6 +90,7 @@
                             <th>sana</th>
                             <th>Xisobot matni</th>
                             <th>file</th>
+                            <th>Статус</th>
                         </tr>
                     </thead>
                         <tbody>
@@ -102,6 +101,21 @@
                                     <a :href="'/'+ans.file" v-if="ans.file" class="btn_blue_icon" download="">
                                         <i class="sidebar_icon" data-feather="download"></i>
                                     </a>
+                                </td>
+                                <td>
+                                    <div class="btn_group" v-if="userId == svotId && userId != item.user_id" >
+                                        <button class="btn_green_icon" title="accept" @click="acceptTask(item)">
+                                            <i data-feather="check" class="sidebar_icon" ></i>
+                                        </button>
+                                        <button class="btn_red_icon" title="cancel" @click="cancelTask(item)">
+                                            <i data-feather="slash" class="sidebar_icon" ></i>
+                                        </button>
+                                    </div>
+                                    <div v-else>
+                                        <span class="alert alert-danger jv_alert">Rad etilgan</span>
+                                        <span class="alert alert-success jv_alert">Qabul qilingan</span>
+                                        <span class="alert alert-warning jv_alert">Tekshirilmoqda</span>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -125,9 +139,7 @@
                 <input
                 type="file"
                 id="file"
-                @change="
-                    inputFileUpload($event, 'inputFileLabel', answer)
-                "
+                @change="inputFileUpload($event, 'inputFileLabel', answer)"
                 />
             </div>
             </div>
@@ -172,6 +184,8 @@ export default {
       isLoading: false,
       selectedUser: null,
       hasSvot: false,
+      svotId: null,
+      userId: null
     };
   },
   computed: {
@@ -198,11 +212,13 @@ export default {
       data.svot = item.svot;
       if (item.svot == 1) {
         this.hasSvot = true;
+        this.svotId = item.user_id
       }
       return data;
     });
     this.allItems = this.getUserTask.task.items;
     feather.replace();
+    this.userId = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).id : null;
   },
   methods: {
     ...mapActions("task", ["actionEditTask", "actionUpdateTask"]),
@@ -211,6 +227,8 @@ export default {
     isRequired(input) {
       return this.requiredInput && input === "";
     },
+    acceptTask(){},
+    cancelTask(){},
     inputFileUpload(event, labelId, item) {
       if (
         !event ||
