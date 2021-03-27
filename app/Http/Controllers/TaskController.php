@@ -41,7 +41,11 @@ class TaskController extends Controller
     public function userIndex(Request $request)
     {
         $user = $request->user();
-        $taskUsers = TaskUser::with(['task'])->where(['user_id' => $user->id])->get();
+        $builder = TaskUser::query()->with(['task'])->where(['user_id' => $user->id]);
+        $builder->whereHas('task', function ($query){
+            $query->where('status','!=','draft');
+        });
+        $taskUsers = $builder->get();
         return response()->json(['success' => true,'result' => $taskUsers]);
     }
 
