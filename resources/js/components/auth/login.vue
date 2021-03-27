@@ -9,7 +9,7 @@
                             <input type="email" class="form-control" placeholder="Email" v-model="form.email">
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <img src="/img/user.png" alt="">
+                                    <i data-feather="user"></i>
                                 </div>
                             </div>
                         </div>
@@ -17,7 +17,7 @@
                             <input type="password" class="form-control" placeholder="Пароль" v-model="form.password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <img src="/img/key.png" alt="">
+                                    <i data-feather="lock"></i>
                                 </div>
                             </div>
                         </div>
@@ -46,6 +46,9 @@
 	 	computed: {
 		    ...mapGetters(["authenticationErrorCode","authenticationError"])
 	  	},
+        updated() {
+            feather.replace()
+        },
 	  	async mounted(){
 
 	  	},

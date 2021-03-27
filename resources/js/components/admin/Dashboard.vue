@@ -3,27 +3,42 @@
     <div class="page_header">
       <h4 class="header_title">Добро пожаловать в админ панель</h4>
     </div>
-        <DatePicker
-            class="custom-calendar max-w-full"
-            :attributes="attributes"
-            :first-day-of-week="2"
-            locale="ru"
-            :masks="{ weekdays: 'WW'}"
-            format=""
-            value=""
-            :model-config="modelConfig"
-            @update:from-page="pageChange"
-        >
-         <template v-slot:day-content="{ day, attributes }">
-             <div class="day_block" @click="onDayClick(day)">
-                 <p>
-                    <b class="day-label text-sm text-gray-900">{{ day.day }}</b>
-                    <sub v-if="attributes && attributes.length">{{ attributes[0].customData.qty }}</sub>
-                 </p>
-             </div>
+    <div class="mb-3 d-flex justify-content-between">
+        <div class="col-md-8">
+            <DatePicker
+                class="custom-calendar max-w-full"
+                :attributes="attributes"
+                :first-day-of-week="2"
+                locale="ru"
+                :masks="{ weekdays: 'WW'}"
+                format=""
+                value=""
+                :model-config="modelConfig"
+                @update:from-page="pageChange"
+            >
+                <template v-slot:day-content="{ day, attributes }">
+                    <div class="day_block" @click="onDayClick(day)">
+                        <p>
+                            <b class="day-label text-sm text-gray-900">{{ day.day }}</b>
+                            <sub v-if="attributes && attributes.length">{{ attributes[0].customData.qty }}</sub>
+                        </p>
+                    </div>
+                </template>
+            </DatePicker>
+        </div>
+        <div class="col-md-4 jv-card pl_30">
+            <div class="list-group ">
+                <router-link class="list-group-item list-group-item-action"  v-for="(task,index) in taskToday" :key="index" :to='`/crm/tasks/edit/${task.id}`' >
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1" style="width: 83%;">{{task.title.substr(0, 60)}}...</h5>
+                        <small>{{ $g.getDate(task.created_at) }}г  </small>
+                    </div>
+                    <div class="mb-1" v-html="task.items[task.items.length-1].text.substr(0, 100)"></div>
+                </router-link>
+            </div>
+        </div>
+    </div>
 
-         </template>
-        </DatePicker>
     <div class="jv_card">
         <div class="table-responsive" >
             <div class="spinner_table" v-if="loadertable">
@@ -31,7 +46,7 @@
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-			<table class="table table-bordered text-center table-hover table-striped" v-if="getTask && getTask.length">
+			<table class="table table-bordered text-center table-hover table-striped" v-if="tasksList && tasksList.length">
 				<thead>
 					<tr>
 						<th scope="col">№</th>
@@ -43,9 +58,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					 <tr v-for="(task,index) in getTask">
+					 <tr v-for="(task,index) in tasksList">
 						<td scope="row">{{index+1}}</td>
-						<td>{{task.creater.surename}} {{task.creater.name}} {{task.creater.lastname}}</td>
+						<td><router-link :to='`/crm/tasks/edit/${task.id}`'> {{task.creater.surename}} {{task.creater.name}} {{task.creater.lastname}} </router-link></td>
 						<td>{{$g.getDate(task.created_at)}}г</td>
 						<td>{{task.title}}</td>
 						<td style="padding:0px;">
@@ -82,6 +97,8 @@ export default {
             type: 'string',
             mask: 'YYYY-MM-DD', // Uses 'iso' if missing
         },
+        taskToday: [],
+        tasksList: [],
     };
   },
   computed: {
@@ -116,6 +133,7 @@ export default {
     async onDayClick(day) {
         this.loadertable = true
         await this.actionTaskByDate({calendar: day.id});
+        this.tasksList = this.getTask;
         this.loadertable = false
     },
     async pageChange(dataYear){
@@ -154,6 +172,8 @@ export default {
   async mounted() {
     this.loaded = true;
     await this.actionDashboard();
+    await this.actionTaskByDate({calendar: '2021-03-27'});
+     this.taskToday = this.getTask;
   },
 };
 </script>
@@ -257,5 +277,9 @@ export default {
     align-items: center;
     justify-content: center;
 
+}
+a{
+        text-decoration: none;
+    color: #0c1427;
 }
 </style>
