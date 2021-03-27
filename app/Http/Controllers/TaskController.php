@@ -179,6 +179,7 @@ class TaskController extends Controller
         if($task->status == 'draft'){
             //delete task items
             $task->items()->delete();
+            //$task->users->items()->delete();
             $task->users()->delete();
             $task->delete();
             return response()->json(['success' => true, 'message' => 'Task deleted']);

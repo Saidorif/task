@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TaskUserItem;
 use App\TaskUser;
+use App\TUIComment;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Storage;
@@ -85,5 +86,77 @@ class TaskUserItemController extends Controller
         }
         $tuitem->delete();
         return response()->json(['success' => true,'message' => 'Deleted successfully']);
+    }
+
+    //Send for approve to svot
+    public function approve(Request $request,$id)
+    {
+        $inputs = $request->all();
+        $user = $request->user();
+        $tuitem = TaskUserItem::find($id);
+        if(!$tuitem){
+            return response()->json(['error' => true, 'message' => 'Not found']);
+        }
+        if($tuitem->status == 'pending'){
+            return response()->json(['error' => true, 'message' => 'Report already '.$tuitem->status]);
+        }
+        if($tuitem->user_id == $user->id){
+            $tuitem->status = 'pending';
+            $tuitem->save();
+            return response()->json(['success' => true,'message' => 'Task report send for approve']);
+        }
+        return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
+    }
+
+    public function accept(Request $request,$id)
+    {
+        $inputs = $request->all();
+        $user = $request->user();
+        $tuitem = TaskUserItem::find($id);
+        if(!$tuitem){
+            return response()->json(['error' => true, 'message' => 'Not found']);
+        }
+        if($tuitem->status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Report already '.$tuitem->status]);
+        }
+        $svot = $tuitem->getSvot();
+        if($svot->user_id == $user->id){
+            $tuitem->status = 'accepted';
+            $tuitem->save();
+            return response()->json(['success' => true,'message' => 'Task report accepted']);
+        }
+        return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
+    }
+
+    public function reject(Request $request,$id)
+    {
+        $inputs = $request->all();
+        $user = $request->user();
+        $tuitem = TaskUserItem::find($id);
+        if(!$tuitem){
+            return response()->json(['error' => true, 'message' => 'Not found']);
+        }
+        if($tuitem->status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Report already '.$tuitem->status]);
+        }
+        $validator = Validator::make($inputs,[
+            'text' => 'required|string',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true,'message' => $validator->messages()]);
+        }
+        $svot = $tuitem->getSvot();
+        if($svot->user_id == $user->id){
+            $tuitem->status = 'rejected';
+            $tuitem->save();
+            //create taskuseritem comment
+            $tui_comment = TUIComment::create([
+                'text' => $inputs['text'],
+                'user_id' => $tuitem->user_id,
+                'task_user_item_id' => $tuitem->id
+            ]);
+            return response()->json(['success' => true,'message' => 'Task report rejected']);
+        }
+        return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
     }
 }

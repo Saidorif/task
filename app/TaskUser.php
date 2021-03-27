@@ -20,6 +20,6 @@ class TaskUser extends Model
 
     public function items()
     {
-        return $this->hasMany(\App\TaskUserItem::class,'parent_id');
+        return $this->hasMany(\App\TaskUserItem::class,'parent_id')->with('comments');
     }
 }
