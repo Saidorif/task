@@ -29,4 +29,14 @@ class Task extends Model
     {
         return $this->hasMany(\App\TaskItem::class,'task_id');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(\App\TaskComment::class,'task_id');
+    }
+
+    public function getSvot()
+    {
+        return TaskUser::where(['task_id' => $this->id,'svot' => 1])->first();
+    }
 }

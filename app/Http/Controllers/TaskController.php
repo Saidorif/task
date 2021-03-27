@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Task;
+use App\TaskComment;
 use App\TaskItem;
 use App\TaskUser;
+use App\TaskUserItem;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use Illuminate\Http\Request;
@@ -16,7 +18,7 @@ class TaskController extends Controller
     {
         $params = $request->all();
         $limit = !empty($params['limit']) ? (int)$params['limit'] : 12;
-        $result = Task::with(['creater','users','items'])->orderBy('id','DESC')->paginate($limit);
+        $result = Task::with(['creater','users','items','comments'])->orderBy('id','DESC')->paginate($limit);
         return response()->json(['success' => true,'result' => $result]);
     }
 
@@ -45,7 +47,7 @@ class TaskController extends Controller
 
     public function edit(Request $request,$id)
     {
-        $result = Task::with(['items','users'])->find($id);
+        $result = Task::with(['items','users','comments'])->find($id);
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Task not found']);
         }
@@ -185,5 +187,84 @@ class TaskController extends Controller
             return response()->json(['success' => true, 'message' => 'Task deleted']);
         }
         return response()->json(['success' => true, 'message' => 'Can not delete. Task is '.$task->status]);
+    }
+
+    //Send for approve to svot
+    public function approve(Request $request,$id)
+    {
+        $inputs = $request->all();
+        $user = $request->user();
+        $task = Task::find($id);
+        if(!$task){
+            return response()->json(['error' => true, 'message' => 'Not found']);
+        }
+        if($task->status == 'pending'){
+            return response()->json(['error' => true, 'message' => 'Report already '.$task->status]);
+        }
+        if($task->status == 'active'){
+            if($task->getSvot()->user_id == $user->id){
+                $task->status = 'pending';
+                $task->save();
+                return response()->json(['success' => true,'message' => 'Task report send for approve']);
+            }
+            return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
+        }
+        return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
+    }
+
+    public function accept(Request $request,$id)
+    {
+        $inputs = $request->all();
+        $user = $request->user();
+        $task = Task::find($id);
+        if(!$task){
+            return response()->json(['error' => true, 'message' => 'Not found']);
+        }
+        if($task->status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Report already '.$task->status]);
+        }
+        if($task->status == 'pending'){
+            if($task->user_id == $user->id){
+                $task->status = 'accepted';
+                $task->save();
+                return response()->json(['success' => true,'message' => 'Task report accepted']);
+            }
+            return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
+        }
+        return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
+    }
+
+    public function reject(Request $request,$id)
+    {
+        $inputs = $request->all();
+        $user = $request->user();
+        $task = Task::find($id);
+        if(!$task){
+            return response()->json(['error' => true, 'message' => 'Not found']);
+        }
+        if($task->status != 'pending'){
+            return response()->json(['error' => true, 'message' => 'Report already '.$task->status]);
+        }
+        $validator = Validator::make($inputs,[
+            'text' => 'required|string',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true,'message' => $validator->messages()]);
+        }
+        if($task->status == 'pending'){
+            if($task->user_id == $user->id){
+                $task->status = 'rejected';
+                $task->save();
+                //create taskuseritem comment
+                $task_comment = TaskComment::create([
+                    'text' => $inputs['text'],
+                    'user_id' => $task->user_id,
+                    'task_id' => $task->id
+                ]);
+                return response()->json(['success' => true,'message' => 'Task report rejected']);
+            }
+            return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
+        }
+        return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
     }
 }
