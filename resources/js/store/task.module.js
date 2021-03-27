@@ -67,7 +67,7 @@ const actions = {
 	},
     async actionAcceptTask({commit},payload){
 		try {
-			const actions =  await UserTaskService.acceptTask(payload);
+			const actions =  await TaskService.acceptTask(payload);
 			await commit('setMessage',actions.data)
 			return true
 		} catch (error) {
@@ -76,7 +76,7 @@ const actions = {
 	},
 	async actionRejectTask({commit},payload){
 		try {
-			const actions =  await UserTaskService.rejectTask(payload);
+			const actions =  await TaskService.rejectTask(payload);
 			await commit('setMessage',actions.data)
 			return true
 		} catch (error) {
@@ -85,7 +85,7 @@ const actions = {
 	},
 	async actionApproveTask({commit},payload){
 		try {
-			const actions =  await UserTaskService.approveTask(payload);
+			const actions =  await TaskService.approveTask(payload);
 			await commit('setMessage',actions.data)
 			return true
 		} catch (error) {

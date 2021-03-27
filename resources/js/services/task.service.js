@@ -23,7 +23,7 @@ const TaskService = {
 		return ApiService.post(`/api/task/reject/${data.id}`, data)
 	},
 	approveTask(data){
-		return ApiService.post(`/api/task/approve/${data.id}`, data)
+		return ApiService.post(`/api/task/approve/${data.id}`,)
 	},
 };
 

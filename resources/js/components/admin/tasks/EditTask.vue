@@ -144,7 +144,7 @@
                 type="button"
                 class="btn_blue mr_15"
                 @click="saveAction('active')"
-                v-if="form.status != 'active'"
+                v-if="form.status == 'draft'"
             >
                 <i class="sidebar_icon" data-feather="send"></i>
                 Опубликовать

@@ -15,6 +15,7 @@
 							<th scope="col">Название</th>
 							<th scope="col">Users</th>
 							<th scope="col">Срок</th>
+							<th scope="col">Статус</th>
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
@@ -31,6 +32,13 @@
                                 </ul>
                             </td>
 							<td>{{$g.getDate(cont.exp_date)}}г</td>
+							<td>
+                                <span class="alert alert-danger jv_alert" v-if="cont.status == 'rejected'">Rad etilgan</span>
+                                <span class="alert alert-success jv_alert" v-if="cont.status == 'accepted'">Qabul qilingan</span>
+                                <span class="alert alert-warning jv_alert" v-if="cont.status == 'pending'">Tasdiqlanmagan</span>
+                                <span class="alert alert-info jv_alert" v-if="cont.status == 'active'">Bajarilmoqda</span>
+                                <span class="alert alert-dark jv_alert" v-if="cont.status == 'draft'">Черновик</span>
+                            </td>
 							<td>
                                 <router-link tag="button" class="btn_blue_icon" :to='`/crm/tasks/edit/${cont.id}`'>
 									<i data-feather="edit-2" class="sidebar_icon" ></i>

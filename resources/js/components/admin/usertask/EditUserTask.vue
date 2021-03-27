@@ -272,8 +272,16 @@ export default {
       return this.requiredInput && input === "";
     },
     async fineshTask(){
-        await this.actionApproveTask();
-        console.log(this.getTaskMassage)
+        console.log('ss')
+        await this.actionApproveTask({id: this.getUserTask.task_id});
+        if(this.getTaskMassage.success){
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: this.getTaskMassage.message,
+            });
+            this.$router.push("/crm/user-task");
+        }
     },
     async dataRender(){
         let data = {

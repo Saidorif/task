@@ -9464,6 +9464,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -10650,13 +10658,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return _this2.actionApproveTask();
-
-              case 2:
-                console.log(_this2.getTaskMassage);
+                console.log('ss');
+                _context2.next = 3;
+                return _this2.actionApproveTask({
+                  id: _this2.getUserTask.task_id
+                });
 
               case 3:
+                if (_this2.getTaskMassage.success) {
+                  toast.fire({
+                    type: "success",
+                    icon: "success",
+                    title: _this2.getTaskMassage.message
+                  });
+
+                  _this2.$router.push("/crm/user-task");
+                }
+
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -86887,7 +86906,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form_btn_block" }, [
-                  _vm.form.status != "active"
+                  _vm.form.status == "draft"
                     ? _c(
                         "button",
                         {
@@ -87191,6 +87210,48 @@ var render = function() {
                         _vm._v(_vm._s(_vm.$g.getDate(cont.exp_date)) + "г")
                       ]),
                       _vm._v(" "),
+                      _c("td", [
+                        cont.status == "rejected"
+                          ? _c(
+                              "span",
+                              { staticClass: "alert alert-danger jv_alert" },
+                              [_vm._v("Rad etilgan")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        cont.status == "accepted"
+                          ? _c(
+                              "span",
+                              { staticClass: "alert alert-success jv_alert" },
+                              [_vm._v("Qabul qilingan")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        cont.status == "pending"
+                          ? _c(
+                              "span",
+                              { staticClass: "alert alert-warning jv_alert" },
+                              [_vm._v("Tasdiqlanmagan")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        cont.status == "active"
+                          ? _c(
+                              "span",
+                              { staticClass: "alert alert-info jv_alert" },
+                              [_vm._v("Bajarilmoqda")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        cont.status == "draft"
+                          ? _c(
+                              "span",
+                              { staticClass: "alert alert-dark jv_alert" },
+                              [_vm._v("Черновик")]
+                            )
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "td",
                         [
@@ -87262,6 +87323,8 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Users")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Срок")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Статус")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Действия")])
       ])
@@ -113529,7 +113592,7 @@ var TaskService = {
     return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/reject/".concat(data.id), data);
   },
   approveTask: function approveTask(data) {
-    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/approve/".concat(data.id), data);
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/approve/".concat(data.id));
   }
 };
 
@@ -115686,7 +115749,7 @@ var actions = {
               commit = _ref6.commit;
               _context6.prev = 1;
               _context6.next = 4;
-              return UserTaskService.acceptTask(payload);
+              return _services_task_service__WEBPACK_IMPORTED_MODULE_1__["TaskService"].acceptTask(payload);
 
             case 4:
               _actions6 = _context6.sent;
@@ -115720,7 +115783,7 @@ var actions = {
               commit = _ref7.commit;
               _context7.prev = 1;
               _context7.next = 4;
-              return UserTaskService.rejectTask(payload);
+              return _services_task_service__WEBPACK_IMPORTED_MODULE_1__["TaskService"].rejectTask(payload);
 
             case 4:
               _actions7 = _context7.sent;
@@ -115754,7 +115817,7 @@ var actions = {
               commit = _ref8.commit;
               _context8.prev = 1;
               _context8.next = 4;
-              return UserTaskService.approveTask(payload);
+              return _services_task_service__WEBPACK_IMPORTED_MODULE_1__["TaskService"].approveTask(payload);
 
             case 4:
               _actions8 = _context8.sent;
