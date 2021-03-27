@@ -694,3 +694,12 @@ tbody tr.selected {
   border-radius: 6px;
 }
 
+.input-group-text {
+  padding: 0.56rem 0.75rem;
+  border-radius: 0px;
+}
+
+.pl_30 {
+  padding-left: 30px;
+}
+

@@ -5402,6 +5402,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5418,7 +5433,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: 'string',
         mask: 'YYYY-MM-DD' // Uses 'iso' if missing
 
-      }
+      },
+      taskToday: [],
+      tasksList: []
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("dashboard", ["getDashboard", 'getTask'])), {}, {
@@ -5491,9 +5508,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
+                _this.tasksList = _this.getTask;
                 _this.loadertable = false;
 
-              case 4:
+              case 5:
               case "end":
                 return _context3.stop();
             }
@@ -5580,6 +5598,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               return _this3.actionDashboard();
 
             case 3:
+              _context5.next = 5;
+              return _this3.actionTaskByDate({
+                calendar: '2021-03-27'
+              });
+
+            case 5:
+              _this3.taskToday = _this3.getTask;
+
+            case 6:
             case "end":
               return _context5.stop();
           }
@@ -10861,6 +10888,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(["authenticationErrorCode", "authenticationError"])),
+  updated: function updated() {
+    feather.replace();
+  },
   mounted: function mounted() {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -12945,7 +12975,11 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
+<<<<<<< HEAD
+exports.push([module.i, "\n.table-responsive[data-v-12658639]{\n    transition: 1s;\n}\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\n    border: 1px solid red;\n    border-radius: 0px;\n    height: 24px;\n    width: 30px;\n    display: flex;\n    background: red;\n    color: white;\n    font-weight: bold;\n    line-height: 0;\n    letter-spacing: 0px;\n    font-size: 14px;\n    align-items: center;\n    position: absolute;\n    right: 0px;\n    top: 0px;\n    justify-content: center;\n}\n.spinner_table[data-v-12658639]{\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(255, 255, 255, 0.8);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\na[data-v-12658639]{\n        text-decoration: none;\n    color: #0c1427;\n}\n", ""]);
+=======
 exports.push([module.i, "\n.table-responsive[data-v-12658639]{\r\n    transition: 1s;\n}\n.mw_5000[data-v-12658639] {\r\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\r\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\r\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\r\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\r\n  --day-border: 1px solid #b8c2cc;\r\n  --day-border-highlight: 1px solid #b8c2cc;\r\n  --day-width: 90px;\r\n  --day-height: 90px;\r\n  --weekday-bg: #f8fafc;\r\n  --weekday-border: 1px solid #eaeaea;\r\n  border-radius: 0;\r\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\r\n    background-color: #f1f5f8;\r\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\r\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\r\n    background-color: var(--weekday-bg);\r\n    border-bottom: var(--weekday-border);\r\n    border-top: var(--weekday-border);\r\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\r\n    padding: 0 5px 3px 5px;\r\n    text-align: left;\r\n    height: var(--day-height);\r\n    min-width: var(--day-width);\r\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\r\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\r\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\r\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\r\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\r\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\r\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\r\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\r\n    border: 1px solid red;\r\n    border-radius: 0px;\r\n    height: 24px;\r\n    width: 30px;\r\n    display: flex;\r\n    background: red;\r\n    color: white;\r\n    font-weight: bold;\r\n    line-height: 0;\r\n    letter-spacing: 0px;\r\n    font-size: 14px;\r\n    align-items: center;\r\n    position: absolute;\r\n    right: 0px;\r\n    top: 0px;\r\n    justify-content: center;\n}\n.spinner_table[data-v-12658639]{\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    background: rgba(255, 255, 255, 0.8);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\n}\r\n", ""]);
+>>>>>>> e1a7765ab72c897b0d1815c4db0584f0c8edbbec
 
 // exports
 
@@ -82751,140 +82785,200 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "dashboard" },
-    [
-      _vm._m(0),
+  return _c("div", { staticClass: "dashboard" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "mb-3 d-flex justify-content-between" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-8" },
+        [
+          _c("DatePicker", {
+            staticClass: "custom-calendar max-w-full",
+            attrs: {
+              attributes: _vm.attributes,
+              "first-day-of-week": 2,
+              locale: "ru",
+              masks: { weekdays: "WW" },
+              format: "",
+              value: "",
+              "model-config": _vm.modelConfig
+            },
+            on: { "update:from-page": _vm.pageChange },
+            scopedSlots: _vm._u([
+              {
+                key: "day-content",
+                fn: function(ref) {
+                  var day = ref.day
+                  var attributes = ref.attributes
+                  return [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "day_block",
+                        on: {
+                          click: function($event) {
+                            return _vm.onDayClick(day)
+                          }
+                        }
+                      },
+                      [
+                        _c("p", [
+                          _c(
+                            "b",
+                            { staticClass: "day-label text-sm text-gray-900" },
+                            [_vm._v(_vm._s(day.day))]
+                          ),
+                          _vm._v(" "),
+                          attributes && attributes.length
+                            ? _c("sub", [
+                                _vm._v(_vm._s(attributes[0].customData.qty))
+                              ])
+                            : _vm._e()
+                        ])
+                      ]
+                    )
+                  ]
+                }
+              }
+            ])
+          })
+        ],
+        1
+      ),
       _vm._v(" "),
-      _c("DatePicker", {
-        staticClass: "custom-calendar max-w-full",
-        attrs: {
-          attributes: _vm.attributes,
-          "first-day-of-week": 2,
-          locale: "ru",
-          masks: { weekdays: "WW" },
-          format: "",
-          value: "",
-          "model-config": _vm.modelConfig
-        },
-        on: { "update:from-page": _vm.pageChange },
-        scopedSlots: _vm._u([
-          {
-            key: "day-content",
-            fn: function(ref) {
-              var day = ref.day
-              var attributes = ref.attributes
-              return [
+      _c("div", { staticClass: "col-md-4 jv-card pl_30" }, [
+        _c(
+          "div",
+          { staticClass: "list-group " },
+          _vm._l(_vm.taskToday, function(task, index) {
+            return _c(
+              "router-link",
+              {
+                key: index,
+                staticClass: "list-group-item list-group-item-action",
+                attrs: { to: "/crm/tasks/edit/" + task.id }
+              },
+              [
                 _c(
                   "div",
-                  {
-                    staticClass: "day_block",
-                    on: {
-                      click: function($event) {
-                        return _vm.onDayClick(day)
-                      }
-                    }
-                  },
+                  { staticClass: "d-flex w-100 justify-content-between" },
                   [
-                    _c("p", [
-                      _c(
-                        "b",
-                        { staticClass: "day-label text-sm text-gray-900" },
-                        [_vm._v(_vm._s(day.day))]
-                      ),
-                      _vm._v(" "),
-                      attributes && attributes.length
-                        ? _c("sub", [
-                            _vm._v(_vm._s(attributes[0].customData.qty))
-                          ])
-                        : _vm._e()
+                    _c(
+                      "h5",
+                      { staticClass: "mb-1", staticStyle: { width: "83%" } },
+                      [_vm._v(_vm._s(task.title.substr(0, 60)) + "...")]
+                    ),
+                    _vm._v(" "),
+                    _c("small", [
+                      _vm._v(_vm._s(_vm.$g.getDate(task.created_at)) + "г  ")
                     ])
                   ]
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "mb-1",
+                  domProps: {
+                    innerHTML: _vm._s(
+                      task.items[task.items.length - 1].text.substr(0, 100)
+                    )
+                  }
+                })
+              ]
+            )
+          }),
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "jv_card" }, [
+      _c("div", { staticClass: "table-responsive" }, [
+        _vm.loadertable
+          ? _c("div", { staticClass: "spinner_table" }, [_vm._m(1)])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.tasksList && _vm.tasksList.length
+          ? _c(
+              "table",
+              {
+                staticClass:
+                  "table table-bordered text-center table-hover table-striped"
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.tasksList, function(task, index) {
+                    return _c("tr", [
+                      _c("td", { attrs: { scope: "row" } }, [
+                        _vm._v(_vm._s(index + 1))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            { attrs: { to: "/crm/tasks/edit/" + task.id } },
+                            [
+                              _vm._v(
+                                " " +
+                                  _vm._s(task.creater.surename) +
+                                  " " +
+                                  _vm._s(task.creater.name) +
+                                  " " +
+                                  _vm._s(task.creater.lastname) +
+                                  " "
+                              )
+                            ]
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$g.getDate(task.created_at)) + "г")
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(task.title))]),
+                      _vm._v(" "),
+                      _c("td", { staticStyle: { padding: "0px" } }, [
+                        _c(
+                          "ul",
+                          _vm._l(task.users, function(item) {
+                            return _c(
+                              "li",
+                              { class: item.svot == 1 ? "active" : "" },
+                              [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(item.user.name) +
+                                    "\n                                    " +
+                                    _vm._s(item.user.surename) +
+                                    "\n                                "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(_vm._s(_vm.$g.getDate(task.exp_date)) + "г")
+                      ])
+                    ])
+                  }),
+                  0
                 )
               ]
-            }
-          }
-        ])
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "jv_card" }, [
-        _c("div", { staticClass: "table-responsive" }, [
-          _vm.loadertable
-            ? _c("div", { staticClass: "spinner_table" }, [_vm._m(1)])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.getTask && _vm.getTask.length
-            ? _c(
-                "table",
-                {
-                  staticClass:
-                    "table table-bordered text-center table-hover table-striped"
-                },
-                [
-                  _vm._m(2),
-                  _vm._v(" "),
-                  _c(
-                    "tbody",
-                    _vm._l(_vm.getTask, function(task, index) {
-                      return _c("tr", [
-                        _c("td", { attrs: { scope: "row" } }, [
-                          _vm._v(_vm._s(index + 1))
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(task.creater.surename) +
-                              " " +
-                              _vm._s(task.creater.name) +
-                              " " +
-                              _vm._s(task.creater.lastname)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(_vm.$g.getDate(task.created_at)) + "г")
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(task.title))]),
-                        _vm._v(" "),
-                        _c("td", { staticStyle: { padding: "0px" } }, [
-                          _c(
-                            "ul",
-                            _vm._l(task.users, function(item) {
-                              return _c(
-                                "li",
-                                { class: item.svot == 1 ? "active" : "" },
-                                [
-                                  _vm._v(
-                                    "\n                                    " +
-                                      _vm._s(item.user.name) +
-                                      "\n                                    " +
-                                      _vm._s(item.user.surename) +
-                                      "\n                                "
-                                  )
-                                ]
-                              )
-                            }),
-                            0
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(_vm._s(_vm.$g.getDate(task.exp_date)) + "г")
-                        ])
-                      ])
-                    }),
-                    0
-                  )
-                ]
-              )
-            : _vm._e()
-        ])
+            )
+          : _vm._e()
       ])
-    ],
-    1
-  )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -88369,7 +88463,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-append" }, [
       _c("div", { staticClass: "input-group-text" }, [
-        _c("img", { attrs: { src: "/img/user.png", alt: "" } })
+        _c("i", { attrs: { "data-feather": "user" } })
       ])
     ])
   },
@@ -88379,7 +88473,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "input-group-append" }, [
       _c("div", { staticClass: "input-group-text" }, [
-        _c("img", { attrs: { src: "/img/key.png", alt: "" } })
+        _c("i", { attrs: { "data-feather": "lock" } })
       ])
     ])
   },
