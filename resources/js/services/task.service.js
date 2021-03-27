@@ -16,6 +16,15 @@ const TaskService = {
     removeTask(id){
         return ApiService.delete(`/api/task/destroy/${id}`)
 	},
+    acceptTask(data){
+		return ApiService.post(`/api/task/accept/${data.id}`)
+	},
+	rejectTask(data){
+		return ApiService.post(`/api/task/reject/${data.id}`, data)
+	},
+	approveTask(data){
+		return ApiService.post(`/api/task/approve/${data.id}`, data)
+	},
 };
 
 export { TaskService };

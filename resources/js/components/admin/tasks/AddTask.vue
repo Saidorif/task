@@ -148,7 +148,7 @@
 			}
 		},
 		computed:{
-			...mapGetters('task',['getMassage']),
+			...mapGetters('task',['getTaskMassage']),
 			...mapGetters('user', ['getUserList']),
 		},
         watch:{
@@ -240,7 +240,7 @@
                         formData.append(`items[${index}][file]`, item.file)
                     })
 					await this.actionAddTask(formData)
-					if (this.getMassage.success) {
+					if (this.getTaskMassage.success) {
 						toast.fire({
 					    	type: 'success',
 					    	icon: 'success',

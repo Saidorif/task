@@ -171,7 +171,6 @@ export default {
   },
   async mounted() {
     this.loaded = true;
-    await this.actionDashboard();
     await this.actionTaskByDate({calendar: '2021-03-27'});
      this.taskToday = this.getTask;
   },

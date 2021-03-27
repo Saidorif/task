@@ -242,7 +242,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("task", ["getTask"]),
+    ...mapGetters("task", ["getTaskMassage"]),
     ...mapGetters("usertask", ["getMassage", 'getUserTask']),
   },
   updated() {
@@ -257,7 +257,9 @@ export default {
     feather.replace();
   },
   methods: {
-    ...mapActions("task", ["actionEditTask", "actionUpdateTask"]),
+    ...mapActions("task", [
+        "actionApproveTask",
+    ]),
     ...mapActions("usertask", [
         "actionSendAnswer",
         "actionEditUserTask",
@@ -270,7 +272,8 @@ export default {
       return this.requiredInput && input === "";
     },
     async fineshTask(){
-
+        await this.actionApproveTask();
+        console.log(this.getTaskMassage)
     },
     async dataRender(){
         let data = {

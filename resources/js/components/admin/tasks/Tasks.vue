@@ -61,7 +61,7 @@
 
 		},
 		computed:{
-			...mapGetters('task',['getTasks','getMassage'])
+			...mapGetters('task',['getTasks','getTaskMassage'])
 		},
 		methods:{
 			...mapActions('task',['actionTasks', 'actionDeleteTask']),
@@ -81,12 +81,12 @@
                     if (result.isConfirmed) {
                         let page = 1
                         await this.actionDeleteTask(id)
-                        if(this.getMassage.success){
+                        if(this.getTaskMassage.success){
                             await this.actionTasks(page)
                             toast.fire({
                                 type: 'success',
                                 icon: 'success',
-                                title: this.getMassage.message,
+                                title: this.getTaskMassage.message,
                             })
                         }
                     }

@@ -5595,18 +5595,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             case 0:
               _this3.loaded = true;
               _context5.next = 3;
-              return _this3.actionDashboard();
-
-            case 3:
-              _context5.next = 5;
               return _this3.actionTaskByDate({
                 calendar: '2021-03-27'
               });
 
-            case 5:
+            case 3:
               _this3.taskToday = _this3.getTask;
 
-            case 6:
+            case 4:
             case "end":
               return _context5.stop();
           }
@@ -8668,7 +8664,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasSvot: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('task', ['getMassage'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('user', ['getUserList'])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('task', ['getTaskMassage'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])('user', ['getUserList'])),
   watch: {
     selectedUser: function selectedUser(val) {
       val.svot = false;
@@ -8806,7 +8802,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _this2.actionAddTask(formData);
 
               case 9:
-                if (_this2.getMassage.success) {
+                if (_this2.getTaskMassage.success) {
                   toast.fire({
                     type: 'success',
                     icon: 'success',
@@ -9137,7 +9133,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasSvot: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("task", ["getMassage", 'getTask'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("user", ["getUserList"])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("task", ["getTaskMassage", 'getTask'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("user", ["getUserList"])),
   watch: {
     selectedUser: function selectedUser(val) {
       val.svot = false;
@@ -9356,7 +9352,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 13:
-                if (_this4.getMassage.success) {
+                if (_this4.getTaskMassage.success) {
                   _this4.rerenderData();
 
                   _this4.newItem.text = '';
@@ -9495,7 +9491,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('task', ['getTasks', 'getMassage'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])('task', ['getTasks', 'getTaskMassage'])),
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('task', ['actionTasks', 'actionDeleteTask'])), {}, {
     getResults: function getResults() {
       var _arguments = arguments,
@@ -9552,7 +9548,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                             return _this3.actionDeleteTask(id);
 
                           case 4:
-                            if (!_this3.getMassage.success) {
+                            if (!_this3.getTaskMassage.success) {
                               _context3.next = 8;
                               break;
                             }
@@ -9564,7 +9560,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                             toast.fire({
                               type: 'success',
                               icon: 'success',
-                              title: _this3.getMassage.message
+                              title: _this3.getTaskMassage.message
                             });
 
                           case 8:
@@ -10612,7 +10608,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       modalcancel: null
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("task", ["getTask"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("usertask", ["getMassage", 'getUserTask'])),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("task", ["getTaskMassage"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("usertask", ["getMassage", 'getUserTask'])),
   updated: function updated() {
     feather.replace();
   },
@@ -10642,16 +10638,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _callee);
     }))();
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("task", ["actionEditTask", "actionUpdateTask"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("usertask", ["actionSendAnswer", "actionEditUserTask", 'actionAcceptTaskSvot', 'actionRejectTaskSvot', 'actionApproveTaskSvot', 'actionUpdateUserTask'])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("task", ["actionApproveTask"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("usertask", ["actionSendAnswer", "actionEditUserTask", 'actionAcceptTaskSvot', 'actionRejectTaskSvot', 'actionApproveTaskSvot', 'actionUpdateUserTask'])), {}, {
     isRequired: function isRequired(input) {
       return this.requiredInput && input === "";
     },
     fineshTask: function fineshTask() {
+      var _this2 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                _context2.next = 2;
+                return _this2.actionApproveTask();
+
+              case 2:
+                console.log(_this2.getTaskMassage);
+
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -10660,7 +10665,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     dataRender: function dataRender() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var data;
@@ -10669,28 +10674,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context3.prev = _context3.next) {
               case 0:
                 data = {
-                  id: _this2.$route.params.taskId
+                  id: _this3.$route.params.taskId
                 };
                 _context3.next = 3;
-                return _this2.actionEditUserTask(data);
+                return _this3.actionEditUserTask(data);
 
               case 3:
-                _this2.userlist = _this2.getUserList;
-                _this2.form.title = _this2.getUserTask.task.title;
-                _this2.form.status = _this2.getUserTask.task.status;
-                _this2.form.exp_date = _this2.$g.getDate(_this2.getUserTask.task.exp_date);
-                _this2.selectedUsersList = _this2.getUserTask.task.users.map(function (item) {
+                _this3.userlist = _this3.getUserList;
+                _this3.form.title = _this3.getUserTask.task.title;
+                _this3.form.status = _this3.getUserTask.task.status;
+                _this3.form.exp_date = _this3.$g.getDate(_this3.getUserTask.task.exp_date);
+                _this3.selectedUsersList = _this3.getUserTask.task.users.map(function (item) {
                   var data = item.user;
                   data.svot = item.svot;
 
                   if (item.svot == 1) {
-                    _this2.hasSvot = true;
-                    _this2.svotId = item.user_id;
+                    _this3.hasSvot = true;
+                    _this3.svotId = item.user_id;
                   }
 
                   return data;
                 });
-                _this2.allItems = _this2.getUserTask.task.items;
+                _this3.allItems = _this3.getUserTask.task.items;
 
               case 9:
               case "end":
@@ -10701,7 +10706,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     acceptTask: function acceptTask(ans) {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -10709,20 +10714,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return _this3.actionAcceptTaskSvot({
+                return _this4.actionAcceptTaskSvot({
                   id: ans.id
                 });
 
               case 2:
                 _context4.next = 4;
-                return _this3.dataRender();
+                return _this4.dataRender();
 
               case 4:
-                if (_this3.getMassage.success) {
+                if (_this4.getMassage.success) {
                   toast.fire({
                     type: "success",
                     icon: "success",
-                    title: _this3.getMassage.message
+                    title: _this4.getMassage.message
                   });
                 }
 
@@ -10739,37 +10744,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.comment.id = ans.id;
     },
     cancelTask: function cancelTask() {
-      var _this4 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                if (!(_this4.comment.text != '')) {
+                if (!(_this5.comment.text != '')) {
                   _context5.next = 8;
                   break;
                 }
 
                 _context5.next = 3;
-                return _this4.actionRejectTaskSvot(_this4.comment);
+                return _this5.actionRejectTaskSvot(_this5.comment);
 
               case 3:
                 _context5.next = 5;
-                return _this4.dataRender();
+                return _this5.dataRender();
 
               case 5:
-                _this4.modalcancel.hide();
+                _this5.modalcancel.hide();
 
-                _this4.comment = {
+                _this5.comment = {
                   text: ''
                 };
 
-                if (_this4.getMassage.success) {
+                if (_this5.getMassage.success) {
                   toast.fire({
                     type: "success",
                     icon: "success",
-                    title: _this4.getMassage.message
+                    title: _this5.getMassage.message
                   });
                 }
 
@@ -10801,7 +10806,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.answer = anw;
     },
     saveAction: function saveAction() {
-      var _this5 = this;
+      var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
         var formData;
@@ -10809,34 +10814,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                if (!(_this5.answer.text != "")) {
+                if (!(_this6.answer.text != "")) {
                   _context6.next = 29;
                   break;
                 }
 
                 formData = new FormData();
-                formData.append("text", _this5.answer.text);
+                formData.append("text", _this6.answer.text);
 
-                if (_this5.answer.file != null) {
-                  formData.append("file", _this5.answer.file);
+                if (_this6.answer.file != null) {
+                  formData.append("file", _this6.answer.file);
                 }
 
-                formData.append("task_id", _this5.allItems[0].task_id);
-                formData.append("parent_id", _this5.$route.params.taskId);
+                formData.append("task_id", _this6.allItems[0].task_id);
+                formData.append("parent_id", _this6.$route.params.taskId);
 
-                if (!_this5.answer.id) {
+                if (!_this6.answer.id) {
                   _context6.next = 14;
                   break;
                 }
 
-                formData.append("id", _this5.answer.id);
+                formData.append("id", _this6.answer.id);
                 _context6.next = 10;
-                return _this5.actionApproveTaskSvot(_this5.answer);
+                return _this6.actionApproveTaskSvot(_this6.answer);
 
               case 10:
                 _context6.next = 12;
-                return _this5.actionUpdateUserTask({
-                  id: _this5.answer.id,
+                return _this6.actionUpdateUserTask({
+                  id: _this6.answer.id,
                   data: formData
                 });
 
@@ -10846,29 +10851,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 14:
                 _context6.next = 16;
-                return _this5.actionSendAnswer(formData);
+                return _this6.actionSendAnswer(formData);
 
               case 16:
-                if (!_this5.getMassage.success) {
+                if (!_this6.getMassage.success) {
                   _context6.next = 26;
                   break;
                 }
 
                 _context6.next = 19;
-                return _this5.actionEditUserTask({
-                  id: _this5.$route.params.taskId
+                return _this6.actionEditUserTask({
+                  id: _this6.$route.params.taskId
                 });
 
               case 19:
-                _this5.answer.text = '';
-                _this5.answer.file = '';
+                _this6.answer.text = '';
+                _this6.answer.file = '';
                 document.querySelector("#inputFileLabel").innerHTML = '';
                 toast.fire({
                   type: "success",
                   icon: "success",
                   title: "Task обновлено!"
                 });
-                _this5.requiredInput = false;
+                _this6.requiredInput = false;
                 _context6.next = 27;
                 break;
 
@@ -10884,7 +10889,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 break;
 
               case 29:
-                _this5.requiredInput = true;
+                _this6.requiredInput = true;
 
               case 30:
               case "end":
@@ -13175,11 +13180,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-<<<<<<< HEAD
 exports.push([module.i, "\n.table-responsive[data-v-12658639]{\n    transition: 1s;\n}\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\n    border: 1px solid red;\n    border-radius: 0px;\n    height: 24px;\n    width: 30px;\n    display: flex;\n    background: red;\n    color: white;\n    font-weight: bold;\n    line-height: 0;\n    letter-spacing: 0px;\n    font-size: 14px;\n    align-items: center;\n    position: absolute;\n    right: 0px;\n    top: 0px;\n    justify-content: center;\n}\n.spinner_table[data-v-12658639]{\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(255, 255, 255, 0.8);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\na[data-v-12658639]{\n        text-decoration: none;\n    color: #0c1427;\n}\n", ""]);
-=======
-exports.push([module.i, "\n.table-responsive[data-v-12658639]{\r\n    transition: 1s;\n}\n.mw_5000[data-v-12658639] {\r\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\r\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\r\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\r\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\r\n  --day-border: 1px solid #b8c2cc;\r\n  --day-border-highlight: 1px solid #b8c2cc;\r\n  --day-width: 90px;\r\n  --day-height: 90px;\r\n  --weekday-bg: #f8fafc;\r\n  --weekday-border: 1px solid #eaeaea;\r\n  border-radius: 0;\r\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\r\n    background-color: #f1f5f8;\r\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\r\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\r\n    background-color: var(--weekday-bg);\r\n    border-bottom: var(--weekday-border);\r\n    border-top: var(--weekday-border);\r\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\r\n    padding: 0 5px 3px 5px;\r\n    text-align: left;\r\n    height: var(--day-height);\r\n    min-width: var(--day-width);\r\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\r\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\r\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\r\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\r\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\r\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\r\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\r\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\r\n    border: 1px solid red;\r\n    border-radius: 0px;\r\n    height: 24px;\r\n    width: 30px;\r\n    display: flex;\r\n    background: red;\r\n    color: white;\r\n    font-weight: bold;\r\n    line-height: 0;\r\n    letter-spacing: 0px;\r\n    font-size: 14px;\r\n    align-items: center;\r\n    position: absolute;\r\n    right: 0px;\r\n    top: 0px;\r\n    justify-content: center;\n}\n.spinner_table[data-v-12658639]{\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    right: 0;\r\n    bottom: 0;\r\n    background: rgba(255, 255, 255, 0.8);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\n}\na[data-v-12658639]{\r\n        text-decoration: none;\r\n    color: #0c1427;\n}\r\n", ""]);
->>>>>>> f8c4465498d929f34791836bd4b65a2aa9e185e9
 
 // exports
 
@@ -113520,6 +113521,15 @@ var TaskService = {
   },
   removeTask: function removeTask(id) {
     return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/api/task/destroy/".concat(id));
+  },
+  acceptTask: function acceptTask(data) {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/accept/".concat(data.id));
+  },
+  rejectTask: function rejectTask(data) {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/reject/".concat(data.id), data);
+  },
+  approveTask: function approveTask(data) {
+    return _api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post("/api/task/approve/".concat(data.id), data);
   }
 };
 
@@ -115487,7 +115497,7 @@ var getters = {
   getTasks: function getTasks(state) {
     return state.tasks;
   },
-  getMassage: function getMassage(state) {
+  getTaskMassage: function getTaskMassage(state) {
     return state.message;
   },
   getTask: function getTask(state) {
@@ -115663,6 +115673,108 @@ var actions = {
           }
         }
       }, _callee5, null, [[1, 10]]);
+    }))();
+  },
+  actionAcceptTask: function actionAcceptTask(_ref6, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      var commit, _actions6;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref6.commit;
+              _context6.prev = 1;
+              _context6.next = 4;
+              return UserTaskService.acceptTask(payload);
+
+            case 4:
+              _actions6 = _context6.sent;
+              _context6.next = 7;
+              return commit('setMessage', _actions6.data);
+
+            case 7:
+              return _context6.abrupt("return", true);
+
+            case 10:
+              _context6.prev = 10;
+              _context6.t0 = _context6["catch"](1);
+              return _context6.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6, null, [[1, 10]]);
+    }))();
+  },
+  actionRejectTask: function actionRejectTask(_ref7, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      var commit, _actions7;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref7.commit;
+              _context7.prev = 1;
+              _context7.next = 4;
+              return UserTaskService.rejectTask(payload);
+
+            case 4:
+              _actions7 = _context7.sent;
+              _context7.next = 7;
+              return commit('setMessage', _actions7.data);
+
+            case 7:
+              return _context7.abrupt("return", true);
+
+            case 10:
+              _context7.prev = 10;
+              _context7.t0 = _context7["catch"](1);
+              return _context7.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7, null, [[1, 10]]);
+    }))();
+  },
+  actionApproveTask: function actionApproveTask(_ref8, payload) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+      var commit, _actions8;
+
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              commit = _ref8.commit;
+              _context8.prev = 1;
+              _context8.next = 4;
+              return UserTaskService.approveTask(payload);
+
+            case 4:
+              _actions8 = _context8.sent;
+              _context8.next = 7;
+              return commit('setMessage', _actions8.data);
+
+            case 7:
+              return _context8.abrupt("return", true);
+
+            case 10:
+              _context8.prev = 10;
+              _context8.t0 = _context8["catch"](1);
+              return _context8.abrupt("return", false);
+
+            case 13:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8, null, [[1, 10]]);
     }))();
   }
 };

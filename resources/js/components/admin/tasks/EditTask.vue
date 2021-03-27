@@ -234,7 +234,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("task", ["getMassage", 'getTask']),
+    ...mapGetters("task", ["getTaskMassage", 'getTask']),
     ...mapGetters("user", ["getUserList"]),
   },
   watch: {
@@ -372,7 +372,7 @@ export default {
         });
             this.isLoading = true
         await this.actionUpdateTask({id: this.$route.params.taskId, data: formData});
-        if (this.getMassage.success) {
+        if (this.getTaskMassage.success) {
             this.rerenderData()
             this.newItem.text = ''
             this.newItem.file = null

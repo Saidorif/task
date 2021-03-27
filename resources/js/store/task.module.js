@@ -10,7 +10,7 @@ const getters = {
 	getTasks(state){
 		return state.tasks
 	},
-	getMassage(state){
+	getTaskMassage(state){
 		return state.message
 	},
 	getTask(state){
@@ -59,6 +59,33 @@ const actions = {
 	async actionUpdateTask({commit},payload){
 		try {
 			const actions =  await TaskService.updateTask(payload);
+			await commit('setMessage',actions.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+    async actionAcceptTask({commit},payload){
+		try {
+			const actions =  await UserTaskService.acceptTask(payload);
+			await commit('setMessage',actions.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionRejectTask({commit},payload){
+		try {
+			const actions =  await UserTaskService.rejectTask(payload);
+			await commit('setMessage',actions.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionApproveTask({commit},payload){
+		try {
+			const actions =  await UserTaskService.approveTask(payload);
 			await commit('setMessage',actions.data)
 			return true
 		} catch (error) {
