@@ -12,6 +12,7 @@ class TaskUserItem extends Model
         'parent_id',
         'text',
         'file',
+        'status',
     ];
 
     public function user()
@@ -26,6 +27,16 @@ class TaskUserItem extends Model
 
     public function parent()
     {
-        return $this->belongsTo(\App\TaskUserItem::class,'parent_id');
+        return $this->belongsTo(\App\TaskUser::class,'parent_id');
+    }
+
+    public function getSvot()
+    {
+        return TaskUser::where(['task_id' => $this->task_id,'svot' => 1])->first();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(\App\TUIComment::class,'task_user_item_id');
     }
 }

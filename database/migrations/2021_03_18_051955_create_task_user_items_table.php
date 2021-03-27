@@ -20,6 +20,7 @@ class CreateTaskUserItemsTable extends Migration
             $table->integer('parent_id')->index();
             $table->text('text')->nullable();
             $table->string('file')->nullable();
+            $table->string('status')->default('pending')->nullable();
             $table->timestamps();
         });
     }

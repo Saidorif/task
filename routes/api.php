@@ -37,6 +37,9 @@ Route::group([
         //User tasks
         Route::post('usertask/store','TaskUserItemController@store');
         Route::post('usertask/update/{id}','TaskUserItemController@update');
+        Route::post('usertask/accept/{id}','TaskUserItemController@accept');
+        Route::post('usertask/approve/{id}','TaskUserItemController@approve');
+        Route::post('usertask/reject/{id}','TaskUserItemController@reject');
         Route::get('usertask/edit/{id}','TaskUserItemController@edit');
         Route::delete('usertask/destroy/{id}','TaskUserItemController@destroy');
 
