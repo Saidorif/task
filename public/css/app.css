@@ -418,6 +418,7 @@ ul li {
   z-index: 1;
 }
 
+.input_style textarea,
 .input_style select,
 .input_style input {
   font-weight: 500;
@@ -430,8 +431,13 @@ ul li {
   width: 100%;
 }
 
+.input_style textarea:disabled,
+.input_style textarea:valid,
+.input_style textarea:focus,
+.input_style select:disabled,
 .input_style select:valid,
 .input_style select:focus,
+.input_style input:disabled,
 .input_style input:valid,
 .input_style input:focus {
   color: #284b63;
@@ -440,8 +446,13 @@ ul li {
   box-shadow: none;
 }
 
+.input_style textarea:disabled + label,
+.input_style textarea:valid + label,
+.input_style textarea:focus + label,
+.input_style select:disabled + label,
 .input_style select:valid + label,
 .input_style select:focus + label,
+.input_style input:disabled + label,
 .input_style input:valid + label,
 .input_style input:focus + label {
   transform: scale(0.8) translateY(-22px);
@@ -692,6 +703,10 @@ tbody tr.selected {
   border: 2px solid #d9d9d9;
   padding: 5px 15px;
   border-radius: 6px;
+}
+
+.disabled_custom_editor img {
+  width: 100%;
 }
 
 .input-group-text {
