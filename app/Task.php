@@ -20,6 +20,11 @@ class Task extends Model
         return $this->hasMany(\App\TaskUser::class,'task_id')->with(['user','items']);
     }
 
+    public function usersitems()
+    {
+        return $this->hasMany(\App\TaskUserItem::class,'task_id');
+    }
+
     public function creater()
     {
         return $this->belongsTo(\App\User::class,'user_id');
@@ -28,5 +33,15 @@ class Task extends Model
     public function items()
     {
         return $this->hasMany(\App\TaskItem::class,'task_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(\App\TaskComment::class,'task_id');
+    }
+
+    public function getSvot()
+    {
+        return TaskUser::where(['task_id' => $this->id,'svot' => 1])->first();
     }
 }

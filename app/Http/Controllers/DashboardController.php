@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
+use App\Task;
 
 class DashboardController extends Controller
 {
@@ -19,6 +20,7 @@ class DashboardController extends Controller
         $end_month = Carbon::parse($date)->lastOfMonth()->format('Y-m-d');
         $result = [];
         $result['calendar'] = DB::select("SELECT COUNT(*) AS qty,exp_date FROM `tasks` WHERE exp_date BETWEEN '$start_month' AND '$end_month' GROUP BY exp_date");
+        $result['kartoteka'] = Task::with(['creater','users','items','comments'])->where('exp_date','<',date('Y-m-d'))->where('status','!=','draft')->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 }
