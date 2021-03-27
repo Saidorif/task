@@ -20,6 +20,11 @@ class Task extends Model
         return $this->hasMany(\App\TaskUser::class,'task_id')->with(['user','items']);
     }
 
+    public function usersitems()
+    {
+        return $this->hasMany(\App\TaskUserItem::class,'task_id');
+    }
+
     public function creater()
     {
         return $this->belongsTo(\App\User::class,'user_id');
