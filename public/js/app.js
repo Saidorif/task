@@ -5417,6 +5417,60 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7169,6 +7223,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -9096,6 +9151,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9130,7 +9223,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       requiredInput: false,
       isLoading: true,
       selectedUser: null,
-      hasSvot: false
+      hasSvot: false,
+      comment: {
+        text: null,
+        id: null
+      }
     };
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("task", ["getTaskMassage", 'getTask'])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("user", ["getUserList"])),
@@ -9179,9 +9276,67 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, _callee);
     }))();
   },
-  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("task", ["actionEditTask", "actionUpdateTask"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("user", ["ActionUserList"])), {}, {
+  methods: _objectSpread(_objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask"])), Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("user", ["ActionUserList"])), {}, {
     isRequired: function isRequired(input) {
       return this.requiredInput && input === "";
+    },
+    cancelTask: function cancelTask() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.actionRejectTask(_this2.comment);
+
+              case 2:
+                if (_this2.getTaskMassage.success) {
+                  toast.fire({
+                    type: "success",
+                    icon: "success",
+                    title: _this2.getTaskMassage.message
+                  });
+                }
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    acceptTask: function acceptTask() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.actionAcceptTask({
+                  id: _this3.$route.params.taskId
+                });
+
+              case 2:
+                if (_this3.getTaskMassage.success) {
+                  toast.fire({
+                    type: "success",
+                    icon: "success",
+                    title: _this3.getTaskMassage.message
+                  });
+                }
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     },
     deleteItem: function deleteItem(index) {
       this.allItems.splice(index, 1);
@@ -9194,52 +9349,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return "".concat(position.name, " ").concat(name, " ").concat(surename, " ").concat(lastname);
     },
     rerenderData: function rerenderData() {
-      var _this2 = this;
+      var _this4 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         var data;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 data = {
-                  id: _this2.$route.params.taskId
+                  id: _this4.$route.params.taskId
                 };
-                _context2.next = 3;
-                return _this2.ActionUserList();
+                _context4.next = 3;
+                return _this4.ActionUserList();
 
               case 3:
-                _context2.next = 5;
-                return _this2.actionEditTask(data);
+                _context4.next = 5;
+                return _this4.actionEditTask(data);
 
               case 5:
-                _this2.userlist = _this2.getUserList;
-                _this2.form.title = _this2.getTask.title;
-                _this2.form.status = _this2.getTask.status;
-                _this2.form.exp_date = _this2.$g.getDate(_this2.getTask.exp_date);
-                _this2.selectedUsersList = _this2.getTask.users.map(function (item) {
+                _this4.userlist = _this4.getUserList;
+                _this4.comment.id = _this4.$route.params.taskId;
+                _this4.form.title = _this4.getTask.title;
+                _this4.form.status = _this4.getTask.status;
+                _this4.form.exp_date = _this4.$g.getDate(_this4.getTask.exp_date);
+                _this4.selectedUsersList = _this4.getTask.users.map(function (item) {
                   var data = item.user;
                   data.svot = item.svot;
 
                   if (item.svot == 1) {
-                    _this2.hasSvot = true;
+                    _this4.hasSvot = true;
                   }
 
                   return data;
                 });
-                _this2.allItems = _this2.getTask.items;
+                _this4.allItems = _this4.getTask.items;
                 feather.replace();
 
-              case 12:
+              case 13:
               case "end":
-                return _context2.stop();
+                return _context4.stop();
             }
           }
-        }, _callee2);
+        }, _callee4);
       }))();
     },
     deleteUser: function deleteUser(ind) {
-      var _this3 = this;
+      var _this5 = this;
 
       swal.fire({
         type: "confirm",
@@ -9250,21 +9406,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         cancelButtonText: "\u041E\u0442\u043C\u0435\u043D\u0430",
         showCancelButton: true
       }).then( /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(result) {
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(result) {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
             while (1) {
-              switch (_context3.prev = _context3.next) {
+              switch (_context5.prev = _context5.next) {
                 case 0:
                   if (result.isConfirmed) {
-                    _this3.selectedUsersList.splice(ind, 1);
+                    _this5.selectedUsersList.splice(ind, 1);
                   }
 
                 case 1:
                 case "end":
-                  return _context3.stop();
+                  return _context5.stop();
               }
             }
-          }, _callee3);
+          }, _callee5);
         }));
 
         return function (_x) {
@@ -9293,29 +9449,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     saveAction: function saveAction(sts) {
-      var _this4 = this;
+      var _this6 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
         var formData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
-                if (!(_this4.form.title != "" && _this4.form.exp_date != "" && _this4.selectedUsersList.length)) {
-                  _context4.next = 17;
+                if (!(_this6.form.title != "" && _this6.form.exp_date != "" && _this6.selectedUsersList.length)) {
+                  _context6.next = 17;
                   break;
                 }
 
-                _this4.form.users = _this4.selectedUsersList.map(function (item) {
+                _this6.form.users = _this6.selectedUsersList.map(function (item) {
                   return {
                     user_id: item.id,
                     svot: item.svot ? 1 : 0
                   };
                 });
                 formData = new FormData();
-                formData.append("title", _this4.form.title);
-                formData.append("id", _this4.$route.params.taskId);
-                formData.append("exp_date", _this4.form.exp_date);
+                formData.append("title", _this6.form.title);
+                formData.append("id", _this6.$route.params.taskId);
+                formData.append("exp_date", _this6.form.exp_date);
 
                 if (sts) {
                   formData.append("status", 'active');
@@ -9323,16 +9479,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   formData.append("status", 'draft');
                 }
 
-                _this4.form.users.forEach(function (item, index) {
+                _this6.form.users.forEach(function (item, index) {
                   formData.append("users[".concat(index, "][user_id]"), item.user_id);
                   formData.append("users[".concat(index, "][svot]"), item.svot);
                 });
 
-                if (_this4.newItem.text != '') {
-                  _this4.allItems.push(_this4.newItem);
+                if (_this6.newItem.text != '') {
+                  _this6.allItems.push(_this6.newItem);
                 }
 
-                _this4.allItems.forEach(function (item, index) {
+                _this6.allItems.forEach(function (item, index) {
                   formData.append("items[".concat(index, "][text]"), item.text);
 
                   if (item.id) {
@@ -9344,25 +9500,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   }
                 });
 
-                _this4.isLoading = true;
-                _context4.next = 13;
-                return _this4.actionUpdateTask({
-                  id: _this4.$route.params.taskId,
+                _this6.isLoading = true;
+                _context6.next = 13;
+                return _this6.actionUpdateTask({
+                  id: _this6.$route.params.taskId,
                   data: formData
                 });
 
               case 13:
-                if (_this4.getTaskMassage.success) {
-                  _this4.rerenderData();
+                if (_this6.getTaskMassage.success) {
+                  _this6.rerenderData();
 
-                  _this4.newItem.text = '';
-                  _this4.newItem.file = null;
+                  _this6.newItem.text = '';
+                  _this6.newItem.file = null;
                   toast.fire({
                     type: "success",
                     icon: "success",
                     title: "Task обновлено!"
                   });
-                  _this4.requiredInput = false;
+                  _this6.requiredInput = false;
                 } else {
                   toast.fire({
                     type: "error",
@@ -9371,19 +9527,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   });
                 }
 
-                _this4.isLoading = false;
-                _context4.next = 18;
+                _this6.isLoading = false;
+                _context6.next = 18;
                 break;
 
               case 17:
-                _this4.requiredInput = true;
+                _this6.requiredInput = true;
 
               case 18:
               case "end":
-                return _context4.stop();
+                return _context6.stop();
             }
           }
-        }, _callee4);
+        }, _callee6);
       }))();
     }
   })
@@ -13199,7 +13355,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.table-responsive[data-v-12658639]{\n    transition: 1s;\n}\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weeks[data-v-12658639] {\n    padding: 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n}\n.day_block b[data-v-12658639]{\n    font-size: 24px;\n}\n.day_block sub[data-v-12658639]{\n    border: 1px solid red;\n    border-radius: 0px;\n    height: 24px;\n    width: 30px;\n    display: flex;\n    background: red;\n    color: white;\n    font-weight: bold;\n    line-height: 0;\n    letter-spacing: 0px;\n    font-size: 14px;\n    align-items: center;\n    position: absolute;\n    right: 0px;\n    top: 0px;\n    justify-content: center;\n}\n.spinner_table[data-v-12658639]{\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(255, 255, 255, 0.8);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\na[data-v-12658639]{\n        text-decoration: none;\n    color: #0c1427;\n}\n", ""]);
+exports.push([module.i, "\n.dashboard_header[data-v-12658639]{\n    display: flex;\n    justify-content: space-between;\n    align-items: flex-start;\n    margin-bottom: 20px;\n}\n.item_calendar[data-v-12658639]{\n    width: calc(100% / 4 - 20px);\n    overflow: hidden;\n        border-radius: 8px;\n}\n.header_item[data-v-12658639]{\n    background: #FFFFFF;\n    border-radius: 8px;\n    padding: 24px;\n    height: 175px;\n    width: calc(100% / 4 - 20px);\n    display: flex;\n    justify-content: space-between;\n    flex-wrap: wrap;\n}\n.header_item .icon[data-v-12658639]{\n    background: #2CD699;\n    border-radius: 16px;\n    height: 68px;\n    width: 68px;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    color: white;\n    margin-right: 16px;\n}\n.header_item:nth-child(2) .icon[data-v-12658639]{\n    background: #0368FF;\n}\n.header_item:nth-child(3) .icon[data-v-12658639]{\n    background: #FF4930;\n}\n.header_item:nth-child(4) .icon[data-v-12658639]{\n    background: #FF4930;\n}\n.header_item .info[data-v-12658639]{\n    width: calc(100% - 85px);\n}\n.header_item .info p[data-v-12658639]{\n    font-family: \"OpenSans-SemiBold\";\n    font-style: normal;\n    font-weight: 500;\n    font-size: 16px;\n    line-height: 19px;\n    color: #475569;\n    margin-bottom: 4px;\n}\n.header_item .info h6[data-v-12658639]{\n    font-family: \"OpenSans-SemiBold\";\n    font-style: normal;\n    font-weight: 500;\n    font-size: 32px;\n    line-height: 39px;\n    color: #0B0F38;\n}\n.table-responsive[data-v-12658639]{\n    transition: 1s;\n}\n.mw_5000[data-v-12658639] {\n  min-width: 5000px;\n}\n.overauto[data-v-12658639] {\n  overflow: auto;\n}\n[data-v-12658639]::-webkit-scrollbar {\n  width: 0px;\n}\n[data-v-12658639]::-webkit-scrollbar-track {\n  display: none;\n}\n.custom-calendar[data-v-12658639]{\n    border: none;\n}\n.custom-calendar.vc-container[data-v-12658639] {\n  --day-border: 1px solid #b8c2cc;\n  --day-border-highlight: 1px solid #b8c2cc;\n  --day-width: 90px;\n  --day-height: 90px;\n  --weekday-bg: #f8fafc;\n  --weekday-border: 1px solid #eaeaea;\n  border-radius: 0;\n  width: 100%;\n}\n.custom-calendar.vc-container .vc-header[data-v-12658639] {\n    background-color: #f1f5f8;\n    padding: 10px 0;\n}\n.custom-calendar.vc-container .vc-weekday[data-v-12658639] {\n    background-color: var(--weekday-bg);\n    border-bottom: var(--weekday-border);\n    border-top: var(--weekday-border);\n    padding: 5px 0;\n}\n.custom-calendar.vc-container .vc-day[data-v-12658639] {\n    padding: 0 5px 3px 5px;\n    text-align: left;\n    height: var(--day-height);\n    min-width: var(--day-width);\n    background-color: white;\n}\n.custom-calendar.vc-container .vc-day .weekday-1[data-v-12658639],\n.custom-calendar.vc-container .vc-day   .weekday-7[data-v-12658639] {\n    background-color: #eff8ff;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-bottom) {\n    border-bottom: var(--day-border);\n}\n.custom-calendar.vc-container:not(.on-bottom) .weekday-1[data-v-12658639] {\n      border-bottom: var(--day-border-highlight);\n}\n.custom-calendar.vc-container .vc-day-dots[data-v-12658639] {\n    margin-bottom: 5px;\n}\n.custom-calendar.vc-container[data-v-12658639]:not(.on-right) {\n    border-right: var(--day-border);\n}\n.day_block[data-v-12658639]{\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    height: 100%;\n}\n.day_block p[data-v-12658639]{\nmargin-bottom: 5px;\n}\n.day_block b[data-v-12658639]{\nfont-size: 14px;\n}\n.day_block sub[data-v-12658639]{\n    border: 1px solid red;\n    border-radius: 0px;\n    height: 16px;\n    width: 16px;\n    display: flex;\n    background: red;\n    color: white;\n    font-weight: bold;\n    line-height: 0;\n    letter-spacing: 0px;\n    font-size: 10px;\n    align-items: center;\n    position: absolute;\n    right: 0px;\n    top: 0px;\n    justify-content: center;\n}\n.spinner_table[data-v-12658639]{\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: rgba(255, 255, 255, 0.8);\n    display: flex;\n    align-items: center;\n    justify-content: center;\n}\na[data-v-12658639]{\n        text-decoration: none;\n    color: #0c1427;\n}\n", ""]);
 
 // exports
 
@@ -83008,64 +83164,74 @@ var render = function() {
   return _c("div", { staticClass: "dashboard" }, [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "mb-3 d-flex justify-content-between" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-8" },
-        [
-          _c("DatePicker", {
-            staticClass: "custom-calendar max-w-full",
-            attrs: {
-              attributes: _vm.attributes,
-              "first-day-of-week": 2,
-              locale: "ru",
-              masks: { weekdays: "WW" },
-              format: "",
-              value: "",
-              "model-config": _vm.modelConfig
-            },
-            on: { "update:from-page": _vm.pageChange },
-            scopedSlots: _vm._u([
-              {
-                key: "day-content",
-                fn: function(ref) {
-                  var day = ref.day
-                  var attributes = ref.attributes
-                  return [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "day_block",
-                        on: {
-                          click: function($event) {
-                            return _vm.onDayClick(day)
+    _c("div", { staticClass: "mb-3" }, [
+      _c("div", { staticClass: "dashboard_header" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "item_calendar" },
+          [
+            _c("DatePicker", {
+              staticClass: "custom-calendar max-w-full",
+              attrs: {
+                attributes: _vm.attributes,
+                "first-day-of-week": 2,
+                locale: "ru",
+                masks: { weekdays: "WW" },
+                format: "",
+                value: "",
+                "model-config": _vm.modelConfig
+              },
+              on: { "update:from-page": _vm.pageChange },
+              scopedSlots: _vm._u([
+                {
+                  key: "day-content",
+                  fn: function(ref) {
+                    var day = ref.day
+                    var attributes = ref.attributes
+                    return [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "day_block",
+                          on: {
+                            click: function($event) {
+                              return _vm.onDayClick(day)
+                            }
                           }
-                        }
-                      },
-                      [
-                        _c("p", [
-                          _c(
-                            "b",
-                            { staticClass: "day-label text-sm text-gray-900" },
-                            [_vm._v(_vm._s(day.day))]
-                          ),
-                          _vm._v(" "),
-                          attributes && attributes.length
-                            ? _c("sub", [
-                                _vm._v(_vm._s(attributes[0].customData.qty))
-                              ])
-                            : _vm._e()
-                        ])
-                      ]
-                    )
-                  ]
+                        },
+                        [
+                          _c("p", [
+                            _c(
+                              "b",
+                              {
+                                staticClass: "day-label text-sm text-gray-900"
+                              },
+                              [_vm._v(_vm._s(day.day))]
+                            ),
+                            _vm._v(" "),
+                            attributes && attributes.length
+                              ? _c("sub", [
+                                  _vm._v(_vm._s(attributes[0].customData.qty))
+                                ])
+                              : _vm._e()
+                          ])
+                        ]
+                      )
+                    ]
+                  }
                 }
-              }
-            ])
-          })
-        ],
-        1
-      ),
+              ])
+            })
+          ],
+          1
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-4 jv-card pl_30" }, [
         _c(
@@ -83115,7 +83281,7 @@ var render = function() {
     _c("div", { staticClass: "jv_card" }, [
       _c("div", { staticClass: "table-responsive" }, [
         _vm.loadertable
-          ? _c("div", { staticClass: "spinner_table" }, [_vm._m(1)])
+          ? _c("div", { staticClass: "spinner_table" }, [_vm._m(4)])
           : _vm._e(),
         _vm._v(" "),
         _vm.tasksList && _vm.tasksList.length
@@ -83126,7 +83292,7 @@ var render = function() {
                   "table table-bordered text-center table-hover table-striped"
               },
               [
-                _vm._m(2),
+                _vm._m(5),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -83208,6 +83374,66 @@ var staticRenderFns = [
     return _c("div", { staticClass: "page_header" }, [
       _c("h4", { staticClass: "header_title" }, [
         _vm._v("Добро пожаловать в админ панель")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header_item" }, [
+      _c("span", { staticClass: "icon" }, [
+        _c("i", { attrs: { "data-feather": "check" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "info" }, [
+        _c("p", [_vm._v("Bajarilgan topshiriqlar")]),
+        _vm._v(" "),
+        _c("h6", [_vm._v("22")])
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "read_more", attrs: { href: "#" } }, [
+        _vm._v("Batafsil")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header_item" }, [
+      _c("span", { staticClass: "icon" }, [
+        _c("i", { attrs: { "data-feather": "clock" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "info" }, [
+        _c("p", [_vm._v("Amaldagi topshiriqlar")]),
+        _vm._v(" "),
+        _c("h6", [_vm._v("35")])
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "read_more", attrs: { href: "#" } }, [
+        _vm._v("Batafsil")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "header_item" }, [
+      _c("span", { staticClass: "icon" }, [
+        _c("i", { attrs: { "data-feather": "slash" } })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "info" }, [
+        _c("p", [_vm._v("Bajarilmagan topshiriqlar")]),
+        _vm._v(" "),
+        _c("h6", [_vm._v("2")])
+      ]),
+      _vm._v(" "),
+      _c("a", { staticClass: "read_more", attrs: { href: "#" } }, [
+        _vm._v("Batafsil")
       ])
     ])
   },
@@ -84713,6 +84939,16 @@ var render = function() {
         [
           _vm._m(0),
           _vm._v(" "),
+          _c("div", { staticClass: "user_info" }, [
+            _vm._m(1),
+            _vm._v(
+              "  " +
+                _vm._s(_vm.getUser.surename) +
+                " " +
+                _vm._s(_vm.getUser.name)
+            )
+          ]),
+          _vm._v(" "),
           _c(
             "a",
             {
@@ -84754,7 +84990,7 @@ var render = function() {
               ]
             ),
             _vm._v(" "),
-            _vm._m(1)
+            _vm._m(2)
           ],
           1
         ),
@@ -84938,7 +85174,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("li", { staticClass: "nav-item has_dropdown show" }, [
-                  _vm._m(2),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c("ul", { staticClass: "drop_down_list" }, [
                     _c(
@@ -85051,6 +85287,12 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("input", { attrs: { type: "search", placeholder: "Search here..." } })
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", [_c("i", { attrs: { "data-feather": "user" } })])
   },
   function() {
     var _vm = this
@@ -86906,6 +87148,49 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form_btn_block" }, [
+                  _vm.form.status == "pending"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn_red mr_15",
+                          attrs: {
+                            type: "button",
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#exampleModal"
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "sidebar_icon",
+                            attrs: { "data-feather": "slash" }
+                          }),
+                          _vm._v("\n              Rad etish\n          ")
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.form.status == "pending"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn_blue mr_15",
+                          attrs: { type: "button" },
+                          on: {
+                            click: function($event) {
+                              return _vm.acceptTask()
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "sidebar_icon",
+                            attrs: { "data-feather": "check" }
+                          }),
+                          _vm._v("\n              Qabul qilish\n          ")
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   _vm.form.status == "draft"
                     ? _c(
                         "button",
@@ -87062,7 +87347,83 @@ var render = function() {
               0
             )
           ])
-        : _vm._e()
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "modal fade",
+          attrs: {
+            id: "exampleModal",
+            tabindex: "-1",
+            "aria-labelledby": "exampleModalLabel",
+            "aria-hidden": "true"
+          }
+        },
+        [
+          _c(
+            "form",
+            {
+              staticClass: "modal-dialog",
+              on: {
+                submit: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  $event.preventDefault()
+                  return _vm.cancelTask($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "modal-content" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-body" }, [
+                  _c("div", { staticClass: "input_style" }, [
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.comment.text,
+                          expression: "comment.text"
+                        }
+                      ],
+                      staticClass: "input_style",
+                      attrs: {
+                        name: "",
+                        id: "comment",
+                        cols: "30",
+                        rows: "10",
+                        required: ""
+                      },
+                      domProps: { value: _vm.comment.text },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.comment, "text", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("label", { attrs: { for: "comment" } }, [
+                      _vm._v("Sabab")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _vm._m(4)
+              ])
+            ]
+          )
+        ]
+      )
     ],
     1
   )
@@ -87114,6 +87475,48 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("file")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header" }, [
+      _c(
+        "h5",
+        { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
+        [_vm._v("Rad etilganlik sababi")]
+      ),
+      _vm._v(" "),
+      _c("button", {
+        staticClass: "btn-close",
+        attrs: {
+          type: "button",
+          "data-bs-dismiss": "modal",
+          "aria-label": "Close"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-footer" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { type: "button", "data-bs-dismiss": "modal" }
+        },
+        [_vm._v("Bekor qilish")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Rad etish")]
+      )
     ])
   }
 ]
@@ -88049,9 +88452,13 @@ var render = function() {
             ? _c("div", { staticClass: "alert alert-success jv_alert" }, [
                 _vm._v("\n        Активный\n      ")
               ])
-            : _c("div", { staticClass: "alert alert-danger jv_alert" }, [
-                _vm._v("\n        Неактивный\n      ")
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.form.status == "rejected"
+            ? _c("div", { staticClass: "alert alert-danger jv_alert" }, [
+                _vm._v("\n          Rad etilgan\n      ")
               ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -88491,21 +88898,23 @@ var render = function() {
           _c("div", { staticClass: "form_btn_block" }, [
             _vm._m(2),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn_green",
-                attrs: { type: "button" },
-                on: { click: _vm.fineshTask }
-              },
-              [
-                _c("i", {
-                  staticClass: "sidebar_icon",
-                  attrs: { "data-feather": "send" }
-                }),
-                _vm._v("\n            Закончить\n          ")
-              ]
-            )
+            _vm.userId == _vm.svotId
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn_green",
+                    attrs: { type: "button" },
+                    on: { click: _vm.fineshTask }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "sidebar_icon",
+                      attrs: { "data-feather": "send" }
+                    }),
+                    _vm._v("\n            Закончить\n          ")
+                  ]
+                )
+              : _vm._e()
           ])
         ]
       ),

@@ -47,6 +47,7 @@ ul li {
   text-decoration: none;
 }
 
+.btn_red .sidebar_icon,
 .btn_blue .sidebar_icon,
 .btn_black .sidebar_icon,
 .btn_green .sidebar_icon {
@@ -91,6 +92,7 @@ ul li {
 .btn_green_icon,
 .btn_red_icon,
 .btn_blue_icon,
+.btn_red,
 .btn_blue {
   box-shadow: 0 0.125rem 0.625rem rgba(22, 170, 255, 0.4), 0 0.0625rem 0.125rem rgba(22, 170, 255, 0.5);
   position: relative;
@@ -126,6 +128,7 @@ ul li {
   height: 16px;
 }
 
+.btn_red,
 .btn_red_icon {
   background-color: #dc3545;
   border-color: #dc3545;
@@ -716,5 +719,67 @@ tbody tr.selected {
 
 .pl_30 {
   padding-left: 30px;
+}
+
+.user_info {
+  margin-left: auto;
+  margin-right: 30px;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.user_info span {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  background: #919191;
+  border-radius: 50%;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.read_more {
+  background: #F2F5FA;
+  border-radius: 4px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  font-family: "OpenSans-Regular";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #0B0F38;
+  transition: 0.5s;
+}
+
+.read_more:hover {
+  background: #cfd3d9;
+}
+
+.custom-calendar.vc-container .vc-day {
+  height: auto !important;
+  min-width: unset !important;
+}
+
+.custom-calendar.vc-container .vc-weeks {
+  padding: 0;
+  border: none !important;
+}
+
+.custom-calendar,
+.custom-calendar.vc-container .vc-day.on-right {
+  border-right: none !important;
+}
+
+.custom-calendar,
+.custom-calendar.vc-container .vc-day.on-bottom {
+  border-bottom: none !important;
 }
 

@@ -3,8 +3,39 @@
     <div class="page_header">
       <h4 class="header_title">Добро пожаловать в админ панель</h4>
     </div>
-    <div class="mb-3 d-flex justify-content-between">
-        <div class="col-md-8">
+    <div class="mb-3">
+        <div class="dashboard_header">
+            <div class="header_item">
+                <span class="icon">
+                    <i data-feather="check"></i>
+                </span>
+                <div class="info">
+                    <p>Bajarilgan topshiriqlar</p>
+                    <h6>22</h6>
+                </div>
+                <a href="#" class="read_more">Batafsil</a>
+            </div>
+            <div class="header_item">
+                <span class="icon">
+                    <i data-feather="clock"></i>
+                </span>
+                <div class="info">
+                    <p>Amaldagi topshiriqlar</p>
+                    <h6>35</h6>
+                </div>
+                <a href="#" class="read_more">Batafsil</a>
+            </div>
+            <div class="header_item">
+                <span class="icon">
+                    <i data-feather="slash"></i>
+                </span>
+                <div class="info">
+                    <p>Bajarilmagan topshiriqlar</p>
+                    <h6>2</h6>
+                </div>
+                <a href="#" class="read_more">Batafsil</a>
+            </div>
+            <div class="item_calendar">
             <DatePicker
                 class="custom-calendar max-w-full"
                 :attributes="attributes"
@@ -25,7 +56,30 @@
                     </div>
                 </template>
             </DatePicker>
+            </div>
         </div>
+        <!-- <div class="col-md-8">
+            <DatePicker
+                class="custom-calendar max-w-full"
+                :attributes="attributes"
+                :first-day-of-week="2"
+                locale="ru"
+                :masks="{ weekdays: 'WW'}"
+                format=""
+                value=""
+                :model-config="modelConfig"
+                @update:from-page="pageChange"
+            >
+                <template v-slot:day-content="{ day, attributes }">
+                    <div class="day_block" @click="onDayClick(day)">
+                        <p>
+                            <b class="day-label text-sm text-gray-900">{{ day.day }}</b>
+                            <sub v-if="attributes && attributes.length">{{ attributes[0].customData.qty }}</sub>
+                        </p>
+                    </div>
+                </template>
+            </DatePicker>
+        </div> -->
         <div class="col-md-4 jv-card pl_30">
             <div class="list-group ">
                 <router-link class="list-group-item list-group-item-action"  v-for="(task,index) in taskToday" :key="index" :to='`/crm/tasks/edit/${task.id}`' >
@@ -177,6 +231,69 @@ export default {
 };
 </script>
 <style scoped >
+.dashboard_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+.item_calendar{
+    width: calc(100% / 4 - 20px);
+    overflow: hidden;
+        border-radius: 8px;
+}
+
+.header_item{
+    background: #FFFFFF;
+    border-radius: 8px;
+    padding: 24px;
+    height: 175px;
+    width: calc(100% / 4 - 20px);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.header_item .icon{
+    background: #2CD699;
+    border-radius: 16px;
+    height: 68px;
+    width: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-right: 16px;
+}
+.header_item:nth-child(2) .icon{
+    background: #0368FF;
+}
+.header_item:nth-child(3) .icon{
+    background: #FF4930;
+}
+.header_item:nth-child(4) .icon{
+    background: #FF4930;
+}
+.header_item .info{
+    width: calc(100% - 85px);
+}
+.header_item .info p{
+    font-family: "OpenSans-SemiBold";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #475569;
+    margin-bottom: 4px;
+}
+.header_item .info h6{
+    font-family: "OpenSans-SemiBold";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 39px;
+    color: #0B0F38;
+}
+
 .table-responsive{
     transition: 1s;
 }
@@ -192,6 +309,9 @@ export default {
 ::-webkit-scrollbar-track {
   display: none;
 }
+.custom-calendar{
+    border: none;
+}
 .custom-calendar.vc-container {
   --day-border: 1px solid #b8c2cc;
   --day-border-highlight: 1px solid #b8c2cc;
@@ -206,9 +326,7 @@ export default {
     background-color: #f1f5f8;
     padding: 10px 0;
 }
-.custom-calendar.vc-container .vc-weeks {
-    padding: 0;
-  }
+
 .custom-calendar.vc-container .vc-weekday {
     background-color: var(--weekday-bg);
     border-bottom: var(--weekday-border);
@@ -244,21 +362,24 @@ export default {
     justify-content: center;
     height: 100%;
 }
+.day_block p{
+margin-bottom: 5px;
+}
 .day_block b{
-    font-size: 24px;
+font-size: 14px;
 }
 .day_block sub{
     border: 1px solid red;
     border-radius: 0px;
-    height: 24px;
-    width: 30px;
+    height: 16px;
+    width: 16px;
     display: flex;
     background: red;
     color: white;
     font-weight: bold;
     line-height: 0;
     letter-spacing: 0px;
-    font-size: 14px;
+    font-size: 10px;
     align-items: center;
     position: absolute;
     right: 0px;

@@ -26,9 +26,9 @@
         </div>
         <div
           class="alert alert-danger jv_alert"
-          v-else
+          v-if="form.status == 'rejected'"
         >
-          Неактивный
+            Rad etilgan
         </div>
       </div>
     </div>
@@ -157,7 +157,7 @@
               <i class="sidebar_icon" data-feather="save"></i>
               Сохранить
             </button>
-            <button type="button" @click="fineshTask" class="btn_green">
+            <button type="button" @click="fineshTask" class="btn_green" v-if="userId == svotId">
               <i class="sidebar_icon" data-feather="send"></i>
               Закончить
             </button>

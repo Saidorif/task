@@ -132,14 +132,30 @@
                     <input
                     type="file"
                     id="file"
-                    @change="
-                        inputFileUpload($event, 'inputFileLabeld', newItem)
-                    "
+                    @change="inputFileUpload($event, 'inputFileLabeld', newItem)"
                     />
                 </div>
                 </div>
             <!-- </template> -->
           <div class="form_btn_block">
+            <button
+                type="button"
+                class="btn_red mr_15"
+                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                v-if="form.status == 'pending'"
+            >
+                <i class="sidebar_icon" data-feather="slash"></i>
+                Rad etish
+            </button>
+            <button
+                type="button"
+                class="btn_blue mr_15"
+                @click="acceptTask()"
+                v-if="form.status == 'pending'"
+            >
+                <i class="sidebar_icon" data-feather="check"></i>
+                Qabul qilish
+            </button>
             <button
                 type="button"
                 class="btn_blue mr_15"
@@ -199,6 +215,28 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <form class="modal-dialog"   @submit.prevent.enter="cancelTask" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Rad etilganlik sababi</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input_style">
+                        <textarea name="" v-model="comment.text" id="comment" class="input_style"  cols="30" rows="10" required></textarea>
+                        <label for="comment">Sabab</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                    <button type="submit" class="btn btn-primary">Rad etish</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
   </div>
 </template>
 <script>
@@ -231,6 +269,7 @@ export default {
         isLoading: true,
         selectedUser: null,
         hasSvot: false,
+        comment: {text: null, id: null},
     };
   },
   computed: {
@@ -263,10 +302,30 @@ export default {
     this.isLoading = false
   },
   methods: {
-    ...mapActions("task", ["actionEditTask", "actionUpdateTask"]),
+    ...mapActions("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask"]),
     ...mapActions("user", ["ActionUserList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
+    },
+    async cancelTask(){
+        await this.actionRejectTask(this.comment);
+        if(this.getTaskMassage.success){
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: this.getTaskMassage.message,
+            });
+        }
+    },
+    async acceptTask(){
+        await this.actionAcceptTask({id: this.$route.params.taskId});
+        if(this.getTaskMassage.success){
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: this.getTaskMassage.message,
+            });
+        }
     },
     deleteItem(index) {
       this.allItems.splice(index, 1);
@@ -276,11 +335,12 @@ export default {
     },
     async rerenderData(){
         let data = {
-        id: this.$route.params.taskId,
+            id: this.$route.params.taskId,
         };
         await this.ActionUserList();
         await this.actionEditTask(data);
         this.userlist = this.getUserList;
+        this.comment.id = this.$route.params.taskId
         this.form.title = this.getTask.title
         this.form.status = this.getTask.status
         this.form.exp_date = this.$g.getDate(this.getTask.exp_date)
@@ -355,8 +415,8 @@ export default {
             formData.append("status", 'draft');
         }
         this.form.users.forEach((item, index) => {
-          formData.append(`users[${index}][user_id]`, item.user_id);
-          formData.append(`users[${index}][svot]`, item.svot);
+            formData.append(`users[${index}][user_id]`, item.user_id);
+            formData.append(`users[${index}][svot]`, item.svot);
         });
         if(this.newItem.text != ''){
             this.allItems.push(this.newItem)
@@ -364,7 +424,7 @@ export default {
         this.allItems.forEach((item, index) => {
           formData.append(`items[${index}][text]`, item.text);
           if(item.id){
-              formData.append(`items[${index}][id]`, item.id);
+            formData.append(`items[${index}][id]`, item.id);
           }
           if(typeof item.file == 'object' && item.file != null){
             formData.append(`items[${index}][file]`, item.file);
