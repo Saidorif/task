@@ -3,7 +3,7 @@
         <div class="login_card_left">
             <div class="login_alert" v-if="errorMsg"><i class="fas fa-exclamation-circle mr-2"></i> Неверный логин  или пароль </div>
             <div class="form_content">
-                <h2 class="login_title"> Вход в <br> персональный  кабинет </h2>
+                <h2 class="login_title"> Вазифаларни бошқариш тизимига кириш </h2>
                 <form @submit.enter.prevent="onSubmit">
                         <div class="input-group">
                             <input type="email" class="form-control" placeholder="Email" v-model="form.email">
@@ -14,14 +14,14 @@
                             </div>
                         </div>
                         <div class="input-group">
-                            <input type="password" class="form-control" placeholder="Пароль" v-model="form.password">
+                            <input type="password" class="form-control" placeholder="Парол" v-model="form.password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <i data-feather="lock"></i>
                                 </div>
                             </div>
                         </div>
-                       <button type="submit" class="btn_blue">Войти</button>
+                       <button type="submit" class="btn_blue">Кириш</button>
                 </form>
             </div>
         </div>

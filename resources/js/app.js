@@ -1,5 +1,11 @@
 require('./bootstrap');
 window.Vue = require('vue');
+
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+
+Vue.component('apexchart', VueApexCharts)
+
 // ProgressBar
 import VueProgressBar from 'vue-progressbar';
 

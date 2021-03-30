@@ -496,16 +496,18 @@ tbody{
 //     display: none;
 // }
 .custom-calendar.vc-container {
-    --day-border: 1px solid #b8c2cc;
-    --day-border-highlight: 1px solid #b8c2cc;
+    --day-border: 1px solid #e0ecf8;
+    --day-border-highlight: 1px solid #e0ecf8;
     --day-width: 90px;
     --day-height: 90px;
     --weekday-bg: #f8fafc;
-    --weekday-border: 1px solid #eaeaea;
+    --weekday-border: 1px solid #e0ecf8;
     border-radius: 0;
     width: 100%;
 }
-
+.vc-arrows-container{
+    padding: 0px 10px !important;
+}
 .custom-calendar.vc-container .vc-weeks {
     padding: 0;
     background-color: var(--weekday-bg);
@@ -513,7 +515,7 @@ tbody{
 }
 .custom-calendar .vc-header {
     background-color: #f1f5f8;
-    padding: 10px 0 !important;
+    padding: 0px 0 !important;
     border-bottom: 1px solid #ccc;
 }
 .custom-calendar.vc-container .vc-weekday {
@@ -673,4 +675,9 @@ tbody{
 .custom-calendar,
 .custom-calendar.vc-container .vc-day.on-bottom{
     border-bottom: none !important;
+}
+.d_flex_jsb{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
