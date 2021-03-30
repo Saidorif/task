@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard">
     <div class="page_header">
-      <h4 class="header_title">Добро пожаловать в админ панель</h4>
+      <h4 class="header_title">Aдмин панелига хуш келибсиз</h4>
     </div>
     <div class="mb-3">
         <div class="dashboard_header">
@@ -10,38 +10,38 @@
                     <i data-feather="check"></i>
                 </span>
                 <div class="info">
-                    <p>Bajarilgan topshiriqlar</p>
+                    <p>Бажарилган топшириқлар</p>
                     <h6>22</h6>
                 </div>
-                <a href="#" class="read_more">Batafsil</a>
+                <a href="#" class="read_more">Батафсил</a>
             </div>
             <div class="header_item">
                 <span class="icon">
                     <i data-feather="clock"></i>
                 </span>
                 <div class="info">
-                    <p>Amaldagi topshiriqlar</p>
+                    <p>Aмалдаги топшириқлар</p>
                     <h6>35</h6>
                 </div>
-                <a href="#" class="read_more">Batafsil</a>
+                <a href="#" class="read_more">Батафсил</a>
             </div>
             <div class="header_item">
                 <span class="icon">
                     <i data-feather="slash"></i>
                 </span>
                 <div class="info">
-                    <p>Bajarilmagan topshiriqlar</p>
+                    <p>Бажарилмаган топшириқлар</p>
                     <h6>2</h6>
                 </div>
-                <a href="#" class="read_more">Batafsil</a>
+                <a href="#" class="read_more">Батафсил</a>
             </div>
             <div class="item_calendar">
             <DatePicker
                 class="custom-calendar max-w-full"
                 :attributes="attributes"
                 :first-day-of-week="2"
-                locale="ru"
-                :masks="{ weekdays: 'WW'}"
+                locale="uz"
+                :masks="{ weekdays: 'WW', dayNamesShorter: 'du'}"
                 format=""
                 value=""
                 :model-config="modelConfig"
