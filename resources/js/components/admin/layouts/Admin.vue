@@ -51,8 +51,8 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/crm/users" class="nav-link">
+          <li class="nav-item" v-if="$can('index', 'UserController')">
+            <router-link to="/crm/users" class="nav-link" v-if="$can('profile', 'UserController')">
               <i class="sidebar_icon" data-feather="users" ></i>
               <p>
                 Фойдаланувчилар
@@ -60,7 +60,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/crm/tasks" class="nav-link">
+            <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')">
               <i class="sidebar_icon" data-feather="layers" ></i>
               <p>
                 Топшириқлар
@@ -68,7 +68,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/crm/user-task" class="nav-link">
+            <router-link to="/crm/user-task" class="nav-link"  v-if="$can('userIndex', 'TaskController')">
               <i class="sidebar_icon" data-feather="clipboard" ></i>
               <p>
                 Топшириқларим
@@ -91,7 +91,7 @@
               </p>
             </router-link>
           </li> -->
-          <li class="nav-item has_dropdown show">
+          <li class="nav-item has_dropdown show" v-if="$can('index', 'RoleController')">
             <a href="#" class="nav-link">
                 <i class="sidebar_icon" data-feather="settings" ></i>
                     Setting users

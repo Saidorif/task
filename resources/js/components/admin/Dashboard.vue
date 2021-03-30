@@ -11,7 +11,7 @@
                 </span>
                 <div class="info">
                     <p>Бажарилган топшириқлар</p>
-                    <h6>22</h6>
+                    <h6 v-if="getDashboard.info">{{ getDashboard.info[0].accepted ? getDashboard.info[0].accepted : 0 }}</h6>
                 </div>
                 <a href="#" class="read_more">Батафсил</a>
             </div>
@@ -21,7 +21,7 @@
                 </span>
                 <div class="info">
                     <p>Aмалдаги топшириқлар</p>
-                    <h6>35</h6>
+                    <h6 v-if="getDashboard.info">{{ getDashboard.info[0].active ? getDashboard.info[0].active : 0 }}</h6>
                 </div>
                 <a href="#" class="read_more">Батафсил</a>
             </div>
@@ -31,7 +31,7 @@
                 </span>
                 <div class="info">
                     <p>Бажарилмаган топшириқлар</p>
-                    <h6>2</h6>
+                    <h6 v-if="getDashboard.info">{{ getDashboard.info[0].rejected ? getDashboard.info[0].rejected : 0 }}</h6>
                 </div>
                 <a href="#" class="read_more">Батафсил</a>
             </div>
@@ -215,11 +215,12 @@ export default {
 
     },
   },
-  async mounted() {
-    this.loaded = true;
-    await this.actionTaskByDate({calendar: '2021-03-27'});
-     this.taskToday = this.getTask;
-  },
+    async mounted() {
+        this.loaded = true;
+        await this.actionTaskByDate({calendar: '2021-03-27'});
+        this.taskToday = this.getTask;
+                feather.replace();
+    },
     updated() {
         feather.replace();
     },
