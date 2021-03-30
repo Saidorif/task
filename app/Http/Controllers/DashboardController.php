@@ -21,6 +21,10 @@ class DashboardController extends Controller
         $result = [];
         $result['calendar'] = DB::select("SELECT COUNT(*) AS qty,exp_date FROM `tasks` WHERE exp_date BETWEEN '$start_month' AND '$end_month' GROUP BY exp_date");
         $result['kartoteka'] = Task::with(['creater','users','items','comments'])->where('exp_date','<',date('Y-m-d'))->where('status','!=','draft')->get();
+        $result['info'] = DB::select("SELECT COUNT(id) AS total, SUM(CASE WHEN status = 'accepted' THEN 1 ELSE 0 END) AS accepted,SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) AS active,SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) AS rejected FROM `tasks` WHERE status != 'draft'");
+        $result['chart'] = DB::select("SELECT s.name,COUNT(t.id) AS total FROM `structures` AS s LEFT JOIN `task_users` AS t ON s.id = t.structure_id GROUP BY s.id");
+        $itogi = array_sum(array_column($result['chart'],'total'));
+        $result['chart'][] = ['name' => 'Total','total' => $itogi];
         return response()->json(['success' => true, 'result' => $result]);
     }
 }

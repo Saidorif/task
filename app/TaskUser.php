@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TaskUser extends Model
 {
-    protected $fillable = ['user_id','task_id','svot'];
+    protected $fillable = ['user_id','task_id','svot','structure_id'];
 
     public function user()
     {
@@ -15,7 +15,7 @@ class TaskUser extends Model
 
     public function task()
     {
-        return $this->belongsTo(\App\Task::class,'task_id')->with(['items','users'])->where('status','!=','draft');
+        return $this->belongsTo(\App\Task::class,'task_id')->with(['items','users','comments'])->where('status','!=','draft');
     }
 
     public function items()

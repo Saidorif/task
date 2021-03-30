@@ -25,11 +25,12 @@ class CreateUsersTable extends Migration
             $table->string('status')->default('inactive');
             $table->string('surename')->nullable();
             $table->string('lastname')->nullable();
-            $table->string('birthday')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('birthplace')->nullable();
             $table->string('gender')->nullable();
-            $table->string('p_id')->nullable();
-            $table->string('e_id')->nullable();
+            $table->integer('p_id')->nullable();
+            $table->integer('e_id')->nullable();
+            $table->integer('structure_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

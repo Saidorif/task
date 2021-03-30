@@ -7,6 +7,7 @@ use App\TaskComment;
 use App\TaskItem;
 use App\TaskUser;
 use App\TaskUserItem;
+use App\User;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use Illuminate\Http\Request;
@@ -93,7 +94,15 @@ class TaskController extends Controller
         if(!empty($inputs['users']) && count($inputs['users']) > 0){
             //create task users pivot
             foreach($inputs['users'] as $t_user){
+                $the_user = User::find($t_user['user_id']);
+                if(!$the_user){
+                    $task->items()->delete();
+                    $task->users()->delete();
+                    $task->delete();
+                    return response()->json(['error' => true,'message' => 'Employee not found']);
+                }
                 $t_user['task_id'] = $task->id;
+                $t_user['structure_id'] = $the_user->position->structure_id;
                 $task_users = TaskUser::create($t_user);
             }
         }
@@ -147,6 +156,11 @@ class TaskController extends Controller
             $task_users = $task->users()->delete();
             //create task users pivot
             foreach($inputs['users'] as $t_user){
+                $the_user = User::find($t_user['user_id']);
+                if(!$the_user){
+                    return response()->json(['error' => true,'message' => 'Employee not found']);
+                }
+                $t_user['structure_id'] = $the_user->position->structure_id;
                 $t_user['task_id'] = $task->id;
                 $task_users = TaskUser::create($t_user);
             }
