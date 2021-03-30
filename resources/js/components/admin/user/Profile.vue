@@ -1,66 +1,73 @@
 <template>
   <div class="profile">
-      	<div class="page_header">
-			<h4 class="header_title">
-				Мои данные
-			</h4>
-		</div>
-        <div class="jv_card">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a
-                class="nav-link active"
-                id="profile-tab"
-                data-toggle="tab"
-                href="#profile"
-                role="tab"
-                aria-controls="profile"
-                aria-selected="false"
-                >
-                <i class="peIcon pe-7s-unlock"></i> Изменить пароль
-                </a>
-            </li>
-            </ul>
-            <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <form @submit.prevent.enter="changePassword">
-                <div class="card-body d-flex flex-wrap">
-                    <div class="form-group col-md-6">
-                    <label for="exampleInputPassword1">Пароль</label>
+    <div class="page_header">
+      <h4 class="header_title">Менинг маълумотларим</h4>
+    </div>
+    <div class="jv_card">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="profile-tab"
+            data-toggle="tab"
+            href="#profile"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+          >
+            <i class="peIcon pe-7s-unlock"></i> Паролни ўзгартириш
+          </a>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="profile"
+          role="tabpanel"
+          aria-labelledby="profile-tab"
+        >
+          <form @submit.prevent.enter="changePassword">
+            <div class="card-body d-flex flex-wrap  mt-2">
+                <div class="input_style col-md-5 mr_15">
                     <input
-                        type="password"
+                        type="text"
                         class="form-control input_style"
                         id="exampleInputPassword1"
-                        placeholder="Пароль..."
-                        :class="isRequiredPassword(passwords.password) ? 'isRequired' : ''"
                         v-model="passwords.password"
-                    />
-                    </div>
-                    <div class="form-group col-md-6">
-                    <label for="ConfirmPassword1">Подтвердите пароль</label>
-                    <input
-                        type="password"
-                        class="form-control input_style"
-                        id="ConfirmPassword1"
-                        placeholder="Подтвердите пароль.."
-                        v-model="passwords.confirm_password"
-                        :class="isRequiredPassword(passwords.confirm_password) ? 'isRequired' : ''"
-                        @input="confirmPassword()"
-                    />
-                    <small class="redText" v-if="checkPassword">
-                        <b>Пароль не совпадает</b>
-                    </small>
-                    </div>
-                    <div class="col-12 d-flex justify-content-end">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Сохранить
-                    </button>
-                    </div>
+                        required
+                        :class="isRequired(passwords.password) ? 'isRequired' : ''"
+                    >
+                    <label for="exampleInputPassword1">Парол</label>
                 </div>
-                </form>
+              <div class="input_style col-md-5">
+                <input
+                  type="password"
+                  class="form-control input_style"
+                  id="ConfirmPassword1"
+                  v-model="passwords.confirm_password"
+                  :class="
+                    isRequiredPassword(passwords.confirm_password)
+                      ? 'isRequired'
+                      : ''
+                  "
+                  @input="confirmPassword()"
+                  required
+                />
+                <label for="ConfirmPassword1"> Паролни тасдиқлаш</label>
+                <small class="redText" v-if="checkPassword">
+                  <b>Парол мос емас</b>
+                </small>
+              </div>
+              <div class="col-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-save"></i> Сақлаш
+                </button>
+              </div>
             </div>
-            </div>
+          </form>
         </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -75,31 +82,31 @@ export default {
         phone: "",
         image: "/img/user.jpg",
         file: "",
-        text: ""
+        text: "",
       },
       fileFormat: "нет-файла",
       passwords: {
         password: "",
-        confirm_password: ""
+        confirm_password: "",
       },
       requiredInput: false,
       requiredPassword: false,
-      checkPassword: false
+      checkPassword: false,
     };
   },
   computed: {
-    ...mapGetters("user", ["getProfile"])
+    ...mapGetters("user", ["getProfile"]),
   },
   async mounted() {
     await this.ActionProfile();
     this.form = this.getProfile;
-    console.log(this.form)
+    console.log(this.form);
   },
   methods: {
     ...mapActions("user", [
       "ActionProfile",
       "ActionProfileUpdate",
-      "ActionChangePassword"
+      "ActionChangePassword",
     ]),
     confirmPassword() {
       if (this.passwords.password && this.passwords.confirm_password) {
@@ -126,11 +133,11 @@ export default {
           type: "error",
           icon: "error",
           title: "Ошибка",
-          text: "Размер файл не должно быть больше 1мб"
+          text: "Файл ҳажми 1МБ дан ошмаслиги керак",
         });
       } else {
         let reader = new FileReader();
-        reader.onload = event => {
+        reader.onload = (event) => {
           this.form.file = event.target.result;
           this.fileFormat = "docx";
         };
@@ -148,11 +155,11 @@ export default {
           swal.fire({
             type: "error",
             title: "Ошибка",
-            text: "Размер изображения больше лимита"
+            text: "Расм ҳажми чегарадан каттароқ",
           });
         } else {
           let reader = new FileReader();
-          reader.onload = event => {
+          reader.onload = (event) => {
             this.form.image = event.target.result;
           };
           reader.readAsDataURL(file);
@@ -161,7 +168,7 @@ export default {
         swal.fire({
           type: "error",
           title: "Ошибка",
-          text: "Картинка должна быть только png,jpg,jpeg!"
+          text: "Расм фақат png, jpg, jpeg бўлиши керак!",
         });
       }
     },
@@ -177,7 +184,7 @@ export default {
         toast.fire({
           type: "success",
           icon: "success",
-          title: "Данный изменен!"
+          title: "Маълумот ўзгарди!",
         });
       } else {
         this.requiredInput = true;
@@ -193,23 +200,118 @@ export default {
         toast.fire({
           type: "success",
           icon: "success",
-          title: "Пароль изменен!"
+          title: "Парол ўзгарди!",
         });
       } else {
         this.requiredPassword = true;
       }
     },
-    printCv(){
-      			 	$('.cv_block').printThis();
-    }
-  }
+    printCv() {
+      $(".cv_block").printThis();
+    },
+  },
 };
 </script>
 <style scoped>
-.cv_tab{
+.cv_tab {
   background: #9fc1cc40;
   padding: 30px 0px;
 }
+page {
+  background: white;
+  display: block;
+  margin: 0px auto;
+  margin-bottom: 0.5cm;
+}
+page[size="A4"] {
+  width: 21cm;
+  height: 29.7cm;
+  padding: 30px;
+}
+page[size="A4"][layout="landscape"] {
+  width: 29.7cm;
+  height: 21cm;
+}
+.cv_title {
+  text-align: center;
+  font-weight: bold;
+}
+.cv_user_img {
+  width: 130px;
+  height: 150px;
+  overflow: hidden;
+  border: 1px solid #000;
+  margin-right: 30px;
+  margin-bottom: 30px;
+}
+.cv_user_img img {
+  width: 100%;
+}
+.cv_header {
+  display: flex;
+  align-items: flex-start;
+}
+.cv_header_info {
+  width: calc(100% - 150px);
+}
+.cv_header_info h2 {
+  font-weight: bold;
+}
+.cv_block p {
+  font-size: 16px;
+}
+.cv_header_info p {
+  margin-bottom: 0;
+}
+.cv_body_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cv_body_list li {
+  list-style: none;
+  width: 60%;
+  margin-bottom: 10px;
+}
+.cv_body_list li:nth-child(odd) {
+  width: 40%;
+}
+.cv_body_list li {
+  display: flex;
+  flex-direction: column;
+}
+.cv_body_list li:last-child {
+  width: 100%;
+}
+.cv_exper_subtitle {
+  text-align: center;
+  font-weight: bold;
+}
+.cv_experience_list {
+}
+.cv_experience_list li {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+.cv_ex_date {
+  width: 220px;
+}
+.cv_experience_list li .cv_ex_info {
+  width: calc(100% - 220px);
+}
+.cv_experience_list li .cv_ex_info p {
+  margin-bottom: 0;
+}
+.print_cv {
+  position: absolute;
+  right: 0;
+  top: 120px;
+  background: #3f6ad8;
+  color: #fff;
+  padding: 10px 30px;
+  border: none;
+}
+@media print {
   page {
     background: white;
     display: block;
@@ -225,11 +327,11 @@ export default {
     width: 29.7cm;
     height: 21cm;
   }
-  .cv_title{
+  .cv_title {
     text-align: center;
     font-weight: bold;
   }
-  .cv_user_img{
+  .cv_user_img {
     width: 130px;
     height: 150px;
     overflow: hidden;
@@ -237,161 +339,63 @@ export default {
     margin-right: 30px;
     margin-bottom: 30px;
   }
-  .cv_user_img img{
+  .cv_user_img img {
     width: 100%;
   }
-  .cv_header{
+  .cv_header {
     display: flex;
     align-items: flex-start;
   }
-  .cv_header_info{
+  .cv_header_info {
     width: calc(100% - 150px);
   }
-  .cv_header_info h2{
+  .cv_header_info h2 {
     font-weight: bold;
   }
-  .cv_block p{
+  .cv_block p {
     font-size: 16px;
   }
-  .cv_header_info p{
+  .cv_header_info p {
     margin-bottom: 0;
   }
-  .cv_body_list{
+  .cv_body_list {
     display: flex;
     flex-wrap: wrap;
   }
-  .cv_body_list li{
+  .cv_body_list li {
     list-style: none;
     width: 60%;
     margin-bottom: 10px;
   }
-  .cv_body_list li:nth-child(odd){
-        width: 40%;
+  .cv_body_list li:nth-child(odd) {
+    width: 40%;
   }
-  .cv_body_list li{
+  .cv_body_list li {
     display: flex;
     flex-direction: column;
   }
-  .cv_body_list li:last-child{
+  .cv_body_list li:last-child {
     width: 100%;
   }
-  .cv_exper_subtitle{
+  .cv_exper_subtitle {
     text-align: center;
     font-weight: bold;
   }
-  .cv_experience_list{
-
+  .cv_experience_list {
   }
-  .cv_experience_list li{
+  .cv_experience_list li {
     list-style: none;
     display: flex;
     justify-content: space-between;
   }
-  .cv_ex_date{
+  .cv_ex_date {
     width: 220px;
   }
-  .cv_experience_list li .cv_ex_info{
+  .cv_experience_list li .cv_ex_info {
     width: calc(100% - 220px);
   }
-   .cv_experience_list li .cv_ex_info p{
-     margin-bottom: 0;
-   }
-   .print_cv{
-      position: absolute;
-      right: 0;
-      top: 120px;
-      background: #3f6ad8;
-      color: #fff;
-      padding: 10px 30px;
-      border: none;
-   }
-  @media print
-    {
-      page {
-        background: white;
-        display: block;
-        margin: 0px auto;
-        margin-bottom: 0.5cm;
-      }
-      page[size="A4"] {
-        width: 21cm;
-        height: 29.7cm;
-        padding: 30px;
-      }
-      page[size="A4"][layout="landscape"] {
-        width: 29.7cm;
-        height: 21cm;
-      }
-      .cv_title{
-        text-align: center;
-        font-weight: bold;
-      }
-      .cv_user_img{
-        width: 130px;
-        height: 150px;
-        overflow: hidden;
-        border: 1px solid #000;
-        margin-right: 30px;
-        margin-bottom: 30px;
-      }
-      .cv_user_img img{
-        width: 100%;
-      }
-      .cv_header{
-        display: flex;
-        align-items: flex-start;
-      }
-      .cv_header_info{
-        width: calc(100% - 150px);
-      }
-      .cv_header_info h2{
-        font-weight: bold;
-      }
-      .cv_block p{
-        font-size: 16px;
-      }
-      .cv_header_info p{
-        margin-bottom: 0;
-      }
-      .cv_body_list{
-        display: flex;
-        flex-wrap: wrap;
-      }
-      .cv_body_list li{
-        list-style: none;
-        width: 60%;
-        margin-bottom: 10px;
-      }
-      .cv_body_list li:nth-child(odd){
-            width: 40%;
-      }
-      .cv_body_list li{
-        display: flex;
-        flex-direction: column;
-      }
-      .cv_body_list li:last-child{
-        width: 100%;
-      }
-      .cv_exper_subtitle{
-        text-align: center;
-        font-weight: bold;
-      }
-      .cv_experience_list{
-
-      }
-      .cv_experience_list li{
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-      }
-      .cv_ex_date{
-        width: 220px;
-      }
-      .cv_experience_list li .cv_ex_info{
-        width: calc(100% - 220px);
-      }
-      .cv_experience_list li .cv_ex_info p{
-        margin-bottom: 0;
-      }
-    }
+  .cv_experience_list li .cv_ex_info p {
+    margin-bottom: 0;
+  }
+}
 </style>

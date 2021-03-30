@@ -2,9 +2,9 @@
 	<div class="add_action">
         <div class="page_header">
 			<h4 class="header_title">
-				Add Task
+				Топшириқ яратиш
 			</h4>
-            <router-link class="btn_black" to="/crm/tasks"><i data-feather="arrow-left" class="sidebar_icon"></i> Назад</router-link>
+            <router-link class="btn_black" to="/crm/tasks"><i data-feather="arrow-left" class="sidebar_icon"></i> Орқага</router-link>
 		</div>
         <div class="jv_card">
             <form @submit.prevent.enter="saveAction" enctype="multipart/form-data">
@@ -14,22 +14,14 @@
                                 v-model="selectedUser"
                                 :options="userlist"
                                 :custom-label="nameWithLang"
-                                placeholder="Выберите User"
-                                selectLabel="Нажмите Enter, чтобы выбрать"
+                                placeholder="Ижрочини танланг"
                                 :multiple="false"
-                                deselectLabel="Нажмите Enter, чтобы удалить"
                                 :class="isRequired(selectedUser) ? 'isRequired' : ''"
                                 :allow-empty="false"
                                 label="name surename"
                                 :internal-search="false"
                                 :close-on-select="false"
                                 track-by="name" @search-change="asyncFind">
-                                    <!-- <template slot="tag" slot-scope="{ option, remove }">
-                                        <span class="multiselect__tag" :class="option.svot ? 'selected' : ''">
-                                            <span @click="selectSvot(option)">{{ option.name }} {{ option.surename }}</span>
-                                            <i aria-hidden="true" tabindex="1" class="multiselect__tag-icon" @click="remove(option)"></i>
-                                        </span>
-                                    </template> -->
                                         <template slot="singleLabel" slot-scope="props">
                                             <span class="option__desc">
                                                 <span class="option__title">{{ props.option.name }} {{ props.option.surename }}</span>
@@ -53,20 +45,20 @@
                             required
                             :class="isRequired(form.title) ? 'isRequired' : ''"
                         >
-                        <label for="contName">Title</label>
+                        <label for="contName">Қисқача мазмуни</label>
                     </div>
                     <div class="col-md-2">
-                        <date-picker :class="isRequired(form.exp_date) ? 'isRequired' : ''" v-model="form.exp_date" placeholder="Выберите срок" value-type="format" format="DD.MM.YYYY"></date-picker>
+                        <date-picker :class="isRequired(form.exp_date) ? 'isRequired' : ''" v-model="form.exp_date" placeholder="Ижро муддати" value-type="format" format="DD.MM.YYYY"></date-picker>
                     </div>
                     <div class="table-responsive mt-5" v-if="selectedUsersList.length">
                         <table class="table table-bordered text-center table-hover table-striped">
                             <thead>
                                 <tr>
                                     <th>№</th>
-                                    <th>Ф.И.О</th>
-                                    <th>Управление</th>
-                                    <th>Должность</th>
-                                    <th>Действия</th>
+                                    <th>Ф.И.Ш</th>
+                                    <th>Бошқарма</th>
+                                    <th>Лавозими</th>
+                                    <th>Тахрирлаш</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -76,10 +68,10 @@
                                     <td>{{user.position.structure.name}} </td>
                                     <td>{{user.position.name}}</td>
                                     <td>
-                                        <button type="button" class="btn_blue_icon" @click="svotUser(user, index)" v-if="!hasSvot || user.svot">
-                                            <i data-feather="check-square" class="sidebar_icon"  ></i>
+                                        <button type="button" class="btn_blue_icon" @click="svotUser(user, index)" v-if="!hasSvot || user.svot"  v-tooltip.top-center="'Свотни белгилаш'" >
+                                            <i data-feather="user-check" class="sidebar_icon"  ></i>
                                         </button>
-                                        <button type="button" class="btn_red_icon" @click="deleteUser(index)">
+                                        <button type="button" class="btn_red_icon" @click="deleteUser(index)"  v-tooltip.top-center="'Ижрочини ўчириш'">
                                             <i data-feather="trash" class="sidebar_icon" ></i>
                                         </button>
                                     </td>
@@ -89,7 +81,7 @@
                     </div>
                     <template v-for="(item, index) in allItems">
                         <div class="col-md-9 mt-5">
-                            <label for="text" class="title_label">Text</label>
+                            <label for="text" class="title_label">Тўлиқ матни</label>
                             <vue-editor id="text" v-model="item.text" />
                         </div>
                         <div class="col-md-3">
@@ -97,19 +89,15 @@
                                 <i data-feather="trash" class="sidebar_icon" ></i>
                             </button>
                             <div class="input_style_file">
-                                <label for="file" :id="'inputFileLabel'+index">File Upload</label>
+                                <label for="file" :id="'inputFileLabel'+index">Файл юклаш</label>
                                 <input type="file" id="file" @change="inputFileUpload($event, 'inputFileLabel'+index, item)">
                             </div>
                         </div>
                     </template>
                     <div class="form_btn_block">
-                        <!-- <button type="button" class="btn_blue mr_15" @click.prevent="addItem">
-                            <i class="sidebar_icon" data-feather="plus"></i>
-                            Add
-                        </button> -->
                         <button type="submit" class="btn_green">
                             <i class="sidebar_icon" data-feather="save"></i>
-                            Сохранить
+                            Сақлаш
                         </button>
                     </div>
 				</div>
@@ -193,9 +181,9 @@
                     type: 'confirm',
                     toast: false,
                     icon: 'question',
-                    title: 'Вы действительно хотите удалить?',
-                    confirmButtonText: `Удалить`,
-                    cancelButtonText: `Отмена`,
+                    title: 'Ҳақиқатан ҳам ўчиришни хоҳлайсизми?',
+                    confirmButtonText: `Ўчириш`,
+                    cancelButtonText: `Бекор қилиш`,
                     showCancelButton: true
                 }).then(async (result) => {
                     if (result.isConfirmed) {
@@ -208,7 +196,7 @@
                     return;
                 }
                 const name = event.target.files[0].name;
-                document.querySelector('#'+labelId).innerHTML = name;
+                document.querySelector('#'+labelId).innerHTML = name ? name : 'Файл юклаш';
                 item.file = event.target.files[0]
                 console.log(item.file)
             },
@@ -244,7 +232,7 @@
 						toast.fire({
 					    	type: 'success',
 					    	icon: 'success',
-							title: 'Task добавлен!',
+							title: 'Топшириқ яратилди!',
 					    })
 						this.$router.push("/crm/tasks");
 						this.requiredInput =false
@@ -252,7 +240,7 @@
 						toast.fire({
 					    	type: 'error',
 					    	icon: 'error',
-							title: 'Такой Task уже существует!',
+							title: 'Ушбу топшириқ аллақачон мавжуд!',
 					    })
 					}
 				}else{

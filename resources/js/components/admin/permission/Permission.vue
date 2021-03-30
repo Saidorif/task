@@ -85,6 +85,7 @@
 					this.permissions.forEach(elem => {
 						elem.role_id =  parseInt(this.$route.params.roleId)
 					})
+                    console.log('ss')
 					await this.actionPermissionStore({permissions:this.permissions,id:this.$route.params.roleId})
 					await this.actionPermission({role_id:this.$route.params.roleId})
 					toast.fire({

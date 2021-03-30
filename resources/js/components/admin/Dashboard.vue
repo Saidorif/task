@@ -40,8 +40,8 @@
                 class="custom-calendar max-w-full"
                 :attributes="attributes"
                 :first-day-of-week="2"
-                locale="uz"
-                :masks="{ weekdays: 'WW', dayNamesShorter: 'du'}"
+                locale="ru"
+                :masks="{ weekdays: 'WW'}"
                 format=""
                 value=""
                 :model-config="modelConfig"
@@ -73,11 +73,11 @@
                     <thead>
                         <tr>
                             <th scope="col">№</th>
-                            <th scope="col">Jo'natuvchi</th>
-                            <th scope="col">Berilgan sana</th>
-                            <th scope="col">Ijro muddati</th>
-                            <th scope="col">Qisqa mazmuni</th>
-                            <th scope="col">Bajaruvchilar</th>
+                            <th scope="col">Жўнатувчи</th>
+                            <th scope="col">Берилган сана</th>
+                            <th scope="col">Ижро муддати</th>
+                            <th scope="col">Қисқа мазмуни</th>
+                            <th scope="col">Бажарувчилар</th>
                         </tr>
                     </thead>
                     <tbody>

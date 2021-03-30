@@ -2,10 +2,10 @@
   <div class="edit_action">
       <Loader v-if="isLoading" />
     <div class="page_header">
-      <h4 class="header_title">Edit Task</h4>
+      <h4 class="header_title">Топшириқни тахрирлаш </h4>
       <router-link class="btn_black" to="/crm/tasks"
         ><i data-feather="arrow-left" class="sidebar_icon"></i>
-        Назад</router-link
+        Орқага</router-link
       >
     </div>
     <div class="jv_card">
@@ -16,22 +16,14 @@
                 v-model="selectedUser"
                 :options="userlist"
                 :custom-label="nameWithLang"
-                placeholder="Выберите User"
-                selectLabel="Нажмите Enter, чтобы выбрать"
+                placeholder="Ижрочини танланг"
                 :multiple="false"
-                deselectLabel="Нажмите Enter, чтобы удалить"
                 :class="isRequired(selectedUser) ? 'isRequired' : ''"
                 :allow-empty="false"
                 label="name surename"
                 :internal-search="false"
                 :close-on-select="false"
                 track-by="name" @search-change="asyncFind">
-                    <!-- <template slot="tag" slot-scope="{ option, remove }">
-                        <span class="multiselect__tag" :class="option.svot ? 'selected' : ''">
-                            <span @click="selectSvot(option)">{{ option.name }} {{ option.surename }}</span>
-                            <i aria-hidden="true" tabindex="1" class="multiselect__tag-icon" @click="remove(option)"></i>
-                        </span>
-                    </template> -->
                         <template slot="singleLabel" slot-scope="props">
                             <span class="option__desc">
                                 <span class="option__title">{{ props.option.name }} {{ props.option.surename }}</span>
@@ -55,12 +47,12 @@
               required
               :class="isRequired(form.title) ? 'isRequired' : ''"
             />
-            <label for="contName">Title</label>
+            <label for="contName">Қисқача мазмуни</label>
           </div>
           <div class="col-md-2">
             <date-picker
               v-model="form.exp_date"
-              placeholder="Выберите срок"
+              placeholder="Ижро муддати"
               value-type="format"
               format="DD.MM.YYYY"
             ></date-picker>
@@ -72,10 +64,10 @@
               <thead>
                 <tr>
                   <th>№</th>
-                  <th>Ф.И.О</th>
-                  <th>Управление</th>
-                  <th>Должность</th>
-                  <th>Действия</th>
+                  <th>Ф.И.Ш</th>
+                  <th>Бошқарма</th>
+                  <th>Лавозими</th>
+                  <th>Тахрирлаш</th>
                 </tr>
               </thead>
               <tbody>
@@ -95,13 +87,15 @@
                       class="btn_blue_icon"
                       @click="svotUser(user, index)"
                       v-if="!hasSvot || user.svot"
+                      v-tooltip.top-center="'Свотни белгилаш'"
                     >
-                      <i data-feather="check-square" class="sidebar_icon"></i>
+                      <i data-feather="user-check" class="sidebar_icon"></i>
                     </button>
                     <button
                       type="button"
                       class="btn_red_icon"
                       @click="deleteUser(index)"
+                      v-tooltip.top-center="'Ижрочини ўчириш'"
                     >
                       <i data-feather="trash" class="sidebar_icon"></i>
                     </button>
@@ -112,22 +106,22 @@
           </div>
           <template v-for="(item, index) in allItems">
             <div class="col-md-9 mt-5">
-              <label for="text" class="title_label">Text</label>
+              <label for="text" class="title_label">Тўлиқ матни</label>
               <div class="disabled_custom_editor" id="text" v-html="item.text" ></div>
             </div>
             <div class="col-md-3">
-                <a :href="item.file" v-if="typeof item.file == 'string'" class="btn_black  col-md-5" download=""><i class="sidebar_icon" data-feather="download"></i>Download</a>
+                <a :href="item.file" v-if="typeof item.file == 'string'" class="btn_black  col-md-5" download=""><i class="sidebar_icon" data-feather="download"></i>Юклаб олиш</a>
             </div>
           </template>
             <!-- <template v-for="(item, index) in allItems" v-if="form.status != 'active'"> -->
                 <div class="col-md-9 mt-5">
-                <label for="text" class="title_label">Text</label>
+                <label for="text" class="title_label">Тўлиқ матни</label>
                 <vue-editor id="text" v-model="newItem.text" />
                 </div>
                 <div class="col-md-3">
                 <div class="input_style_file">
                     <label for="file" id="inputFileLabeld"
-                    >File Upload</label
+                    >Файл юклаш</label
                     >
                     <input
                     type="file"
@@ -145,7 +139,7 @@
                 v-if="form.status == 'pending'"
             >
                 <i class="sidebar_icon" data-feather="slash"></i>
-                Rad etish
+               Рад этиш
             </button>
             <button
                 type="button"
@@ -154,7 +148,7 @@
                 v-if="form.status == 'pending'"
             >
                 <i class="sidebar_icon" data-feather="check"></i>
-                Qabul qilish
+               Қабул қилиш
             </button>
             <button
                 type="button"
@@ -163,17 +157,17 @@
                 v-if="form.status == 'draft'"
             >
                 <i class="sidebar_icon" data-feather="send"></i>
-                Опубликовать
+                Юбориш
             </button>
             <button type="submit" class="btn_green">
               <i class="sidebar_icon" data-feather="save"></i>
-              Обновить
+              Сақлаш
             </button>
           </div>
         </div>
       </form>
     </div>
-    <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
+    <h2>Топшириқ бўйича бажарилган ишлар</h2>
     <div class="jv_card" v-if="getTask.users" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" v-for="(item, index) in getTask.users">
@@ -194,17 +188,17 @@
                     >
                     <thead>
                         <tr>
-                            <th>sana</th>
-                            <th>Xisobot matni</th>
-                            <th>file</th>
+                            <th style="width: 100px;">Сана</th>
+                            <th>Хисобот матни</th>
+                            <th>Файл</th>
                         </tr>
                     </thead>
                         <tbody>
                             <tr  v-for="(ans, ind) in item.items">
-                                <td>{{ $g.getDate(ans.created_at) }}</td>
+                                <td style="width: 100px;">{{ $g.getDate(ans.created_at) }}</td>
                                 <td> <div v-html="ans.text"></div> </td>
-                                <td>
-                                    <a :href="'/'+ans.file" v-if="ans.file" class="btn_blue_icon" download="">
+                                <td style="width: 100px;">
+                                    <a :href="'/'+ans.file" v-if="ans.file" class="btn_blue_icon" download=""  v-tooltip.top-center="'Юклаб олиш'">
                                         <i class="sidebar_icon" data-feather="download"></i>
                                     </a>
                                 </td>
@@ -220,18 +214,18 @@
         <form class="modal-dialog"   @submit.prevent.enter="cancelTask" >
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Rad etilganlik sababi</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Рад этилганлик сабаби</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="input_style">
                         <textarea name="" v-model="comment.text" id="comment" class="input_style"  cols="30" rows="10" required></textarea>
-                        <label for="comment">Sabab</label>
+                        <label for="comment">Сабаб</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
-                    <button type="submit" class="btn btn-primary">Rad etish</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Бекор қилиш</button>
+                    <button type="submit" class="btn btn-primary">Рад этиш</button>
                 </div>
             </div>
         </form>
@@ -361,9 +355,9 @@ export default {
           type: "confirm",
           toast: false,
           icon: "question",
-          title: "Вы действительно хотите удалить?",
-          confirmButtonText: `Удалить`,
-          cancelButtonText: `Отмена`,
+          title: "Ҳақиқатан ҳам ўчиришни хоҳлайсизми?",
+          confirmButtonText: `Ўчириш`,
+          cancelButtonText: `Бекор қилиш`,
           showCancelButton: true,
         })
         .then(async (result) => {
@@ -382,7 +376,7 @@ export default {
         return;
       }
       const name = event.target.files[0].name;
-      document.querySelector("#" + labelId).innerHTML = name;
+      document.querySelector("#" + labelId).innerHTML = name ? name : 'Файл юклаш';
       item.file = event.target.files[0];
     },
     svotUser(user, index) {
@@ -439,14 +433,14 @@ export default {
           toast.fire({
             type: "success",
             icon: "success",
-            title: "Task обновлено!",
+            title: "Топшириқ юклатилди!",
           });
           this.requiredInput = false;
         } else {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "Такой Task уже существует!",
+            title: "Илтимос текшириб кўринг",
           });
         }
                 this.isLoading = false

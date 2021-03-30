@@ -133,7 +133,7 @@ ul li{
 .wrapper{
     display: flex;
     flex-wrap: wrap;
-    padding-left: 240px;
+    padding-left: 250px;
     padding-top: 60px;
     .main-header{
         height: 60px;
@@ -145,7 +145,7 @@ ul li{
         position: fixed;
         top: 0;
         right: 0;
-        left: 240px;
+        left: 250px;
         z-index: 978;
         box-shadow: 3px 0 10px 0 rgb(183 192 206 / 20%);
         transition: width .1s ease,left .1s ease;
@@ -208,7 +208,7 @@ ul li{
         background: #f9fafb;
     }
     .main-sidebar{
-        width: 240px;
+        width: 250px;
         height: 100%;
         position: fixed;
         left: 0;
@@ -227,7 +227,7 @@ ul li{
             align-items: center;
             padding: 0 25px;
             z-index: 999;
-            width: 240px;
+            width: 250px;
             transition: width .1s ease;
         }
         .sidebar{
@@ -344,7 +344,7 @@ ul li{
     width: 100%;
     box-shadow: 0 0 10px 0 rgb(183 192 206 / 20%);
     padding: 1.5rem;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
 }
 .input_style{
     position: relative;
@@ -431,12 +431,16 @@ tbody{
                 margin-bottom: 0;
                 list-style: none;
                 padding: 0;
+                display: flex;
+                flex-direction: column;
                 li{
                     border-bottom: 1px solid #dee2e6;
                     padding-bottom: 5px;
                     padding-top: 5px;
+                    order: 1;
                     &.active{
                         background: #6ac0f2;
+                        order: 0;
                     }
                     &:last-child{
                         border: none;
@@ -603,8 +607,9 @@ tbody{
     color: #842029 !important;
 }
 .jv_alert{
-    padding: 0.5rem 0.8rem;
-    display: inline-flex
+    padding: 0.2rem 0.5rem 0.3rem 0.5rem;
+    display: inline-flex;
+    font-size: 14px;
 }
 
 .disabled_custom_editor{
@@ -681,3 +686,108 @@ tbody{
     justify-content: space-between;
     align-items: flex-start;
 }
+.sr-only{
+    display: none !important;
+}
+.alert{
+    margin-bottom: 0;
+}
+.has-tooltip{
+    cursor: pointer;
+}
+.tooltip {
+    display: block !important;
+    z-index: 10000;
+
+    .tooltip-inner {
+        padding: .5rem .75rem;
+        color: #000;
+        background-color: #fff;
+        border-radius: .1rem;
+        border: 1px solid #fff;
+        border-radius: 6px;
+        box-shadow: 0 0.125rem 0.625rem rgb(205 205 205 / 70%), 0 0.0625rem 0.125rem rgb(95 96 96 / 80%);
+    }
+
+    .tooltip-arrow {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      position: absolute;
+      margin: 5px;
+      border-color: #fff;
+      z-index: 999999;
+    }
+
+    &[x-placement^="top"] {
+      margin-bottom: 5px;
+
+      .tooltip-arrow {
+        border-width: 5px 5px 0 5px;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+        border-bottom-color: transparent !important;
+        bottom: -5px;
+        left: calc(50% - 5px);
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    &[x-placement^="bottom"] {
+      margin-top: 5px;
+
+      .tooltip-arrow {
+        border-width: 0 5px 5px 5px;
+        border-left-color: transparent !important;
+        border-right-color: transparent !important;
+        border-top-color: transparent !important;
+        top: -5px;
+        left: calc(50% - 5px);
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    &[x-placement^="right"] {
+      margin-left: 5px;
+
+      .tooltip-arrow {
+        border-width: 5px 5px 5px 0;
+        border-left-color: transparent !important;
+        border-top-color: transparent !important;
+        border-bottom-color: transparent !important;
+        left: -5px;
+        top: calc(50% - 5px);
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    &[x-placement^="left"] {
+      margin-right: 5px;
+
+      .tooltip-arrow {
+        border-width: 5px 0 5px 5px;
+        border-top-color: transparent !important;
+        border-right-color: transparent !important;
+        border-bottom-color: transparent !important;
+        right: -5px;
+        top: calc(50% - 5px);
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    &[aria-hidden='true'] {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity .15s, visibility .15s;
+    }
+
+    &[aria-hidden='false'] {
+      visibility: visible;
+      opacity: 1;
+      transition: opacity .15s;
+    }
+  }

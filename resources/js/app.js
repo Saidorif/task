@@ -1,10 +1,13 @@
 require('./bootstrap');
 window.Vue = require('vue');
-
+// chart
 import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)
-
 Vue.component('apexchart', VueApexCharts)
+
+// VTooltip
+import VTooltip from 'v-tooltip'
+Vue.use(VTooltip)
 
 // ProgressBar
 import VueProgressBar from 'vue-progressbar';

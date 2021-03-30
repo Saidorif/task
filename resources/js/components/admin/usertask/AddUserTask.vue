@@ -2,7 +2,7 @@
 	<div class="add_action">
         <div class="page_header">
 			<h4 class="header_title">
-				Add Task
+				Топшириқ билан танишиш
 			</h4>
             <router-link class="btn_black" to="/crm/tasks"><i data-feather="arrow-left" class="sidebar_icon"></i> Назад</router-link>
 		</div>

@@ -2,7 +2,7 @@
 	<div class="action">
         <div class="page_header">
 			<h4 class="header_title">
-				Users
+				Фойдаланувчилар
 			</h4>
 		</div>
         <div class="jv_card">
@@ -11,10 +11,10 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">F.I.O</th>
-							<th scope="col">Email</th>
-							<th scope="col">Управление</th>
-							<th scope="col">Должность</th>
+							<th scope="col">Ф.И.Ш</th>
+							<th scope="col">Электрон почта</th>
+							<th scope="col">Бошқарма</th>
+							<th scope="col">Лавозим</th>
 						</tr>
 					</thead>
 					<tbody v-if="getAllUsers.data && getAllUsers.data.length">

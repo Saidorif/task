@@ -2,7 +2,7 @@
 	<div class="action">
         <div class="page_header">
 			<h4 class="header_title">
-				User Tasks
+				Менинг топшириқларим
 			</h4>
             <!-- <router-link class="btn_green" to="/crm/tasks/add"><i data-feather="plus" class="sidebar_icon"></i> Добавить</router-link> -->
 		</div>
@@ -11,24 +11,29 @@
 				<table class="table table-bordered text-center table-hover table-striped">
 					<thead>
 						<tr>
-							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Срок</th>
-							<th scope="col">Действия</th>
+							<th scope="col" style="width:40px;">№</th>
+							<th scope="col">Қисқа мазмуни</th>
+							<th scope="col" style="width:100px;">Муддати</th>
+							<th scope="col" style="width:140px">Жорий холати</th>
+							<th scope="col" style="width:110px;">Тахрирлаш</th>
 						</tr>
 					</thead>
 					<tbody >
 						 <tr v-for="(task,index) in getUserTasks">
 							<td scope="row">{{index+1}}</td>
-							<td scope="row">{{task.task.title}}</td>
-							<td scope="row">{{ $g.getDate(task.task.exp_date) }}г</td>
+							<td scope="row" style="text-align:left;">{{task.task.title}}</td>
+							<td scope="row">{{ $g.getDate(task.task.exp_date) }}</td>
+                            <td>
+                                <span class="alert alert-danger jv_alert" v-if="task.task.status == 'rejected'">Рад этилган</span>
+                                <span class="alert alert-success jv_alert" v-if="task.task.status == 'accepted'">Қабул қилинган</span>
+                                <span class="alert alert-warning jv_alert" v-if="task.task.status == 'pending'">Тасдиқланмаган</span>
+                                <span class="alert alert-info jv_alert" v-if="task.task.status == 'active'">Бажарилмоқда</span>
+                                <span class="alert alert-dark jv_alert" v-if="task.task.status == 'draft'">Режада</span>
+                            </td>
 							<td>
-                                <router-link tag="button" class="btn_blue_icon" :to='`/crm/user-task/edit/${task.id}`'>
+                                <router-link tag="button" class="btn_blue_icon" :to='`/crm/user-task/edit/${task.id}`' v-tooltip.top-center="'Танишиш'">
 									<i data-feather="eye" class="sidebar_icon" ></i>
 								</router-link>
-								<button class="btn_red_icon" @click="deleteConts(task.id)">
-									<i data-feather="trash" class="sidebar_icon" ></i>
-								</button>
 							</td>
 						</tr>
 					</tbody>
