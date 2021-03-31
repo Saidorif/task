@@ -27,18 +27,18 @@
           aria-labelledby="profile-tab"
         >
           <form @submit.prevent.enter="changePassword">
-            <div class="card-body d-flex flex-wrap  mt-2">
-                <div class="input_style col-md-5 mr_15">
-                    <input
-                        type="text"
-                        class="form-control input_style"
-                        id="exampleInputPassword1"
-                        v-model="passwords.password"
-                        required
-                        :class="isRequired(passwords.password) ? 'isRequired' : ''"
-                    >
-                    <label for="exampleInputPassword1">Парол</label>
-                </div>
+            <div class="card-body d-flex flex-wrap mt-2">
+              <div class="input_style col-md-5 mr_15">
+                <input
+                  type="text"
+                  class="form-control input_style"
+                  id="exampleInputPassword1"
+                  v-model="passwords.password"
+                  required
+                  :class="isRequired(passwords.password) ? 'isRequired' : ''"
+                />
+                <label for="exampleInputPassword1">Парол</label>
+              </div>
               <div class="input_style col-md-5">
                 <input
                   type="password"
@@ -59,8 +59,9 @@
                 </small>
               </div>
               <div class="col-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">
-                  <i class="fas fa-save"></i> Сақлаш
+                <button type="submit" class="btn_green">
+                  <i class="sidebar_icon" data-feather="save"></i>
+                  Сақлаш
                 </button>
               </div>
             </div>
@@ -100,7 +101,9 @@ export default {
   async mounted() {
     await this.ActionProfile();
     this.form = this.getProfile;
-    console.log(this.form);
+  },
+  updated() {
+    feather.replace();
   },
   methods: {
     ...mapActions("user", [

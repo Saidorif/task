@@ -28,7 +28,7 @@ const actions = {
 	async actionTaskByDate({commit}, payload){
 		try {
 			const dashboard =  await DashboardService.getTaskByDate(payload);
-			await commit('setTask',dashboard.data.result)
+			await commit('setTask',dashboard.data)
 			return true
 		} catch (error) {
 			return false

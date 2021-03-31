@@ -54,6 +54,7 @@
               v-model="form.exp_date"
               placeholder="Ижро муддати"
               value-type="format"
+              :disabled-date="disabledStartDate"
               format="DD.MM.YYYY"
             ></date-picker>
           </div>
@@ -167,8 +168,8 @@
         </div>
       </form>
     </div>
-    <h2>Топшириқ бўйича бажарилган ишлар</h2>
-    <div class="jv_card" v-if="getTask.users" >
+    <h4>Топшириқ бўйича бажарилган ишлар</h4>
+    <div class="jv_card mb-5" v-if="getTask.users" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" v-for="(item, index) in getTask.users">
                 <button class="nav-link" :class="index == 0 ? 'active' : ''"
@@ -264,6 +265,7 @@ export default {
         selectedUser: null,
         hasSvot: false,
         comment: {text: null, id: null},
+        modalcancel: null,
     };
   },
   computed: {
@@ -284,6 +286,7 @@ export default {
           this.selectedUsersList.push(val);
         }
       } else {
+                              val.svot = true
         this.selectedUsersList.push(val);
       }
     },
@@ -294,6 +297,9 @@ export default {
   async mounted() {
     await this.rerenderData();
     this.isLoading = false
+    this.modalcancel = new bootstrap.Modal(document.getElementById('exampleModal'), {
+            keyboard: false
+    })
   },
   methods: {
     ...mapActions("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask"]),
@@ -301,9 +307,14 @@ export default {
     isRequired(input) {
       return this.requiredInput && input === "";
     },
+    disabledStartDate(date) {
+        return date <  new Date();
+    },
     async cancelTask(){
         await this.actionRejectTask(this.comment);
         if(this.getTaskMassage.success){
+            this.modalcancel.hide();
+            this.comment = {text: null, id: null}
             toast.fire({
                 type: "success",
                 icon: "success",

@@ -51,7 +51,7 @@
               </p>
             </router-link>
           </li>
-          <li class="nav-item" v-if="$can('index', 'UserController')">
+          <li class="nav-item" v-if="$can('list', 'UserController')">
             <router-link to="/crm/users" class="nav-link" v-if="$can('profile', 'UserController')">
               <i class="sidebar_icon" data-feather="users" ></i>
               <p>

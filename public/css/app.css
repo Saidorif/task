@@ -503,6 +503,15 @@ ul li {
   border-color: red !important;
 }
 
+thead tr th {
+  font-size: 14px;
+}
+
+tbody tr td {
+  font-size: 12px;
+  vertical-align: middle;
+}
+
 tbody tr td ul {
   margin-bottom: 0;
   list-style: none;
@@ -513,8 +522,8 @@ tbody tr td ul {
 
 tbody tr td ul li {
   border-bottom: 1px solid #dee2e6;
-  padding-bottom: 5px;
-  padding-top: 5px;
+  padding-bottom: 2px;
+  padding-top: 2px;
   order: 1;
 }
 
@@ -529,6 +538,31 @@ tbody tr td ul li:last-child {
 
 tbody tr.selected {
   background: #b3d8ee;
+}
+
+.hide_users tr td ul.active li {
+  display: block;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.hide_users tr td ul.active li.active {
+  display: block;
+  background: #6ac0f2;
+  order: 0;
+}
+
+.hide_users tr td ul li {
+  display: none;
+}
+
+.hide_users tr td ul li.active {
+  display: block;
+  background: transparent;
+  border: none;
+}
+
+#word {
+  display: none;
 }
 
 .input_style_file {
@@ -708,7 +742,7 @@ tbody tr.selected {
 .jv_alert {
   padding: 0.2rem 0.5rem 0.3rem 0.5rem;
   display: inline-flex;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .disabled_custom_editor {
@@ -813,10 +847,11 @@ tbody tr.selected {
 .tooltip {
   display: block !important;
   z-index: 10000;
+  pointer-events: none;
 }
 
 .tooltip .tooltip-inner {
-  padding: 0.5rem 0.75rem;
+  padding: 0.1rem 0.3rem;
   color: #000;
   background-color: #fff;
   border-radius: 0.1rem;

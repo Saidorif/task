@@ -2,10 +2,12 @@
   <div class="edit_action">
     <div class="page_header">
       <h4 class="header_title">Топшириқ билан танишиш</h4>
-      <router-link class="btn_black" to="/crm/user-task"
-        ><i data-feather="arrow-left" class="sidebar_icon"></i>
-        Орқага</router-link
-      >
+      <div class="d-flex">
+        <button type="button" @click="$g.toWord('word', 'java')" class="btn_blue mr_15"> <i data-feather="file-text" class="sidebar_icon"></i> Word версияси </button>
+        <router-link class="btn_black" to="/crm/user-task"
+            ><i data-feather="arrow-left" class="sidebar_icon"></i>
+            Орқага</router-link>
+      </div>
     </div>
     <div class="jv_card jv_card_header">
       <div class="input_style col-md-10">
@@ -18,7 +20,7 @@
       </div>
       <div class="col-md-1">
         <h6>Холати</h6>
-        <span class="alert alert-danger jv_alert" v-if="form.status == 'rejected'">Рад этилган</span>
+        <span class="alert alert-danger jv_alert" v-if="form.status == 'rejected'" v-tooltip.top-center="'Сабабини кўриш'" @click="showComment(getUserTask.task)">Рад этилган</span>
         <span class="alert alert-success jv_alert" v-if="form.status == 'accepted'">Қабул қилинган</span>
         <span class="alert alert-warning jv_alert" v-if="form.status == 'pending'">Тасдиқланмаган</span>
         <span class="alert alert-info jv_alert" v-if="form.status == 'active'">Бажарилмоқда</span>
@@ -59,7 +61,7 @@
         <a :href="'/'+item.file" v-if="item.file" class="btn_black btn_download" download="" v-tooltip.top-center="'Юклаб олиш'">
             <i class="sidebar_icon" data-feather="download"></i>Download</a>
     </div>
-    <h2>Топшириқ бўйича бажарилган ишлар</h2>
+    <h4>Топшириқ бўйича бажарилган ишлар</h4>
     <div class="jv_card" v-if="getUserTask.task" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" v-for="(item, index) in getUserTask.task.users">
@@ -126,7 +128,7 @@
             </div>
         </div>
     </div>
-    <h2>Хисобот</h2>
+    <h4>Хисобот</h4>
     <form class="jv_card"  @submit.prevent.enter="saveAction" enctype="multipart/form-data">
         <div class="jv_card_body">
             <div class="col-md-9 mr_15">
@@ -195,6 +197,10 @@
             </div>
         </form>
     </div>
+    <div id="word">
+        <h1>Ўзбекистон Республикаси Транспорт вазирлигига юклатилган муҳим топшириқлар ижроси тўғрисида</h1>
+        <h2>М А Ъ Л У М О Т</h2>
+    </div>
   </div>
 </template>
 <script>
@@ -261,11 +267,14 @@ export default {
         'actionApproveTaskSvot',
         'actionUpdateUserTask']
         ),
+    exportDocx(){
+        var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
+        FileSaver.saveAs(file);
+    },
     isRequired(input) {
       return this.requiredInput && input === "";
     },
     async fineshTask(){
-        console.log('ss')
         await this.actionApproveTask({id: this.getUserTask.task_id});
         if(this.getTaskMassage.success){
             toast.fire({

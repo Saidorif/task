@@ -48,7 +48,7 @@
                         <label for="contName">Қисқача мазмуни</label>
                     </div>
                     <div class="col-md-2">
-                        <date-picker :class="isRequired(form.exp_date) ? 'isRequired' : ''" v-model="form.exp_date" placeholder="Ижро муддати" value-type="format" format="DD.MM.YYYY"></date-picker>
+                        <date-picker :disabled-date="disabledStartDate" :class="isRequired(form.exp_date) ? 'isRequired' : ''" v-model="form.exp_date" placeholder="Ижро муддати" value-type="format" format="DD.MM.YYYY"></date-picker>
                     </div>
                     <div class="table-responsive mt-5" v-if="selectedUsersList.length">
                         <table class="table table-bordered text-center table-hover table-striped">
@@ -132,7 +132,7 @@
 				requiredInput:false,
 				isLoading: false,
                 selectedUser: null,
-                hasSvot: false,
+                hasSvot: true,
 			}
 		},
 		computed:{
@@ -153,6 +153,7 @@
                         this.selectedUsersList.push(val)
                     }
                 }else{
+                    val.svot = true
                     this.selectedUsersList.push(val)
                 }
             }
@@ -166,6 +167,9 @@
 			isRequired(input){
 	    		return this.requiredInput && input === '';
 		    },
+            disabledStartDate(date) {
+                return date <  new Date();
+            },
             addItem(){
                 let item = {text:'',file:''}
                 this.allItems.push(item)

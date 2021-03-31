@@ -13,20 +13,20 @@
 						<tr>
 							<th scope="col" style="width:40px;">№</th>
 							<th scope="col">Қисқа мазмуни</th>
-							<th scope="col">Ижрочилар</th>
+							<th scope="col" style="width: 30%;">Масъул ижрочи</th>
 							<th scope="col" style="width:100px">Муддати</th>
 							<th scope="col" style="width:140px">Жорий холати</th>
 							<th scope="col" style="width:110px">Тахрирлаш</th>
 						</tr>
 					</thead>
-					<tbody v-if="getTasks.data && getTasks.data.length">
+					<tbody v-if="getTasks.data && getTasks.data.length" class="hide_users">
 						 <tr v-for="(cont,index) in getTasks.data">
 							<td style="width:40px;" scope="row">{{index+1}}</td>
 							<td>{{cont.title}}</td>
 							<td style="padding:0px;">
-                                <ul>
-                                    <li v-for="(item) in cont.users"  :class="item.svot == 1 ? 'active' : ''" v-tooltip.top-center="'<b>'+item.user.position.name+ '</b><br> ' + item.user.name+ ' '+ item.user.surename">
-                                        {{item.user.position.structure.name}}
+                                <ul class="userList">
+                                    <li v-for="(item) in cont.users" @click="showAllUsers(cont)"  :class="item.svot == 1 ? 'active' : ''" v-tooltip.top-center="'<b>'+item.user.position.name+ '</b><br> ' + item.user.name+ ' '+ item.user.surename">
+                                        {{item.user.position.structure.name}} {{ cont.isOpen}}
                                     </li>
                                 </ul>
                             </td>
@@ -65,7 +65,9 @@
 		async mounted(){
 			await this.actionTasks()
             feather.replace()
-
+            $('.userList').on('click', function(){
+                $(this).toggleClass('active')
+            })
 		},
 		computed:{
 			...mapGetters('task',['getTasks','getTaskMassage'])
@@ -75,6 +77,14 @@
 			async getResults(page = 1){
 				await this.actionTasks(page)
 			},
+            showAllUsers(con){
+                if(con.isOpen){
+                    con.isOpen = false
+                }else{
+                    con.isOpen = true
+                }
+                console.log(con.isOpen)
+            },
             async deleteItem(id){
                 swal.fire({
                     type: 'confirm',
