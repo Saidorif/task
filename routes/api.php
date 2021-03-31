@@ -24,6 +24,9 @@ Route::group([
         Route::get('user/list','UserController@list');
         Route::post('change-password','UserController@changePasword');
 
+        //Structure
+        Route::get('structure/list','PositionController@list');
+
         //Task
         Route::get('task','TaskController@index');
         Route::post('task/get-by-date','TaskController@getByDate');
