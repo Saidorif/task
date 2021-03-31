@@ -110,6 +110,10 @@ const router = new Router({
 				{
 					path:'region',
 					component:Region,
+                    meta:{
+						action:'index',
+						subject:'RegionController'
+					}
 				},
 				{
 					path:'region/add',

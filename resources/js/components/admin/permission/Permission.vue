@@ -10,6 +10,12 @@
 		  	</div>
 		  	<div class="card-body">
 	  			<form>
+                      					<div class="contActionFrame">
+                        <div class="checkAll">
+                            <input type="checkbox" v-model="selectedAll" id="checkAll" class="form-check-input" @click="checkAll">
+                            <label for="checkAll"><b>checkAll</b></label>
+                        </div>
+					</div>
 	  				<template v-for="(item,index) in getAllContsActions">
 			  			<div class="contActionFrame" v-for="(val,key) in item" v-if="val.length > 0">
 			  				<h4 class="heading"><span>{{key}}</span></h4>
@@ -49,6 +55,7 @@
 			return{
 				permissions: [],
 				rolName:null,
+                				selectedAll: false,
 			}
 		},
 		watch:{
@@ -80,11 +87,24 @@
 			...mapActions('conts',[
 				'actionAllContsActions',
 			]),
+            checkAll(){
+				if(!this.selectedAll){
+					this.getAllContsActions.forEach(p_item => {
+						let thisPItem = Object.entries(p_item)[0][1];
+						thisPItem.forEach(item => {
+							this.permissions.push({conts_id:item.conts_id, action_id:parseInt(item.id)})
+						})
+					})
+				}else{
+					this.permissions = []
+				}
+			},
 			async save(){
 				if (this.permissions.length > 0) {
 					this.permissions.forEach(elem => {
 						elem.role_id =  parseInt(this.$route.params.roleId)
 					})
+                    console.log('ss')
 					await this.actionPermissionStore({permissions:this.permissions,id:this.$route.params.roleId})
 					await this.actionPermission({role_id:this.$route.params.roleId})
 					toast.fire({

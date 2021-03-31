@@ -2,9 +2,9 @@
 	<div class="add_action">
         <div class="page_header">
 			<h4 class="header_title">
-				Add Region
+				Вилоят қўшиш
 			</h4>
-            <router-link class="btn_black" to="/crm/region"><i data-feather="arrow-left" class="sidebar_icon"></i> Назад</router-link>
+            <router-link class="btn_black" to="/crm/region"><i data-feather="arrow-left" class="sidebar_icon"></i> Орқага</router-link>
 		</div>
         <div class="jv_card">
             <form @submit.prevent.enter="saveAction" >
@@ -18,12 +18,12 @@
                             required
 					    	:class="isRequired(form.name) ? 'isRequired' : ''"
 				    	>
-					    <label for="contName">Region Name</label>
+					    <label for="contName">Вилоят номи</label>
 					  </div>
 					  <div class="form_btn_block">
 					  	<button type="submit" class="btn_green">
 					  		<i class="sidebar_icon" data-feather="save"></i>
-						  	Сохранить
+						  	Сақлаш
 						</button>
 				  	  </div>
 					</div>

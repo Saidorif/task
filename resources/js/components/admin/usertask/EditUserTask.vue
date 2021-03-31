@@ -1,38 +1,31 @@
 <template>
   <div class="edit_action">
     <div class="page_header">
-      <h4 class="header_title">Edit Task</h4>
+      <h4 class="header_title">Топшириқ билан танишиш</h4>
       <router-link class="btn_black" to="/crm/user-task"
         ><i data-feather="arrow-left" class="sidebar_icon"></i>
-        Назад</router-link
+        Орқага</router-link
       >
     </div>
     <div class="jv_card jv_card_header">
       <div class="input_style col-md-10">
-        <h5>Topshiriq mavzusi</h5>
+        <h5>Қисқача мазмуни</h5>
         <p>{{ form.title }}</p>
       </div>
       <div class="col-md-1">
-        <h6>Срок</h6>
+        <h6>Муддати</h6>
         <p>{{ form.exp_date }}</p>
       </div>
       <div class="col-md-1">
-        <h6>Status</h6>
-        <div
-          class="alert alert-success jv_alert"
-          v-if="form.status == 'active'"
-        >
-          Активный
-        </div>
-        <div
-          class="alert alert-danger jv_alert"
-          v-if="form.status == 'rejected'"
-        >
-            Rad etilgan
-        </div>
+        <h6>Холати</h6>
+        <span class="alert alert-danger jv_alert" v-if="form.status == 'rejected'">Рад этилган</span>
+        <span class="alert alert-success jv_alert" v-if="form.status == 'accepted'">Қабул қилинган</span>
+        <span class="alert alert-warning jv_alert" v-if="form.status == 'pending'">Тасдиқланмаган</span>
+        <span class="alert alert-info jv_alert" v-if="form.status == 'active'">Бажарилмоқда</span>
+        <span class="alert alert-dark jv_alert" v-if="form.status == 'draft'">Режада</span>
       </div>
     </div>
-    <h2>Ma'sul xodimlar</h2>
+    <h4>Маъсул ходимлар</h4>
     <div class="jv_card">
       <div class="table-responsive" v-if="selectedUsersList.length">
         <table
@@ -41,9 +34,9 @@
           <thead>
             <tr>
               <th>№</th>
-              <th>Ф.И.О</th>
-              <th>Управление</th>
-              <th>Должность</th>
+              <th>Ф.И.Ш</th>
+              <th>Бошқарма</th>
+              <th>Лавозими</th>
             </tr>
           </thead>
           <tbody>
@@ -60,13 +53,13 @@
         </table>
       </div>
     </div>
-    <h2>Topshiriq mazmuni</h2>
+    <h4>Тўлиқ матни</h4>
     <div class="jv_card" v-for="(item, index) in allItems">
       <div class="col-md-12" v-html="item.text"></div>
-        <a :href="'/'+item.file" class="btn_black btn_download" download="">
+        <a :href="'/'+item.file" v-if="item.file" class="btn_black btn_download" download="" v-tooltip.top-center="'Юклаб олиш'">
             <i class="sidebar_icon" data-feather="download"></i>Download</a>
     </div>
-    <h2>Topshiriq bo'yicha bajarilgan ishlar</h2>
+    <h2>Топшириқ бўйича бажарилган ишлар</h2>
     <div class="jv_card" v-if="getUserTask.task" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation" v-for="(item, index) in getUserTask.task.users">
@@ -87,11 +80,11 @@
                     >
                     <thead>
                         <tr>
-                            <th>sana</th>
-                            <th>Xisobot matni</th>
-                            <th>Fayl</th>
-                            <th>Holati</th>
-                            <th>Taxrirlash</th>
+                            <th>Сана</th>
+                            <th>Хисобот матни</th>
+                            <th>Файл</th>
+                            <th>Холати</th>
+                            <th>Тахрирлаш</th>
                         </tr>
                     </thead>
                         <tbody>
@@ -99,30 +92,30 @@
                                 <td>{{ $g.getDate(ans.created_at) }}</td>
                                 <td style="text-align: initial;width:80%;"> <div v-html="ans.text"></div> </td>
                                 <td style="width:10%;">
-                                    <a :href="'/'+ans.file" v-if="ans.file" class="btn_blue_icon" download="">
+                                    <a :href="'/'+ans.file" v-if="ans.file" class="btn_blue_icon" download="" v-tooltip.top-center="'Юклаб олиш'">
                                         <i class="sidebar_icon" data-feather="download"></i>
                                     </a>
                                 </td>
                                 <td style="width:10%;">
                                     <div class="btn_group" v-if="userId == svotId && userId != item.user_id && ans.status == 'pending'" >
-                                        <button class="btn_green_icon" title="accept" @click="acceptTask(ans)">
+                                        <button class="btn_green_icon" title="accept" @click="acceptTask(ans)"  v-tooltip.top-center="'Қабул қилиш'">
                                             <i data-feather="check" class="sidebar_icon" ></i>
                                         </button>
-                                        <button class="btn_red_icon" title="cancel" @click="openDenyModal(ans)">
+                                        <button class="btn_red_icon" title="cancel" @click="openDenyModal(ans)"  v-tooltip.top-center="'Рад этиш'">
                                             <i data-feather="slash" class="sidebar_icon" ></i>
                                         </button>
                                     </div>
-                                    <div v-else>
-                                        <span class="alert alert-danger jv_alert" v-if="ans.status == 'rejected'">Rad etilgan</span>
-                                        <span class="alert alert-success jv_alert" v-if="ans.status == 'accepted'">Qabul qilingan</span>
-                                        <span class="alert alert-warning jv_alert" v-if="ans.status == 'pending'">Tekshirilmoqda</span>
-                                    </div>
+                                    <!-- <div v-else>
+                                        <span class="alert alert-danger jv_alert" v-if="ans.status == 'rejected'">Рад этилган</span>
+                                        <span class="alert alert-success jv_alert" v-if="ans.status == 'accepted'">Қабул қилинган</span>
+                                        <span class="alert alert-warning jv_alert" v-if="ans.status == 'pending'">Текширилмоқда</span>
+                                    </div> -->
                                 </td>
                                 <td>
-                                    <button class="btn_blue_icon" title="update" v-if="ans.status == 'rejected' &&  userId == item.user_id" @click="updateAnswer(ans)">
+                                    <button class="btn_blue_icon" title="update" v-if="ans.status == 'rejected' &&  userId == item.user_id" @click="updateAnswer(ans)" v-tooltip.top-center="'Тахрирлаш'">
                                          <i data-feather="edit-2" class="sidebar_icon" ></i>
                                     </button>
-                                    <button class="btn_red_icon" title="show" v-if="ans.status == 'rejected' &&  userId == item.user_id" @click="showComment(ans)">
+                                    <button class="btn_red_icon" title="show" v-tooltip.top-center="'Рад этиш сабабини кўриш'" v-if="ans.status == 'rejected' &&  userId == item.user_id" @click="showComment(ans)">
                                          <i data-feather="monitor" class="sidebar_icon" ></i>
                                     </button>
                                 </td>
@@ -133,17 +126,17 @@
             </div>
         </div>
     </div>
-    <h2>Xisobod</h2>
+    <h2>Хисобот</h2>
     <form class="jv_card"  @submit.prevent.enter="saveAction" enctype="multipart/form-data">
         <div class="jv_card_body">
             <div class="col-md-9 mr_15">
-                <label for="text" class="title_label">Xisobot matni</label>
+                <label for="text" class="title_label">Хисобот матни</label>
                 <vue-editor id="text" v-model="answer.text" />
             </div>
             <div class="col-md-3">
                 <div class="input_style_file" >
                     <label for="file" id="inputFileLabel"
-                    >File Upload</label>
+                    >Файл юклаш</label>
                     <input
                         type="file"
                         id="file"
@@ -154,12 +147,12 @@
         </div>
         <div class="form_btn_block">
             <button type="submit" class="btn_blue mr_15">
-              <i class="sidebar_icon" data-feather="save"></i>
-              Сохранить
+              <i class="sidebar_icon" data-feather="send"></i>
+              Юбориш
             </button>
             <button type="button" @click="fineshTask" class="btn_green" v-if="userId == svotId">
               <i class="sidebar_icon" data-feather="send"></i>
-              Закончить
+              Тугатиш
             </button>
         </div>
     </form>
@@ -167,18 +160,18 @@
         <form class="modal-dialog"   @submit.prevent.enter="cancelTask" >
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Rad etilganlik sababi</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Рад этилганлик сабаби</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="input_style">
                     <textarea name="" v-model="comment.text" id="comment" class="input_style"  cols="30" rows="10" required></textarea>
-                     <label for="comment">Sabab</label>
+                     <label for="comment">Сабаб</label>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
-                <button type="submit" class="btn btn-primary">Rad etish</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Бекор қилиш</button>
+                <button type="submit" class="btn btn-primary">Рад этиш</button>
             </div>
             </div>
         </form>
@@ -187,17 +180,17 @@
         <form class="modal-dialog" style="    max-width: 80%;" >
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="rejectCommentModalLabel">Rad etilganlik sababi</h5>
+                    <h5 class="modal-title" id="rejectCommentModalLabel">Рад этилганлик сабаби</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="input_style">
                         <textarea name="" v-model="comment.text" id="comment" class="input_style"  cols="30" rows="10" required disabled></textarea>
-                        <label for="comment">Sabab</label>
+                        <label for="comment">Сабаб</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ёпиш</button>
                 </div>
             </div>
         </form>
@@ -385,14 +378,14 @@ export default {
             toast.fire({
                 type: "success",
                 icon: "success",
-                title: "Task обновлено!",
+                title: this.getMassage.message,
             });
             this.requiredInput = false;
         } else {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "Такой Task уже существует!",
+            title: this.getMassage.message,
           });
         }
       } else {

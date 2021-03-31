@@ -2,9 +2,9 @@
 	<div class="action">
         <div class="page_header">
 			<h4 class="header_title">
-				Region
+				Вилоят
 			</h4>
-            <router-link class="btn_green" to="/crm/region/add"><i data-feather="plus" class="sidebar_icon"></i> Добавить</router-link>
+            <router-link class="btn_green" to="/crm/region/add"><i data-feather="plus" class="sidebar_icon"></i> Қўшиш</router-link>
 		</div>
         <div class="jv_card">
             <div class="table-responsive">
@@ -12,8 +12,8 @@
 					<thead>
 						<tr>
 							<th scope="col">№</th>
-							<th scope="col">Название</th>
-							<th scope="col">Действия</th>
+							<th scope="col">Вилоят номи</th>
+							<th scope="col">Тахрирлаш</th>
 						</tr>
 					</thead>
 					<tbody v-if="getRegions.data && getRegions.data.length">
@@ -21,10 +21,10 @@
 							<td scope="row">{{index+1}}</td>
 							<td>{{cont.name}}</td>
 							<td>
-								<router-link tag="button" class="btn_blue_icon" :to='`/crm/region/edit/${cont.id}`'>
+								<router-link tag="button" class="btn_blue_icon" :to='`/crm/region/edit/${cont.id}`' v-tooltip.top-center="'Тахрирлаш'">
 									<i data-feather="edit-2" class="sidebar_icon" ></i>
 								</router-link>
-								<button class="btn_red_icon" @click="deleteItem(cont.id)">
+								<button class="btn_red_icon" @click="deleteItem(cont.id)" v-tooltip.top-center="'Ўчириш'">
 									<i data-feather="trash" class="sidebar_icon" ></i>
 								</button>
 							</td>

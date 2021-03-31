@@ -12,6 +12,7 @@ import {UserService} from "../services/user.service";
 import {user} from "./user.module"
 import {users} from "./users.module"
 import {role} from "./role.module"
+import {permission} from "./permission.module"
 import {conts} from "./conts.module"
 import {action} from "./action.module"
 import {task} from "./task.module"
@@ -44,7 +45,8 @@ const store = new Vuex.Store(
 			dashboard,
             region,
             area,
-            usertask
+            usertask,
+            permission
 		},
 		state:{
 			rules:[],

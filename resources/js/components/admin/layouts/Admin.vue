@@ -4,13 +4,13 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
-    <div class="input_search">
+    <!-- <div class="input_search">
         <i class="input_icon" data-feather="search"></i>
         <input type="search" placeholder="Search here...">
-    </div>
+    </div> -->
     <!-- Right navbar links -->
     <div class="user_info"><span><i data-feather="user"></i></span>  {{ getUser.surename }} {{ getUser.name }}</div>
-    <a href="#" class="btn_blue" @click.prevent="logoutProfile"><i class="sidebar_icon" data-feather="log-out"></i> Chiqish</a>
+    <a href="#" class="btn_blue" @click.prevent="logoutProfile"><i class="sidebar_icon" data-feather="log-out"></i> Чиқиш</a>
   </nav>
   <!-- /.navbar -->
 
@@ -34,64 +34,64 @@
         <ul class="sidebar_ul" data-widget="treeview" role="menu" data-accordion="false" >
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'DashboardController')">
              <!-- v-if="$can('profile', 'UserController')" -->
             <router-link to="/crm/dashboard" class="nav-link">
               <i class="sidebar_icon" data-feather="home" ></i>
               <p>
-                Админ панель
+                Aдминистратор панели
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"  v-if="$can('profile', 'UserController')">
             <router-link to="/crm/profile" class="nav-link">
               <i class="sidebar_icon" data-feather="user" ></i>
               <p>
-                Profile
+                Фойдаланувчи профили
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/crm/users" class="nav-link">
+          <li class="nav-item" v-if="$can('index', 'UserController')">
+            <router-link to="/crm/users" class="nav-link" v-if="$can('profile', 'UserController')">
               <i class="sidebar_icon" data-feather="users" ></i>
               <p>
-                Users
+                Фойдаланувчилар
               </p>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/crm/tasks" class="nav-link">
+            <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')">
               <i class="sidebar_icon" data-feather="layers" ></i>
               <p>
-                Tasks
+                Топшириқлар
               </p>
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/crm/user-task" class="nav-link">
+            <router-link to="/crm/user-task" class="nav-link"  v-if="$can('userIndex', 'TaskController')">
               <i class="sidebar_icon" data-feather="clipboard" ></i>
               <p>
-                User task
+                Топшириқларим
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="$can('index', 'RegionController')">
             <router-link to="/crm/region" class="nav-link">
               <i class="sidebar_icon" data-feather="globe" ></i>
               <p>
-                Region
+                Вилоят
               </p>
             </router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link to="/crm/area" class="nav-link">
               <i class="sidebar_icon" data-feather="pie-chart" ></i>
               <p>
-                Area
+                Туман
               </p>
             </router-link>
-          </li>
-          <li class="nav-item has_dropdown show">
+          </li> -->
+          <li class="nav-item has_dropdown show" v-if="$can('index', 'RoleController')">
             <a href="#" class="nav-link">
                 <i class="sidebar_icon" data-feather="settings" ></i>
                     Setting users
@@ -140,7 +140,7 @@
 
   <!-- Main Footer -->
   <footer class="main-footer">
-      <strong>Copyright &copy; {{ new Date().getFullYear() }} <a href="https://mintrans.uz" target="_blank">O'ZBEKISTON RESPUBLIKASI TRANSPORT VAZIRLIGI </a>.</strong>
+      <strong>Copyright &copy; {{ new Date().getFullYear() }} <a href="https://mintrans.uz" target="_blank">ЎЗБЕКИСТОН РЕСПУБЛИКAСИ ТРAНСПОРТ ВAЗИРЛИГИ </a>.</strong>
       All rights reserved.
   </footer>
 </div>
