@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Permission;
+use App\Position;
 use App\User;
 use Illuminate\Http\Request;
 use Validator;
@@ -28,7 +29,18 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $result = User::with(['position'])->where(['role_id' => 2])->get();
+        $validator = Validator::make($request->all(), [
+            'structure_id'    => 'nullable|integer',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true, 'message' => $validator->messages()]);
+        }
+        if($request->has('structure_id')){
+            $positions = Position::where('structure_id','=',$request->input('structure_id'))->pluck('id')->toArray();
+            $result = User::whereIn('p_id',$positions)->with(['position'])->where(['role_id' => 2])->get();
+        }else{
+            $result = User::with(['position'])->where(['role_id' => 2])->get();
+        }
         return response()->json(['success' => true,'result' => $result]);
     }
 
