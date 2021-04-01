@@ -26,12 +26,12 @@ class TaskController extends Controller
         if(!empty($params['date_from']) && !empty($params['date_to'])){
             $builder->whereBetween('exp_date',[$params['date_from'],$params['date_to']]);
         }
+        $downloads = [];
         if(!empty($params['download'])){
-            $result = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->get();
-        }else{
-            $result = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->paginate($limit);
+            $downloads = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->get();
         }
-        return response()->json(['success' => true,'result' => $result]);
+        $result = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->paginate($limit);
+        return response()->json(['success' => true,'result' => $result,'downloads' => $downloads]);
     }
 
     public function getByDate(Request $request)
