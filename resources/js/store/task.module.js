@@ -2,6 +2,7 @@ import {TaskService} from "../services/task.service";
 
 const state = {
 	tasks: {},
+	tasklist: {},
 	message: [],
 	task: [],
 };
@@ -16,6 +17,9 @@ const getters = {
 	getTask(state){
 		return state.task
 	},
+	getTaskList(state){
+		return state.tasklist
+	},
 };
 
 
@@ -24,6 +28,7 @@ const actions = {
 		try {
 			const actions =  await TaskService.tasks(payload);
 			await commit('setTasks',actions.data.result)
+			await commit('setTaskList',actions.data.downloads)
 			return true
 		} catch (error) {
 			return false
@@ -103,6 +108,9 @@ const mutations = {
 	},
 	setEditTask(state, task){
 		state.task = task
+	},
+	setTaskList(state, task){
+		state.tasklist = task
 	},
 };
 
