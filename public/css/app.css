@@ -26,6 +26,7 @@ ul li {
   list-style: none;
 }
 
+.btn_yellow,
 .btn_green {
   box-shadow: 0 0.125rem 0.625rem rgba(58, 196, 125, 0.4), 0 0.0625rem 0.125rem rgba(58, 196, 125, 0.5);
   cursor: pointer;
@@ -47,6 +48,7 @@ ul li {
   text-decoration: none;
 }
 
+.btn_yellow .sidebar_icon,
 .btn_red .sidebar_icon,
 .btn_blue .sidebar_icon,
 .btn_black .sidebar_icon,
@@ -54,6 +56,18 @@ ul li {
   margin-right: 0.5rem !important;
 }
 
+.btn_yellow {
+  background-color: #ffcc32;
+  border-color: #ffcc32;
+  box-shadow: 0 0.125rem 0.625rem #ffc1076b;
+}
+
+.btn_yellow:hover {
+  background-color: #fabe08;
+  border-color: #fabe08;
+}
+
+.btn_green_icon:hover,
 .btn_green:hover {
   box-shadow: 0 0.125rem 0.625rem rgba(58, 196, 125, 0.5), 0 0.0625rem 0.125rem rgba(58, 196, 125, 0.6);
   color: #fff;
@@ -135,6 +149,13 @@ ul li {
   box-shadow: 0 0.125rem 0.625rem #f2747466, 0 0.0625rem 0.125rem #dc354587;
 }
 
+.btn_red_icon:hover,
+.btn_red:hover {
+  background-color: #a6232f;
+  border-color: #a6232f;
+}
+
+.btn_blue_icon:hover,
 .btn_blue:hover {
   box-shadow: 0 0.125rem 0.625rem rgba(22, 170, 255, 0.5), 0 0.0625rem 0.125rem rgba(22, 170, 255, 0.6);
   color: #fff;

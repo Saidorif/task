@@ -5,6 +5,7 @@
 				Топшириқлар
 			</h4>
             <div class="d_flex">
+                <button type="button" class="btn_red mr_15"><i data-feather="file-text" class="sidebar_icon"></i> Word версия</button>
                 <button type="button" class="btn_blue mr_15"><i data-feather="filter" class="sidebar_icon"></i> Саралаш</button>
                 <router-link class="btn_green" to="/crm/tasks/add"><i data-feather="plus" class="sidebar_icon"></i>Топшириқ яратиш</router-link>
             </div>
@@ -12,11 +13,11 @@
         <div class="jv_card filter">
             <div class="input_style col-md-3">
                 <date-picker
-                range
-                v-model="filter_date"
-                placeholder="Оралиқ сана"
-                value-type="format"
-                format="DD.MM.YYYY"
+                    range
+                    v-model="filter_date"
+                    placeholder="Оралиқ сана"
+                    value-type="format"
+                    format="DD.MM.YYYY"
                 ></date-picker>
             </div>
             <div class="input_style col-md-3 mr_15">
@@ -30,7 +31,8 @@
                 </select>
                 <label for="status">Холат</label>
             </div>
-            <button type="button" class="btn_black" @click="filterDate"><i data-feather="filter" class="sidebar_icon"></i> Саралаш</button>
+            <button type="button" class="btn_black mr_15" @click="filterDate"><i data-feather="filter" class="sidebar_icon"></i> Саралаш</button>
+            <button type="button" class="btn_yellow" @click="filterDate"><i data-feather="wind" class="sidebar_icon"></i> Тозалаш</button>
         </div>
         <div class="jv_card">
             <div class="table-responsive">
@@ -109,8 +111,15 @@
 		},
         watch: {
             filter_date: function(val){
-                this.filter.date_from = val[0]
-                this.filter.date_to = val[1]
+                if(val[0]){
+                    let dfrom = val[0].split(".");
+                    let dto = val[1].split(".");
+                    this.filter.date_from = `${dfrom[2]}.${dfrom[1]}.${dfrom[0]}`
+                    this.filter.date_to = `${dto[2]}.${dto[1]}.${dto[0]}`
+                }else{
+                    this.filter.date_from = null
+                    this.filter.date_to = null
+                }
             },
         },
 		methods:{
