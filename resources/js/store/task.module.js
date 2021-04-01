@@ -20,9 +20,9 @@ const getters = {
 
 
 const actions = {
-	async actionTasks({commit},page){
+	async actionTasks({commit},payload){
 		try {
-			const actions =  await TaskService.tasks(page);
+			const actions =  await TaskService.tasks(payload);
 			await commit('setTasks',actions.data.result)
 			return true
 		} catch (error) {

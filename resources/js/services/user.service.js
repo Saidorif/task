@@ -80,8 +80,16 @@ const UserService = {
 	profileUpdate(data){
 		return ApiService.post(`/api/user/update`,data);
 	},
-	userList(data){
-		return ApiService.get(`/api/user/list`);
+	userList(id){
+        if(id){
+            return ApiService.get(`/api/user/list?structure_id=${id}`);
+        }else{
+            return ApiService.get(`/api/user/list`);
+        }
+
+	},
+	structureList(){
+		return ApiService.get(`/api/structure/list`);
 	},
 	changePass(data){
 		return ApiService.post(`/api/change-password`,data);

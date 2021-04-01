@@ -4,8 +4,34 @@
 			<h4 class="header_title">
 				Топшириқлар
 			</h4>
-            <router-link class="btn_green" to="/crm/tasks/add"><i data-feather="plus" class="sidebar_icon"></i>Топшириқ яратиш</router-link>
+            <div class="d_flex">
+                <button type="button" class="btn_blue mr_15"><i data-feather="filter" class="sidebar_icon"></i> Саралаш</button>
+                <router-link class="btn_green" to="/crm/tasks/add"><i data-feather="plus" class="sidebar_icon"></i>Топшириқ яратиш</router-link>
+            </div>
 		</div>
+        <div class="jv_card filter">
+            <div class="input_style col-md-3">
+                <date-picker
+                range
+                v-model="filter_date"
+                placeholder="Оралиқ сана"
+                value-type="format"
+                format="DD.MM.YYYY"
+                ></date-picker>
+            </div>
+            <div class="input_style col-md-3 mr_15">
+                <select v-model="filter.status" id="status">
+                    <option  value="">Холатни танланг</option>
+                    <option  value="rejected">Рад этилган</option>
+                    <option  value="accepted">Қабул қилинган</option>
+                    <option  value="pending">Тасдиқланмаган</option>
+                    <option  value="active">Бажарилмоқда</option>
+                    <option  value="draft">Режада</option>
+                </select>
+                <label for="status">Холат</label>
+            </div>
+            <button type="button" class="btn_black" @click="filterDate"><i data-feather="filter" class="sidebar_icon"></i> Саралаш</button>
+        </div>
         <div class="jv_card">
             <div class="table-responsive">
 				<table class="table table-bordered text-center table-hover table-striped">
@@ -56,14 +82,23 @@
 </template>
 <script>
 	import {mapActions,mapGetters} from 'vuex'
+    import DatePicker from "vue2-datepicker";
 	export default{
+        components:{
+            DatePicker
+        },
 		data(){
 			return{
-
+                filter: {
+                    status: '',
+                    date_from: '',
+                    date_to: '',
+                },
+                filter_date: '',
 			}
 		},
 		async mounted(){
-			await this.actionTasks()
+			await this.actionTasks({page: 1, filter:this.filter})
             feather.replace()
             $('.userList').on('click', function(){
                 $(this).toggleClass('active')
@@ -72,18 +107,26 @@
 		computed:{
 			...mapGetters('task',['getTasks','getTaskMassage'])
 		},
+        watch: {
+            filter_date: function(val){
+                this.filter.date_from = val[0]
+                this.filter.date_to = val[1]
+            },
+        },
 		methods:{
 			...mapActions('task',['actionTasks', 'actionDeleteTask']),
 			async getResults(page = 1){
-				await this.actionTasks(page)
+				await this.actionTasks({page: page})
 			},
+            async filterDate(){
+                await this.actionTasks({page: 1, filter:this.filter})
+            },
             showAllUsers(con){
                 if(con.isOpen){
                     con.isOpen = false
                 }else{
                     con.isOpen = true
                 }
-                console.log(con.isOpen)
             },
             async deleteItem(id){
                 swal.fire({

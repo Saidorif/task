@@ -5,7 +5,7 @@
     </div>
     <div class="mb-5">
       <div class="dashboard_header">
-                  <div class="header_item">
+        <div class="header_item">
           <span class="icon">
             <i data-feather="layers"></i>
           </span>
@@ -136,15 +136,8 @@
                   <li
                     v-for="item in task.users"
                     :class="item.svot == 1 ? 'active' : ''"
-                    v-tooltip.top-center="
-                      '<b>' +
-                      item.user.position.name +
-                      '</b><br> ' +
-                      item.user.name +
-                      ' ' +
-                      item.user.surename
-                    "
-                  >
+                    v-tooltip.top-center=" '<b>' + item.user.position.name + '</b><br> ' + item.user.name + ' ' + item.user.surename"
+                    >
                     {{ item.user.position.structure.name }}
                   </li>
                 </ul>
@@ -269,10 +262,76 @@ export default {
         },
         dataLabels: {
           enabled: false,
+          position: 'top'
         },
         legend: {
-          show: false,
+            show: true,
+            horizontalAlign: 'left',
+            markers: {
+                width: 12,
+                height: 12,
+                strokeWidth: 0,
+                strokeColor: '#fff',
+                fillColors: [
+                    "#000",
+                    "#FDF5BF",
+                    "#FFD5FF",
+                    "#92D1C3",
+                    "#8BB8A8",
+                    "#FAC8CD",
+                    "#D7BCC8",
+                    "#98B6B1",
+                    "#629677",
+                    "#1B1725",
+                    "#495D63",
+                    "#2B4141",
+                    "#0EB1D2",
+                    "#34E4EA",
+                    "#8AB9B5",
+                    "#C8C2AE",
+                    "#534B62",
+                    "#A499B3",
+                    "#D0BCD5",
+                    "#226CE0",
+                    "#226CE0",
+                    "#6F1D1B",
+                    "#BB9457",
+                    "#432818",
+                    "#99582A",
+                    "#FFE6A7",
+                    "#CEBEBE",
+                    "#ECE2D0",
+                    "#D5B9B2",
+                    "#A26769",
+                    "#6D2E46",
+                    "#F6F7EB",
+                    "#E94F37",
+                    "#393E41",
+                    "#3F88C5",
+                    "#44BBA4",
+                    "#DDD78D",
+                    "#DCBF85",
+                    "#8B635C",
+                    "#60594D",
+                    "#93A29B",
+                    "#DEF2C8",
+                    "#C5DAC1",
+                    "#BCD0C7",
+                    "#A9B2AC",
+                    "#898980",
+                    "#2274A5",
+                    "#E7EB90",
+                    "#FADF63",
+                    "#E6AF2E",
+                ],
+                radius: 12,
+                customHTML: undefined,
+                onClick: undefined,
+                offsetX: 0,
+                offsetY: 0
+            },
         },
+
         fill: {
           colors: [
             "#000",
@@ -331,6 +390,7 @@ export default {
           categories: [],
           labels: {
             show: false,
+            position: 'top',
             style: {
               colors: ["#000"],
               fontSize: "12px",

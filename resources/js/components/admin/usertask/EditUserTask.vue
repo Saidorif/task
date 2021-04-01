@@ -197,9 +197,41 @@
             </div>
         </form>
     </div>
-    <div id="word">
-        <h1>Ўзбекистон Республикаси Транспорт вазирлигига юклатилган муҳим топшириқлар ижроси тўғрисида</h1>
-        <h2>М А Ъ Л У М О Т</h2>
+    <div id="word"  >
+        <div class="landscape_A4_page">
+            <h6>
+                Ўзбекистон Республикаси Транспорт вазирлигига юклатилган муҳим топшириқлар ижроси тўғрисида <br>
+                М А Ъ Л У М О Т
+            </h6>
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Топшириқ мазмуни</th>
+                        <th><span style="color: rgb(192, 0, 0);">{{ $g.getDate(new Date()) }}</span> йил <br> ҳолатига бажарилган ишлар</th>
+                        <th>Ижро муддати</th>
+                        <th style="border-right:none;">Масъул ижрочилар</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>{{ form.title }}</td>
+                        <td>
+                            <template v-for="(item, index) in getUserTask.task.users">
+                                <span>{{ index + 1}}</span><div v-for="(ans, ind) in item.items" v-html="ans.text"></div>
+                            </template>
+                        </td>
+                        <td style="text-align:center;">{{ $g.getDate( form.exp_date) }}</td>
+                        <td style="border-right:none;">
+                            <p  v-for="(user, index) in selectedUsersList" :class="{ selected: user.svot }">
+                                {{ user.name.charAt(0) }}.  {{ user.surename }},
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
   </div>
 </template>
@@ -216,6 +248,7 @@ export default {
   },
   data() {
     return {
+        value1: null,
       form: {
         title: "",
         items: [],

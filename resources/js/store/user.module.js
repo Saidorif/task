@@ -4,6 +4,7 @@ const state = {
 	message: null,
 	profile:[],
     userlist:[],
+    structureList:[],
 };
 
 const getters = {
@@ -15,6 +16,9 @@ const getters = {
 	},
 	getUserList(state){
 		return state.userlist
+	},
+	getStructureList(state){
+		return state.structureList
 	}
 };
 
@@ -29,10 +33,19 @@ const actions = {
 			return false
 		}
 	},
-	async ActionUserList({commit}){
+	async ActionUserList({commit}, payload){
 		try {
-			let sendData = await UserService.userList();
+			let sendData = await UserService.userList(payload);
 			await commit('setUserList',sendData.data.result)
+			return true
+		}catch(e){
+			return false
+		}
+	},
+	async ActionStructureList({commit}){
+		try {
+			let sendData = await UserService.structureList();
+			await commit('setStructureList',sendData.data.result)
 			return true
 		}catch(e){
 			return false
@@ -76,6 +89,9 @@ const mutations = {
 	},
 	setUserList(state, data){
 		state.userlist = data
+	},
+	setStructureList(state, data){
+		state.structureList = data
 	}
 };
 

@@ -117,6 +117,8 @@
     }
     .input-group{
         position: relative;
+        margin-bottom: 30px;
+
     }
     .input-group input{
         width: 100%;
@@ -125,7 +127,6 @@
         padding: 6px 15px;
         background: white;
         border-radius: 6px;
-        margin-bottom: 30px;
         overflow: hidden;
     }
     .input-group input:focus{
@@ -142,5 +143,13 @@
         text-align: center;
         justify-content: center;
         font-size: 16px;
+    }
+    .input-group-text{
+        padding: 0;
+        border-radius: 0px;
+        height: 100%;
+        width: 40px;
+        justify-content: center;
+        border-top-right-radius: 4px;
     }
 </style>
