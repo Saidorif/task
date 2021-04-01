@@ -3,14 +3,28 @@
       <Loader v-if="isLoading" />
     <div class="page_header">
       <h4 class="header_title">Топшириқни тахрирлаш </h4>
-      <router-link class="btn_black" to="/crm/tasks"
-        ><i data-feather="arrow-left" class="sidebar_icon"></i>
-        Орқага</router-link
-      >
+      <div class="d-flex">
+        <button type="button" @click="$g.toWord('word', 'java')" class="btn_blue mr_15"> <i data-feather="file-text" class="sidebar_icon"></i> Word версияси </button>
+        <router-link class="btn_black" to="/crm/tasks"><i data-feather="arrow-left" class="sidebar_icon"></i>
+        Орқага</router-link>
+      </div>
     </div>
     <div class="jv_card">
       <form @submit.prevent.enter="saveAction" enctype="multipart/form-data">
         <div class="row align-items-end">
+            <div class="col-md-5">
+                <multiselect
+                v-model="selectedStr"
+                :options="getStructureList"
+                placeholder="Ижрочи бошқармани танланг"
+                :multiple="false"
+                :allow-empty="false"
+                label="name"
+                :internal-search="true"
+                track-by="name"
+                >
+            </multiselect>
+          </div>
           <div class="col-md-5">
             <multiselect
                 v-model="selectedUser"
@@ -37,17 +51,6 @@
                             </div>
                         </template>
                 </multiselect>
-          </div>
-          <div class="input_style col-md-5">
-            <input
-              type="text"
-              class="form-control input_style"
-              id="contName"
-              v-model="form.title"
-              required
-              :class="isRequired(form.title) ? 'isRequired' : ''"
-            />
-            <label for="contName">Қисқача мазмуни</label>
           </div>
           <div class="col-md-2">
             <date-picker
@@ -105,8 +108,19 @@
               </tbody>
             </table>
           </div>
+            <div class="input_style col-md-12 mt-5 mb-4">
+                <input
+                type="text"
+                class="form-control input_style"
+                id="contName"
+                v-model="form.title"
+                required
+                :class="isRequired(form.title) ? 'isRequired' : ''"
+                />
+                <label for="contName">Қисқача мазмуни</label>
+            </div>
           <template v-for="(item, index) in allItems">
-            <div class="col-md-9 mt-5">
+            <div class="col-md-9">
               <label for="text" class="title_label">Тўлиқ матни</label>
               <div class="disabled_custom_editor" id="text" v-html="item.text" ></div>
             </div>
@@ -210,7 +224,6 @@
             </div>
         </div>
     </div>
-
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <form class="modal-dialog"   @submit.prevent.enter="cancelTask" >
             <div class="modal-content">
@@ -231,7 +244,42 @@
             </div>
         </form>
     </div>
-
+    <div id="word"  >
+        <div class="landscape_A4_page">
+            <h6>
+                Ўзбекистон Республикаси Транспорт вазирлигига юклатилган муҳим топшириқлар ижроси тўғрисида <br>
+                М А Ъ Л У М О Т
+            </h6>
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Топшириқ мазмуни</th>
+                        <th><span style="color: rgb(192, 0, 0);">{{ $g.getDate(new Date()) }}</span> йил <br> ҳолатига бажарилган ишлар</th>
+                        <th>Ижро муддати</th>
+                        <th style="border-right:none;">Масъул ижрочилар</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>{{ form.title }}</td>
+                        <td>
+                            <template v-for="(item, index) in getTask.users">
+                                <div v-for="(ans, ind) in item.items" v-html="ans.text"></div>
+                            </template>
+                        </td>
+                        <td style="text-align:center;">{{ $g.getDate( form.exp_date) }}</td>
+                        <td style="border-right:none;">
+                            <p  v-for="(user, index) in selectedUsersList" :class="{ selected: user.svot }">
+                                {{ user.name.charAt(0) }}.  {{ user.surename }},
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
   </div>
 </template>
 <script>
@@ -266,13 +314,18 @@ export default {
         hasSvot: false,
         comment: {text: null, id: null},
         modalcancel: null,
+        selectedStr: null,
     };
   },
   computed: {
     ...mapGetters("task", ["getTaskMassage", 'getTask']),
-    ...mapGetters("user", ["getUserList"]),
+    ...mapGetters("user", ["getUserList", 'getStructureList']),
   },
   watch: {
+    selectedStr: async function(val){
+        await this.ActionUserList(val.id);
+        this.userlist = this.getUserList;
+    },
     selectedUser: function (val) {
       val.svot = false;
       if (this.selectedUsersList.length) {
@@ -286,7 +339,7 @@ export default {
           this.selectedUsersList.push(val);
         }
       } else {
-                              val.svot = true
+        val.svot = true
         this.selectedUsersList.push(val);
       }
     },
@@ -296,14 +349,16 @@ export default {
   },
   async mounted() {
     await this.rerenderData();
+    await this.ActionStructureList();
     this.isLoading = false
     this.modalcancel = new bootstrap.Modal(document.getElementById('exampleModal'), {
             keyboard: false
     })
+
   },
   methods: {
     ...mapActions("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask"]),
-    ...mapActions("user", ["ActionUserList"]),
+    ...mapActions("user", ["ActionUserList", 'ActionStructureList']),
     isRequired(input) {
       return this.requiredInput && input === "";
     },

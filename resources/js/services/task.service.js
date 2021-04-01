@@ -1,8 +1,8 @@
 import ApiService from './api.service'
 
 const TaskService = {
-	tasks(){
-		return ApiService.get(`/api/task`)
+	tasks(data){
+		return ApiService.post(`/api/task?page=${data.page}`, data.filter)
 	},
 	addTask(data){
 		return ApiService.fileSend(`/api/task/store`,data)
