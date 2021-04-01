@@ -19,7 +19,18 @@ class TaskController extends Controller
     {
         $params = $request->all();
         $limit = !empty($params['limit']) ? (int)$params['limit'] : 12;
-        $result = Task::with(['creater','users','items','comments'])->orderBy('id','DESC')->paginate($limit);
+        $builder = Task::query();
+        if(!empty($params['status'])){
+            $builder->where(['status' => $params['status']]);
+        }
+        if(!empty($params['date_from']) && !empty($params['date_to'])){
+            $builder->whereBetween('exp_date',[$params['date_from'],$params['date_to']]);
+        }
+        if(!empty($params['download'])){
+            $result = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->get();
+        }else{
+            $result = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->paginate($limit);
+        }
         return response()->json(['success' => true,'result' => $result]);
     }
 
