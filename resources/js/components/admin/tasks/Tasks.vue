@@ -113,11 +113,11 @@
                 <button
                   tag="button"
                   class="btn_green_icon"
-                  v-tooltip.top-center="'Долзарб'"
-                  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  v-tooltip.top-center="cont.is_important == 1 ? 'Долзарб эмас' : 'Долзарб'"
+                  @click="openImportantModal(cont)"
                 >
-                  <i data-feather="flag" class="sidebar_icon"></i>
-                  <!-- <i data-feather="slash" class="sidebar_icon"></i> -->
+                  <i data-feather="flag" v-if="cont.is_important == 0" class="sidebar_icon"></i>
+                  <i data-feather="slash"  v-else  class="sidebar_icon"></i>
                 </button>
                 <router-link
                   tag="button"
@@ -202,7 +202,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="input_style">
-                        <textarea name="" v-model="important.text" id="comment" class="input_style"  cols="30" rows="10" required></textarea>
+                        <textarea name="" v-model="important.comment" id="comment" class="input_style"  cols="30" rows="10" required></textarea>
                         <label for="comment">Сабаб</label>
                     </div>
                 </div>
@@ -231,9 +231,11 @@ export default {
       },
       important: {
           id: '',
-          text: ''
+          comment: '',
+          is_important: 0,
       },
       filter_date: "",
+      importantModal: null
     };
   },
   async mounted() {
@@ -242,6 +244,9 @@ export default {
     $(".userList").on("click", function () {
       $(this).toggleClass("active");
     });
+    this.importantModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+        keyboard: false
+    })
   },
   updated() {
     feather.replace();
@@ -263,16 +268,34 @@ export default {
     },
   },
   methods: {
-    ...mapActions("task", ["actionTasks", "actionDeleteTask"]),
+    ...mapActions("task", ["actionTasks", "actionDeleteTask", 'actionImportantTask']),
     async getResults(page = 1) {
-      await this.actionTasks({ page: page });
+      await this.actionTasks({ page: page, filter: this.filter  });
     },
     async filterDate() {
       this.filter.download = true;
       await this.actionTasks({ page: 1, filter: this.filter });
     },
+    openImportantModal(data){
+        this.important.id = data.id
+        this.important.is_important = data.is_important == 1 ? 0 : 1
+        this.important.comment = data.comment
+        this.importantModal.show()
+    },
     async importantTask(){
-
+        await this.actionImportantTask(this.important)
+        await this.actionTasks({ page: 1, filter: this.filter });
+        console.log(this.getTasks)
+        if(this.getTaskMassage.success){
+            toast.fire({
+                type: "success",
+                icon: "success",
+                title: this.getTaskMassage.message,
+            });
+            this.importantModal.hide()
+            this.important.comment = ''
+            this.important.id = ''
+        }
     },
     async clearFilter(){
       this.filter.download = '';

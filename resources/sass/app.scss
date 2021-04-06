@@ -455,6 +455,12 @@ thead{
 }
 tbody{
     tr{
+        &.unread{
+            td:first-child{
+                background: rgba(255, 0, 0, 0.322);
+
+            }
+        }
         td{
             font-size: 12px;
             vertical-align: middle;
