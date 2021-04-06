@@ -19,7 +19,7 @@
 						</tr>
 					</thead>
 					<tbody >
-						 <tr v-for="(task,index) in getUserTasks" :class="{ 'unread': task.task.read == 1 }">
+						 <tr v-for="(task,index) in getUserTasks" :class="{ 'unread': task.read == 0 }">
 							<td scope="row">{{index+1}}  </td>
 							<td scope="row" style="text-align:left;">{{task.task.title}}</td>
 							<td scope="row">{{ $g.getDate(task.task.exp_date) }}</td>
