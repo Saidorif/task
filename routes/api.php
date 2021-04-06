@@ -39,6 +39,7 @@ Route::group([
         Route::post('task/accept/{id}','TaskController@accept');
         Route::post('task/approve/{id}','TaskController@approve');
         Route::post('task/reject/{id}','TaskController@reject');
+        Route::post('task/important/{id}','TaskController@important');
 
         //User tasks
         Route::post('usertask/store','TaskUserItemController@store');

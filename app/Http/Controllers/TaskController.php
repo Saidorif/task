@@ -67,6 +67,10 @@ class TaskController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Task not found']);
         }
+        if($result->read == 0){
+            $result->read = 1;
+            $result->save();
+        }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -295,5 +299,26 @@ class TaskController extends Controller
             return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
         }
         return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
+    }
+
+    public function important(Request $request,$id)
+    {
+        $task = Task::find($id);
+        if(!$task){
+            return response()->json(['error' => true,'message' => 'Task not found']);
+        }
+        $validator = Validator::make($request->all(),[
+            'is_important' => 'required|integer',
+            'comment' => 'nullable|string',
+        ]);
+        if($validator->fails()){
+            return response()->json(['error' => true,'message' => $validator->messages()]);
+        }
+        $task->is_important = (int)$request->input('is_important');
+        if(!empty($request->input('comment'))){
+            $task->comment = $request->input('comment');
+        }
+        $task->save();
+        return response()->json(['success' => true,'message' => 'Success!!!']);
     }
 }
