@@ -75,6 +75,10 @@ class TaskUserItemController extends Controller
         if(!$tuitem){
             return response()->json(['error' => true, 'message' => 'Not found']);
         }
+        if($tuitem->read == 0){
+            $tuitem->read = 1;
+            $tuitem->save();
+        }
         return response()->json(['success' => true,'result' => $tuitem]);
     }
 
