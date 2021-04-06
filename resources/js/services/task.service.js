@@ -4,6 +4,9 @@ const TaskService = {
 	tasks(data){
 		return ApiService.post(`/api/task?page=${data.page}`, data.filter)
 	},
+	importantTask(data){
+		return ApiService.post(`/api/task/important/${data.id}`, data.important)
+	},
 	addTask(data){
 		return ApiService.fileSend(`/api/task/store`,data)
 	},

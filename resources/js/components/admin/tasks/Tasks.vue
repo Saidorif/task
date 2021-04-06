@@ -6,9 +6,6 @@
         <button type="button" class="btn_red mr_15" v-if="getTaskList.length"  @click="$g.toWord('word', $g.getDate(new Date()))">
           <i data-feather="file-text" class="sidebar_icon"></i> Word версия
         </button>
-        <button type="button" class="btn_blue mr_15">
-          <i data-feather="filter" class="sidebar_icon"></i> Саралаш
-        </button>
         <router-link class="btn_green" to="/crm/tasks/add"
           ><i data-feather="plus" class="sidebar_icon"></i>Топшириқ
           яратиш</router-link
@@ -39,7 +36,7 @@
       <button type="button" class="btn_black mr_15" @click="filterDate">
         <i data-feather="filter" class="sidebar_icon"></i> Саралаш
       </button>
-      <button type="button" class="btn_yellow" @click="filterDate">
+      <button type="button" class="btn_yellow" @click="clearFilter">
         <i data-feather="wind" class="sidebar_icon"></i> Тозалаш
       </button>
     </div>
@@ -113,6 +110,15 @@
                 >
               </td>
               <td>
+                <button
+                  tag="button"
+                  class="btn_green_icon"
+                  v-tooltip.top-center="'Долзарб'"
+                  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                >
+                  <i data-feather="flag" class="sidebar_icon"></i>
+                  <!-- <i data-feather="slash" class="sidebar_icon"></i> -->
+                </button>
                 <router-link
                   tag="button"
                   class="btn_blue_icon"
@@ -187,6 +193,25 @@
         </table>
       </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <form class="modal-content" @submit.prevent.enter="importantTask">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Долзарблилик сабаби</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input_style">
+                        <textarea name="" v-model="important.text" id="comment" class="input_style"  cols="30" rows="10" required></textarea>
+                        <label for="comment">Сабаб</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Сақлаш</button>
+                </div>
+            </form>
+        </div>
+    </div>
   </div>
 </template>
 <script>
@@ -203,6 +228,10 @@ export default {
         date_from: "",
         date_to: "",
         download: "",
+      },
+      important: {
+          id: '',
+          text: ''
       },
       filter_date: "",
     };
@@ -241,7 +270,16 @@ export default {
     async filterDate() {
       this.filter.download = true;
       await this.actionTasks({ page: 1, filter: this.filter });
-      console.log(this.getTaskList);
+    },
+    async importantTask(){
+
+    },
+    async clearFilter(){
+      this.filter.download = '';
+      this.filter.date_from = '';
+      this.filter.date_to = '';
+      this.filter.status = '';
+      await this.actionTasks({ page: 1, filter: this.filter });
     },
     showAllUsers(con) {
       if (con.isOpen) {
