@@ -19,6 +19,7 @@ class CreateTaskUsersTable extends Migration
             $table->integer('task_id')->index();
             $table->tinyInteger('svot')->default(0);
             $table->integer('structure_id')->nullable();
+            $table->tinyInteger('read')->default(0)->nullable();
             $table->timestamps();
         });
     }

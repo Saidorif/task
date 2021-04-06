@@ -67,10 +67,6 @@ class TaskController extends Controller
         if(!$result){
             return response()->json(['error' => true, 'message' => 'Task not found']);
         }
-        if($result->read == 0){
-            $result->read = 1;
-            $result->save();
-        }
         return response()->json(['success' => true, 'result' => $result]);
     }
 
