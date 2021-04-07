@@ -165,8 +165,8 @@ export default {
         await this.profileUser()
     },
     async created(){
-        Echo.private('dailyblank')
-        .listen('BlankEvent',(e)=>{
+        Echo.private('tender')
+        .listen('TaskCreated', (e)=>{
             console.log(e)
         })
     },
