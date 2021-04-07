@@ -151,26 +151,32 @@
   import { mapActions, mapGetters } from "vuex";
   import {TokenService} from './../../../services/storage.service'
 export default {
-  components: {
-  },
-  data(){
-    return {
+    components: {
+    },
+    data(){
+        return {
+
+        }
+    },
+    computed: {
+        ...mapGetters(['getUser']),
+    },
+    async mounted(){
+        await this.profileUser()
+    },
+    async created(){
+        Echo.private('dailyblank')
+        .listen('BlankEvent',(e)=>{
+            console.log(e)
+        })
+    },
+    methods: {
+        ...mapActions(['logout','profileUser']),
+        logoutProfile(){
+        this.logout();
+        },
 
     }
-  },
-  computed: {
-    ...mapGetters(['getUser']),
-  },
-  async mounted(){
-    await this.profileUser()
-  },
-  methods: {
-    ...mapActions(['logout','profileUser']),
-    logoutProfile(){
-      this.logout();
-    },
-
-  }
 };
 </script>
 
