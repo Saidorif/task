@@ -36,4 +36,8 @@ class TaskCreated
     {
         return new PrivateChannel('tender');
     }
+
+    public function broadcastAs() {
+        return 'task-created';
+    }
 }
