@@ -20,6 +20,7 @@ class CreatePositionsTable extends Migration
             $table->integer('organization_id')->index();
             $table->integer('p_id')->index();
             $table->string('name')->nullable();
+            $table->integer('count')->nullable();
             $table->timestamps();
         });
     }

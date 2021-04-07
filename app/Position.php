@@ -12,6 +12,7 @@ class Position extends Model
         'organization_id',
         'name',
         'p_id',
+        'count',
     ];
 
     public function structure()

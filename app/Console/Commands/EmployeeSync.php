@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Employee;
+use App\Position;
 use App\User;
 use Faker\Factory;
 use Faker\Generator;
@@ -74,10 +75,17 @@ class EmployeeSync extends Command
                         $item['password'] = Hash::make('secret');
                         $item['status'] = 'active';
                         $item['role_id'] = 2;
-                        $user = User::where('p_id', '=',$item['p_id'])->first();
+                        //$position = Position::where(['p_id' => $item['p_id']])->first();
+                        $user = User::where(['e_id' => $item['e_id']])->first();
                         if($user != null){
-                            $user->update($item);
-                            $updates++;
+                            /*
+                             * Agar boshqa lavozimga otgan bolsa?
+                             * Agar ishdan boshagan bolsa?
+                            */
+                            if($user->p_id == $item['p_id']){
+                                $user->update($item);
+                                $updates++;
+                            }
                         }else{
                             $user = User::create($item);
                             $createds++;
