@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class TaskCreated
+class TaskCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -37,7 +37,8 @@ class TaskCreated
         return new PrivateChannel('tender');
     }
 
-    public function broadcastAs() {
-        return 'task-created';
-    }
+//    public function broadcastAs()
+//    {
+//        return 'TaskCreated';
+//    }
 }
