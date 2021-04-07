@@ -37,8 +37,7 @@ const actions = {
 	async actionImportantTask({commit},payload){
 		try {
 			const actions =  await TaskService.importantTask(payload);
-			await commit('setTasks',actions.data.result)
-			await commit('setTaskList',actions.data.downloads)
+			await commit('setMessage',actions.data)
 			return true
 		} catch (error) {
 			return false

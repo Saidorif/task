@@ -455,6 +455,26 @@ thead{
 }
 tbody{
     tr{
+        &.unread{
+            position: relative;
+            td{
+                font-weight: bold;
+                &:nth-child(2){
+                    position: relative;
+                    &::before{
+                        content: 'Янги';
+                        position: absolute;
+                        top: 10px;
+                        right: 15px;
+                        padding: 2px 4px;
+                        background: red;
+                        color: white;
+                        border-radius: 6px;
+                    }
+                }
+            }
+
+        }
         td{
             font-size: 12px;
             vertical-align: middle;
