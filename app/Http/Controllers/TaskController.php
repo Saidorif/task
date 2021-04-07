@@ -202,7 +202,11 @@ class TaskController extends Controller
             }
         }
         if($task->status == 'active'){
-            event(new TaskCreated($users_arr,'Some new tasks assigned to you'));
+            $data = [
+                'createtor' => $task->creater,
+                'users' => $inputs['users'],
+            ];
+            event(new TaskCreated($data,$task->title));
         }
         return response()->json(['success' => true, 'message' => 'Task updated']);
     }
