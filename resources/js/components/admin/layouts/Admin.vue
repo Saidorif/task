@@ -71,7 +71,7 @@
                 <router-link to="/crm/user-task" class="nav-link"  v-if="$can('userIndex', 'TaskController')">
                 <i class="sidebar_icon" data-feather="clipboard" ></i>
                 <p>
-                    Топшириқларим
+                    Топшириқларим <span v-if="notMessages.length" class="nat_len">{{ notMessages.length }}</span>
                 </p>
                 </router-link>
             </li>
@@ -138,7 +138,7 @@
         <!-- <button @click="showNat" class="btn_blue">btnshow msg</button> -->
         <div class="jvtoast position-fixed bottom-0 end-0 p-3" style="z-index: 5">
             <div v-for="(msg, index) in notMessages"
-                class="toast hide" role="alert"
+                class="toast hide pb-3" role="alert"
                 aria-live="assertive" aria-atomic="true" data-bs-delay="15000"  >
                 <div class="toast-header bg-info" style="color:white">
                     <strong class="me-auto">{{ msg.createtor.surename }} {{ msg.createtor.name }} {{ msg.createtor.lastname }}дан</strong>
@@ -210,6 +210,21 @@ export default {
 </script>
 
 <style scoped>
-
+    .nat_len{
+        position: absolute;
+        top: 0;
+        font-size: 10px;
+        width: 13px;
+        height: 14px;
+        background: #6c757d;
+        color: white;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 0;
+        letter-spacing: 0px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

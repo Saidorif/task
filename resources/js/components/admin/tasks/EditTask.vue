@@ -4,7 +4,16 @@
     <div class="page_header">
       <h4 class="header_title">Топшириқни тахрирлаш </h4>
       <div class="d-flex">
-        <button type="button" @click="$g.toWord('word', $g.getDate(new Date()))" class="btn_blue mr_15"> <i data-feather="file-text" class="sidebar_icon"></i> Word версияси </button>
+                      <button
+                type="button"
+                class="btn_blue mr_15"
+                @click="saveAction('active')"
+                v-if="form.status == 'draft'"
+            >
+                <i class="sidebar_icon" data-feather="send"></i>
+                Юбориш
+            </button>
+        <button type="button" @click="$g.toWord('word', $g.getDate(new Date()))" class="btn_red mr_15"> <i data-feather="file-text" class="sidebar_icon"></i> Word версияси </button>
         <router-link class="btn_black" to="/crm/tasks"><i data-feather="arrow-left" class="sidebar_icon"></i>
         Орқага</router-link>
       </div>
@@ -165,15 +174,7 @@
                 <i class="sidebar_icon" data-feather="check"></i>
                Қабул қилиш
             </button>
-            <button
-                type="button"
-                class="btn_blue mr_15"
-                @click="saveAction('active')"
-                v-if="form.status == 'draft'"
-            >
-                <i class="sidebar_icon" data-feather="send"></i>
-                Юбориш
-            </button>
+
             <button type="submit" class="btn_green">
               <i class="sidebar_icon" data-feather="save"></i>
               Сақлаш
