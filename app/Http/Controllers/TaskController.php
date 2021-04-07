@@ -34,6 +34,7 @@ class TaskController extends Controller
         $result = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->paginate($limit);
         //Test pusher
         event(new TaskCreated('Saidorif Kadirov','Some new tasks assigned to you'));
+
         return response()->json(['success' => true,'result' => $result,'downloads' => $downloads]);
     }
 
