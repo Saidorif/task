@@ -32,9 +32,6 @@ class TaskController extends Controller
             $downloads = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->get();
         }
         $result = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->paginate($limit);
-        //Test pusher
-        event(new TaskCreated('Saidorif Kadirov','Some new tasks assigned to you'));
-
         return response()->json(['success' => true,'result' => $result,'downloads' => $downloads]);
     }
 
@@ -162,6 +159,7 @@ class TaskController extends Controller
         }
         $inputs = $request->all();
         $user = $request->user();
+        $users_arr = [];
         if(empty($inputs['status'])){
             $inputs['status'] = 'draft';
         }
@@ -178,6 +176,7 @@ class TaskController extends Controller
                 $t_user['structure_id'] = $the_user->position->structure_id;
                 $t_user['task_id'] = $task->id;
                 $task_users = TaskUser::create($t_user);
+                $users_arr[] = $the_user;
             }
         }
         if(!empty($inputs['items']) && count($inputs['items']) > 0){
@@ -201,6 +200,9 @@ class TaskController extends Controller
                     $task_item->save();
                 }
             }
+        }
+        if($task->status == 'active'){
+            event(new TaskCreated($users_arr,'Some new tasks assigned to you'));
         }
         return response()->json(['success' => true, 'message' => 'Task updated']);
     }

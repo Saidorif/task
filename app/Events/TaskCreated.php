@@ -14,16 +14,16 @@ class TaskCreated implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $username;
+    public $users;
     public $message;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($username, $message)
+    public function __construct($users, $message)
     {
-        $this->username = $username;
+        $this->users = $users;
         $this->message  = $message;
     }
 
@@ -36,9 +36,4 @@ class TaskCreated implements ShouldBroadcast
     {
         return new PrivateChannel('tender');
     }
-
-//    public function broadcastAs()
-//    {
-//        return 'TaskCreated';
-//    }
 }
