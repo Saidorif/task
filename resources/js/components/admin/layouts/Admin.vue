@@ -135,11 +135,11 @@
                 </div>
             </div>
         </div>
-
+        <button @click="showNat" class="btn_blue">btnshow msg</button>
         <div class="jvtoast position-fixed bottom-0 end-0 p-3" style="z-index: 5">
             <div v-for="(msg, index) in notMessages"  class="toast hide" role="alert" aria-live="assertive" aria-atomic="true"  >
                 <div class="toast-header">
-                    <strong class="me-auto">{{ msg.username }} </strong>
+                    <strong class="me-auto">{{ msg.user.name }} </strong>
                         <small>11 mins ago</small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
@@ -168,7 +168,7 @@ export default {
     },
     data(){
         return {
-            notMessages: []
+            notMessages: [{message: "Some new tasks assigned to you", user:{name:'java'}}]
         }
     },
     computed: {
@@ -180,9 +180,14 @@ export default {
     async created(){
         Echo.private('tender')
         .listen('TaskCreated', (e)=>{
-            this.notMessages.push(e)
-            this.showNat()
-            this.notMessages = []
+            e.users.forEach((item)=>{
+                if(item.id == this.getUser.id){
+                    this.notMessages.push({message: e.message, user: item})
+                    this.showNat()
+                }
+            })
+            console.log(this.notMessages)
+            // this.notMessages = []
         })
     },
     methods: {
