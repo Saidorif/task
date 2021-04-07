@@ -1,5 +1,5 @@
 window._ = require('lodash');
-
+import {TokenService} from "./services/storage.service"
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -33,7 +33,15 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: '8408ba6a39d07a991b2e',
-    cluster: 'ap4',
-    encrypted: true
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: true,
+    auth: {
+        headers: {
+           Authorization: `Bearer ${TokenService.getToken()}`
+        }
+    }
 });
+// broadcaster: 'pusher',
+// key: '8408ba6a39d07a991b2e',
+// cluster: 'ap4',
