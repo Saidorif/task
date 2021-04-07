@@ -135,12 +135,13 @@
                 </div>
             </div>
         </div>
-        <button @click="showNat" class="btn_blue">btnshow msg</button>
+        <!-- <button @click="showNat" class="btn_blue">btnshow msg</button> -->
         <div class="jvtoast position-fixed bottom-0 end-0 p-3" style="z-index: 5">
-            <div v-for="(msg, index) in notMessages"  class="toast hide" role="alert" aria-live="assertive" aria-atomic="true"  >
-                <div class="toast-header">
-                    <strong class="me-auto">{{ msg.user.name }} </strong>
-                        <small>11 mins ago</small>
+            <div v-for="(msg, index) in notMessages"
+                class="toast hide" role="alert"
+                aria-live="assertive" aria-atomic="true" data-bs-delay="15000"  >
+                <div class="toast-header bg-info" style="color:white">
+                    <strong class="me-auto">{{ msg.createtor.surename }} {{ msg.createtor.name }} {{ msg.createtor.lastname }}дан</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
@@ -168,7 +169,7 @@ export default {
     },
     data(){
         return {
-            notMessages: [{message: "Some new tasks assigned to you", user:{name:'java'}}]
+            notMessages: []
         }
     },
     computed: {
@@ -180,14 +181,23 @@ export default {
     async created(){
         Echo.private('tender')
         .listen('TaskCreated', (e)=>{
-            e.users.forEach((item)=>{
-                if(item.id == this.getUser.id){
-                    this.notMessages.push({message: e.message, user: item})
-                    this.showNat()
+            e.users.users.forEach((item)=>{
+                if(item.user_id == this.getUser.id){
+                    this.notMessages.push({message: e.message, user: item, createtor: e.users.createtor})
                 }
             })
-            console.log(this.notMessages)
-            // this.notMessages = []
+            if(this.notMessages.length){
+                setTimeout(function(){
+                    var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+                    var toastList = toastElList.map(function (toastEl) {
+                        return new bootstrap.Toast(toastEl)
+                    })
+                    toastList.forEach(element => {
+                        element.show()
+                    });
+                },100)
+
+            }
         })
     },
     methods: {
@@ -195,16 +205,6 @@ export default {
         logoutProfile(){
         this.logout();
         },
-        showNat(){
-            var toastElList = [].slice.call(document.querySelectorAll('.toast'))
-            var toastList = toastElList.map(function (toastEl) {
-                return new bootstrap.Toast(toastEl)
-            })
-            toastList.forEach(element => {
-                element.show()
-            });
-        }
-
     }
 };
 </script>
