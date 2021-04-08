@@ -52,7 +52,7 @@ class EmployeeSync extends Command
                 $client = new Client();
                 $newresponse = $client->request(
                     'GET',
-                    'http://hr.uztrans.uz/api/get-employees',
+                    'http://mhr.loc/api/get-employees',
                     ['headers' =>
                         [
                             'Authorization' => "Bearer {$token}",
@@ -66,33 +66,44 @@ class EmployeeSync extends Command
                     $createds = 0;
                     foreach ($result['result'] as $item){
                         $item['e_id'] = $item['id'];
-                        $faker = Factory::create();
-                        $e_name = '';
-                        for ($i = 0; $i < 6; $i++) {
-                            $e_name .= $faker->unique()->randomDigit;
-                        }
-                        $item['email'] = $e_name.'@mintrans.uz';
-                        $item['password'] = Hash::make('secret');
                         $item['status'] = 'active';
                         $item['role_id'] = 2;
-                        //$position = Position::where(['p_id' => $item['p_id']])->first();
                         $user = User::where(['e_id' => $item['e_id']])->first();
                         if($user != null){
-                            /*
-                             * Agar boshqa lavozimga otgan bolsa?
-                             * Agar ishdan boshagan bolsa?
-                            */
                             if($user->p_id == $item['p_id']){
                                 $user->update($item);
                                 $updates++;
                             }
+                            //Boshqa lavozimga otgan
+                            elseif((int)$user->p_id != (int)$item['p_id']){
+                                //$position = Position::with('employee')->where(['p_id' => $item['p_id']])->first();
+                                $vacant = User::where(['status' => 'vacant','p_id' => $item['p_id']])->first();
+                                if($vacant){
+                                    $vacant->update($item);
+                                }
+                                $user->status = 'vacant';
+                                $user->name = 'vacant';
+                                $user->surename = 'surename';
+                                $user->lastname = null;
+                                $user->e_id = null;
+                                $user->save();
+                                $updates++;
+                            }
                         }else{
-                            $user = User::create($item);
-                            $createds++;
+                            $user = User::where(['p_id' => $item['p_id'],'status' => 'vacant'])->first();
+                            if($user){
+                                $user->update($item);
+                                $this->info($user->name.' moved');
+                                $createds++;
+                            }
+                            else{
+                                $this->info('Position ID: '.$item['p_id'].'. Employee: '.$item['name'].' e_id: '.$item['e_id']);
+                                //$user = User::create($item);
+                            }
                         }
                     }
                     $this->info('Updated employees '.$updates);
-                    $this->info('Created employees '.$createds);
+                    $this->info('Moved employees '.$createds);
                 }else{
                     $this->info($result['message']);
                 }
@@ -114,7 +125,7 @@ class EmployeeSync extends Command
         try {
             $client = new \GuzzleHttp\Client();
             $resp = $client->post(
-                'http://hr.uztrans.uz/api/login',
+                'http://mhr.loc/api/login',
                 array(
                     'form_params' => array(
                         'email' => 'sayyid2112@gmail.com',

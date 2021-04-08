@@ -19,4 +19,9 @@ class Position extends Model
     {
         return $this->belongsTo(\App\Structure::class,'structure_id','s_id');
     }
+
+    public function employee()
+    {
+        return $this->hasMany(\App\User::class,'p_id','p_id');
+    }
 }

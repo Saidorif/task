@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use App\Position;
 use GuzzleHttp\Client;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Hash;
+use App\User;
+use Faker\Factory;
 
 class PositionSync extends Command
 {
@@ -47,7 +50,7 @@ class PositionSync extends Command
                 $client = new Client();
                 $newresponse = $client->request(
                     'GET',
-                    'http://hr.uztrans.uz/api/get-positions',
+                    'http://mhr.loc/api/get-positions',
                     ['headers' =>
                         [
                             'Authorization' => "Bearer {$token}",
@@ -63,10 +66,45 @@ class PositionSync extends Command
                         $item['name'] = $item['name_uz'];
                         $position = Position::where('p_id', '=',$item['p_id'])->first();
                         if($position){
+                            if((int)$position->count < (int)$item['count']){
+                                $this->info($position->name.' has changed in count');
+                                $new_n = (int)$item['count'] - (int)$position->count;
+                                for($n = 1; $n <= $new_n;$n++){
+                                    $data_arr = [];
+                                    $faker = Factory::create();
+                                    $e_name = '';
+                                    for ($i = 0; $i < 6; $i++) {
+                                        $e_name .= $faker->unique()->randomDigit;
+                                    }
+                                    $data_arr['email'] = $e_name.'@mintrans.uz';
+                                    $data_arr['password'] = Hash::make('secret');
+                                    $data_arr['status'] = 'vacant';
+                                    $data_arr['role_id'] = 2;
+                                    $data_arr['name'] = 'Vakant';
+                                    $data_arr['surename'] = 'Vakantov';
+                                    $user = User::create($data_arr);
+                                }
+                            }
                             $position->update($item);
                             $updates++;
                         }else{
                             $position = Position::create($item);
+                            for($n = 1; $n <= $position->count;$n++){
+                                $data_arr = [];
+                                $faker = Factory::create();
+                                $e_name = '';
+                                for ($i = 0; $i < 6; $i++) {
+                                    $e_name .= $faker->unique()->randomDigit;
+                                }
+                                $data_arr['email'] = $e_name.'@mintrans.uz';
+                                $data_arr['password'] = Hash::make('secret');
+                                $data_arr['status'] = 'vacant';
+                                $data_arr['role_id'] = 2;
+                                $data_arr['name'] = 'Vakant';
+                                $data_arr['surename'] = 'Vakantov';
+                                $data_arr['p_id'] = $position->id;
+                                $user = User::create($data_arr);
+                            }
                             $createds++;
                         }
                     }
@@ -93,7 +131,7 @@ class PositionSync extends Command
         try {
             $client = new \GuzzleHttp\Client();
             $resp = $client->post(
-                'http://hr.uztrans.uz/api/login',
+                'http://mhr.loc/api/login',
                 array(
                     'form_params' => array(
                         'email' => 'sayyid2112@gmail.com',
