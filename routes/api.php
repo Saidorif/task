@@ -23,6 +23,9 @@ Route::group([
         Route::get('user/all','UserController@index');
         Route::get('user/list','UserController@list');
         Route::post('change-password','UserController@changePasword');
+        Route::post('user/store','UserController@store');
+        Route::post('user/update/{id}','UserController@update');
+        Route::get('user/edit/{id}','UserController@edit');
 
         //Structure
         Route::get('structure/list','PositionController@list');
