@@ -147,6 +147,7 @@ class PositionSync extends Command
             }
             return false;
         } catch (\Exception $e) {
+            throw $e;
             return false;
         }
     }
