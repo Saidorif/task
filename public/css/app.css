@@ -58,12 +58,6 @@ ul li {
   margin-right: 0.5rem !important;
 }
 
-.btn_yellow {
-  background-color: #ffcc32;
-  border-color: #ffcc32;
-  box-shadow: 0 0.125rem 0.625rem #ffc1076b;
-}
-
 .btn_yellow:hover {
   background-color: #fabe08;
   border-color: #fabe08;
@@ -105,6 +99,7 @@ ul li {
   text-decoration: none;
 }
 
+.btn_yellow_icon,
 .btn_green_icon,
 .btn_red_icon,
 .btn_blue_icon,
@@ -131,12 +126,14 @@ ul li {
   text-decoration: none;
 }
 
+.btn_yellow_icon,
 .btn_green_icon,
 .btn_red_icon,
 .btn_blue_icon {
   padding: 0.3rem;
 }
 
+.btn_yellow_icon .sidebar_icon,
 .btn_green_icon .sidebar_icon,
 .btn_red_icon .sidebar_icon,
 .btn_blue_icon .sidebar_icon {
@@ -170,6 +167,13 @@ ul li {
   background-color: #3ac47d;
   border-color: #3ac47d;
   box-shadow: 0 0.125rem 0.625rem rgba(58, 196, 125, 0.4), 0 0.0625rem 0.125rem rgba(58, 196, 125, 0.5);
+}
+
+.btn_yellow_icon,
+.btn_yellow {
+  background-color: #ffcc32;
+  border-color: #ffcc32;
+  box-shadow: 0 0.125rem 0.625rem #ffc1076b;
 }
 
 .wrapper {

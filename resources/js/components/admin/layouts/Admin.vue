@@ -60,18 +60,18 @@
                 </router-link>
             </li>
             <li class="nav-item">
-                <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')">
+                <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')" >
                 <i class="sidebar_icon" data-feather="layers" ></i>
                 <p>
-                    Топшириқлар
+                    Юборилган
                 </p>
                 </router-link>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"  @click="resetMessages">
                 <router-link to="/crm/user-task" class="nav-link"  v-if="$can('userIndex', 'TaskController')">
                 <i class="sidebar_icon" data-feather="clipboard" ></i>
                 <p>
-                    Топшириқларим <span v-if="notMessages.length" class="nat_len">{{ notMessages.length }}</span>
+                    Келиб тушган <span v-if="notMessages.length" class="nat_len">{{ notMessages.length }}</span>
                 </p>
                 </router-link>
             </li>
@@ -203,8 +203,11 @@ export default {
     methods: {
         ...mapActions(['logout','profileUser']),
         logoutProfile(){
-        this.logout();
+            this.logout();
         },
+        resetMessages(){
+            this.notMessages = []
+        }
     }
 };
 </script>

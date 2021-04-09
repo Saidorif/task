@@ -25,6 +25,7 @@
       <div class="input_style col-md-3 mr_15">
         <select v-model="filter.status" id="status">
           <option value="">Холатни танланг</option>
+          <option value="important">Долзарб</option>
           <option value="rejected">Рад этилган</option>
           <option value="accepted">Қабул қилинган</option>
           <option value="pending">Тасдиқланмаган</option>
@@ -112,7 +113,7 @@
               <td>
                 <button
                   tag="button"
-                  class="btn_green_icon"
+                  :class="cont.is_important == 1 ? 'btn_yellow_icon' : 'btn_green_icon' "
                   v-tooltip.top-center="cont.is_important == 1 ? 'Долзарб эмас' : 'Долзарб'"
                   @click="openImportantModal(cont)"
                 >
@@ -202,7 +203,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="input_style">
-                        <textarea name="" v-model="important.comment" id="comment" class="input_style"  cols="30" rows="10" required></textarea>
+                        <textarea name="" v-model="important.comment"
+                            id="comment" class="input_style"  cols="30" rows="10" :required="important.is_important == 1"></textarea>
                         <label for="comment">Сабаб</label>
                     </div>
                 </div>
@@ -239,6 +241,9 @@ export default {
     };
   },
   async mounted() {
+      if(this.$route.query.status){
+          this.filter.status = this.$route.query.status
+      }
     await this.actionTasks({ page: 1, filter: this.filter });
     feather.replace();
     $(".userList").on("click", function () {
@@ -280,12 +285,12 @@ export default {
         this.important.id = data.id
         this.important.is_important = data.is_important == 1 ? 0 : 1
         this.important.comment = data.comment
+        console.log(this.important)
         this.importantModal.show()
     },
     async importantTask(){
         await this.actionImportantTask(this.important)
-        await this.actionTasks({ page: 1, filter: this.filter });
-        console.log(this.getTasks)
+        location.reload()
         if(this.getTaskMassage.success){
             toast.fire({
                 type: "success",
@@ -302,6 +307,8 @@ export default {
       this.filter.date_from = '';
       this.filter.date_to = '';
       this.filter.status = '';
+      this.filter_date = '';
+      console.log(this.filter)
       await this.actionTasks({ page: 1, filter: this.filter });
     },
     showAllUsers(con) {
