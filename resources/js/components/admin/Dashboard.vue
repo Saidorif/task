@@ -56,7 +56,7 @@
             <i data-feather="slash"></i>
           </span>
           <div class="info">
-            <p>Бажарилмаган топшириқлар</p>
+            <p>Муддати тугаганлар</p>
             <h6 v-if="getDashboard.info">
               {{
                 getDashboard.info[0].rejected
