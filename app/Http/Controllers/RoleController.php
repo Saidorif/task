@@ -8,7 +8,7 @@ use Validator;
 
 class RoleController extends Controller
 {
-    
+
     public function index()
     {
         $roles = Role::paginate(12);
@@ -78,11 +78,15 @@ class RoleController extends Controller
     public function destroy(Request $request, $id)
     {
         $role = Role::find($id);
-        if(!$role){
-            return response()->json(['error' => true, 'message' => 'Роль не найдена']);
-        }
 
-        $role->delete();
+        if($role->id != 1){
+            if(!$role){
+                return response()->json(['error' => true, 'message' => 'Роль не найдена']);
+            }
+            $role->delete();
+        }else{
+            return response()->json(['error' => true, 'message' => 'You can\'t delete adminstration!']);
+        }
         return response()->json(['success' => true, 'message' => 'Роль удалена']);
     }
 }
