@@ -50,7 +50,7 @@ class PositionSync extends Command
                 $client = new Client();
                 $newresponse = $client->request(
                     'GET',
-                    'http://mhr.loc/api/get-positions',
+                    'http://hr.uztrans.uz/api/get-positions',
                     ['headers' =>
                         [
                             'Authorization' => "Bearer {$token}",
@@ -131,7 +131,7 @@ class PositionSync extends Command
         try {
             $client = new \GuzzleHttp\Client();
             $resp = $client->post(
-                'http://mhr.loc/api/login',
+                'http://hr.uztrans.uz/api/login',
                 array(
                     'form_params' => array(
                         'email' => 'sayyid2112@gmail.com',
