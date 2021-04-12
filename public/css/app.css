@@ -28,6 +28,15 @@ ul li {
   list-style: none;
 }
 
+.login_alert {
+  border: 1px solid red;
+  border-radius: 6px;
+  padding: 6px 30px 7px 30px;
+  color: red;
+  background: #ffaaaa;
+  margin-bottom: 30px;
+}
+
 .btn_yellow,
 .btn_green {
   box-shadow: 0 0.125rem 0.625rem rgba(58, 196, 125, 0.4), 0 0.0625rem 0.125rem rgba(58, 196, 125, 0.5);
