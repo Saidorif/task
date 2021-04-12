@@ -121,6 +121,7 @@
                   {{ task.creater.surename }} {{ task.creater.name }}
                   {{ task.creater.lastname }}
                 </router-link>
+
               </td>
               <td>{{ $g.getDate(task.created_at) }}г</td>
               <td>{{ $g.getDate(task.exp_date) }}г</td>
