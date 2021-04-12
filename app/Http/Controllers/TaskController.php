@@ -19,6 +19,7 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         $params = $request->all();
+        $user = $request->user();
         $limit = !empty($params['limit']) ? (int)$params['limit'] : 12;
         $builder = Task::query();
         if(!empty($params['status'])){
@@ -34,7 +35,10 @@ class TaskController extends Controller
         if(!empty($params['download'])){
             $downloads = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->get();
         }
-        $result = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->paginate($limit);
+        $result = $builder->where(['user_id' => $user->id])
+                        ->with(['creater','users','items','comments'])
+                        ->orderBy('id','DESC')
+                        ->paginate($limit);
         return response()->json(['success' => true,'result' => $result,'downloads' => $downloads]);
     }
 
@@ -163,28 +167,25 @@ class TaskController extends Controller
         $inputs = $request->all();
         $user = $request->user();
         $users_arr = [];
-        if(empty($inputs['status'])){
-            $inputs['status'] = 'draft';
-        }
         $inputs['user_id'] = $user->id;
         $task->update($inputs);
         if(!empty($inputs['users']) && count($inputs['users']) > 0){
-            $task_users = $task->users()->delete();
             //create task users pivot
             foreach($inputs['users'] as $t_user){
-                $the_user = User::find($t_user['user_id']);
-                if(!$the_user){
-                    return response()->json(['error' => true,'message' => 'Employee not found']);
+                $task_user = TaskUser::where(['user_id' => $t_user['user_id'],'task_id' => $task->id])->first();
+                if(!$task_user){
+                    $the_user = User::find($t_user['user_id']);
+                    if(!$the_user){
+                        return response()->json(['error' => true,'message' => 'Employee not found']);
+                    }
+                    $t_user['structure_id'] = $the_user->position->structure_id;
+                    $t_user['task_id'] = $task->id;
+                    $task_users = TaskUser::create($t_user);
+                    $users_arr[] = $the_user;
                 }
-                $t_user['structure_id'] = $the_user->position->structure_id;
-                $t_user['task_id'] = $task->id;
-                $task_users = TaskUser::create($t_user);
-                $users_arr[] = $the_user;
             }
         }
         if(!empty($inputs['items']) && count($inputs['items']) > 0){
-            //delete old items
-            //$task_items = $task->items()->delete();
             //create task items
             foreach($inputs['items'] as $k => $item){
                 $item['task_id'] = $task->id;
@@ -324,9 +325,7 @@ class TaskController extends Controller
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
         $task->is_important = (int)$request->input('is_important');
-        if(!empty($request->input('comment'))){
-            $task->comment = $request->input('comment');
-        }
+        $task->comment = $request->input('comment');
         $task->save();
         return response()->json(['success' => true,'message' => 'Success!!!']);
     }
