@@ -56,7 +56,7 @@
             <i data-feather="slash"></i>
           </span>
           <div class="info">
-            <p>Бажарилмаган топшириқлар</p>
+            <p>Муддати ўтган</p>
             <h6 v-if="getDashboard.info">
               {{
                 getDashboard.info[0].rejected
@@ -69,41 +69,35 @@
             >Батафсил</router-link
           >
         </div>
-
-        <div class="item_calendar">
-          <DatePicker
-            class="custom-calendar max-w-full"
-            :attributes="attributes"
-            :first-day-of-week="2"
-            locale="ru"
-            :masks="{ weekdays: 'WW' }"
-            format=""
-            value=""
-            :model-config="modelConfig"
-            @update:from-page="pageChange"
+        <div class="header_item">
+          <span class="icon">
+            <i data-feather="archive"></i>
+          </span>
+          <div class="info">
+            <p>Мухим топшириқлар</p>
+            <h6 v-if="getDashboard.info">
+              {{
+                getDashboard.info[0].importants
+                  ? getDashboard.info[0].importants
+                  : 0
+              }}
+            </h6>
+          </div>
+          <router-link class="read_more" to="/crm/tasks?status=important"
+            >Батафсил</router-link
           >
-            <template v-slot:day-content="{ day, attributes }">
-              <div class="day_block" @click="onDayClick(day)">
-                <p>
-                  <b class="day-label text-sm text-gray-900">{{ day.day }}</b>
-                  <sub v-if="attributes && attributes.length">{{
-                    attributes[0].customData.qty
-                  }}</sub>
-                </p>
-              </div>
-            </template>
-          </DatePicker>
         </div>
       </div>
-      <div class="dashboard_bar_chart" id="chart" v-if="!loaded">
-        <apexchart
-          type="bar"
-          height="400"
-          :options="chartOptions"
-          :series="series"
-        ></apexchart>
-      </div>
-      <div class="jv_card">
+      <div class="row">
+        <div class="col-md-9">
+            <!-- <div class="dashboard_bar_chart" id="chart" v-if="!loaded">
+                <apexchart
+                type="bar"
+                :options="chartOptions"
+                :series="series"
+                ></apexchart>
+            </div> -->
+                  <div class="jv_card">
         <h6>Ижро интизомининг бузилиш мониторинги</h6>
         <table
           class="table table-bordered text-center table-hover table-striped"
@@ -146,6 +140,35 @@
           </tbody>
         </table>
       </div>
+        </div>
+        <div class="col-md-3">
+            <DatePicker
+                class="custom-calendar max-w-full"
+                :attributes="attributes"
+                :first-day-of-week="2"
+                locale="ru"
+                :masks="{ weekdays: 'WW' }"
+                format=""
+                value=""
+                :model-config="modelConfig"
+                @update:from-page="pageChange"
+            >
+                <template v-slot:day-content="{ day, attributes }">
+                <div class="day_block" @click="onDayClick(day)">
+                    <p>
+                    <b class="day-label text-sm text-gray-900">{{ day.day }}</b>
+                    <sub v-if="attributes && attributes.length">{{
+                        attributes[0].customData.qty
+                    }}</sub>
+                    </p>
+                </div>
+                </template>
+            </DatePicker>
+        </div>
+      </div>
+
+
+
     </div>
     <div
       class="modal fade"
@@ -245,7 +268,8 @@ export default {
       ],
       chartOptions: {
         chart: {
-          height: 400,
+          height: 'auto',
+          width: "100%",
           type: "bar",
           events: {
             click: function (chart, w, e) {
@@ -257,7 +281,7 @@ export default {
           bar: {
             columnWidth: "45%",
             distributed: true,
-            horizontal: false,
+            horizontal: true,
           },
         },
         dataLabels: {
@@ -265,7 +289,7 @@ export default {
           position: 'top'
         },
         legend: {
-            show: true,
+            show: false,
             horizontalAlign: 'left',
             markers: {
                 width: 12,
@@ -390,12 +414,26 @@ export default {
           categories: [],
           labels: {
             show: false,
+            reversed:true,
             position: 'top',
             style: {
               colors: ["#000"],
-              fontSize: "12px",
+              fontSize: "12",
+              fontWeight:600,
+              cssClass:'java'
             },
           },
+        },
+        yaxis: {
+          labels: {
+            show: true,
+                        style: {
+              colors: ["#000"],
+              fontSize: "14px",
+              lineHeight:"20px"
+            },
+          },
+
         },
       },
     };
@@ -525,7 +563,7 @@ export default {
   border-radius: 8px;
   padding: 24px;
   height: 175px;
-  width: calc(100% / 5 - 30px);
+  width: calc(100% / 5 - 15px);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;

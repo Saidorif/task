@@ -5,7 +5,7 @@
 				  <div class="header_title">
 			    <h4 class="title_user">
 			    	<i  class="peIcon pe-7s-id"></i>
-				    Role 
+				    Role
 				</h4>
 				<router-link class="btn btn-primary" to="/crm/role/add"><i class="fas fa-plus"></i> Add</router-link>
 				  </div>
@@ -19,7 +19,7 @@
 							<th scope="col">№</th>
 							<th scope="col">Название</th>
 							<th scope="col">Label</th>
-							<th scope="col">Действия</th>
+							<!-- <th scope="col">Действия</th> -->
 						</tr>
 					</thead>
 					<tbody>
@@ -33,14 +33,14 @@
 								</router-link>
 							</td>
 							<td>{{role.label}}</td>
-							<td>
+							<!-- <td>
 								<router-link tag="button" class="btn_transparent" :to='`/crm/role/edit/${role.id}`'>
 									<i class="fas fa-pen"></i>
 								</router-link>
 								<button class="btn_transparent" @click="deleteRole(role.id)">
 									<i class="fas fa-trash"></i>
 								</button>
-							</td>
+							</td> -->
 						</tr>
 					</tbody>
 					<pagination :limit="4" :data="getRoles" @pagination-change-page="getResults"></pagination>
@@ -66,7 +66,7 @@
 		},
 		methods:{
 			...mapActions('role',['actionRoles','actionDeleteRole']),
-			async getResults(page = 1){ 
+			async getResults(page = 1){
 				await this.actionRoles(page)
 			},
 			async deleteRole(id){
@@ -85,5 +85,5 @@
 	}
 </script>
 <style scoped>
-	
+
 </style>
