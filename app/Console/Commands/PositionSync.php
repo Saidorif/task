@@ -71,11 +71,7 @@ class PositionSync extends Command
                                 $new_n = (int)$item['count'] - (int)$position->count;
                                 for($n = 1; $n <= $new_n;$n++){
                                     $data_arr = [];
-                                    $faker = Factory::create();
-                                    $e_name = '';
-                                    for ($i = 0; $i < 6; $i++) {
-                                        $e_name .= $faker->unique()->randomDigit;
-                                    }
+                                    $e_name = $this->randomEmail(6);
                                     $data_arr['email'] = $e_name.'@mintrans.uz';
                                     $data_arr['password'] = Hash::make('secret');
                                     $data_arr['status'] = 'vacant';
@@ -149,6 +145,21 @@ class PositionSync extends Command
         } catch (\Exception $e) {
             throw $e;
             return false;
+        }
+    }
+
+    public function randomEmail($length)
+    {
+        $faker = Factory::create();
+        $email = '';
+        for ($i = 0; $i < $length; $i++) {
+            $email .= $faker->unique()->randomDigit;
+        }
+        $user = User::where('email','=',$email)->first();
+        if(!$user){
+            return $email;
+        }else{
+            $this->randomEmail($length);
         }
     }
 }
