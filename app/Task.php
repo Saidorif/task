@@ -17,7 +17,7 @@ class Task extends Model
 
     public function users()
     {
-        return $this->hasMany(\App\TaskUser::class,'task_id')->with(['user','items']);
+        return $this->hasMany(\App\TaskUser::class,'task_id')->with(['user','items'])->withCount(['unreads']);
     }
 
     public function usersitems()

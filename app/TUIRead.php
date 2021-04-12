@@ -11,6 +11,7 @@ class TUIRead extends Model
         'task_id',
         'read',
         'task_user_item_id',
-        'user_id'
+        'user_id',
+        'task_user_id',
     ];
 }

@@ -19,6 +19,7 @@ class CreateTUIReadsTable extends Migration
             $table->tinyInteger('read')->default(0);
             $table->integer('task_user_item_id')->index();
             $table->integer('user_id')->index();
+            $table->integer('task_user_id')->index();
             $table->timestamps();
         });
     }

@@ -42,12 +42,14 @@ class TaskUserItemController extends Controller
                 'user_id' => $svot->user_id,
                 'task_user_item_id' => $tuitem->id,
                 'task_id' => $task->id,
+                'task_user_id' => $tuitem->parent_id,
                 'read' => 0,
             ]);
             $creator_status = TUIRead::create([
                 'user_id' => $task->user_id,
                 'task_user_item_id' => $tuitem->id,
                 'task_id' => $task->id,
+                'task_user_id' => $tuitem->parent_id,
                 'read' => 0,
             ]);
         }

@@ -22,4 +22,21 @@ class TaskUser extends Model
     {
         return $this->hasMany(\App\TaskUserItem::class,'parent_id')->with('comments');
     }
+
+    public function tuiread()
+    {
+        return $this->hasMany(TUIRead::class,'task_user_id');
+    }
+
+    public function reads()
+    {
+        $user_id = request()->user()->id;
+        return $this->tuiread()->where('read','=',1)->where('user_id','=',$user_id);
+    }
+
+    public function unreads()
+    {
+        $user_id = request()->user()->id;
+        return $this->tuiread()->where('read','=',0)->where('user_id','=',$user_id);
+    }
 }
