@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use App\TaskUserItem;
 use App\TaskUser;
 use App\TUIComment;
@@ -25,6 +26,13 @@ class TaskUserItemController extends Controller
         $inputs = $request->all();
         $user = $request->user();
         $inputs['user_id'] = $user->id;
+        $task = Task::find((int)$inputs['task_id']);
+        if(!$task){
+            return response()->json(['error' => true,'message' => 'Task not found']);
+        }
+        if($task->status != 'active'){
+            return response()->json(['error' => true,'message' => 'Task is not active']);
+        }
         $tuitem = TaskUserItem::create($inputs);
         //Upload file
         if($request->hasFile('file')){
