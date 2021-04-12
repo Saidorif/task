@@ -37,6 +37,7 @@ class TaskController extends Controller
         }
         $result = $builder->where(['user_id' => $user->id])
                         ->with(['creater','users','items','comments'])
+                        ->withCount(['unreads'])
                         ->orderBy('id','DESC')
                         ->paginate($limit);
         return response()->json(['success' => true,'result' => $result,'downloads' => $downloads]);

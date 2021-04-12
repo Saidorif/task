@@ -44,4 +44,21 @@ class Task extends Model
     {
         return TaskUser::where(['task_id' => $this->id,'svot' => 1])->first();
     }
+
+    public function tuiread()
+    {
+        return $this->hasMany(\App\TUIRead::class,'task_id');
+    }
+
+    public function reads()
+    {
+        $user_id = request()->user()->id;
+        return $this->tuiread()->where('read','=',1)->where('user_id','=',$user_id);
+    }
+
+    public function unreads()
+    {
+        $user_id = request()->user()->id;
+        return $this->tuiread()->where('read','=',0)->where('user_id','=',$user_id);
+    }
 }

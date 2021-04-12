@@ -6,6 +6,7 @@ use App\Task;
 use App\TaskUserItem;
 use App\TaskUser;
 use App\TUIComment;
+use App\TUIRead;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Storage;
@@ -34,6 +35,22 @@ class TaskUserItemController extends Controller
             return response()->json(['error' => true,'message' => 'Task is not active']);
         }
         $tuitem = TaskUserItem::create($inputs);
+        //Create task user item statuses for read and unread
+        $svot = $task->getSvot();
+        if($user->id != $svot->user_id){
+            $svot_status = TUIRead::create([
+                'user_id' => $svot->user_id,
+                'task_user_item_id' => $tuitem->id,
+                'task_id' => $task->id,
+                'read' => 0,
+            ]);
+            $creator_status = TUIRead::create([
+                'user_id' => $task->user_id,
+                'task_user_item_id' => $tuitem->id,
+                'task_id' => $task->id,
+                'read' => 0,
+            ]);
+        }
         //Upload file
         if($request->hasFile('file')){
             $file = $request->file('file');
@@ -64,6 +81,13 @@ class TaskUserItemController extends Controller
         $inputs = $request->all();
         $user = $request->user();
         $inputs['user_id'] = $user->id;
+        $task = Task::find((int)$inputs['task_id']);
+        if(!$task){
+            return response()->json(['error' => true,'message' => 'Task not found']);
+        }
+        if($task->status != 'active'){
+            return response()->json(['error' => true,'message' => 'Task is not active']);
+        }
         $tuitem->update($inputs);
         //Upload file
         if($request->hasFile('file')){
