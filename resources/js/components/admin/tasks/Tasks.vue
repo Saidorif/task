@@ -25,7 +25,6 @@
       <div class="input_style col-md-3 mr_15">
         <select v-model="filter.status" id="status">
           <option value="">Холатни танланг</option>
-          <option value="important">Долзарб</option>
           <option value="rejected">Рад этилган</option>
           <option value="accepted">Қабул қилинган</option>
           <option value="pending">Тасдиқланмаган</option>
@@ -34,6 +33,10 @@
         </select>
         <label for="status">Холат</label>
       </div>
+        <div class="input_checkbox mr_15">
+          <input type="checkbox" v-model="filter.is_important" id="isimportant">
+          <label for="isimportant">Долзарблари</label>
+        </div>
       <button type="button" class="btn_black mr_15" @click="filterDate">
         <i data-feather="filter" class="sidebar_icon"></i> Саралаш
       </button>
@@ -62,23 +65,15 @@
           >
             <tr v-for="(cont, index) in getTasks.data">
               <td style="width: 40px" scope="row">{{ index + 1 }}</td>
-              <td>{{ cont.title }}</td>
+              <td><router-link :to="`/crm/tasks/edit/${cont.id}`"> {{ cont.title }} </router-link></td>
               <td style="padding: 0px">
                 <ul class="userList">
                   <li
                     v-for="item in cont.users"
                     @click="showAllUsers(cont)"
                     :class="item.svot == 1 ? 'active' : ''"
-                    v-tooltip.top-center="
-                      '<b>' +
-                      item.user.position.name +
-                      '</b><br> ' +
-                      item.user.name +
-                      ' ' +
-                      item.user.surename
-                    "
                   >
-                    {{ item.user.position.structure.name }} {{ cont.isOpen }}
+                    {{ item.user.position.structure.name }} <br> <b>{{item.user.surename}}</b> <b>{{item.user.name}}</b>  {{ cont.isOpen }}
                   </li>
                 </ul>
               </td>
@@ -284,6 +279,8 @@ export default {
     },
     async filterDate() {
       this.filter.download = true;
+      console.log(this.filter.is_important)
+      this.filter.is_important = this.filter.is_important ? 1 : 0;
       await this.actionTasks({ page: 1, filter: this.filter });
     },
     openImportantModal(data){
@@ -311,8 +308,8 @@ export default {
       this.filter.date_from = '';
       this.filter.date_to = '';
       this.filter.status = '';
+      this.filter.is_important = 0;
       this.filter_date = '';
-      console.log(this.filter)
       await this.actionTasks({ page: 1, filter: this.filter });
     },
     showAllUsers(con) {
@@ -352,4 +349,7 @@ export default {
 };
 </script>
 <style scoped>
+.input_checkbox{
+    position: relative;
+}
 </style>
