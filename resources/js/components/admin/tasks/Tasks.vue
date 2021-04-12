@@ -230,6 +230,7 @@ export default {
         date_from: "",
         date_to: "",
         download: "",
+        is_important: 0,
       },
       important: {
           id: '',
@@ -242,7 +243,11 @@ export default {
   },
   async mounted() {
       if(this.$route.query.status){
-          this.filter.status = this.$route.query.status
+          if(this.$route.query.status == 'is_important'){
+            this.filter.is_important = 1
+          }else{
+            this.filter.status = this.$route.query.status
+          }
       }
     await this.actionTasks({ page: 1, filter: this.filter });
     feather.replace();
@@ -285,7 +290,6 @@ export default {
         this.important.id = data.id
         this.important.is_important = data.is_important == 1 ? 0 : 1
         this.important.comment = data.comment
-        console.log(this.important)
         this.importantModal.show()
     },
     async importantTask(){

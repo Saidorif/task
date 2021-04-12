@@ -83,7 +83,7 @@
               }}
             </h6>
           </div>
-          <router-link class="read_more" to="/crm/tasks?status=important"
+          <router-link class="read_more" to="/crm/tasks?status=is_important"
             >Батафсил</router-link
           >
         </div>
