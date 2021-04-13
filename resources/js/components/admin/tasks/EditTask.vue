@@ -55,7 +55,7 @@
                         <template slot="option" slot-scope="props">
                             <div class="option__desc">
                                 <b class="option__title">{{ props.option.name }} {{ props.option.surename }} </b> <br>
-                                <small class="option__small">{{ props.option.position.structure.name }} - <i>{{ props.option.position.name }}</i> </small>
+                                <small class="option__small">{{ props.option.position.structure != null ? props.option.position.structure.name : '' }} - <i>{{ props.option.position.name }}</i> </small>
 
                             </div>
                         </template>
