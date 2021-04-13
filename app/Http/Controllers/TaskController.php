@@ -8,6 +8,7 @@ use App\TaskComment;
 use App\TaskItem;
 use App\TaskUser;
 use App\TaskUserItem;
+use App\TUIRead;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use Validator;
@@ -336,12 +337,13 @@ class TaskController extends Controller
         $result = [];
         $user = $request->user();
         //Received
-        $builder = TaskUser::query()->with(['task'])->where(['user_id' => $user->id]);
+        $builder = TaskUser::query()->with(['task'])->where(['user_id' => $user->id,'read' => 0]);
         $builder->whereHas('task', function ($query){
             $query->where('status','!=','draft');
         });
+        $unreads = TUIRead::where(['user_id' => $user->id,'read' => 0])->get()->count();
         $received = $builder->get()->count();
-        $result['received'] = $received;
+        $result['received'] = $received + $unreads;
         //Sent
         $sent = Task::where('user_id','=',$user->id)->where('status','!=','draft')->get()->count();
         $result['sent'] = $sent;
