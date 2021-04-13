@@ -343,10 +343,11 @@ class TaskController extends Controller
         });
         $unreads = TUIRead::where(['user_id' => $user->id,'read' => 0])->get()->count();
         $received = $builder->get()->count();
-        $result['sent'] = $received + $unreads;
+        $result['received'] = $received;
+        $result['unreads'] = $unreads;
         //Sent
         $sent = TaskUser::where('user_id','=',$user->id)->where('read','=',0)->get()->count();
-        $result['received'] = $sent;
+        $result['sent'] = $sent;
         return response()->json(['success' => true, 'result' => $result]);
     }
 }
