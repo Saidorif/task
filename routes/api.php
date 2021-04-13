@@ -52,6 +52,7 @@ Route::group([
         Route::post('usertask/reject/{id}','TaskUserItemController@reject');
         Route::get('usertask/edit/{id}','TaskUserItemController@edit');
         Route::delete('usertask/destroy/{id}','TaskUserItemController@destroy');
+        Route::get('usertask/read/{id}','TaskUserItemController@read');//read unread status
 
         //Region CRUD
         Route::post('region', 'RegionController@index');
