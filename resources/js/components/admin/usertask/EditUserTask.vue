@@ -64,13 +64,13 @@
     <h4>Топшириқ бўйича бажарилган ишлар</h4>
     <div class="jv_card" v-if="getUserTask.task" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation" v-for="(item, index) in getUserTask.task.users">
+            <li class="nav-item" style="position:relative;" role="presentation" v-for="(item, index) in getUserTask.task.users">
                 <button class="nav-link" :class="getUserTask.user_id == item.user_id ? 'active' : ''"
                     :id="'home-tab'+index"
                     data-bs-toggle="tab"
                     :data-bs-target="'#home'+index"
                     type="button" role="tab"
-                    :aria-controls="'home'+index" :aria-selected="true">{{item.user.name}} {{item.user.surename}}</button>
+                    :aria-controls="'home'+index" :aria-selected="true"><span class="reads_count" v-if="item.unreads_count > 0">{{ item.unreads_count }}</span>{{item.user.name}} {{item.user.surename}}</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -217,7 +217,7 @@
                     <tr>
                         <td>1</td>
                         <td>{{ form.title }}</td>
-                        <td>
+                        <td v-if="getUserTask.task">
                             <template v-for="(item, index) in getUserTask.task.users">
                                 <span>{{ index + 1}}</span><div v-for="(ans, ind) in item.items" v-html="ans.text"></div>
                             </template>
