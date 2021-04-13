@@ -197,7 +197,7 @@ export default {
                 }
             })
             if(this.notMessages.length){
-                setTimeout(function(){
+                setTimeout(async function(){
                     var toastElList = [].slice.call(document.querySelectorAll('.toast'))
                     var toastList = toastElList.map(function (toastEl) {
                         return new bootstrap.Toast(toastEl)
@@ -205,6 +205,7 @@ export default {
                     toastList.forEach(element => {
                         element.show()
                     });
+                    await this.actionGetTotalsTask();
                 },100)
 
             }
