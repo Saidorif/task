@@ -197,4 +197,17 @@ class TaskUserItemController extends Controller
         }
         return response()->json(['error' => true, 'message' => 'Forbidden!!!']);
     }
+
+    public function read(Request $request,$id)
+    {
+        $user = $request->user();
+        $reads = TUIRead::where(['task_user_id' => $id,'user_id' => $user->id])->get();
+        if($reads){
+            foreach ($reads as $read) {
+                $read->read = 1;
+                $read->save();
+            }
+        }
+        return response()->json(['success' => true, 'message' => 'OK']);
+    }
 }
