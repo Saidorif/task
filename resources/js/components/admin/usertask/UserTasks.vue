@@ -21,7 +21,7 @@
 					<tbody >
 						 <tr v-for="(task,index) in getUserTasks" :class="{ 'unread': task.read == 0 }">
 							<td scope="row">{{index+1}}  </td>
-							<td scope="row" style="text-align:left;">{{task.task.title}} <span class="reads_count">{{task.unreads_count}}</span></td>
+							<td scope="row" style="text-align:left;">{{task.task.title}} <span class="reads_count" v-if="task.unreads_count > 0">{{task.unreads_count}}</span></td>
 							<td scope="row">{{ $g.getDate(task.task.exp_date) }}</td>
                             <td>
                                 <span class="alert alert-danger jv_alert" v-if="task.task.status == 'rejected'">Рад этилган</span>

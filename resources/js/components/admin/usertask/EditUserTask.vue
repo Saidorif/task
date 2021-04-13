@@ -70,7 +70,8 @@
                     data-bs-toggle="tab"
                     :data-bs-target="'#home'+index"
                     type="button" role="tab"
-                    :aria-controls="'home'+index" :aria-selected="true"><span class="reads_count" v-if="item.unreads_count > 0">{{ item.unreads_count }}</span>{{item.user.name}} {{item.user.surename}}</button>
+                    @click="openUserTab(item)"
+                    :aria-controls="'home'+index" :aria-selected="true"><span class="reads_count" v-if="item.unreads_count > 0 && getUserTask.user_id  != item.user_id">{{ item.unreads_count }}</span>{{item.user.name}} {{item.user.surename}}</button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -291,6 +292,7 @@ export default {
   methods: {
     ...mapActions("task", [
         "actionApproveTask",
+        "actionShowTaskAnswer"
     ]),
     ...mapActions("usertask", [
         "actionSendAnswer",
@@ -303,6 +305,12 @@ export default {
     exportDocx(){
         var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
         FileSaver.saveAs(file);
+    },
+    async openUserTab(item){
+        if(item.unreads_count > 0){
+            item.unreads_count = 0
+            await this.actionShowTaskAnswer(item.id);
+        }
     },
     isRequired(input) {
       return this.requiredInput && input === "";
