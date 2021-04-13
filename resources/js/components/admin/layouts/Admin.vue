@@ -63,7 +63,7 @@
                 <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')" >
                 <i class="sidebar_icon" data-feather="layers" ></i>
                 <p>
-                    Юборилган <span v-if="getTaskTotal.sent > 0" class="nat_len">{{ getTaskTotal.sent }}</span>
+                    Юборилган <span v-if="getTaskTotal.unreads > 0" class="nat_len">{{ getTaskTotal.unreads }}</span>
                 </p>
                 </router-link>
             </li>

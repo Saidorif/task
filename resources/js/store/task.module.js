@@ -5,7 +5,7 @@ const state = {
 	tasklist: {},
 	message: [],
 	task: [],
-    tasktotal:{received: 0, sent: 0},
+    tasktotal:{received: 0, sent: 0, unreads: 0},
 };
 
 const getters = {
