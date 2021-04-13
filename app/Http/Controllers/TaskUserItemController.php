@@ -52,6 +52,14 @@ class TaskUserItemController extends Controller
                 'task_user_id' => $tuitem->parent_id,
                 'read' => 0,
             ]);
+        }else{
+            $creator_status = TUIRead::create([
+                'user_id' => $task->user_id,
+                'task_user_item_id' => $tuitem->id,
+                'task_id' => $task->id,
+                'task_user_id' => $tuitem->parent_id,
+                'read' => 0,
+            ]);
         }
         //Upload file
         if($request->hasFile('file')){
