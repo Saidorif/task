@@ -330,4 +330,21 @@ class TaskController extends Controller
         $task->save();
         return response()->json(['success' => true,'message' => 'Success!!!']);
     }
+
+    public function getTotals(Request $request)
+    {
+        $result = [];
+        $user = $request->user();
+        //Received
+        $builder = TaskUser::query()->with(['task'])->where(['user_id' => $user->id]);
+        $builder->whereHas('task', function ($query){
+            $query->where('status','!=','draft');
+        });
+        $received = $builder->get()->count();
+        $result['received'] = $received;
+        //Sent
+        $sent = Task::where('user_id','=',$user->id)->where('status','!=','draft')->get()->count();
+        $result['sent'] = $sent;
+        return response()->json(['success' => true, 'result' => $result]);
+    }
 }
