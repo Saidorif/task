@@ -28,6 +28,9 @@ const TaskService = {
 	approveTask(data){
 		return ApiService.post(`/api/task/approve/${data.id}`,)
 	},
+    showTaskAnswer(id){
+        return ApiService.get(`/api/usertask/read/${id}`,)
+    }
 };
 
 export { TaskService };
