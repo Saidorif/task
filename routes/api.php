@@ -32,6 +32,7 @@ Route::group([
 
         //Task
         Route::post('task','TaskController@index');
+        Route::get('task/get-totals','TaskController@getTotals');
         Route::post('task/get-by-date','TaskController@getByDate');
         Route::get('task/user','TaskController@userIndex');
         Route::get('task/user/edit/{id}','TaskController@userEdit');
