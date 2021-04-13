@@ -7,6 +7,7 @@ const DashboardService = {
 	getTaskByDate(date){
 		return  ApiService.post(`/api/task/get-by-date`, date)
 	},
+
 };
 
 export { DashboardService };

@@ -30,7 +30,10 @@ const TaskService = {
 	},
     showTaskAnswer(id){
         return ApiService.get(`/api/usertask/read/${id}`,)
-    }
+    },
+    getTotalsTask(){
+		return  ApiService.get(`/api/task/get-totals`)
+	},
 };
 
 export { TaskService };

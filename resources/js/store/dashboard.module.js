@@ -3,6 +3,7 @@ import {DashboardService} from "../services/dashboard.service";
 const state = {
 	dashboard: [],
     task:[],
+
 };
 
 const getters = {
@@ -11,7 +12,8 @@ const getters = {
 	},
     getTask(state){
 		return state.task
-    }
+    },
+
 };
 
 
@@ -34,6 +36,7 @@ const actions = {
 			return false
 		}
 	},
+
 };
 
 const mutations = {
@@ -43,6 +46,7 @@ const mutations = {
 	setTask(state, task){
 		state.task = task
 	},
+
 };
 
 export const dashboard = {

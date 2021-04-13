@@ -5,6 +5,7 @@ const state = {
 	tasklist: {},
 	message: [],
 	task: [],
+    tasktotal:null,
 };
 
 const getters = {
@@ -20,6 +21,9 @@ const getters = {
 	getTaskList(state){
 		return state.tasklist
 	},
+    getTaskTotal(state){
+		return state.tasktotal
+    }
 };
 
 
@@ -115,6 +119,15 @@ const actions = {
 			return false
 		}
 	},
+    async actionGetTotalsTask({commit}, ){
+		try {
+			const dashboard =  await TaskService.getTotalsTask();
+			await commit('setTaskTotal',dashboard.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {
@@ -129,6 +142,9 @@ const mutations = {
 	},
 	setTaskList(state, task){
 		state.tasklist = task
+	},
+    setTaskTotal(state, tasktotal){
+		state.tasktotal = tasktotal
 	},
 };
 
