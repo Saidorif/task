@@ -354,6 +354,7 @@ export default {
   async mounted() {
     await this.rerenderData();
     await this.ActionStructureList();
+
     this.isLoading = false
     this.modalcancel = new bootstrap.Modal(document.getElementById('exampleModal'), {
             keyboard: false
