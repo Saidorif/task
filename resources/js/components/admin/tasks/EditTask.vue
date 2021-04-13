@@ -192,7 +192,10 @@
                     data-bs-toggle="tab"
                     :data-bs-target="'#home'+index"
                     type="button" role="tab"
-                    :aria-controls="'home'+index" :aria-selected="true">{{item.user.name}} {{item.user.surename}} <span class="reads_count" v-if="item.unreads_count > 0">{{ item.unreads_count }}</span></button>
+                    :aria-controls="'home'+index"
+                    :aria-selected="true"
+                    @click="openUserTab(item)"
+                >{{item.user.name}} {{item.user.surename}} <span class="reads_count" v-if="item.unreads_count > 0">{{ item.unreads_count }}</span></button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -270,7 +273,7 @@
                                 <div v-for="(ans, ind) in item.items" v-html="ans.text"></div>
                             </template>
                         </td>
-                        <td style="text-align:center;">{{ $g.getDate( form.exp_date) }}</td>
+                        <td style="text-align:center;">{{form.exp_date}}</td>
                         <td style="border-right:none;">
                             <p  v-for="(user, index) in selectedUsersList" :class="{ selected: user.svot }">
                                 {{ user.name.charAt(0) }}.  {{ user.surename }},
@@ -358,7 +361,7 @@ export default {
 
   },
   methods: {
-    ...mapActions("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask"]),
+    ...mapActions("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask", "actionShowTaskAnswer"]),
     ...mapActions("user", ["ActionUserList", 'ActionStructureList']),
     isRequired(input) {
       return this.requiredInput && input === "";
@@ -376,6 +379,13 @@ export default {
                 icon: "success",
                 title: this.getTaskMassage.message,
             });
+        }
+    },
+    async openUserTab(item){
+        console.log(item)
+        if(item.unreads_count > 0){
+            item.unreads_count = 0
+            // await this.actionShowTaskAnswer(item);
         }
     },
     async acceptTask(){

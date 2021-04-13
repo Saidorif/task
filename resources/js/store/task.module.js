@@ -106,6 +106,15 @@ const actions = {
 			return false
 		}
 	},
+	async actionShowTaskAnswer({commit},payload){
+		try {
+			const actions =  await TaskService.showTaskAnswer(payload);
+			await commit('setMessage',actions.data)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
 };
 
 const mutations = {
