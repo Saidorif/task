@@ -62,7 +62,7 @@ class TaskController extends Controller
     public function userIndex(Request $request)
     {
         $user = $request->user();
-        $builder = TaskUser::query()->with(['task'])->where(['user_id' => $user->id]);
+        $builder = TaskUser::query()->with(['task'])->withCount('unreads')->where(['user_id' => $user->id]);
         $builder->whereHas('task', function ($query){
             $query->where('status','!=','draft');
         });
