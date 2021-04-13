@@ -283,6 +283,7 @@ export default {
   },
   async mounted() {
     await this.dataRender();
+    await this.actionGetTotalsTask();
     this.userId = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).id : null;
     this.modalcancel = new bootstrap.Modal(document.getElementById('exampleModal'), {
             keyboard: false
@@ -292,7 +293,8 @@ export default {
   methods: {
     ...mapActions("task", [
         "actionApproveTask",
-        "actionShowTaskAnswer"
+        "actionShowTaskAnswer",
+        "actionGetTotalsTask"
     ]),
     ...mapActions("usertask", [
         "actionSendAnswer",

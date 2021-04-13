@@ -361,7 +361,7 @@ export default {
 
   },
   methods: {
-    ...mapActions("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask", "actionShowTaskAnswer"]),
+    ...mapActions("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask", "actionShowTaskAnswer", "actionGetTotalsTask"]),
     ...mapActions("user", ["ActionUserList", 'ActionStructureList']),
     isRequired(input) {
       return this.requiredInput && input === "";
@@ -385,6 +385,7 @@ export default {
         if(item.unreads_count > 0){
             item.unreads_count = 0
             await this.actionShowTaskAnswer(item.id);
+            await this.actionGetTotalsTask();
         }
     },
     async acceptTask(){
