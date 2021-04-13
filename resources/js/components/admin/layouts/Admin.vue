@@ -63,15 +63,15 @@
                 <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')" >
                 <i class="sidebar_icon" data-feather="layers" ></i>
                 <p>
-                    Юборилган
+                    Юборилган <span v-if="counters.sent > 0" class="nat_len">{{ counters.sent }}</span>
                 </p>
                 </router-link>
             </li>
-            <li class="nav-item"  @click="resetMessages">
+            <li class="nav-item">
                 <router-link to="/crm/user-task" class="nav-link"  v-if="$can('userIndex', 'TaskController')">
                 <i class="sidebar_icon" data-feather="clipboard" ></i>
                 <p>
-                    Келиб тушган <span v-if="notMessages.length" class="nat_len">{{ notMessages.length }}</span>
+                    Келиб тушган <span v-if="counters.received > 0" class="nat_len">{{ counters.received }}</span>
                 </p>
                 </router-link>
             </li>
@@ -169,14 +169,24 @@ export default {
     },
     data(){
         return {
-            notMessages: []
+            notMessages: [],
+            counters: {
+                received: 0,
+                sent: 0,
+            },
+
         }
     },
     computed: {
         ...mapGetters(['getUser']),
+        ...mapGetters("task", ["getTaskTotal",]),
     },
     async mounted(){
         await this.profileUser()
+        await this.actionGetTotalsTask();
+        if(this.getTaskTotal.success){
+            this.counters = this.getTaskTotal.result
+        }
     },
     async created(){
         Echo.private('tender')
@@ -187,7 +197,7 @@ export default {
                 }
             })
             if(this.notMessages.length){
-                setTimeout(function(){
+                setTimeout(async function(){
                     var toastElList = [].slice.call(document.querySelectorAll('.toast'))
                     var toastList = toastElList.map(function (toastEl) {
                         return new bootstrap.Toast(toastEl)
@@ -195,6 +205,7 @@ export default {
                     toastList.forEach(element => {
                         element.show()
                     });
+                    await this.actionGetTotalsTask();
                 },100)
 
             }
@@ -202,6 +213,7 @@ export default {
     },
     methods: {
         ...mapActions(['logout','profileUser']),
+        ...mapActions("task", ["actionGetTotalsTask"]),
         logoutProfile(){
             this.logout();
         },
