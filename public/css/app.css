@@ -573,6 +573,7 @@ tbody tr.unread td:nth-child(2)::before {
 tbody tr td {
   font-size: 12px;
   vertical-align: middle;
+  position: relative;
 }
 
 tbody tr td a {
@@ -1035,5 +1036,20 @@ tbody tr.selected {
 .input_checkbox label:hover {
   background: #284b63;
   color: white;
+}
+
+.reads_count {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 4px;
+  background: #dc3545;
+  font-size: 12px;
 }
 

@@ -490,6 +490,7 @@ tbody{
         td{
             font-size: 12px;
             vertical-align: middle;
+            position: relative;
             a{
                 color: #000;
                 text-decoration: none;
@@ -899,4 +900,18 @@ tbody{
             color: white;
         }
     }
+}
+.reads_count{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 4px;
+    background: #dc3545;
+    font-size: 12px;
 }

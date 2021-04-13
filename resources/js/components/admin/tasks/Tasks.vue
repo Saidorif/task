@@ -65,7 +65,7 @@
           >
             <tr v-for="(cont, index) in getTasks.data">
               <td style="width: 40px" scope="row">{{ index + 1 }}</td>
-              <td><router-link :to="`/crm/tasks/edit/${cont.id}`"> {{ cont.title }} </router-link><span>{{ cont.unreads_count }}</span></td>
+              <td><router-link :to="`/crm/tasks/edit/${cont.id}`"> {{ cont.title }} </router-link><span class="reads_count" v-if="cont.unreads_count > 0">{{ cont.unreads_count }}</span></td>
               <td style="padding: 0px">
                 <ul class="userList">
                   <li
@@ -352,4 +352,5 @@ export default {
 .input_checkbox{
     position: relative;
 }
+
 </style>

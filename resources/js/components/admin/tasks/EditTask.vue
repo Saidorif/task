@@ -186,13 +186,13 @@
     <h4>Топшириқ бўйича бажарилган ишлар</h4>
     <div class="jv_card mb-5" v-if="getTask.users" >
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation" v-for="(item, index) in getTask.users">
+            <li class="nav-item" style="position:relative;" role="presentation" v-for="(item, index) in getTask.users">
                 <button class="nav-link" :class="index == 0 ? 'active' : ''"
                     :id="'home-tab'+index"
                     data-bs-toggle="tab"
                     :data-bs-target="'#home'+index"
                     type="button" role="tab"
-                    :aria-controls="'home'+index" :aria-selected="true">{{item.user.name}} {{item.user.surename}}</button>
+                    :aria-controls="'home'+index" :aria-selected="true">{{item.user.name}} {{item.user.surename}} <span class="reads_count" v-if="item.unreads_count > 0">{{ item.unreads_count }}</span></button>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
