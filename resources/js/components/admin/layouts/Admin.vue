@@ -63,7 +63,7 @@
                 <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')" >
                 <i class="sidebar_icon" data-feather="layers" ></i>
                 <p>
-                    Юборилган <span v-if="counters.sent > 0" class="nat_len">{{ counters.sent }}</span>
+                    Юборилган <span v-if="getTaskTotal.sent > 0" class="nat_len">{{ getTaskTotal.sent }}</span>
                 </p>
                 </router-link>
             </li>
@@ -71,7 +71,7 @@
                 <router-link to="/crm/user-task" class="nav-link"  v-if="$can('userIndex', 'TaskController')">
                 <i class="sidebar_icon" data-feather="clipboard" ></i>
                 <p>
-                    Келиб тушган <span v-if="counters.received > 0" class="nat_len">{{ counters.received }}</span>
+                    Келиб тушган <span v-if="getTaskTotal.received > 0" class="nat_len">{{ getTaskTotal.received }}</span>
                 </p>
                 </router-link>
             </li>
@@ -170,11 +170,6 @@ export default {
     data(){
         return {
             notMessages: [],
-            counters: {
-                received: 0,
-                sent: 0,
-            },
-
         }
     },
     computed: {
@@ -184,9 +179,6 @@ export default {
     async mounted(){
         await this.profileUser()
         await this.actionGetTotalsTask();
-        if(this.getTaskTotal.success){
-            this.counters = this.getTaskTotal.result
-        }
     },
     async created(){
         Echo.private('tender')

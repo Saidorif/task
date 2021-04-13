@@ -5,7 +5,7 @@ const state = {
 	tasklist: {},
 	message: [],
 	task: [],
-    tasktotal:null,
+    tasktotal:{received: 0, sent: 0},
 };
 
 const getters = {
@@ -122,7 +122,7 @@ const actions = {
     async actionGetTotalsTask({commit}, ){
 		try {
 			const dashboard =  await TaskService.getTotalsTask();
-			await commit('setTaskTotal',dashboard.data)
+			await commit('setTaskTotal',dashboard.data.result)
 			return true
 		} catch (error) {
 			return false
