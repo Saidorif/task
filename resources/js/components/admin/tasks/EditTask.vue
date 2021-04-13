@@ -382,10 +382,9 @@ export default {
         }
     },
     async openUserTab(item){
-        console.log(item)
         if(item.unreads_count > 0){
             item.unreads_count = 0
-            // await this.actionShowTaskAnswer(item);
+            await this.actionShowTaskAnswer(item.id);
         }
     },
     async acceptTask(){
