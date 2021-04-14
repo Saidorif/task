@@ -97,7 +97,7 @@
             <li class="nav-item has_dropdown show" v-if="$can('index', 'RoleController')">
                 <a href="#" class="nav-link">
                     <i class="sidebar_icon" data-feather="settings" ></i>
-                        Setting users
+                     <p>Setting users</p>
                     <i class="sidebar_icon mr_0 drop_down_icon" data-feather="chevron-down" ></i>
                 </a>
                 <ul class="drop_down_list">

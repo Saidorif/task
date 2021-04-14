@@ -163,20 +163,47 @@ ul li{
 .wrapper{
     display: flex;
     flex-wrap: wrap;
-    padding-left: 0px;
+    padding-left: 50px;
     padding-top: 60px;
     &.show{
         padding-left: 250px;
         .main-sidebar{
             width: 250px;
+            .sidebar-header{
+                .brand-link{
+                    display: block;
+                }
+                padding: 0 25px;
+                width: 250px;
+            }
             .sidebar{
                 .sidebar_ul{
+                    padding: 25px 25px 50px;
                     li{
                         a{
                             p{
                                 display: block;
                             }
+                            .sidebar_icon{
+                                width: 16px;
+                                margin-right: 10px;
+                                margin-bottom: 0px;
+                            }
+                            .drop_down_icon{
+                                display: block;
+                            }
+                            &::before{
+                                left: -25px;
+                            }
                         }
+                        &.has_dropdown{
+                            &.show{
+                                .drop_down_list{
+                                    display: block;
+                                }
+                            }
+                        }
+
                     }
                 }
             }
@@ -272,10 +299,13 @@ ul li{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 25px;
             z-index: 999;
-            width: 250px;
+            padding: 0 13px;
+            width: 50px;
             transition: width .1s ease;
+            .brand-link{
+                display: none;
+            }
         }
         .sidebar{
             background: #0c1427;
@@ -285,7 +315,7 @@ ul li{
             height: 100%;
             box-shadow: 0 8px 10px 0 rgb(183 192 206 / 20%);
             .sidebar_ul{
-                padding: 25px 25px 50px;
+                padding: 25px 0px 0px 10px;
                 li{
                     list-style: none;
                     a{
@@ -309,7 +339,8 @@ ul li{
                             height: 0px;
                             background: #727cf5;
                             position: absolute;
-                            left: -25px;
+                            left: -10px;
+                            top: -3px;
                             transition: .5s;
                         }
                         &:hover,
@@ -320,13 +351,15 @@ ul li{
                             }
                         }
                         .sidebar_icon{
-                            width: 16px;
-                            margin-right: 10px;
+                            margin-right: 0px;
+                            width: 20px;
+                            margin-bottom: 10px;
                         }
                         .drop_down_icon{
                             position: absolute;
                             right: 0;
                             top: 5px;
+                            display: none;
                         }
                     }
                     &.has_dropdown{
@@ -352,7 +385,7 @@ ul li{
                         }
                         &.show{
                             .drop_down_list{
-                                display: block;
+                                display: none;
                             }
                         }
                     }
@@ -1209,6 +1242,18 @@ tbody{
     text-decoration: none;
     color: #0c1427;
   }
+  .profile_block{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-top: 30px;
+    .input_style{
+        width: 45%;
+        .input_style{
+            width: 100%;
+        }
+    }
+  }
 @media (max-width: 1700px){
     .dashboard_header{
         flex-wrap: wrap;
@@ -1230,6 +1275,16 @@ tbody{
         }
     }
 
+}
+@media (max-width: 1500px){
+    .profile_block{
+        .input_style{
+            width: 40%;
+            .input_style{
+                width: 100%;
+            }
+        }
+      }
 }
 @media (max-width: 1250px){
     .dashboard_header{
@@ -1271,4 +1326,26 @@ tbody{
     .dashboard_header{
         flex-wrap: wrap;
     }
+    .dashboard_header{
+        .header_item{
+            width: 100%;
+
+        }
+        .calendar_dash{
+            width: 100%;
+        }
+    }
+    .modal-dialog{
+        max-width: 96% !important;
+    }
+    .profile_block{
+        justify-content: flex-end;
+        .input_style{
+            width: 100%;
+            .input_style{
+                width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+      }
 }
