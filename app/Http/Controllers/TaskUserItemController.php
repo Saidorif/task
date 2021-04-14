@@ -113,7 +113,7 @@ class TaskUserItemController extends Controller
 
     public function edit(Request $request,$id)
     {
-        $tuitem = TaskUser::with(['task'])->find($id);
+        $tuitem = TaskUser::with(['task'])->withCount(['unreads'])->find($id);
         if(!$tuitem){
             return response()->json(['error' => true, 'message' => 'Not found']);
         }
