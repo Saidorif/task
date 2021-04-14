@@ -374,6 +374,7 @@ export default {
         await this.actionRejectTask(this.comment);
         if(this.getTaskMassage.success){
             this.modalcancel.hide();
+            this.$router.push("/crm/tasks");
             this.comment = {text: null, id: null}
             toast.fire({
                 type: "success",
@@ -392,6 +393,7 @@ export default {
     async acceptTask(){
         await this.actionAcceptTask({id: this.$route.params.taskId});
         if(this.getTaskMassage.success){
+            this.$router.push("/crm/tasks");
             toast.fire({
                 type: "success",
                 icon: "success",

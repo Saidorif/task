@@ -1,6 +1,6 @@
 <template>
   <div class="hold-transition sidebar-mini">
-    <div class="wrapper">
+    <div class="wrapper" :class="{ show: showSidebar }">
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
@@ -10,7 +10,7 @@
         </div> -->
         <!-- Right navbar links -->
         <div class="user_info"><span><i data-feather="user"></i></span>  {{ getUser.surename }} {{ getUser.name }}</div>
-        <a href="#" class="btn_blue" @click.prevent="logoutProfile"><i class="sidebar_icon" data-feather="log-out"></i> Чиқиш</a>
+        <a href="#" class="btn_blue" style="width: 135px;" @click.prevent="logoutProfile"><i class="sidebar_icon" data-feather="log-out"></i> Чиқиш</a>
     </nav>
     <!-- /.navbar -->
 
@@ -23,7 +23,7 @@
                     <img src="/img/logo.png" style="width: 100px;">
                 </span>
             </router-link>
-            <a href="#" class="btn_burger" ><i class="sidebar_icon" data-feather="menu"></i></a>
+            <a href="#" class="btn_burger" @click="toggleSidebar()" ><i class="sidebar_icon" data-feather="menu"></i></a>
         </div>
         <!-- Sidebar -->
         <div class="sidebar">
@@ -170,6 +170,7 @@ export default {
     data(){
         return {
             notMessages: [],
+            showSidebar: true,
         }
     },
     computed: {
@@ -211,7 +212,10 @@ export default {
         },
         resetMessages(){
             this.notMessages = []
-        }
+        },
+        toggleSidebar(){
+            this.showSidebar = !this.showSidebar
+        },
     }
 };
 </script>

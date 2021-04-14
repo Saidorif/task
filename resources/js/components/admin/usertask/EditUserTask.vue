@@ -108,11 +108,10 @@
                                             <i data-feather="slash" class="sidebar_icon" ></i>
                                         </button>
                                     </div>
-                                    <!-- <div v-else>
+                                    <div v-else>
                                         <span class="alert alert-danger jv_alert" v-if="ans.status == 'rejected'">Рад этилган</span>
                                         <span class="alert alert-success jv_alert" v-if="ans.status == 'accepted'">Қабул қилинган</span>
-                                        <span class="alert alert-warning jv_alert" v-if="ans.status == 'pending'">Текширилмоқда</span>
-                                    </div> -->
+                                    </div>
                                 </td>
                                 <td>
                                     <button class="btn_blue_icon" title="update" v-if="ans.status == 'rejected' &&  userId == item.user_id" @click="updateAnswer(ans)" v-tooltip.top-center="'Тахрирлаш'">
