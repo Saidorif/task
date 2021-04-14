@@ -9,7 +9,10 @@
             <input type="search" placeholder="Search here...">
         </div> -->
         <!-- Right navbar links -->
-        <div class="user_info"><span><i data-feather="user"></i></span>  {{ getUser.surename }} {{ getUser.name }}</div>
+        <div class="user_info">
+            <span><i data-feather="user"></i>{{ getTaskTotal.unreads }}</span>
+            {{ getUser.surename }} {{ getUser.name }}
+        </div>
         <a href="#" class="btn_blue" style="width: 135px;" @click.prevent="logoutProfile"><i class="sidebar_icon" data-feather="log-out"></i> Чиқиш</a>
     </nav>
     <!-- /.navbar -->
