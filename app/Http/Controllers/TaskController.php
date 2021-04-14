@@ -348,7 +348,9 @@ class TaskController extends Controller
         $d = DB::select("SELECT COUNT(id) summa  FROM `task_users` where `user_id` = '$user->id' AND `read` = 0");
         $result['received'] = $d  ? $d[0]->summa : 0;
         //Sent
-        $sent = TaskUser::where('user_id','=',$user->id)->where('read','=',0)->get()->count();
+        $t_ids = Task::where(['user_id' => $user->id,'status' => 'active'])->pluck('id')->toArray();
+        //$sent = TaskUser::where('user_id','=',$user->id)->where('read','=',0)->get()->count();
+        $sent = TUIRead::whereIn('task_id',$t_ids)->where(['user_id' => $user->id])->get()->count();
         $result['sent'] = $sent;
         return response()->json(['success' => true, 'result' => $result]);
     }
