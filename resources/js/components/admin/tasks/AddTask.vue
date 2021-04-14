@@ -9,8 +9,8 @@
     </div>
     <div class="jv_card">
       <form @submit.prevent.enter="saveAction" enctype="multipart/form-data">
-        <div class="row align-items-end">
-          <div class="col-md-5">
+        <div class="row align-items-end task_add_block">
+          <div class="select_serach">
             <multiselect
               v-model="selectedStr"
               :options="getStructureList"
@@ -23,7 +23,7 @@
             >
             </multiselect>
           </div>
-          <div class="col-md-5">
+          <div class="select_serach">
             <multiselect
               v-model="selectedUser"
               :options="userlist"
@@ -59,7 +59,6 @@
               </template>
             </multiselect>
           </div>
-
           <div class="col-md-2">
             <date-picker
               :disabled-date="disabledStartDate"
@@ -129,11 +128,11 @@
             <label for="contName">Қисқача мазмуни</label>
           </div>
           <template v-for="(item, index) in allItems">
-            <div class="col-md-9">
+            <div class="col-lg-9">
               <label for="text" class="title_label">Тўлиқ матни</label>
               <vue-editor id="text" v-model="item.text" />
             </div>
-            <div class="col-md-3">
+            <div class="col-lg-3">
               <button
                 type="button"
                 class="btn_red_icon"

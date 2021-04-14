@@ -1438,6 +1438,10 @@ a {
   width: 100%;
 }
 
+.task_add_block .select_serach {
+  width: 40%;
+}
+
 @media (max-width: 1700px) {
   .dashboard_header {
     flex-wrap: wrap;
@@ -1471,6 +1475,14 @@ a {
   .profile_block .input_style .input_style {
     width: 100%;
   }
+
+  .input_style .mx-datepicker-range {
+    width: 230px;
+  }
+
+  .task_add_block .select_serach {
+    width: 35%;
+  }
 }
 
 @media (max-width: 1250px) {
@@ -1491,6 +1503,11 @@ a {
   .dashboard_header .modal-dialog {
     max-width: 96% !important;
   }
+
+  .task_add_block .select_serach {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -1501,6 +1518,43 @@ a {
     align-items: center;
     justify-content: center;
     background: #0c062e;
+  }
+
+  .jv_card.filter {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .jv_card.filter .input_checkbox,
+  .jv_card.filter .input_style {
+    width: calc(100% / 3 - 20px);
+    margin-bottom: 20px;
+  }
+
+  .jv_card.filter .input_checkbox label {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .jv_card.filter {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .jv_card.filter .input_checkbox,
+  .jv_card.filter .input_style {
+    width: calc(100% / 2 - 20px);
+    margin-bottom: 20px;
+  }
+
+  .jv_card.filter .input_checkbox .mx-datepicker-range,
+  .jv_card.filter .input_style .mx-datepicker-range {
+    width: 100%;
+  }
+
+  .jv_card.filter .input_checkbox {
+    margin-bottom: 0;
   }
 }
 
@@ -1544,6 +1598,28 @@ a {
   .profile_block .input_style .input_style {
     width: 100%;
     margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 900px) {
+  .jv_card.filter {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .jv_card.filter .input_checkbox,
+  .jv_card.filter .input_style {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .jv_card.filter .input_checkbox .mx-datepicker-range,
+  .jv_card.filter .input_style .mx-datepicker-range {
+    width: 100%;
+  }
+
+  .jv_card.filter .input_checkbox {
+    margin-bottom: 20px;
   }
 }
 

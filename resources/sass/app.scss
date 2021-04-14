@@ -1254,6 +1254,11 @@ tbody{
         }
     }
   }
+  .task_add_block{
+      .select_serach{
+          width: 40%;
+      }
+  }
 @media (max-width: 1700px){
     .dashboard_header{
         flex-wrap: wrap;
@@ -1284,7 +1289,17 @@ tbody{
                 width: 100%;
             }
         }
-      }
+    }
+    .input_style{
+        .mx-datepicker-range{
+            width: 230px;
+        }
+    }
+    .task_add_block{
+        .select_serach{
+            width: 35%;
+        }
+    }
 }
 @media (max-width: 1250px){
     .dashboard_header{
@@ -1301,6 +1316,12 @@ tbody{
             max-width: 96% !important;
         }
     }
+    .task_add_block{
+        .select_serach{
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
 }
 @media (max-width: 1200px){
     .login_card_left{
@@ -1311,8 +1332,38 @@ tbody{
         justify-content: center;
         background: #0c062e;
     }
+    .jv_card.filter{
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        .input_checkbox,
+        .input_style{
+            width: calc(100% / 3 - 20px);
+            margin-bottom: 20px;
+        }
+        .input_checkbox{
+            label{
+                width: 100%;
+            }
+        }
+    }
 }
-
+@media (max-width: 1100px){
+    .jv_card.filter{
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .input_checkbox,
+        .input_style{
+            width: calc(100% / 2 - 20px);
+            margin-bottom: 20px;
+            .mx-datepicker-range{
+                width: 100%;
+            }
+        }
+        .input_checkbox{
+            margin-bottom: 0;
+        }
+    }
+}
 @media (max-width: 1000px){
     .login_card_right{
         display: none;
@@ -1348,4 +1399,21 @@ tbody{
             }
         }
       }
+}
+@media (max-width: 900px){
+    .jv_card.filter{
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .input_checkbox,
+        .input_style{
+            width: 100%;
+            margin-bottom: 20px;
+            .mx-datepicker-range{
+                width: 100%;
+            }
+        }
+        .input_checkbox{
+            margin-bottom: 20px;
+        }
+    }
 }
