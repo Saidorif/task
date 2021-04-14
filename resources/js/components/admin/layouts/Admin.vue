@@ -10,7 +10,7 @@
         </div> -->
         <!-- Right navbar links -->
         <div class="user_info">
-            <span><i data-feather="user"></i>{{ getTaskTotal.unreads }}</span>
+            <span><i data-feather="user"></i> <small>{{ getTaskTotal.unreads }}</small> </span>
             {{ getUser.surename }} {{ getUser.name }}
         </div>
         <a href="#" class="btn_blue" style="width: 135px;" @click.prevent="logoutProfile"><i class="sidebar_icon" data-feather="log-out"></i> Чиқиш</a>
@@ -66,7 +66,7 @@
                 <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')" >
                 <i class="sidebar_icon" data-feather="layers" ></i>
                 <p>
-                    Юборилган <span v-if="getTaskTotal.unreads > 0" class="nat_len">{{ getTaskTotal.unreads }}</span>
+                    Юборилган <span v-if="getTaskTotal.sent > 0" class="nat_len">{{ getTaskTotal.sent }}</span>
                 </p>
                 </router-link>
             </li>

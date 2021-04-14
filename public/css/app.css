@@ -864,6 +864,22 @@ tbody tr.selected {
   border-radius: 50%;
   justify-content: center;
   margin-right: 10px;
+  position: relative;
+}
+
+.user_info span small {
+  position: absolute;
+  top: -6px;
+  right: -4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: white;
+  background: #0dcaf0;
+  font-size: 12px;
 }
 
 .read_more {
