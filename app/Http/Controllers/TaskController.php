@@ -337,12 +337,12 @@ class TaskController extends Controller
         $result = [];
         $user = $request->user();
         //Received
-        $builder = TaskUser::query()->with(['task'])->where(['user_id' => $user->id,'read' => 0]);
-        $builder->whereHas('task', function ($query){
-            $query->where('status','!=','draft');
-        });
+        //$builder = TaskUser::query()->with(['task'])->where(['user_id' => $user->id,'read' => 0]);
+        //$builder->whereHas('task', function ($query){
+            //$query->where('status','!=','draft');
+        //});
         $unreads = TUIRead::where(['user_id' => $user->id,'read' => 0])->get()->count();
-        $received = $builder->get()->count();
+        //$received = $builder->get()->count();
         // $result['received'] = $received;
         $result['unreads'] = $unreads;
         $d = DB::select("SELECT COUNT(id) summa  FROM `task_users` where `user_id` = '$user->id' AND `read` = 0");

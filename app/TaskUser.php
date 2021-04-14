@@ -18,6 +18,11 @@ class TaskUser extends Model
         return $this->belongsTo(\App\Task::class,'task_id')->with(['items','users','comments'])->where('status','!=','draft');
     }
 
+    public function users()
+    {
+        return $this->hasMany(\App\TaskUser::class,'task_id','task_id')->with(['user','items'])->withCount(['unreads']);
+    }
+
     public function items()
     {
         return $this->hasMany(\App\TaskUserItem::class,'parent_id')->with('comments');
