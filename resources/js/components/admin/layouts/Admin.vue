@@ -9,7 +9,10 @@
             <input type="search" placeholder="Search here...">
         </div> -->
         <!-- Right navbar links -->
-        <div class="user_info"><span><i data-feather="user"></i></span>  {{ getUser.surename }} {{ getUser.name }}</div>
+        <div class="user_info">
+            <span><i data-feather="user"></i> <small>{{ getTaskTotal.unreads }}</small> </span>
+            {{ getUser.surename }} {{ getUser.name }}
+        </div>
         <a href="#" class="btn_blue" style="width: 135px;" @click.prevent="logoutProfile"><i class="sidebar_icon" data-feather="log-out"></i> Чиқиш</a>
     </nav>
     <!-- /.navbar -->
@@ -63,7 +66,7 @@
                 <router-link to="/crm/tasks" class="nav-link" v-if="$can('index', 'TaskController')" >
                 <i class="sidebar_icon" data-feather="layers" ></i>
                 <p>
-                    Юборилган <span v-if="getTaskTotal.unreads > 0" class="nat_len">{{ getTaskTotal.unreads }}</span>
+                    Юборилган <span v-if="getTaskTotal.sent > 0" class="nat_len">{{ getTaskTotal.sent }}</span>
                 </p>
                 </router-link>
             </li>
@@ -94,7 +97,7 @@
             <li class="nav-item has_dropdown show" v-if="$can('index', 'RoleController')">
                 <a href="#" class="nav-link">
                     <i class="sidebar_icon" data-feather="settings" ></i>
-                        Setting users
+                     <p>Setting users</p>
                     <i class="sidebar_icon mr_0 drop_down_icon" data-feather="chevron-down" ></i>
                 </a>
                 <ul class="drop_down_list">

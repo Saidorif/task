@@ -27,8 +27,8 @@
           aria-labelledby="profile-tab"
         >
           <form @submit.prevent.enter="changePassword">
-            <div class="card-body d-flex flex-wrap mt-2">
-              <div class="input_style col-md-5 mr_15">
+            <div class="profile_block">
+              <div class="input_style">
                 <input
                   type="text"
                   class="form-control input_style"
@@ -39,7 +39,7 @@
                 />
                 <label for="exampleInputPassword1">Парол</label>
               </div>
-              <div class="input_style col-md-5">
+              <div class="input_style">
                 <input
                   type="password"
                   class="form-control input_style"
@@ -58,12 +58,10 @@
                   <b>Парол мос емас</b>
                 </small>
               </div>
-              <div class="col-12 d-flex justify-content-end">
                 <button type="submit" class="btn_green">
                   <i class="sidebar_icon" data-feather="save"></i>
                   Сақлаш
                 </button>
-              </div>
             </div>
           </form>
         </div>

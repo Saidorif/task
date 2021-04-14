@@ -203,7 +203,7 @@
                   <tr v-for="(task, index) in tasksList">
                     <td scope="row">{{ index + 1 }}</td>
                     <td @click="hideModal()">
-                      <router-link :to="`/crm/tasks/edit/${task.id}`">
+                      <router-link :to="getUser.id == task.creater.id ? `/crm/tasks/edit/${task.id}` : `/crm/user-task/edit/${task.id}`">
                         {{ task.creater.surename }} {{ task.creater.name }}
                         {{ task.creater.lastname }}
                       </router-link>
@@ -432,6 +432,7 @@ export default {
   },
   computed: {
     ...mapGetters("dashboard", ["getDashboard", "getTask"]),
+    ...mapGetters(['getUser']),
     dates() {
       return this.days.map((day) => day);
     },
@@ -467,6 +468,8 @@ export default {
       if (this.getTask.result && this.getTask.result.length) {
         this.modalcalenar.show();
         this.tasksList = this.getTask.result;
+        console.log(this.tasksList)
+        console.log(this.getUser)
       }
     },
     async pageChange(dataYear) {
