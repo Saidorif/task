@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="jv_card filter">
-      <div class="input_style col-md-3">
+      <div class="input_style mr_15">
         <date-picker
           range
           v-model="filter_date"
@@ -22,7 +22,7 @@
           format="DD.MM.YYYY"
         ></date-picker>
       </div>
-      <div class="input_style col-md-3 mr_15">
+      <div class="input_style mr_15">
         <select v-model="filter.status" id="status">
           <option value="">Холатни танланг</option>
           <option value="rejected">Рад этилган</option>

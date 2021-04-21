@@ -20,8 +20,8 @@
     </div>
     <div class="jv_card">
       <form @submit.prevent.enter="saveAction" enctype="multipart/form-data">
-        <div class="row align-items-end">
-            <div class="col-md-5">
+        <div class="row align-items-end task_add_block">
+            <div class="select_serach">
                 <multiselect
                 v-model="selectedStr"
                 :options="getStructureList"
@@ -34,7 +34,7 @@
                 >
             </multiselect>
           </div>
-          <div class="col-md-5">
+          <div class="select_serach">
             <multiselect
                 v-model="selectedUser"
                 :options="userlist"
