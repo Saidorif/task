@@ -94,6 +94,7 @@ class TaskController extends Controller
         $inputs = $request->all();
         $validator = Validator::make($inputs,[
             'title' => 'required|string',
+            'category' => 'required|string',
             'status' => 'nullable|string',
             'exp_date' => 'required|date',
             'users' => 'required|array',
@@ -154,6 +155,7 @@ class TaskController extends Controller
         }
         $validator = Validator::make($request->all(),[
             'title' => 'required|string',
+            'category' => 'required|string',
             'status' => 'nullable|string',
             'exp_date' => 'required|date',
             'users' => 'required|array',

@@ -22,6 +22,7 @@ class CreateTasksTable extends Migration
             $table->tinyInteger('is_important')->default(0);
             $table->text('comment')->nullable();
             $table->tinyInteger('read')->default(0);
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }
