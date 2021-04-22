@@ -33,6 +33,19 @@
         </select>
         <label for="status">Холат</label>
       </div>
+      <div class="input_style mr_15">
+        <select v-model="filter.category" id="category">
+            <option value="">Сохани танланг</option>
+            <option value="Умумий масалалар">Умумий масалалар</option>
+            <option value="Автомобил транспорти">Автомобил транспорти</option>
+            <option value="Темир йўл транспорти">Темир йўл транспорти</option>
+            <option value="Хаво транспорти">Хаво транспорти</option>
+            <option value="Халқаро хамкорлик">Халқаро хамкорлик</option>
+            <option value="Худудлар">Худудлар</option>
+            <option value="Йўл хўжалиги">Йўл хўжалиги</option>
+        </select>
+        <label for="category">Соха</label>
+      </div>
         <div class="input_checkbox mr_15">
           <input type="checkbox" v-model="filter.is_important" id="isimportant">
           <label for="isimportant">Долзарблари</label>
@@ -53,6 +66,7 @@
             <tr>
               <th scope="col" style="width: 40px">№</th>
               <th scope="col">Қисқа мазмуни</th>
+              <th scope="col">Соха</th>
               <th scope="col" style="width: 30%">Масъул ижрочи</th>
               <th scope="col" style="width: 100px">Муддати</th>
               <th scope="col" style="width: 140px">Жорий холати</th>
@@ -66,6 +80,7 @@
             <tr v-for="(cont, index) in getTasks.data">
               <td style="width: 40px" scope="row">{{ index + 1 }}</td>
               <td><router-link :to="`/crm/tasks/edit/${cont.id}`"> {{ cont.title }} </router-link><span class="reads_count" v-if="cont.unreads_count > 0">{{ cont.unreads_count }}</span></td>
+              <td>{{ cont.category }}</td>
               <td style="padding: 0px">
                 <ul class="userList">
                   <li
@@ -225,6 +240,7 @@ export default {
         date_from: "",
         date_to: "",
         download: "",
+        category: "",
         is_important: 0,
       },
       important: {

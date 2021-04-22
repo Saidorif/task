@@ -117,7 +117,19 @@
               </tbody>
             </table>
           </div>
-            <div class="input_style col-md-12 mt-5 mb-4">
+                      <div class="input_style col-md-4 mt-5 mb-4">
+                <select id="category" v-model="form.category" :class="isRequired(form.category) ? 'isRequired' : ''" required>
+                    <option value="Умумий масалалар">Умумий масалалар</option>
+                    <option value="Автомобил транспорти">Автомобил транспорти</option>
+                    <option value="Темир йўл транспорти">Темир йўл транспорти</option>
+                    <option value="Хаво транспорти">Хаво транспорти</option>
+                    <option value="Халқаро хамкорлик">Халқаро хамкорлик</option>
+                    <option value="Худудлар">Худудлар</option>
+                    <option value="Йўл хўжалиги">Йўл хўжалиги</option>
+                </select>
+                <label for="category">Сохани танланг</label>
+            </div>
+            <div class="input_style col-md-8 mt-5 mb-4">
                 <input
                 type="text"
                 class="form-control input_style"
@@ -215,7 +227,7 @@
                         <tbody>
                             <tr  v-for="(ans, ind) in item.items">
                                 <td style="width: 100px;">{{ $g.getDate(ans.created_at) }}</td>
-                                <td> <div v-html="ans.text"></div> </td>
+                                <td style="text-align: left;"> <div v-html="ans.text"></div> </td>
                                 <td style="width: 100px;">
                                     <a :href="'/'+ans.file" v-if="ans.file" class="btn_blue_icon" download=""  v-tooltip.top-center="'Юклаб олиш'">
                                         <i class="sidebar_icon" data-feather="download"></i>
@@ -307,6 +319,7 @@ export default {
             exp_date: "",
             users: [],
             status: '',
+            category: 'Умумий масалалар'
         },
         allItems: [{ text: "", file: null }],
         newItem: { text: "", file: null },
@@ -416,6 +429,7 @@ export default {
         this.userlist = this.getUserList;
         this.comment.id = this.$route.params.taskId
         this.form.title = this.getTask.title
+        this.form.category = this.getTask.category
         this.form.status = this.getTask.status
         this.form.exp_date = this.$g.getDate(this.getTask.exp_date)
         this.selectedUsersList = this.getTask.users.map(item => {
@@ -473,6 +487,7 @@ export default {
     async saveAction(sts) {
       if (
         this.form.title != "" &&
+        this.form.category != "" &&
         this.form.exp_date != "" &&
         this.selectedUsersList.length
       ) {
@@ -481,6 +496,7 @@ export default {
         });
         let formData = new FormData();
         formData.append("title", this.form.title);
+        formData.append("category", this.form.category);
         formData.append("id", this.$route.params.taskId);
         formData.append("exp_date", this.form.exp_date);
         if(sts){
