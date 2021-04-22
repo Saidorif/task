@@ -29,6 +29,9 @@ class TaskController extends Controller
         if(!empty($params['is_important'])){
             $builder->where(['is_important' => $params['is_important']]);
         }
+        if(!empty($params['category'])){
+            $builder->where(['category' => $params['category']]);
+        }
         if(!empty($params['date_from']) && !empty($params['date_to'])){
             $builder->whereBetween('exp_date',[$params['date_from'],$params['date_to']]);
         }
