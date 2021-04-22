@@ -63,6 +63,14 @@ Route::group([
         Route::post('region/update/{id}', 'RegionController@update');
         Route::delete('region/destroy/{id}', 'RegionController@destroy');
 
+        //Daily job CRUD
+        Route::post('dailyjob', 'DailyjobController@index');
+        Route::post('dailyjob/store', 'DailyjobController@store');
+        Route::get('dailyjob/edit/{id}', 'DailyjobController@edit');
+        Route::get('dailyjob/list', 'DailyjobController@list');
+        Route::post('dailyjob/update/{id}', 'DailyjobController@update');
+        Route::delete('dailyjob/destroy/{id}', 'DailyjobController@destroy');
+
         //Area CRUD
         Route::post('area', 'AreaController@index');
         Route::post('area/store', 'AreaController@store');
