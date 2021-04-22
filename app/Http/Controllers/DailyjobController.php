@@ -11,7 +11,12 @@ class DailyjobController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $result = Dailyjob::where(['user_id' => $user->id])->orderBy('id','DESC')->paginate(12);
+        $params = $request->all();
+        $builder = Dailyjob::query();
+        if(!empty($params['date'])){
+            $builder->where(['date' => $params['date']]);
+        }
+        $result = $builder->where(['user_id' => $user->id])->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true,'result' => $result]);
     }
 
