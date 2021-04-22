@@ -219,7 +219,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Сақлаш</button>
+                    <button type="button" class="btn_black" data-bs-dismiss="modal">Ёпиш</button>
+                    <button type="submit" class="btn_green">Сақлаш</button>
                 </div>
             </form>
         </div>
