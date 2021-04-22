@@ -19,6 +19,7 @@ import {task} from "./task.module"
 import {region} from "./region.module"
 import {area} from "./area.module"
 import {usertask} from "./usertask.module"
+import {dailyjob} from "./dailyjob.module"
 import {dashboard} from "./dashboard.module"
 
 import { TokenService } from './../services/storage.service'
@@ -46,6 +47,7 @@ const store = new Vuex.Store(
             region,
             area,
             usertask,
+            dailyjob,
             permission
 		},
 		state:{

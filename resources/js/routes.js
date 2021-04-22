@@ -47,6 +47,11 @@ import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
 import EditArea from './components/admin/area/EditArea'
 
+// Dailyjob
+import Dailyjob from './components/admin/dailyjob/Dailyjob'
+import AddDailyjob from './components/admin/dailyjob/AddDailyjob'
+import EditDailyjob from './components/admin/dailyjob/EditDailyjob'
+
 // Users
 import Users from './components/admin/users/Users'
 
@@ -122,6 +127,18 @@ const router = new Router({
 				{
 					path:'region/edit/:regionId',
 					component:EditRegion,
+				},
+                {
+					path:'dailyjob',
+					component:Dailyjob,
+				},
+				{
+					path:'dailyjob/add',
+					component:AddDailyjob,
+				},
+				{
+					path:'dailyjob/edit/:jobId',
+					component:EditDailyjob,
 				},
                 {
 					path:'area',

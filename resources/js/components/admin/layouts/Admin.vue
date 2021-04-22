@@ -78,6 +78,14 @@
                 </p>
                 </router-link>
             </li>
+            <li class="nav-item">
+                <router-link to="/crm/dailyjob" class="nav-link"  >
+                <i class="sidebar_icon" data-feather="calendar" ></i>
+                <p>
+                    Кунлик хисобот
+                </p>
+                </router-link>
+            </li>
             <li class="nav-item" v-if="$can('index', 'RegionController')">
                 <router-link to="/crm/region" class="nav-link">
                 <i class="sidebar_icon" data-feather="globe" ></i>

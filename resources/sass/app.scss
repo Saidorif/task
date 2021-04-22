@@ -19,6 +19,9 @@ h1,h2,h3,h4,h5,h6{
 ul li{
     list-style: none;
 }
+.text_link p{
+    margin-bottom: 0;
+}
 .login_alert{
     border: 1px solid red;
     border-radius: 6px;
