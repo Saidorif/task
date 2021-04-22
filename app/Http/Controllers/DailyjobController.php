@@ -10,7 +10,13 @@ class DailyjobController extends Controller
 {
     public function index(Request $request)
     {
-        $result = Dailyjob::orderBy('id','DESC')->paginate(12);
+        $user = $request->user();
+        $params = $request->all();
+        $builder = Dailyjob::query();
+        if(!empty($params['date'])){
+            $builder->where(['date' => $params['date']]);
+        }
+        $result = $builder->where(['user_id' => $user->id])->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true,'result' => $result]);
     }
 
@@ -31,6 +37,7 @@ class DailyjobController extends Controller
 
     public function store(Request $request)
     {
+        $user = $request->user();
         $inputs = $request->all();
         $validator = Validator::make($inputs,[
             'text' => 'required|string',
@@ -39,9 +46,13 @@ class DailyjobController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
+        $dailyjob = Dailyjob::where(['user_id' => $user->id,'date' => $inputs['date']])->first();
+        if($dailyjob){
+            return response()->json(['error' => true,'message' => 'Вы уже писали ежедневную работу на эту дату']);
+        }
         $inputs['user_id'] = $request->user()->id;
         $result = Dailyjob::create($inputs);
-        return response()->json(['success' => true,'message' => 'Daily job created']);
+        return response()->json(['success' => true,'message' => 'Создано ежедневное задание']);
     }
 
     public function update(Request $request,$id)
@@ -61,7 +72,7 @@ class DailyjobController extends Controller
         }
         $inputs['user_id'] = $request->user();
         $result->update($inputs);
-        return response()->json(['success' => true,'message' => 'Daily job updated']);
+        return response()->json(['success' => true,'message' => 'Ежедневное задание обновлено']);
     }
 
     public function destroy(Request $request, $id)
@@ -72,6 +83,6 @@ class DailyjobController extends Controller
             return response()->json(['error' => true,'message' => 'Not found']);
         }
         $result->delete();
-        return response()->json(['success' => true,'message' => 'Daily job deleted']);
+        return response()->json(['success' => true,'message' => 'Ежедневное задание удалено']);
     }
 }
