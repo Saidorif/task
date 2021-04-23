@@ -47,11 +47,9 @@ class DailyjobController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
-        // $dailyjob = Dailyjob::where(['user_id' => $user->id,'date' => $inputs['date']])->first();
-        $in_date = date("Y-m-d", strtotime($inputs['date']));
-        $dailyjob = DB::select("SELECT * FROM dailyjobs WHERE user_id=$user->id AND date='$in_date'");
-
-        if(!empty($dailyjob)){
+        $inputs['date'] = date("Y-m-d", strtotime($inputs['date']));
+        $dailyjob = Dailyjob::where('date','=',$inputs['date'])->where(['user_id' => $user->id])->first();
+        if($dailyjob){
             return response()->json(['error' => true,'message' => 'Сиз ушбу сана учун кунлик хисоботни  ёзгансиз']);
         }
         $inputs['user_id'] = $request->user()->id;
@@ -74,7 +72,12 @@ class DailyjobController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
-        $inputs['user_id'] = $request->user();
+        $inputs['date'] = date("Y-m-d", strtotime($inputs['date']));
+        $dailyjob = Dailyjob::where('date','=',$inputs['date'])->where(['user_id' => $user->id])->where('id','!=',$id)->first();
+        if($dailyjob){
+            return response()->json(['error' => true,'message' => 'Сиз ушбу сана учун кунлик хисоботни  ёзгансиз']);
+        }
+        $inputs['user_id'] = $user->id;
         $result->update($inputs);
         return response()->json(['success' => true,'message' => 'Ежедневное задание обновлено']);
     }
