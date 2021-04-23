@@ -4,8 +4,8 @@ const DailyjobService = {
 	jobslist(){
 		return ApiService.post(`/api/dailyjob/list`)
 	},
-	jobs(){
-		return ApiService.post(`/api/dailyjob`)
+	jobs(data){
+		return ApiService.post(`/api/dailyjob?page=${data.page}`, data)
 	},
 	addJob(data){
 		return ApiService.post(`/api/dailyjob/store`,data)

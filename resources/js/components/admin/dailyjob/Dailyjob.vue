@@ -4,10 +4,26 @@
       <h4 class="header_title">Кунлик хисобот</h4>
       <div class="d_flex">
         <router-link class="btn_green" to="/crm/dailyjob/add"
-          ><i data-feather="plus" class="sidebar_icon"></i>Топшириқ
+          ><i data-feather="plus" class="sidebar_icon"></i>Хисобот
           яратиш</router-link
         >
       </div>
+    </div>
+        <div class="jv_card filter">
+      <div class="input_style mr_15">
+        <date-picker
+          v-model="filter_date"
+          placeholder="Сана"
+          value-type="format"
+          format="DD.MM.YYYY"
+        ></date-picker>
+      </div>
+      <button type="button" class="btn_black mr_15" @click="filterDate">
+        <i data-feather="filter" class="sidebar_icon"></i> Саралаш
+      </button>
+      <button type="button" class="btn_yellow" @click="clearFilter">
+        <i data-feather="wind" class="sidebar_icon"></i> Тозалаш
+      </button>
     </div>
     <div class="jv_card">
       <div class="table-responsive">
@@ -68,7 +84,7 @@ export default {
   },
   data() {
     return {
-
+        filter_date: ''
     };
   },
   async mounted() {
@@ -85,6 +101,13 @@ export default {
     ...mapActions("dailyjob", ["actionJobs"]),
     async getResults(page = 1) {
       await this.actionJobs({ page: page});
+    },
+    async filterDate(){
+      await this.actionJobs({ page: 1, date: this.filter_date});
+    },
+    async clearFilter(){
+        this.filter_date = ''
+      await this.actionJobs({ page: 1, date: this.filter_date});
     },
     async deleteItem(id) {
       swal

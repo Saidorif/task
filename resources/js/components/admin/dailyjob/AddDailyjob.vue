@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent.enter="saveAction" enctype="multipart/form-data" class="add_action">
     <div class="page_header">
-      <h4 class="header_title">Топшириқ яратиш</h4>
+      <h4 class="header_title">Хисобот яратиш</h4>
       <div class="d-flex">
         <div class="mr_15">
                 <date-picker
@@ -84,7 +84,7 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "Хисобот яратишда хатолик мавжуд.",
+            title: this.getMassage.message,
           });
         }
       } else {

@@ -20,9 +20,9 @@ const getters = {
 
 
 const actions = {
-	async actionJobs({commit},page){
+	async actionJobs({commit},payload){
 		try {
-			const actions =  await DailyjobService.jobs(page);
+			const actions =  await DailyjobService.jobs(payload);
 			await commit('setJobs',actions.data.result)
 			return true
 		} catch (error) {

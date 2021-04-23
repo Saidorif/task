@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Dailyjob;
-
+use Illuminate\Support\Facades\DB;
 class DailyjobController extends Controller
 {
     public function index(Request $request)
@@ -14,7 +14,8 @@ class DailyjobController extends Controller
         $params = $request->all();
         $builder = Dailyjob::query();
         if(!empty($params['date'])){
-            $builder->where(['date' => $params['date']]);
+            $in_date = date("Y-m-d", strtotime($params['date']));
+            $builder->where(['date' => $in_date]);
         }
         $result = $builder->where(['user_id' => $user->id])->orderBy('id','DESC')->paginate(12);
         return response()->json(['success' => true,'result' => $result]);
@@ -46,9 +47,12 @@ class DailyjobController extends Controller
         if($validator->fails()){
             return response()->json(['error' => true,'message' => $validator->messages()]);
         }
-        $dailyjob = Dailyjob::where(['user_id' => $user->id,'date' => $inputs['date']])->first();
-        if($dailyjob){
-            return response()->json(['error' => true,'message' => 'Вы уже писали ежедневную работу на эту дату']);
+        // $dailyjob = Dailyjob::where(['user_id' => $user->id,'date' => $inputs['date']])->first();
+        $in_date = date("Y-m-d", strtotime($inputs['date']));
+        $dailyjob = DB::select("SELECT * FROM dailyjobs WHERE user_id=$user->id AND date='$in_date'");
+
+        if(!empty($dailyjob)){
+            return response()->json(['error' => true,'message' => 'Сиз ушбу сана учун кунлик хисоботни  ёзгансиз']);
         }
         $inputs['user_id'] = $request->user()->id;
         $result = Dailyjob::create($inputs);
