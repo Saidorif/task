@@ -17,7 +17,7 @@
         </div>
         <script src="{{ asset('js/feather.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.js') }}"></script>
-        <script src="{{ asset('js/app.js?version=1.1.5') }}"></script>
+        <script src="{{ asset('js/app.js?version=1.1.6') }}"></script>
         <script>
             feather.replace()
         </script>
