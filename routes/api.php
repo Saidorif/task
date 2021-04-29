@@ -28,6 +28,9 @@ Route::group([
         Route::get('user/edit/{id}','UserController@edit');
 
         //Structure
+        Route::get('structure','PositionController@index');
+        Route::get('structure/edit/{id}','PositionController@edit');
+        Route::post('structure/update/{id}','PositionController@update');
         Route::get('structure/list','PositionController@list');
 
         //Task
