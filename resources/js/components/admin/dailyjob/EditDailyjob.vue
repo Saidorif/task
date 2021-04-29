@@ -86,7 +86,7 @@ export default {
           toast.fire({
             type: "error",
             icon: "error",
-            title: "Хисобот яратишда хатолик мавжуд.",
+            title: this.getMassage.message,
           });
         }
       } else {
