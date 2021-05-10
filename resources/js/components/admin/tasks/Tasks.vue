@@ -8,8 +8,7 @@
         </button>
         <router-link class="btn_green" to="/crm/tasks/add"
           ><i data-feather="plus" class="sidebar_icon"></i>Топшириқ
-          яратиш</router-link
-        >
+          яратиш</router-link>
       </div>
     </div>
     <div class="jv_card filter">

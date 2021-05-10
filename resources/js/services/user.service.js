@@ -86,7 +86,6 @@ const UserService = {
         }else{
             return ApiService.get(`/api/user/list`);
         }
-
 	},
 	structureList(){
 		return ApiService.get(`/api/structure/list`);
