@@ -7,6 +7,9 @@ const UsersService = {
     addUser(data){
 		return ApiService.post(`/api/user/store`, data);
 	},
+    structureList(){
+		return ApiService.get(`/api/structure/list`)
+	},
 };
 
 export { UsersService };

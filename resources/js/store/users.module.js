@@ -2,13 +2,17 @@ import {UsersService} from "../services/users.service";
 
 const state = {
 	allusers: {},
-    message:null,
+    message:{},
+    structureList:{},
 };
 
 const getters = {
 	getAllUsers(state){
 		return state.allusers
 	},
+    getStructureList(state){
+		return state.structureList
+    },
 	getMessage(state){
 		return state.message
 	},
@@ -20,6 +24,15 @@ const actions = {
 		try {
 			const allusers =  await UsersService.allusers(payload);
 			await commit('setAllUsers',allusers.data.result)
+			return true
+		} catch (error) {
+			return false
+		}
+	},
+	async actionStructureList({commit}){
+		try {
+			const allusers =  await UsersService.structureList();
+			await commit('setStructureList',allusers.data)
 			return true
 		} catch (error) {
 			return false
@@ -39,6 +52,9 @@ const actions = {
 const mutations = {
 	setAllUsers(state, allusers){
 		state.allusers = allusers
+	},
+	setStructureList(state, structureList){
+		state.structureList = structureList
 	},
 	setMessage(state, mesg){
 		state.message = mesg

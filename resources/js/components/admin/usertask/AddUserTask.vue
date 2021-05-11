@@ -23,12 +23,6 @@
                                 label="name surename"
                                 :internal-search="false"
                                 track-by="name" @search-change="asyncFind">
-                                    <!-- <template slot="tag" slot-scope="{ option, remove }">
-                                        <span class="multiselect__tag" :class="option.svot ? 'selected' : ''">
-                                            <span @click="selectSvot(option)">{{ option.name }} {{ option.surename }}</span>
-                                            <i aria-hidden="true" tabindex="1" class="multiselect__tag-icon" @click="remove(option)"></i>
-                                        </span>
-                                    </template> -->
                                 </multiselect>
                     </div>
                     <div class="input_style col-md-5">
