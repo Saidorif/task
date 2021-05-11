@@ -4,6 +4,9 @@
 			<h4 class="header_title">
 				Фойдаланувчилар
 			</h4>
+            <router-link class="btn_green" to="/crm/users/add"
+            ><i data-feather="plus" class="sidebar_icon"></i>Фойдаланувчи қўшиш
+            </router-link>
 		</div>
         <div class="jv_card">
             <div class="table-responsive">

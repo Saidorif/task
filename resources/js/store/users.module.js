@@ -2,11 +2,15 @@ import {UsersService} from "../services/users.service";
 
 const state = {
 	allusers: {},
+    message:null,
 };
 
 const getters = {
 	getAllUsers(state){
 		return state.allusers
+	},
+	getMessage(state){
+		return state.message
 	},
 };
 
@@ -21,11 +25,23 @@ const actions = {
 			return false
 		}
 	},
+    async ActionAddUser({commit}, data){
+		try {
+			let sendData = await UsersService.addUser(data);
+			await commit('setMessage',sendData.data)
+			return true
+		}catch(e){
+			return false
+		}
+	},
 };
 
 const mutations = {
 	setAllUsers(state, allusers){
 		state.allusers = allusers
+	},
+	setMessage(state, mesg){
+		state.message = mesg
 	},
 };
 

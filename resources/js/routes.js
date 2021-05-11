@@ -54,6 +54,8 @@ import EditDailyjob from './components/admin/dailyjob/EditDailyjob'
 
 // Users
 import Users from './components/admin/users/Users'
+import EditUser from './components/admin/users/EditUser'
+import AddUser from './components/admin/users/AddUser'
 
 // NotFound
 import NotFound from './components/NotFound/NotFound'
@@ -87,6 +89,14 @@ const router = new Router({
 				{
 					path:'users',
 					component:Users,
+				},
+				{
+					path:'users/add',
+					component:AddUser,
+				},
+				{
+					path:'users/edit/:userId',
+					component:EditUser,
 				},
 				{
 					path:'tasks',
