@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Position;
 use App\Structure;
 use Illuminate\Http\Request;
 use Validator;
@@ -22,6 +23,13 @@ class PositionController extends Controller
     {
         $result = Structure::orderBy('id','DESC')->get();
         return response()->json(['success' => true,'result' => $result]);
+    }
+
+    public function positionList(Request $request)
+    {
+        $structure = $request->input('structure_id');
+        $result = Position::where(['structure_id' => $structure])->get();
+        return response()->json(['success' => true, 'result' => $result]);
     }
 
     public function edit(Request $request,$id)

@@ -32,6 +32,7 @@ Route::group([
         Route::get('structure/edit/{id}','PositionController@edit');
         Route::post('structure/update/{id}','PositionController@update');
         Route::get('structure/list','PositionController@list');
+        Route::post('position/list','PositionController@positionList');
 
         //Task
         Route::post('task','TaskController@index');
