@@ -468,7 +468,7 @@ export default {
       this.filterShow = !this.filterShow;
     },
     async selectCategory(val){
-        await this.actionTaskByDate({ calendar: '', category: val });
+        await this.actionDashboard(val);
     },
     hideModal(){
         this.modalcalenar.hide();
