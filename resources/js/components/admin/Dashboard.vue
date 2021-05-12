@@ -5,13 +5,7 @@
     </div>
     <div class="mb-5">
         <div class="dashboard_header_top">
-            <div class="category_item active" @click="selectCategory('Умумий масалалар')">Умумий масалалар</div>
-            <div class="category_item" @click="selectCategory('Автомобил транспорти')">Автомобил транспорти</div>
-            <div class="category_item" @click="selectCategory('Темир йўл транспорти')">Темир йўл транспорти</div>
-            <div class="category_item" @click="selectCategory('Хаво транспорти')">Хаво транспорти</div>
-            <div class="category_item" @click="selectCategory('Халқаро хамкорлик')">Халқаро хамкорлик</div>
-            <div class="category_item" @click="selectCategory('Худудлар')">Худудлар</div>
-            <div class="category_item" @click="selectCategory('Йўл хўжалиги')">Йўл хўжалиги</div>
+            <div class="category_item" :class="{'active': cat.selected}" v-for="cat in categoryList" @click="selectCategory(cat)">{{cat.name}}</div>
         </div>
         <div class="dashboard_header">
             <div class="header_item">
@@ -437,6 +431,15 @@ export default {
           },
         },
       },
+      categoryList:[
+        {name: 'Умумий масалалар', selected: true},
+        {name: 'Автомобил транспорти', selected: false},
+        {name: 'Темир йўл транспорти', selected: false},
+        {name: 'Хаво транспорти', selected: false},
+        {name: 'Халқаро хамкорлик', selected: false},
+        {name: 'Худудлар', selected: false},
+        {name: 'Йўл хўжалиги', selected: false},
+      ]
     };
   },
   computed: {
@@ -467,8 +470,12 @@ export default {
       this.filter.date_to = "";
       this.filterShow = !this.filterShow;
     },
-    async selectCategory(val){
-        await this.actionDashboard(val);
+    async selectCategory(data){
+        this.categoryList.forEach((item)=>{
+            item.selected = false
+        })
+        data.selected = true
+        await this.actionDashboard(data.name);
     },
     hideModal(){
         this.modalcalenar.hide();
