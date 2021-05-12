@@ -29,6 +29,9 @@ class TaskController extends Controller
         if(!empty($params['is_important'])){
             $builder->where(['is_important' => $params['is_important']]);
         }
+        if(!empty($params['region_id'])){
+            $builder->where(['region_id' => $params['region_id']]);
+        }
         if(!empty($params['category'])){
             $builder->where(['category' => $params['category']]);
         }
