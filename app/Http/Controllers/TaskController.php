@@ -50,6 +50,7 @@ class TaskController extends Controller
     public function getByDate(Request $request)
     {
         $inputs = $request->all();
+        $user = $request->user();
         $validator = Validator::make($inputs,[
             'calendar' => 'required|date',
         ]);
@@ -59,7 +60,7 @@ class TaskController extends Controller
         $start_month = $inputs['calendar'];
         $result = [];
         //$result = DB::select("SELECT * FROM `tasks` WHERE exp_date BETWEEN '$start_month' AND '$start_month'");
-        $result = Task::with(['users','items','creater'])->where(['exp_date' => $start_month])->get();
+        $result = Task::with(['users','items','creater'])->where(['exp_date' => $start_month,'user_id' => $user->id])->get();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
@@ -350,7 +351,7 @@ class TaskController extends Controller
         //$received = $builder->get()->count();
         // $result['received'] = $received;
         $result['unreads'] = $unreads;
-        $d = DB::select("SELECT COUNT(id) summa  FROM `task_users` where `user_id` = '$user->id' AND `read` = 0");
+        $d = DB::select("SELECT COUNT(tu.id) summa  FROM `task_users` AS tu LEFT JOIN `tasks` AS t ON t.id = tu.task_id where `tu`.`user_id` = '$user->id' AND `tu`.`read` = 0 AND t.status != 'draft'");
         $result['received'] = $d  ? $d[0]->summa : 0;
         //Sent
         $t_ids = Task::where(['user_id' => $user->id,'status' => 'active'])->pluck('id')->toArray();
