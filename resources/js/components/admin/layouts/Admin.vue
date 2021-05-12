@@ -4,10 +4,6 @@
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
-        <!-- <div class="input_search">
-            <i class="input_icon" data-feather="search"></i>
-            <input type="search" placeholder="Search here...">
-        </div> -->
         <!-- Right navbar links -->
         <div class="user_info">
             <span><i data-feather="user"></i> <small>{{ getTaskTotal.unreads }}</small> </span>

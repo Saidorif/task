@@ -95,10 +95,10 @@ export default {
     feather.replace();
   },
   computed: {
-    ...mapGetters("dailyjob", ["getJobs"]),
+    ...mapGetters("dailyjob", ["getJobs", "getMassage"]),
   },
   methods: {
-    ...mapActions("dailyjob", ["actionJobs"]),
+    ...mapActions("dailyjob", ["actionJobs", "actionDeleteJob"]),
     async getResults(page = 1) {
       await this.actionJobs({ page: page});
     },
@@ -123,15 +123,15 @@ export default {
         .then(async (result) => {
           if (result.isConfirmed) {
             let page = 1;
-            // await this.actionDeleteTask(id);
-            // if (this.getTaskMassage.success) {
-            //   await this.actionTasks(page);
-            //   toast.fire({
-            //     type: "success",
-            //     icon: "success",
-            //     title: this.getTaskMassage.message,
-            //   });
-            // }
+            await this.actionDeleteJob(id);
+            if (this.getMassage.success) {
+              await this.actionJobs(page);
+              toast.fire({
+                type: "success",
+                icon: "success",
+                title: this.getMassage.message,
+              });
+            }
           }
         });
     },

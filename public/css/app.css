@@ -197,16 +197,16 @@ ul li {
 }
 
 .wrapper.show {
-  padding-left: 250px;
+  padding-left: 280px;
 }
 
 .wrapper.show .main-sidebar {
-  width: 250px;
+  width: 280px;
 }
 
 .wrapper.show .main-sidebar .sidebar-header {
   padding: 0 25px;
-  width: 250px;
+  width: 280px;
 }
 
 .wrapper.show .main-sidebar .sidebar-header .brand-link {
@@ -249,7 +249,7 @@ ul li {
   position: fixed;
   top: 0;
   right: 0;
-  left: 250px;
+  left: 280px;
   z-index: 978;
   box-shadow: 3px 0 10px 0 rgba(183, 192, 206, 0.2);
   transition: width 0.1s ease, left 0.1s ease;
@@ -379,7 +379,7 @@ ul li {
   color: #bfc3ce;
   text-decoration: none;
   white-space: nowrap;
-  font-size: 14px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   padding: 0;
@@ -400,7 +400,7 @@ ul li {
   background: #727cf5;
   position: absolute;
   left: -10px;
-  top: -3px;
+  top: 2px;
   transition: 0.5s;
 }
 
@@ -1444,6 +1444,14 @@ a {
 
 .task_add_block .select_serach {
   width: 40%;
+}
+
+thead tr th {
+  font-size: 16px;
+}
+
+tbody tr td {
+  font-size: 16px;
 }
 
 @media (max-width: 1700px) {

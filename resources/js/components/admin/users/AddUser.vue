@@ -27,18 +27,18 @@
           </div>
           <div class="input_style col-md-3">
             <select
-              id="structure_id"
-              v-model="form.structure_id"
+              id="p_id"
+              v-model="form.p_id"
               class="form-control input_style"
-              :class="isRequired(form.structure_id) ? 'isRequired' : ''"
+              :class="isRequired(form.p_id) ? 'isRequired' : ''"
               required
             >
-              <option value="" selected disabled>Бошқармани танланг</option>
-              <option v-for="(structure, index) in getStructureList.result" :value="structure.id">
-                {{ structure.name }}
+              <option value="" selected disabled>Лавозимни танланг</option>
+              <option v-for="(pos, index) in getPositionList.result" :value="pos.id">
+                {{ pos.name }}
               </option>
             </select>
-            <label for="structure_id ">Бошқарма</label>
+            <label for="p_id ">Лавозим</label>
           </div>
           <div class="input_style col-md-3">
             <input
@@ -161,6 +161,7 @@ export default {
         gender: "man",
         role_id: "",
         structure_id: "",
+        p_id: "",
         status: "active",
       },
     };
@@ -169,14 +170,18 @@ export default {
     await this.actionRoleList();
     await this.actionStructureList();
     feather.replace();
-    console.log(this.getStructureList);
+  },
+  watch:{
+    'form.structure_id': async function(val) {
+        await this.actionPositionList({structure_id: val})
+    }
   },
   computed: {
-    ...mapGetters("users", ["getMessage", "getStructureList"]),
+    ...mapGetters("users", ["getMessage", "getStructureList", "getPositionList"]),
     ...mapGetters("role", ["getRoleList"]),
   },
   methods: {
-    ...mapActions("users", ["ActionAddUser", "actionStructureList"]),
+    ...mapActions("users", ["ActionAddUser", "actionStructureList", "actionPositionList"]),
     ...mapActions("role", ["actionRoleList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
@@ -190,35 +195,35 @@ export default {
         this.form.confirm_password != "" &&
         this.form.gender != "" &&
         this.form.role_id != "" &&
+        this.form.structure_id != "" &&
+        this.form.p_id != "" &&
         this.form.status != ""
       ) {
         await this.ActionAddUser(this.form);
-        console.log(this.getMessage);
-
         if (this.getMessage.success) {
-          toast.fire({
-            type: "success",
-            icon: "success",
-            title: this.getMassage.message,
-          });
-          this.$router.push("/crm/users");
-          this.requiredInput = false;
-        } else {
-          if (typeof this.getMessage.message == "object") {
-            Object.values(this.getMessage.message).forEach((element) => {
-              toast.fire({
-                type: "error",
-                icon: "error",
-                title: element[0],
-              });
-            });
-          } else {
             toast.fire({
-              type: "error",
-              icon: "error",
-              title: this.getMessage.message,
+                type: "success",
+                icon: "success",
+                title: this.getMessage.message,
             });
-          }
+            this.$router.push("/crm/users");
+            this.requiredInput = false;
+        } else {
+            if (typeof this.getMessage.message == "object") {
+                Object.values(this.getMessage.message).forEach((element) => {
+                    toast.fire({
+                        type: "error",
+                        icon: "error",
+                        title: element[0],
+                    });
+                });
+            }else {
+                toast.fire({
+                    type: "error",
+                    icon: "error",
+                    title: this.getMessage.message,
+                });
+            }
         }
       } else {
         this.requiredInput = true;

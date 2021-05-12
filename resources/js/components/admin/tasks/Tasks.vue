@@ -45,6 +45,13 @@
         </select>
         <label for="category">Соха</label>
       </div>
+      <div class="input_style mr_15" v-if="filter.category == 'Худудлар'">
+        <select v-model="filter.region" id="region">
+            <option value="">Худудни танланг</option>
+            <option :value="item.id" v-for="item in getRegionList">{{ item.name }}</option>
+        </select>
+        <label for="region">Худуд</label>
+      </div>
         <div class="input_checkbox mr_15">
           <input type="checkbox" v-model="filter.is_important" id="isimportant">
           <label for="isimportant">Долзарблари</label>
@@ -147,12 +154,12 @@
               </td>
             </tr>
           </tbody>
-          <pagination
+        </table>
+        <pagination
             :limit="4"
             :data="getTasks"
             @pagination-change-page="getResults"
           ></pagination>
-        </table>
       </div>
     </div>
     <div id="word" v-if="getTaskList.length">
@@ -241,6 +248,7 @@ export default {
         date_to: "",
         download: "",
         category: "",
+        region: "",
         is_important: 0,
       },
       important: {
@@ -261,6 +269,7 @@ export default {
           }
       }
     await this.actionTasks({ page: 1, filter: this.filter });
+    await this.actionRegionList();
     feather.replace();
     $(".userList").on("click", function () {
       $(this).toggleClass("active");
@@ -274,6 +283,7 @@ export default {
   },
   computed: {
     ...mapGetters("task", ["getTasks", "getTaskMassage", "getTaskList"]),
+    ...mapGetters("region", ["getRegionList"]),
   },
   watch: {
     filter_date: function (val) {
@@ -290,6 +300,7 @@ export default {
   },
   methods: {
     ...mapActions("task", ["actionTasks", "actionDeleteTask", 'actionImportantTask']),
+    ...mapActions("region", ["actionRegionList"]),
     async getResults(page = 1) {
       await this.actionTasks({ page: page, filter: this.filter  });
     },

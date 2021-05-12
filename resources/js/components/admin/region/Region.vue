@@ -30,8 +30,9 @@
 							</td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="getRegions" @pagination-change-page="getResults"></pagination>
 				</table>
+					<pagination :limit="4" :data="getRegions" @pagination-change-page="getResults"></pagination>
+
 			  </div>
         </div>
 	</div>
