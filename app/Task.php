@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-    protected $fillable = ['title','exp_date','status','user_id','is_important','comment','read','category'];
+    protected $fillable = ['title','exp_date','status','user_id','is_important','comment','read','category','region_id'];
 
     protected $dates = ['exp_date'];
 
@@ -60,5 +60,10 @@ class Task extends Model
     {
         $user_id = request()->user()->id;
         return $this->tuiread()->where('read','=',0)->where('user_id','=',$user_id);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(\App\Region::class,'region_id');
     }
 }
