@@ -4,164 +4,173 @@
       <h4 class="header_title">Aдмин панелига хуш келибсиз</h4>
     </div>
     <div class="mb-5">
-      <div class="dashboard_header">
-        <div class="header_item">
-          <span class="icon">
-            <i data-feather="layers"></i>
-          </span>
-          <div class="info">
-            <p>Жами</p>
-            <h6 v-if="getDashboard.info">
-              {{ getDashboard.info[0].total ? getDashboard.info[0].total : 0 }}
-            </h6>
-          </div>
-          <router-link class="read_more" to="/crm/tasks">Батафсил</router-link>
+        <div class="dashboard_header_top">
+            <div class="category_item active" @click="selectCategory('Умумий масалалар')">Умумий масалалар</div>
+            <div class="category_item" @click="selectCategory('Автомобил транспорти')">Автомобил транспорти</div>
+            <div class="category_item" @click="selectCategory('Темир йўл транспорти')">Темир йўл транспорти</div>
+            <div class="category_item" @click="selectCategory('Хаво транспорти')">Хаво транспорти</div>
+            <div class="category_item" @click="selectCategory('Халқаро хамкорлик')">Халқаро хамкорлик</div>
+            <div class="category_item" @click="selectCategory('Худудлар')">Худудлар</div>
+            <div class="category_item" @click="selectCategory('Йўл хўжалиги')">Йўл хўжалиги</div>
         </div>
-        <div class="header_item">
-          <span class="icon">
-            <i data-feather="check"></i>
-          </span>
-          <div class="info">
-            <p>Бажарилган топшириқлар</p>
-            <h6 v-if="getDashboard.info">
-              {{
-                getDashboard.info[0].accepted
-                  ? getDashboard.info[0].accepted
-                  : 0
-              }}
-            </h6>
-          </div>
-          <router-link class="read_more" to="/crm/tasks?status=accepted"
-            >Батафсил</router-link
-          >
-        </div>
-        <div class="header_item">
-          <span class="icon">
-            <i data-feather="clock"></i>
-          </span>
-          <div class="info">
-            <p>Aмалдаги топшириқлар</p>
-            <h6 v-if="getDashboard.info">
-              {{
-                getDashboard.info[0].active ? getDashboard.info[0].active : 0
-              }}
-            </h6>
-          </div>
-          <router-link class="read_more" to="/crm/tasks?status=active"
-            >Батафсил</router-link
-          >
-        </div>
-        <div class="header_item">
-          <span class="icon">
-            <i data-feather="slash"></i>
-          </span>
-          <div class="info">
-            <p>Муддати ўтган</p>
-            <h6 v-if="getDashboard.info">
-              {{
-                getDashboard.info[0].rejected
-                  ? getDashboard.info[0].rejected
-                  : 0
-              }}
-            </h6>
-          </div>
-          <router-link class="read_more" to="/crm/tasks?status=rejected"
-            >Батафсил</router-link
-          >
-        </div>
-        <div class="header_item mr_0">
-          <span class="icon">
-            <i data-feather="archive"></i>
-          </span>
-          <div class="info">
-            <p>Мухим топшириқлар</p>
-            <h6 v-if="getDashboard.info">
-              {{
-                getDashboard.info[0].importants
-                  ? getDashboard.info[0].importants
-                  : 0
-              }}
-            </h6>
-          </div>
-          <router-link class="read_more" to="/crm/tasks?status=is_important"
-            >Батафсил</router-link
-          >
-        </div>
-        <div class="jv_card">
-            <h6>Ижро интизомининг бузилиш мониторинги</h6>
-            <table
-              class="table table-bordered text-center table-hover table-striped"
-              v-if="getDashboard.kartoteka && getDashboard.kartoteka.length"
+        <div class="dashboard_header">
+            <div class="header_item">
+            <span class="icon">
+                <i data-feather="layers"></i>
+            </span>
+            <div class="info">
+                <p>Жами</p>
+                <h6 v-if="getDashboard.info">
+                {{ getDashboard.info[0].total ? getDashboard.info[0].total : 0 }}
+                </h6>
+            </div>
+            <router-link class="read_more" to="/crm/tasks">Батафсил</router-link>
+            </div>
+            <div class="header_item">
+            <span class="icon">
+                <i data-feather="check"></i>
+            </span>
+            <div class="info">
+                <p>Бажарилган топшириқлар</p>
+                <h6 v-if="getDashboard.info">
+                {{
+                    getDashboard.info[0].accepted
+                    ? getDashboard.info[0].accepted
+                    : 0
+                }}
+                </h6>
+            </div>
+            <router-link class="read_more" to="/crm/tasks?status=accepted"
+                >Батафсил</router-link
             >
-              <thead>
-                <tr>
-                  <th scope="col" style="width: 40px">№</th>
-                  <th scope="col">Жўнатувчи</th>
-                  <th scope="col">Берилган сана</th>
-                  <th scope="col">Ижро муддати</th>
-                  <th scope="col">Қисқа мазмуни</th>
-                  <th scope="col">Бажарувчилар</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(task, index) in getDashboard.kartoteka">
-                  <td scope="row">{{ index + 1 }}</td>
-                  <td>
-                    <router-link :to="`/crm/tasks/edit/${task.id}`">
-                      {{ task.creater.surename }} {{ task.creater.name }}
-                      {{ task.creater.lastname }}
-                    </router-link>
-                  </td>
-                  <td>{{ $g.getDate(task.created_at) }}г</td>
-                  <td>{{ $g.getDate(task.exp_date) }}г</td>
-                  <td>{{ task.title }}</td>
-                  <td style="padding: 0px">
-                    <ul>
-                      <li
-                        v-for="item in task.users"
-                        :class="item.svot == 1 ? 'active' : ''"
-                        v-tooltip.top-center="
-                          '<b>' +
-                          item.user.position.name +
-                          '</b><br> ' +
-                          item.user.name +
-                          ' ' +
-                          item.user.surename
-                        "
-                      >
-                        {{ item.user.position.structure.name }}
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
-        <div class="calendar_dash">
-            <DatePicker
-                class="custom-calendar max-w-full"
-                :attributes="attributes"
-                :first-day-of-week="2"
-                locale="ru"
-                :masks="{ weekdays: 'WW' }"
-                format=""
-                value=""
-                :model-config="modelConfig"
-                @update:from-page="pageChange"
+            </div>
+            <div class="header_item">
+            <span class="icon">
+                <i data-feather="clock"></i>
+            </span>
+            <div class="info">
+                <p>Aмалдаги топшириқлар</p>
+                <h6 v-if="getDashboard.info">
+                {{
+                    getDashboard.info[0].active ? getDashboard.info[0].active : 0
+                }}
+                </h6>
+            </div>
+            <router-link class="read_more" to="/crm/tasks?status=active"
+                >Батафсил</router-link
             >
-                <template v-slot:day-content="{ day, attributes }">
-                <div class="day_block" @click="onDayClick(day)">
-                    <p>
-                    <b class="day-label text-sm text-gray-900">{{ day.day }}</b>
-                    <sub v-if="attributes && attributes.length">{{
-                        attributes[0].customData.qty
-                    }}</sub>
-                    </p>
-                </div>
-                </template>
-            </DatePicker>
+            </div>
+            <div class="header_item">
+            <span class="icon">
+                <i data-feather="slash"></i>
+            </span>
+            <div class="info">
+                <p>Муддати ўтган</p>
+                <h6 v-if="getDashboard.info">
+                {{
+                    getDashboard.info[0].rejected
+                    ? getDashboard.info[0].rejected
+                    : 0
+                }}
+                </h6>
+            </div>
+            <router-link class="read_more" to="/crm/tasks?status=rejected"
+                >Батафсил</router-link
+            >
+            </div>
+            <div class="header_item mr_0">
+            <span class="icon">
+                <i data-feather="archive"></i>
+            </span>
+            <div class="info">
+                <p>Мухим топшириқлар</p>
+                <h6 v-if="getDashboard.info">
+                {{
+                    getDashboard.info[0].importants
+                    ? getDashboard.info[0].importants
+                    : 0
+                }}
+                </h6>
+            </div>
+            <router-link class="read_more" to="/crm/tasks?status=is_important"
+                >Батафсил</router-link
+            >
+            </div>
+            <div class="jv_card">
+                <h6>Ижро интизомининг бузилиш мониторинги</h6>
+                <table
+                class="table table-bordered text-center table-hover table-striped"
+                v-if="getDashboard.kartoteka && getDashboard.kartoteka.length"
+                >
+                <thead>
+                    <tr>
+                    <th scope="col" style="width: 40px">№</th>
+                    <th scope="col">Жўнатувчи</th>
+                    <th scope="col">Берилган сана</th>
+                    <th scope="col">Ижро муддати</th>
+                    <th scope="col">Қисқа мазмуни</th>
+                    <th scope="col">Бажарувчилар</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(task, index) in getDashboard.kartoteka">
+                    <td scope="row">{{ index + 1 }}</td>
+                    <td>
+                        <router-link :to="`/crm/tasks/edit/${task.id}`">
+                        {{ task.creater.surename }} {{ task.creater.name }}
+                        {{ task.creater.lastname }}
+                        </router-link>
+                    </td>
+                    <td>{{ $g.getDate(task.created_at) }}г</td>
+                    <td>{{ $g.getDate(task.exp_date) }}г</td>
+                    <td>{{ task.title }}</td>
+                    <td style="padding: 0px">
+                        <ul>
+                        <li
+                            v-for="item in task.users"
+                            :class="item.svot == 1 ? 'active' : ''"
+                            v-tooltip.top-center="
+                            '<b>' +
+                            item.user.position.name +
+                            '</b><br> ' +
+                            item.user.name +
+                            ' ' +
+                            item.user.surename
+                            "
+                        >
+                            {{ item.user.position.structure.name }}
+                        </li>
+                        </ul>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+            <div class="calendar_dash">
+                <DatePicker
+                    class="custom-calendar max-w-full"
+                    :attributes="attributes"
+                    :first-day-of-week="2"
+                    locale="ru"
+                    :masks="{ weekdays: 'WW' }"
+                    format=""
+                    value=""
+                    :model-config="modelConfig"
+                    @update:from-page="pageChange"
+                >
+                    <template v-slot:day-content="{ day, attributes }">
+                    <div class="day_block" @click="onDayClick(day)">
+                        <p>
+                        <b class="day-label text-sm text-gray-900">{{ day.day }}</b>
+                        <sub v-if="attributes && attributes.length">{{
+                            attributes[0].customData.qty
+                        }}</sub>
+                        </p>
+                    </div>
+                    </template>
+                </DatePicker>
+            </div>
         </div>
-      </div>
     </div>
     <div
       class="modal fade"
@@ -458,6 +467,9 @@ export default {
       this.filter.date_to = "";
       this.filterShow = !this.filterShow;
     },
+    async selectCategory(val){
+        await this.actionTaskByDate({ calendar: '', category: val });
+    },
     hideModal(){
         this.modalcalenar.hide();
     },
@@ -468,8 +480,6 @@ export default {
       if (this.getTask.result && this.getTask.result.length) {
         this.modalcalenar.show();
         this.tasksList = this.getTask.result;
-        console.log(this.tasksList)
-        console.log(this.getUser)
       }
     },
     async pageChange(dataYear) {
@@ -532,4 +542,25 @@ export default {
 };
 </script>
 <style scoped>
+    .dashboard_header_top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        padding: 0px 10px;
+    }
+    .dashboard_header_top .category_item{
+        background: #fff;
+        border-radius: 8px;
+        padding: 10px 30px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: .5s;
+    }
+    .dashboard_header_top .category_item.active,
+    .dashboard_header_top .category_item:hover{
+        box-shadow: 0px 0px 6px 0px #b1e3ff;
+        color: #2f6cc7;
+    }
 </style>

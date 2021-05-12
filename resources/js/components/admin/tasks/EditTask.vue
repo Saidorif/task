@@ -367,12 +367,10 @@ export default {
   async mounted() {
     await this.rerenderData();
     await this.ActionStructureList();
-
     this.isLoading = false
     this.modalcancel = new bootstrap.Modal(document.getElementById('exampleModal'), {
-            keyboard: false
+      keyboard: false
     })
-
   },
   methods: {
     ...mapActions("task", ["actionEditTask", "actionUpdateTask", "actionAcceptTask", "actionRejectTask", "actionShowTaskAnswer", "actionGetTotalsTask"]),
@@ -433,12 +431,12 @@ export default {
         this.form.status = this.getTask.status
         this.form.exp_date = this.$g.getDate(this.getTask.exp_date)
         this.selectedUsersList = this.getTask.users.map(item => {
-                let data = item.user
-                data.svot = item.svot
-                if(item.svot == 1){
-                    this.hasSvot = true
-                }
-                return data
+          let data = item.user
+          data.svot = item.svot
+          if(item.svot == 1){
+              this.hasSvot = true
+          }
+          return data
         })
         this.allItems = this.getTask.items
         feather.replace();

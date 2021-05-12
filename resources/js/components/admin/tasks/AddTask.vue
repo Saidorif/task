@@ -116,7 +116,7 @@
               </tbody>
             </table>
           </div>
-            <div class="input_style col-md-4 mt-5 mb-4">
+            <div class="input_style col-md-2 mt-5 mb-4">
                 <select id="category" v-model="form.category" :class="isRequired(form.category) ? 'isRequired' : ''" required>
                     <option value="Умумий масалалар">Умумий масалалар</option>
                     <option value="Автомобил транспорти">Автомобил транспорти</option>
@@ -127,6 +127,13 @@
                     <option value="Йўл хўжалиги">Йўл хўжалиги</option>
                 </select>
                 <label for="category">Сохани танланг</label>
+            </div>
+            <div class="col-md-2 input_style mb-4" v-if="form.category == 'Худудлар'">
+                <select v-model="form.region" id="region">
+                    <option value="">Худудни танланг</option>
+                    <option :value="item.id" v-for="item in getRegionList">{{ item.name }}</option>
+                </select>
+                <label for="region">Худуд</label>
             </div>
           <div class="input_style col-md-8 mt-5 mb-4">
             <input
@@ -199,6 +206,7 @@ export default {
         exp_date: "",
         users: [],
         category: 'Умумий масалалар',
+        region:"",
       },
       allItems: [{ text: "", file: "" }],
       userlist: [],
@@ -213,6 +221,7 @@ export default {
   computed: {
     ...mapGetters("task", ["getTaskMassage"]),
     ...mapGetters("user", ["getUserList", "getStructureList"]),
+    ...mapGetters("region", ["getRegionList"]),
   },
   watch: {
     selectedStr: async function(val){
@@ -243,6 +252,7 @@ export default {
   methods: {
     ...mapActions("task", ["actionAddTask"]),
     ...mapActions("user", ["ActionUserList", "ActionStructureList"]),
+    ...mapActions("region", ["actionRegionList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
@@ -354,6 +364,7 @@ export default {
   async mounted() {
     await this.ActionUserList();
     await this.ActionStructureList();
+    await this.actionRegionList();
     this.userlist = this.getUserList;
     feather.replace();
   },

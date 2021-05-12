@@ -18,6 +18,7 @@
 							<th scope="col">Электрон почта</th>
 							<th scope="col">Бошқарма</th>
 							<th scope="col">Лавозим</th>
+							<th scope="col">Тахрирлаш</th>
 						</tr>
 					</thead>
 					<tbody v-if="getAllUsers.data && getAllUsers.data.length">
@@ -27,10 +28,16 @@
 							<td>{{cont.email}}</td>
 							<td>{{cont.position.structure.name}}</td>
 							<td>{{cont.position.name}}</td>
+							<td>
+                                <router-link tag="button" class="btn_blue_icon" :to='`/crm/users/edit/${cont.id}`' v-tooltip.top-center="'Танишиш'">
+									<i data-feather="eye" class="sidebar_icon" ></i>
+								</router-link>
+                            </td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="getAllUsers" @pagination-change-page="getResults"></pagination>
 				</table>
+					<pagination :limit="4" :data="getAllUsers" @pagination-change-page="getResults"></pagination>
+
 			  </div>
         </div>
 	</div>
