@@ -44,7 +44,7 @@
           >
             <tr v-for="(cont, index) in getJobs.data">
               <td style="width: 40px" scope="row">{{ index + 1 }}</td>
-              <td><router-link :to="`/crm/dailyjob/edit/${cont.id}`" class="text_link" v-html="cont.text">  </router-link></td>
+              <td><router-link :to="`/crm/dailyjob/edit/${cont.id}`" class="text_link" :inner-html.prop="cont.text | truncate(100)">  </router-link></td>
               <td>{{ $g.getDate(cont.date) }}</td>
               <td>
                 <router-link

@@ -4,6 +4,7 @@ const state = {
 	jobs: {},
 	message: [],
 	area: [],
+    job:{},
 };
 
 const getters = {
