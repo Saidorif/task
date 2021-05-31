@@ -10,9 +10,17 @@
       </div>
     </div>
     <div class="jv_card jv_card_header">
-      <div class="input_style col-md-10">
+      <div class="input_style col-md-8">
         <h5>Қисқача мазмуни</h5>
         <p>{{ form.title }}</p>
+      </div>
+      <div class="col-md-2">
+        <h6>Топшириқ бервучи</h6>
+        <p v-if="getUserTask.task">
+            {{getUserTask.task.creater ? getUserTask.task.creater.surename : ''}}
+            {{getUserTask.task.creater ? getUserTask.task.creater.name : ''}}
+            {{getUserTask.task.creater ? getUserTask.task.creater.lastname : ''}}
+        </p>
       </div>
       <div class="col-md-1">
         <h6>Муддати</h6>

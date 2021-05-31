@@ -13,6 +13,7 @@
 						<tr>
 							<th scope="col" style="width:40px;">№</th>
 							<th scope="col">Қисқа мазмуни</th>
+							<th scope="col">Топшириқ бервучи</th>
 							<th scope="col" style="width:100px;">Муддати</th>
 							<th scope="col" style="width:140px">Жорий холати</th>
 							<th scope="col" style="width:110px;">Тахрирлаш</th>
@@ -27,6 +28,11 @@
 								</router-link>
 
                                 <span class="reads_count" v-if="task.unreads_count > 0">{{task.unreads_count}}</span>
+                            </td>
+							<td scope="row" v-if="task.task">
+                                {{task.task.creater ? task.task.creater.surename : ''}}
+                                {{task.task.creater ? task.task.creater.name : ''}}
+                                {{task.task.creater ? task.task.creater.lastname : ''}}
                             </td>
 							<td scope="row">{{ $g.getDate(task.task.exp_date) }}</td>
                             <td>
