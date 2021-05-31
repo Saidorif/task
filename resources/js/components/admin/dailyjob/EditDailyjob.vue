@@ -1,36 +1,40 @@
 <template>
-  <form @submit.prevent.enter="saveAction" enctype="multipart/form-data" class="add_action">
+  <form
+    @submit.prevent.enter="saveAction"
+    enctype="multipart/form-data"
+    class="add_action"
+  >
     <div class="page_header">
       <h4 class="header_title">Топшириқ яратиш</h4>
       <div class="d-flex">
         <div class="mr_15">
-                <date-picker
-                :class="isRequired(form.date) ? 'isRequired' : ''"
-                v-model="form.date"
-                placeholder="Сана"
-                value-type="format"
-                format="DD.MM.YYYY"
-                ></date-picker>
-            </div>
-        <router-link class="btn_black" to="/crm/dailyjob"
-            ><i data-feather="arrow-left" class="sidebar_icon"></i>
-            Орқага</router-link>
+          <date-picker
+            :class="isRequired(form.date) ? 'isRequired' : ''"
+            v-model="form.date"
+            placeholder="Сана"
+            value-type="format"
+            format="DD.MM.YYYY"
+          ></date-picker>
+        </div>
+        <router-link class="btn_black" to="/crm/dailyjob">
+            <i data-feather="arrow-left" class="sidebar_icon"></i>
+            Орқага
+        </router-link>
       </div>
-
     </div>
     <div class="jv_card">
-        <div class="row align-items-end task_add_block">
-            <div class="col-lg-12">
-              <label for="text" class="title_label">Хисобот матни</label>
-              <vue-editor id="text" v-model="form.text" />
-            </div>
-          <div class="form_btn_block">
-            <button type="submit" class="btn_green">
-              <i class="sidebar_icon" data-feather="save"></i>
-              Сақлаш
-            </button>
-          </div>
+      <div class="row align-items-end task_add_block">
+        <div class="col-lg-12">
+          <label for="text" class="title_label">Хисобот матни</label>
+          <vue-editor id="text" v-model="form.text" />
         </div>
+        <div class="form_btn_block">
+          <button type="submit" class="btn_green">
+            <i class="sidebar_icon" data-feather="save"></i>
+            Сақлаш
+          </button>
+        </div>
+      </div>
     </div>
   </form>
 </template>
@@ -57,22 +61,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("dailyjob", ["getJob", 'getMassage']),
+    ...mapGetters("dailyjob", ["getJob", "getMassage"]),
   },
   updated() {
     feather.replace();
-
   },
   methods: {
-    ...mapActions("dailyjob", ["actionEditJob", 'actionUpdateJob']),
+    ...mapActions("dailyjob", ["actionEditJob", "actionUpdateJob"]),
     isRequired(input) {
       return this.requiredInput && input === "";
     },
     async saveAction() {
-      if (
-        this.form.text != "" &&
-        this.form.date != ""
-      ) {
+      if (this.form.text != "" && this.form.date != "") {
         await this.actionUpdateJob(this.form);
         if (this.getMassage.success) {
           toast.fire({
@@ -95,9 +95,9 @@ export default {
     },
   },
   async mounted() {
-    await this.actionEditJob({id: this.$route.params.jobId})
-    this.form = this.getJob
-    this.form.date = this.$g.getDate(this.getJob.date)
+    await this.actionEditJob({ id: this.$route.params.jobId });
+    this.form = this.getJob;
+    this.form.date = this.$g.getDate(this.getJob.date);
     feather.replace();
   },
 };

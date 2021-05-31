@@ -89,7 +89,7 @@ class UserController extends Controller
         if(!empty($params['p_id'])){
             $builder->where(['p_id' => $params['p_id']]);
         }
-        $result = $builder->with(['position'])->where(['role_id' => 2])->paginate(20);
+        $result = $builder->with(['position'])->where(['role_id' => 2])->paginate(2000);
         return response()->json(['success' => true,'result' => $result]);
     }
 

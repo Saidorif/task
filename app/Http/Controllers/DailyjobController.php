@@ -17,7 +17,7 @@ class DailyjobController extends Controller
             $in_date = date("Y-m-d", strtotime($params['date']));
             $builder->where(['date' => $in_date]);
         }
-        $result = $builder->where(['user_id' => $user->id])->orderBy('id','DESC')->paginate(12);
+        $result = $builder->where(['user_id' => $user->id])->orderBy('date','DESC')->paginate(12);
         return response()->json(['success' => true,'result' => $result]);
     }
 
