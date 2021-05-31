@@ -35,6 +35,7 @@ export const g = {
                     border-collapse: separate;
                     border: 1px solid #000;
                     border-bottom:none;
+                    width: 100%;
                 }
                 .landscape_A4_page table thead{
                     border: 1px solid #000;

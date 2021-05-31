@@ -3,10 +3,10 @@
     <div class="page_header">
       <h4 class="header_title">Кунлик хисобот</h4>
       <div class="d_flex">
-        <router-link class="btn_green" to="/crm/dailyjob/add"
-          ><i data-feather="plus" class="sidebar_icon"></i>Хисобот
-          яратиш</router-link
-        >
+            <button type="button" class="btn_red mr_15"   @click="$g.toWord('word', $g.getDate(new Date()))">
+            <i data-feather="file-text" class="sidebar_icon"></i> Word версия
+            </button>
+            <router-link class="btn_green" to="/crm/dailyjob/add"><i data-feather="plus" class="sidebar_icon"></i>Хисобот яратиш</router-link>
       </div>
     </div>
         <div class="jv_card filter">
@@ -73,6 +73,31 @@
         </table>
       </div>
     </div>
+        <div id="word" v-if="getJobs.data && getJobs.data.length">
+      <div class="landscape_A4_page">
+        <h6>
+          {{getUser.surename}}  {{getUser.name}}нинг кунлик хисоботи
+        </h6>
+        <table>
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Хисобот  матни</th>
+              <th>Хисобот санаси</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(cont, index) in getJobs.data">
+              <td>{{index+1}}</td>
+              <td v-html="cont.text"></td>
+              <td style="text-align: center">
+                {{ $g.getDate(cont.date) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -90,12 +115,14 @@ export default {
   async mounted() {
     await this.actionJobs({ page: 1});
     feather.replace();
+    console.log(this.getUser)
   },
   updated() {
     feather.replace();
   },
   computed: {
     ...mapGetters("dailyjob", ["getJobs", "getMassage"]),
+    ...mapGetters(['getUser']),
   },
   methods: {
     ...mapActions("dailyjob", ["actionJobs", "actionDeleteJob"]),
