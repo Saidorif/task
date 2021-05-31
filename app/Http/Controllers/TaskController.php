@@ -40,7 +40,7 @@ class TaskController extends Controller
         }
         $downloads = [];
         if(!empty($params['download'])){
-            $downloads = $builder->with(['creater','users','items','comments'])->orderBy('id','DESC')->get();
+            $downloads = $builder->where(['user_id' => $user->id])->with(['creater','users','items','comments'])->orderBy('id','DESC')->get();
         }
         $result = $builder->where(['user_id' => $user->id])
                         ->with(['creater','users','items','comments'])

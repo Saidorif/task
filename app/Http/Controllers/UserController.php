@@ -25,7 +25,7 @@ class UserController extends Controller
         $pers = array_unique($pers, SORT_REGULAR);
         $pers = array_values($pers);
         $result['permissions'] = $pers;
-        $result['user'] = User::where(['id' => $user->id])->with('role')->first();
+        $result['user'] = User::where(['id' => $user->id])->with(['role'])->first();
         return response()->json(['success' => true, 'result' => $result]);
     }
 
