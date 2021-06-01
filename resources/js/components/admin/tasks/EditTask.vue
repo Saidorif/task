@@ -146,7 +146,7 @@
               <div class="disabled_custom_editor" id="text" v-html="item.text" ></div>
             </div>
             <div class="col-md-3">
-                <a :href="item.file" v-if="typeof item.file == 'string'" class="btn_black  col-md-5" download=""><i class="sidebar_icon" data-feather="download"></i>Юклаб олиш</a>
+                <a :href="'/'+item.file" v-if="typeof item.file == 'string'" class="btn_black  col-md-5" download=""><i class="sidebar_icon" data-feather="download"></i>Юклаб олиш</a>
             </div>
           </template>
             <!-- <template v-for="(item, index) in allItems" v-if="form.status != 'active'"> -->
