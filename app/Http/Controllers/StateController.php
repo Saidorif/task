@@ -26,7 +26,7 @@ class StateController extends Controller
         $result = $builder->where(['parent_id' => $parent_id])
                         ->orderBy('id','ASC')
                         ->with(['user','children'])
-                        ->paginate(12);
+                        ->get();
         return response()->json(['success' => true,'result' => $result]);
     }
 
