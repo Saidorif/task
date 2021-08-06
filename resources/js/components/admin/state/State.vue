@@ -16,8 +16,8 @@
 							<th scope="col">Действия</th>
 						</tr>
 					</thead>
-					<tbody v-if="getStates.data && getStates.data.length">
-						 <tr v-for="(cont,index) in getStates.data">
+					<tbody v-if="getStates.data && getStates.length">
+						 <tr v-for="(cont,index) in getStates">
 							<td scope="row">{{index+1}}</td>
 							<td>{{cont.name}}</td>
 							<td>
@@ -30,7 +30,6 @@
 							</td>
 						</tr>
 					</tbody>
-					<pagination :limit="4" :data="getStates" @pagination-change-page="getResults"></pagination>
 				</table>
 			  </div>
         </div>
@@ -47,7 +46,7 @@
 		async mounted(){
 			await this.actionStates()
             feather.replace()
-
+            console.log(this.getStates)
 		},
 		computed:{
 			...mapGetters('mystate',['getStates','getMassage'])
