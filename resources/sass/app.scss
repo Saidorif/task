@@ -1266,7 +1266,7 @@ tbody{
   thead{
       tr{
           th{
-            font-size: 16px; 
+            font-size: 16px;
           }
       }
   }
@@ -1275,9 +1275,52 @@ tbody {
         td{
             font-size: 16px;
         }
-    } 
+    }
  }
+ .orgchart{
+    background: white !important;
+}
+.orgchart-container::-webkit-scrollbar {
+    width: 4px !important;
+}
+.orgchart-container{
+    height: 600px !important;
+}
+.orgchart-container::-webkit-scrollbar-track {
+    background: #f1f1f1 !important;
+}
+.orgchart-container::-webkit-scrollbar-thumb {
+    background: #888 !important;
+  }
 
+  /* Handle on hover */
+.orgchart-container::-webkit-scrollbar-thumb:hover {
+    background: #555 !important;
+}
+.orgchart .node .title{
+    background-color: #1e7cb2 !important;
+    padding: 0px 6px;
+}
+.orgchart .lines .downLine{
+    background: #0B0F38 !important;
+}
+.orgchart .lines .topLine,
+.orgchart .lines .leftLine,
+.orgchart .lines .rightLine{
+    border-color: #0B0F38 !important;
+
+}
+.orgchart .node .content{
+    border-color: #0B0F38 !important;
+}
+.orgchart .node.focused, .orgchart .node:hover{
+    background-color:  transparent !important;
+    box-shadow: inset 0 0px 10px rgb(25 118 184);
+    border-radius: 8px;
+}
+.orgchart .node{
+    width: 200px !important;
+}
 @media (max-width: 1700px){
     .dashboard_header{
         flex-wrap: wrap;

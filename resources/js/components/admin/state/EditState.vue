@@ -49,7 +49,8 @@ import Multiselect from "vue-multiselect";
 import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
-    Multiselect
+    Multiselect,
+
   },
   data() {
     return {

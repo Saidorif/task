@@ -7,7 +7,7 @@
             <router-link class="btn_green" to="/crm/state/add"><i data-feather="plus" class="sidebar_icon"></i> Добавить</router-link>
 		</div>
         <div class="jv_card">
-            <div class="table-responsive">
+            <!-- <div class="table-responsive">
 				<table class="table table-bordered text-center table-hover table-striped">
 					<thead>
 						<tr>
@@ -31,21 +31,30 @@
 						</tr>
 					</tbody>
 				</table>
-			  </div>
+			</div> -->
+            <div v-if="loaded">
+                <organization-chart :datasource="getStates[0]" :zoom="true"></organization-chart>
+            </div>
         </div>
 	</div>
 </template>
 <script>
 	import {mapActions,mapGetters} from 'vuex'
+    import OrganizationChart from 'vue-organization-chart'
+    import 'vue-organization-chart/dist/orgchart.css'
 	export default{
+        components: {
+            OrganizationChart,
+	  	},
 		data(){
 			return{
-
+                loaded:false
 			}
 		},
 		async mounted(){
 			await this.actionStates()
             feather.replace()
+            this.loaded = true
             console.log(this.getStates)
 		},
 		computed:{

@@ -88,7 +88,7 @@
             },
 		    async saveAction(){
 		    	if (this.form.name != "" && this.form.name != null){
-                    this.form.parent_id = this.selectedRegion.id;
+                    this.form.parent_id = this.selectedRegion ?  this.selectedRegion.id : 0;
 					await this.actionAddState(this.form)
 					if (this.getMassage.success) {
 						toast.fire({
