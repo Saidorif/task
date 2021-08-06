@@ -47,6 +47,11 @@ import Area from './components/admin/area/Area'
 import AddArea from './components/admin/area/AddArea'
 import EditArea from './components/admin/area/EditArea'
 
+// State
+import State from './components/admin/state/State'
+import AddState from './components/admin/state/AddState'
+import EditState from './components/admin/state/EditState'
+
 // Dailyjob
 import Dailyjob from './components/admin/dailyjob/Dailyjob'
 import AddDailyjob from './components/admin/dailyjob/AddDailyjob'
@@ -161,6 +166,18 @@ const router = new Router({
 				{
 					path:'area/edit/:areaId',
 					component:EditArea,
+				},
+                {
+					path:'state',
+					component:State,
+				},
+				{
+					path:'state/add',
+					component:AddState,
+				},
+				{
+					path:'state/edit/:stateId',
+					component:EditState,
 				},
 				{
 					path:'role',

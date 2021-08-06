@@ -21,6 +21,7 @@ import {area} from "./area.module"
 import {usertask} from "./usertask.module"
 import {dailyjob} from "./dailyjob.module"
 import {dashboard} from "./dashboard.module"
+import {mystate} from "./mystate.module"
 
 import { TokenService } from './../services/storage.service'
 
@@ -48,7 +49,8 @@ const store = new Vuex.Store(
             area,
             usertask,
             dailyjob,
-            permission
+            permission,
+            mystate
 		},
 		state:{
 			rules:[],
