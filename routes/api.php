@@ -34,6 +34,15 @@ Route::group([
         Route::get('structure/list','PositionController@list');
         Route::post('position/list','PositionController@positionList');
 
+        //State (structure for tree)
+        Route::get('state','StateController@index');
+        Route::post('state/tree','StateController@tree');
+        Route::post('state/store','StateController@store');
+        Route::get('state/edit/{id}','StateController@edit');
+        Route::post('state/update/{id}','StateController@update');
+        Route::get('state/list','StateController@list');
+        Route::delete('state/destroy/{id}','StateController@destroy');
+
         //Task
         Route::post('task','TaskController@index');
         Route::get('task/get-totals','TaskController@getTotals');
