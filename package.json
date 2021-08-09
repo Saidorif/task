@@ -23,6 +23,7 @@
         "@casl/ability": "^3.4.0",
         "@casl/vue": "^0.5.1",
         "@fortawesome/fontawesome-free": "^5.15.2",
+        "@popperjs/core": "^2.9.3",
         "apexcharts": "^3.26.0",
         "cyrillic-to-translit-js": "^3.1.0",
         "jquery": "^3.6.0",
@@ -40,6 +41,7 @@
         "vue-router": "^3.5.1",
         "vue2-datepicker": "^3.9.0",
         "vue2-editor": "^2.10.2",
+        "vued3tree": "^5.1.0",
         "vuex": "^3.6.2"
     }
 }

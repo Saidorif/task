@@ -32,8 +32,30 @@
 					</tbody>
 				</table>
 			</div> -->
-            <div v-if="loaded">
-                <organization-chart :datasource="getStates[0]" :zoom="true"></organization-chart>
+            <div class="row">
+                <div class="input_style col-4">
+                    <select class="form-control input_style" id="layoutType" v-model="tree_config.layoutType">
+                        <option value="horizontal">Горизонтальный</option>
+                        <option value="vertical">Вертикальный</option>
+                    </select>
+                </div>
+                <div class="input_style col-4">
+                    <select class="form-control input_style" id="linkLayout" v-model="tree_config.linkLayout">
+                        <option value="bezier">Безье</option>
+                        <option value="orthogonal">Ортогональный</option>
+                    </select>
+                </div>
+                <div class="input_style col-4">
+                    <select class="form-control input_style" id="type" v-model="tree_config.type">
+                        <option value="tree">Дерево</option>
+                        <option value="cluster">Кластер</option>
+                    </select>
+                </div>
+            </div>
+
+            <div v-if="loaded" class="tree_block_cont">
+                <!-- <organization-chart :datasource="getStates[0]" :zoom="true"></organization-chart> -->
+                <tree :data="getStates[0]" @clickedText="tree_item_text($event)" :type="tree_config.type" node-text="name" :layoutType="tree_config.layoutType" :linkLayout="tree_config.linkLayout" :radius="6" :zoomable="tree_config.zoomable" popUpPlacement="bottom-start"></tree>
             </div>
         </div>
 	</div>
@@ -42,26 +64,37 @@
 	import {mapActions,mapGetters} from 'vuex'
     import OrganizationChart from 'vue-organization-chart'
     import 'vue-organization-chart/dist/orgchart.css'
+    import {tree} from 'vued3tree'
 	export default{
         components: {
             OrganizationChart,
+            tree
 	  	},
 		data(){
 			return{
-                loaded:false
+                loaded:false,
+                tree_config:{
+                    layoutType: 'horizontal',
+                    linkLayout: 'bezier',
+                    type: 'tree',
+                    zoomable: false,
+                }
+
 			}
 		},
 		async mounted(){
 			await this.actionStates()
             feather.replace()
             this.loaded = true
-            console.log(this.getStates)
 		},
 		computed:{
 			...mapGetters('mystate',['getStates','getMassage'])
 		},
 		methods:{
 			...mapActions('mystate',['actionStates', 'actionDeleteState']),
+            tree_item_text(el){
+                this.$router.push(`/crm/state/edit/${el.data.id}`);
+            },
 			async getResults(page = 1){
 				await this.actionStates(page)
 			},
@@ -93,5 +126,8 @@
 	}
 </script>
 <style scoped>
-
+    .viewport.treeclass,
+    .tree_block_cont{
+        min-height: 80vh;
+    }
 </style>
