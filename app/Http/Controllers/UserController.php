@@ -114,6 +114,8 @@ class UserController extends Controller
             'status' => 'required|string',
             'region_id' => 'nullable|string',
             'area_id' => 'nullable|string',
+            'state_id' => 'required|integer',
+            'watcher' => 'required|integer',
             'role_id' => ['required',Rule::in($role_ids)]
         ]);
 
@@ -154,6 +156,8 @@ class UserController extends Controller
             'status' => 'required|string',
             'region_id' => 'nullable|string',
             'area_id' => 'nullable|string',
+            'state_id' => 'required|integer',
+            'watcher' => 'required|integer',
             'role_id' => ['required',Rule::in($role_ids)]
         ]);
 

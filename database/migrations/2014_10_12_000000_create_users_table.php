@@ -31,6 +31,8 @@ class CreateUsersTable extends Migration
             $table->integer('p_id')->nullable();
             $table->integer('e_id')->nullable();
             $table->integer('structure_id')->nullable();
+            $table->integer('state_id')->nullable();
+            $table->integer('watcher')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -31,6 +31,7 @@ class User extends Authenticatable implements JWTSubject
         'area_id',
         'role_id',
         'state_id',
+        'watcher',
     ];
 
     /**
@@ -91,5 +92,10 @@ class User extends Authenticatable implements JWTSubject
     public function position()
     {
         return $this->belongsTo(\App\Position::class,'p_id')->with(['structure']);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(\App\State::class,'state_id');
     }
 }
