@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\State;
 use Illuminate\Http\Request;
 use Validator;
 use App\Dailyjob;
+use App\User;
 use Illuminate\Support\Facades\DB;
 class DailyjobController extends Controller
 {
@@ -17,7 +19,17 @@ class DailyjobController extends Controller
             $in_date = date("Y-m-d", strtotime($params['date']));
             $builder->where(['date' => $in_date]);
         }
-        $result = $builder->where(['user_id' => $user->id])->orderBy('date','DESC')->paginate(12);
+        if($user->watcher){
+            $states = DB::select("select id,name,parent_id from (select * from states order by parent_id, id) sort, (select @pv := '$user->state_id') initialisation where find_in_set(parent_id, @pv) and length(@pv := concat(@pv, ',', id))");
+            $state_ids = [];
+            foreach ($states as $state){
+                $state_ids[] = $state->id;
+            }
+            $user_ids = User::whereIn('state_id',$state_ids)->get()->pluck('id');
+        }
+        $user_ids[] = $user->id;
+        //return $user_ids;
+        $result = $builder->with(['user'])->whereIn('user_id',$user_ids)->orderBy('date','DESC')->paginate(12);
         return response()->json(['success' => true,'result' => $result]);
     }
 

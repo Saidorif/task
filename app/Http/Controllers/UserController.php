@@ -157,7 +157,7 @@ class UserController extends Controller
             'region_id' => 'nullable|string',
             'area_id' => 'nullable|string',
             'state_id' => 'required|integer',
-            'watcher' => 'required|integer',
+            'watcher' => 'nullable|integer',
             'role_id' => ['required',Rule::in($role_ids)]
         ]);
 
@@ -170,6 +170,9 @@ class UserController extends Controller
                 return response()->json(['error' => true, 'message' => 'Пароли не совпадают']);
             }
             $inputs['password'] = Hash::make($inputs['password']);
+        }
+        if(!empty($inputs['watcher'])){
+            $inputs['watcher'] = 0;
         }
         $client->update($inputs);
         return response()->json(['success' => true,'message' => 'User updated successfully']);
