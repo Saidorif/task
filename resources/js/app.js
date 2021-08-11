@@ -3,6 +3,10 @@ window.Vue = require('vue');
 // chart
 import VueApexCharts from 'vue-apexcharts'
 Vue.use(VueApexCharts)
+
+import { createPopper } from '@popperjs/core';
+Vue.use(createPopper)
+
 Vue.component('apexchart', VueApexCharts)
 
 // VTooltip

@@ -1,7 +1,7 @@
 import {StateService} from "../services/mystate.service";
 
 const state = {
-	states: {},
+	states: [],
 	stateList: [],
 	message: [],
 	mystate: [],
