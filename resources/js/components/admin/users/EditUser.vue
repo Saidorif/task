@@ -136,6 +136,22 @@
             </select>
             <label for="gender">Холати</label>
           </div>
+          <div class="input_style col-md-3">
+            <select
+              id="gender"
+              v-model="form.state_id"
+              class="form-control input_style"
+              :class="isRequired(form.status) ? 'isRequired' : ''"
+              required
+            >
+              <option  v-for="(item) in getStateList" :value="item.id">{{item.name}}</option>
+            </select>
+            <label for="gender">dostup</label>
+          </div>
+          <div class="input_style col-md-3">
+            <input type="checkbox" style="width: 37px;height: 37px;margin-bottom: 15px;" true-value="1" false-value="0" v-model="form.watcher">
+
+          </div>
           <div class="form_btn_block">
             <button type="submit" class="btn_green">
               <i class="sidebar_icon" data-feather="save"></i>
@@ -162,6 +178,8 @@ export default {
         role_id: "",
         structure_id: "",
         p_id: "",
+        state_id: "",
+        watcher: 0,
         status: "active",
       },
     };
@@ -170,6 +188,7 @@ export default {
     await this.actionRoleList();
     await this.actionStructureList();
     await this.ActionEditUser({id: this.$route.params.userId});
+    await this.actionStateList();
     this.form = this.getUser.result
     this.form.structure_id  = this.getUser.result.position.structure_id
     feather.replace();
@@ -185,9 +204,11 @@ export default {
   computed: {
     ...mapGetters("users", ["getMessage", "getStructureList", "getPositionList", "getUser"]),
     ...mapGetters("role", ["getRoleList"]),
+    ...mapGetters('mystate',['getStateList']),
   },
   methods: {
     ...mapActions("users", ["ActionEditUser", "ActionUpdateUser", "actionStructureList", "actionPositionList"]),
+	...mapActions('mystate',['actionStateList']),
     ...mapActions("role", ["actionRoleList"]),
     isRequired(input) {
       return this.requiredInput && input === "";
