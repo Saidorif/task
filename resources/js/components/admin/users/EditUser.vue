@@ -141,8 +141,6 @@
               id="gender"
               v-model="form.state_id"
               class="form-control input_style"
-              :class="isRequired(form.status) ? 'isRequired' : ''"
-              required
             >
               <option  v-for="(item) in getStateList" :value="item.id">{{item.name}}</option>
             </select>
