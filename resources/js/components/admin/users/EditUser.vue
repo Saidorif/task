@@ -79,8 +79,6 @@
               class="form-control input_style"
               id="password"
               v-model="form.password"
-              required
-              :class="isRequired(form.password) ? 'isRequired' : ''"
             />
             <label for="password">Пароль</label>
           </div>
@@ -90,7 +88,6 @@
               class="form-control input_style"
               id="confirm_password"
               v-model="form.confirm_password"
-              :class="isRequired(form.confirm_password) ? 'isRequired' : ''"
             />
             <label for="confirm_password">Парольни тасдиқлаш</label>
           </div>
@@ -99,7 +96,6 @@
               id="gender"
               v-model="form.gender"
               class="form-control input_style"
-              :class="isRequired(form.gender) ? 'isRequired' : ''"
             >
               <option value="man">Эркак</option>
               <option value="woman">Aёл</option>
