@@ -33,6 +33,7 @@
           <thead>
             <tr>
               <th scope="col" style="width: 40px">№</th>
+              <th scope="col">Ф.И.О</th>
               <th scope="col">Хисобот қисқача матни</th>
               <th scope="col">Хисобот санаси</th>
               <th scope="col">Тахрирлаш</th>
@@ -44,6 +45,7 @@
           >
             <tr v-for="(cont, index) in getJobs.data">
               <td style="width: 40px" scope="row">{{ index + 1 }}</td>
+              <td  scope="row">{{ cont.user ? cont.user.name : ''}} {{ cont.user ? cont.user.surename : ''}} {{ cont.user ? cont.user.lastname : ''}}</td>
               <td><router-link :to="`/crm/dailyjob/edit/${cont.id}`" class="text_link" :inner-html.prop="cont.text | truncate(100)">  </router-link></td>
               <td>{{ $g.getDate(cont.date) }}</td>
               <td>
