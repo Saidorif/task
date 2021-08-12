@@ -170,14 +170,26 @@ const router = new Router({
                 {
 					path:'state',
 					component:State,
+                    meta:{
+						action:'index',
+						subject:'StateController'
+					}
 				},
 				{
 					path:'state/add',
 					component:AddState,
+                    meta:{
+						action:'store',
+						subject:'StateController'
+					}
 				},
 				{
 					path:'state/edit/:stateId',
 					component:EditState,
+                    meta:{
+						action:'edit',
+						subject:'StateController'
+					}
 				},
 				{
 					path:'role',

@@ -90,6 +90,12 @@
                 </p>
                 </router-link>
             </li>
+            <li class="nav-item" v-if="$can('index', 'StateController')">
+                <router-link to="/crm/state" class="nav-link">
+                <i class="sidebar_icon" data-feather="globe" ></i>
+                <p> Dostup </p>
+                </router-link>
+            </li>
             <!-- <li class="nav-item">
                 <router-link to="/crm/area" class="nav-link">
                 <i class="sidebar_icon" data-feather="pie-chart" ></i>
